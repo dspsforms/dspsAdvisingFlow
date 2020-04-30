@@ -1,0 +1,136 @@
+<!-- 
+  auxiliaryAides: new FormGroup({
+        dspsTutoring: new FormControl(false, { updateOn: 'blur' }),
+        serviceAnimal: new FormControl(false, { updateOn: 'blur' }),
+        signLangInterpreting: new FormControl(false, { updateOn: 'blur' }),
+        realTimeCaptioning: new FormControl(false, { updateOn: 'blur' }),
+        sharedNotes: new FormControl(false, { updateOn: 'blur' }),
+        audioRecordLectures: new FormControl(false, { updateOn: 'blur' }),
+        other: new FormControl(null, { updateOn: 'blur' }),
+      }),
+-->
+
+<div [formGroup]="form">
+  <div formGroupName="auxiliaryAids">
+
+  <div *ngIf="grid">
+
+    <h1> AUXILIARY AIDES </h1>
+
+    <ion-item>
+      <ion-label>DSPS Tutoring</ion-label>
+      <ion-checkbox slot="start" formControlName="dspsTutoring"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Service Animal</ion-label>
+      <ion-checkbox slot="start" formControlName="serviceAnimal"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Sign Language Interpreting</ion-label>
+      <ion-checkbox slot="start" formControlName="signLangInterpreting"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Real Time Captioning</ion-label>
+      <ion-checkbox slot="start" formControlName="realTimeCaptioning"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Shared Notes</ion-label>
+      <ion-checkbox slot="start" formControlName="sharedNotes"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Audio Record Lectures</ion-label>
+      <ion-checkbox slot="start" formControlName="audioRecordLectures"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Other (Describe)</ion-label>
+      <ion-textarea rows="3"  formControlName="other"></ion-textarea>
+    </ion-item>
+
+
+  </div>  <!-- this is when we have the larger 2 col page grid -->
+
+
+  <ion-grid *ngIf="!grid">
+
+    <ion-row>
+      <ion-col size-sm="6">
+        <ion-item>
+          <h1> AUXILIARY AIDES </h1>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6">
+        <ion-item>
+          <ion-label>DSPS Tutoring</ion-label>
+          <ion-checkbox slot="start" formControlName="dspsTutoring"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6">
+        <ion-item>
+          <ion-label>Service Animal</ion-label>
+          <ion-checkbox slot="start" formControlName="serviceAnimal"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6">
+        <ion-item>
+          <ion-label>Sign Language Interpreting</ion-label>
+          <ion-checkbox slot="start" formControlName="signLangInterpreting"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6">
+        <ion-item>
+          <ion-label>Real Time Captioning</ion-label>
+          <ion-checkbox slot="start" formControlName="realTimeCaptioning"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6">
+        <ion-item>
+          <ion-label>Shared Notes</ion-label>
+          <ion-checkbox slot="start" formControlName="sharedNotes"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6">
+        <ion-item>
+          <ion-label>Audio Record Lectures</ion-label>
+          <ion-checkbox slot="start" formControlName="audioRecordLectures"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col size-sm="6">
+        <ion-item>
+          <ion-label position="floating">Other (Describe)</ion-label>
+          <ion-textarea rows="3"  formControlName="other"></ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+  </div>
+</div>
+

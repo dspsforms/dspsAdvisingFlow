@@ -1,0 +1,14 @@
+ion-checkbox {
+    --border-radius: 50%;
+}
+.show-background {
+    background: #dae5f0;
+}
+
+.show-background.error {
+    border-bottom-color: red;
+}
+
+.show-background.success {
+    border-bottom-color: green;
+}

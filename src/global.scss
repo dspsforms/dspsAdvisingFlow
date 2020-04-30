@@ -24,3 +24,60 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.wrap-text {
+    overflow: visible;
+    text-overflow: unset;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    // word-break: break-all;
+ }
+
+ .wrap-text-breakall {
+    overflow: visible;
+    text-overflow: unset;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    word-break: break-all;
+ }
+
+ /* 2 column grid over the entire page */
+ .grid2Col {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+ }
+
+ .child1 {
+    border: 1px solid rgb(255, 0, 0);
+    border-radius: 5px;
+    background-color: khaki;
+ }
+
+ .child2 {
+   border: 1px solid rgb(0, 0, 255);
+   border-radius: 5px;
+   background-color: rgb(13, 238, 51);
+}
+
+ .grid4-inner {
+   display:grid;
+   grid-template-columns: repeat(4, minmax(47px, 1fr));
+   grid-gap: 3px;
+}
+
+.grid4-inner ion-item {
+   background-color: rgb(214, 238, 125);
+}
+
+.grid2-inner {
+   display:grid;
+   grid-template-columns: repeat(2, minmax(100px, 1fr));
+   grid-gap: 5px;
+}
+
+.grid2-inner ion-item {
+   background-color: rgb(214, 238, 125);
+}

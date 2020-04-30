@@ -1,0 +1,463 @@
+
+<div [formGroup]="form">
+  <div formGroupName="examsWithAccommodations">
+
+  <div *ngIf="grid" >
+
+    <!-- there is a two col grid -->
+
+    <h1>EXAMINATIONS WITH ACCOMMODATIONS</h1>
+
+    <div class="grid4-inner">
+      <ion-item>
+        <ion-label>Extended Time</ion-label>
+        <ion-checkbox slot="start" formControlName="extendedTime"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>1.5x</ion-label>
+          <ion-checkbox slot="start" formControlName="oneAndHalfX"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>2x</ion-label>
+        <ion-checkbox slot="start" formControlName="twoX"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>3x</ion-label>
+        <ion-checkbox slot="start" formControlName="threeX"></ion-checkbox>
+      </ion-item>
+
+    </div> <!--  extendedTime grid4 -->
+
+    <div class="grid4-inner">
+
+      <ion-item>
+        <ion-label>Breaks</ion-label>
+        <ion-checkbox slot="start" formControlName="breaks"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>2 min/hr</ion-label>
+        <ion-checkbox slot="start" formControlName="twoMinPerHr"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>5 min/hr</ion-label>
+        <ion-checkbox slot="start" formControlName="fiveMinPerHr"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>As needed</ion-label>
+        <ion-checkbox slot="start" formControlName="asNeeded"></ion-checkbox>
+      </ion-item>
+
+    </div> <!-- breaks grid4 -->
+
+    <!--  
+     reader
+      scribe
+      spellChecker
+   -->
+
+    <ion-item>
+      <ion-label>Reader/Kurzweil Digital Reader</ion-label>
+      <ion-checkbox slot="start" formControlName="reader"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Scribe/Voice to text application</ion-label>
+      <ion-checkbox slot="start" formControlName="scribe"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Spell Checker/Computer Spell Checking</ion-label>
+      <ion-checkbox slot="start" formControlName="spellChecker"></ion-checkbox>
+    </ion-item>
+  
+
+     <!-- 
+       basicCalc
+      multTable
+    -->
+
+    <div class="grid2-inner">
+      <ion-item>
+        <ion-label>Basic Calculator for higher math</ion-label>
+        <ion-checkbox slot="start" formControlName="basicCalc"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Multiplicaton table</ion-label>
+        <ion-checkbox slot="start" formControlName="multTable"></ion-checkbox>
+      </ion-item>
+
+    </div>
+
+     <!--  
+       adaptedComputer
+      reducedDistractionEnv
+    -->
+
+    <ion-item>
+      <ion-label>Adapted Computer</ion-label>
+      <ion-checkbox slot="start" formControlName="adaptedComputer"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Distraction Reduced Testing Environment</ion-label>
+      <ion-checkbox slot="start" formControlName="reducedDistractionEnv"></ion-checkbox>
+    </ion-item>
+
+    <!-- remoteProctoring -->
+    <ion-item>
+      <ion-label>Remote Proctoring without recording video/audio</ion-label>
+      <ion-checkbox slot="start" formControlName="remoteProctoring"></ion-checkbox>
+    </ion-item>
+
+    <!--  
+      enlargedPrint
+        specifyFont
+    -->
+
+    <div class="grid2-inner">
+      <ion-item>
+        <ion-label>Enlarged Print</ion-label>
+        <ion-checkbox slot="start" formControlName="enlargedPrint"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Specify Font</ion-label>
+        <ion-input type="text"  formControlName="specifyFont"></ion-input>
+      </ion-item>
+
+    </div> <!-- enlargedPrint grid2-inner -->
+
+    <!-- magnification -->
+    <ion-item>
+      <ion-label>Magnification/CCTV</ion-label>
+      <ion-checkbox slot="start" formControlName="magnification"></ion-checkbox>
+    </ion-item>
+
+    <!-- 
+        braille
+        ebae
+        ueb
+        nemeth
+    -->
+    <div class="grid4-inner">
+
+      <ion-item>
+        <ion-label>Braille</ion-label>
+        <ion-checkbox slot="start" formControlName="braille"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>EBAE</ion-label>
+        <ion-checkbox slot="start" formControlName="ebae"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>UEB</ion-label>
+        <ion-checkbox slot="start" formControlName="ueb"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><span class="wrap-text">Nemeth (Math/Science)</span></ion-label>
+        <ion-checkbox slot="start" formControlName="nemeth"></ion-checkbox>
+      </ion-item>
+
+    </div> <!-- grid4-inner -->
+
+    <!--  tactileGraphics -->
+
+  <ion-item>
+    <ion-label>Tactile Graphics</ion-label>
+    <ion-checkbox slot="start" formControlName="tactileGraphics"></ion-checkbox>
+  </ion-item>
+
+   <!--  other -->
+
+  <ion-item>
+    <ion-label position="floating">Other</ion-label>
+    <ion-textarea rows="3" formControlName="other"></ion-textarea>
+  </ion-item>
+
+  </div> <!-- if larger 2 col grid -->
+
+   
+
+  <!-- flow layout when there is no 2 col grid-->
+
+   <ion-grid *ngIf="!grid">
+
+    <ion-row>
+      <ion-col size-sm="12">
+        <ion-item>
+          <h1>EXAMINATIONS WITH ACCOMMODATIONS</h1>      
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+   
+  
+    <!-- 
+       extendedTime
+        oneAndHalfX
+        twoX
+        threeX
+    -->
+    <ion-row>
+      <ion-col size="3">
+        <ion-item>
+          <ion-label>Extended Time</ion-label>
+          <ion-checkbox slot="start" formControlName="extendedTime"></ion-checkbox>
+          </ion-item>
+      </ion-col>
+  
+      <ion-col size="2" class="ion-no-padding-left">
+        <ion-item>
+          <ion-label>1.5x</ion-label>
+            <ion-checkbox slot="start" formControlName="oneAndHalfX"></ion-checkbox>
+          </ion-item>
+      </ion-col>
+  
+      <ion-col size="2">
+        <ion-item>
+          <ion-label>2x</ion-label>
+          <ion-checkbox slot="start" formControlName="twoX"></ion-checkbox>
+          </ion-item>
+      </ion-col>
+  
+      <ion-col size="2">
+        <ion-item>
+          <ion-label>3x</ion-label>
+          <ion-checkbox slot="start" formControlName="threeX"></ion-checkbox>
+          </ion-item>
+      </ion-col>
+  
+    </ion-row>
+
+    <!-- 
+      breaks
+        twoMinPerHr
+        fiveMinPerHr
+        asNeeded 
+    -->
+
+    <ion-row>
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>Breaks</ion-label>
+          <ion-checkbox slot="start" formControlName="breaks"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-sm="2">
+        <ion-item>
+          <ion-label>2 min/hr</ion-label>
+          <ion-checkbox slot="start" formControlName="twoMinPerHr"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-sm="2">
+        <ion-item>
+          <ion-label>5 min/hr</ion-label>
+          <ion-checkbox slot="start" formControlName="fiveMinPerHr"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-sm="2">
+        <ion-item>
+          <ion-label>As needed</ion-label>
+          <ion-checkbox slot="start" formControlName="asNeeded"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+   <!--  
+     reader
+      scribe
+      spellChecker
+   -->
+    <ion-row>
+      <ion-col size-sm="4">
+        <ion-item>
+          <ion-label>Reader/Kurzweil Digital Reader</ion-label>
+          <ion-checkbox slot="start" formControlName="reader"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="4">
+        <ion-item>
+          <ion-label>Scribe/Voice to text application</ion-label>
+          <ion-checkbox slot="start" formControlName="scribe"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="5">
+        <ion-item>
+          <ion-label>Spell Checker/Computer Spell Checking</ion-label>
+          <ion-checkbox slot="start" formControlName="spellChecker"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  
+    <!-- 
+       basicCalc
+      multTable
+    -->
+    <ion-row>
+      <ion-col size-sm="4">
+        <ion-item>
+          <ion-label>Basic Calculator for higher math</ion-label>
+          <ion-checkbox slot="start" formControlName="basicCalc"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>Multiplicaton table</ion-label>
+          <ion-checkbox slot="start" formControlName="multTable"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!--  
+       adaptedComputer
+      reducedDistractionEnv
+    -->
+
+    <ion-row>
+      <ion-col size-sm="4">
+        <ion-item>
+          <ion-label>Adapted Computer</ion-label>
+          <ion-checkbox slot="start" formControlName="adaptedComputer"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="4">
+        <ion-item>
+          <ion-label>Distraction Reduced Testing Environment</ion-label>
+          <ion-checkbox slot="start" formControlName="reducedDistractionEnv"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+     <!-- remoteProctoring -->
+
+    <ion-row>
+      <ion-col size-sm="4">
+        <ion-item>
+          <ion-label>Remote Proctoring without recording video/audio</ion-label>
+          <ion-checkbox slot="start" formControlName="remoteProctoring"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+    <!--  
+      enlargedPrint
+        specifyFont
+    -->
+
+    <ion-row>
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>Enlarged Print</ion-label>
+          <ion-checkbox slot="start" formControlName="enlargedPrint"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label position="floating">Specify Font</ion-label>
+          <ion-input type="text"  formControlName="specifyFont"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- magnification -->
+    <ion-row>
+      <ion-col size-sm="4">
+        <ion-item>
+          <ion-label>Magnification/CCTV</ion-label>
+          <ion-checkbox slot="start" formControlName="magnification"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- 
+      
+        braille
+        ebae
+        ueb
+        nemeth
+
+    -->
+
+    <ion-row>
+      <ion-col size-sm="2">
+        <ion-item>
+          <ion-label>Braille</ion-label>
+          <ion-checkbox slot="start" formControlName="braille"></ion-checkbox>
+          </ion-item>
+      </ion-col>
+  
+      <ion-col size-sm="2">
+        <ion-item>
+          <ion-label>EBAE</ion-label>
+            <ion-checkbox slot="start" formControlName="ebae"></ion-checkbox>
+          </ion-item>
+      </ion-col>
+  
+      <ion-col size-sm="2">
+        <ion-item>
+          <ion-label>UEB</ion-label>
+          <ion-checkbox slot="start" formControlName="ueb"></ion-checkbox>
+          </ion-item>
+      </ion-col>
+  
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label><span class="wrap-text">Nemeth (Math/Science)</span></ion-label>
+          <ion-checkbox slot="start" formControlName="nemeth"></ion-checkbox>
+          </ion-item>
+      </ion-col>
+  
+    </ion-row>
+
+    <!--  tactileGraphics -->
+
+    <ion-row>
+      <ion-col size-sm="4">
+        <ion-item>
+          <ion-label>Tactile Graphics</ion-label>
+          <ion-checkbox slot="start" formControlName="tactileGraphics"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!--  other -->
+    <ion-row>
+      <ion-col size-sm="4">
+        <ion-item>
+          <ion-label position="floating">Other</ion-label>
+          <ion-textarea rows="3" formControlName="other"></ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+
+  </div>  <!-- formGroupName -->
+  </div>  <!-- formGroup -->
+  

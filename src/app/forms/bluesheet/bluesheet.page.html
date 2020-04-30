@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="m1"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Blue Sheets</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button routerLink='/forms/bluesheet/create'>
+        <ion-icon name="add" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col size='12' size-sm='8' offset-sm='2' class='ion-text-center'>
+        <!-- list of blue sheets -->
+
+        <ion-virtual-scroll [items]='listOfForms' approxItemHeight='72px'>
+          <ion-item *virtualItem="let form; " 
+            [routerLink] = "['/', 'forms',  'bluesheet', 'view', form.id]"
+            detail>
+            <ion-thumbnail slot="start">
+              <ion-img [src]="form.imageUrl"></ion-img>
+            </ion-thumbnail>
+            <ion-label>
+              <h2> {{ form.studentName }} </h2>
+              <p> {{ form.dateCreated }} </p>
+            </ion-label>
+          </ion-item>
+        </ion-virtual-scroll>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

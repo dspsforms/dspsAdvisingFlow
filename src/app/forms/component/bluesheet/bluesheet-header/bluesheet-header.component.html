@@ -1,0 +1,156 @@
+
+<div [formGroup]="form">
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating">Instructor</ion-label>
+      <ion-input 
+        type="text"
+        formControlName="instructor"></ion-input>
+    </ion-item>
+    <ion-item 
+      *ngIf="form.get('instructor').touched && !form.get('instructor').valid">
+      <ion-label>Need an instructor name</ion-label>
+    </ion-item>
+  </ion-col>
+  <ion-col>
+    <ion-item>
+      <ion-label  position="floating">Semester</ion-label>
+      <ion-input 
+        type="text"
+        placeholder="Choose Term"
+        formControlName="semester"></ion-input>
+    </ion-item>
+  </ion-col>
+  <ion-col>
+    <ion-item>
+      <ion-label  position="floating">Year</ion-label>
+      <ion-input 
+        type="text"
+        formControlName="year"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label  position="floating">Course</ion-label>
+      <ion-input 
+        type="text"
+        formControlName="course"></ion-input>
+    </ion-item>
+  </ion-col>
+  <ion-col>
+    <ion-item>
+      <ion-label  position="floating">Section</ion-label>
+      <ion-input 
+        type="text"
+        formControlName="year"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label  position="floating">Room</ion-label>
+      <ion-input 
+        type="text"
+        formControlName="room"></ion-input>
+    </ion-item>
+  </ion-col>
+  <ion-col>
+    <ion-item>
+      <ion-label  position="floating">Day/Time (as applicable)</ion-label>
+      <ion-input 
+        type="text"
+        formControlName="dayTime"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+<!-- instructional mode -->
+<div formGroupName="instructionalMode">
+<ion-row>
+  <ion-col>
+    <ion-item>
+      Instructional Mode (if known). Check all that apply.
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col size="6" size-sm="3">
+    <ion-item>
+      <ion-label>Online Canvas</ion-label>
+      <ion-checkbox slot="start" formControlName="onlineCanvas"></ion-checkbox>
+      </ion-item>
+  </ion-col>
+
+  <ion-col size="6" size-sm="3">
+    <ion-item>
+      <ion-label>Synchronous</ion-label>
+        <ion-checkbox slot="start" formControlName="synchronous"></ion-checkbox>
+      </ion-item>
+  </ion-col>
+
+  <ion-col size="6" size-sm="3">
+    <ion-item>
+      <ion-label>Asynchronous</ion-label>
+      <ion-checkbox slot="start" formControlName="asynchronous"></ion-checkbox>
+      </ion-item>
+  </ion-col>
+
+  <ion-col size="6" size-sm="3">
+    <ion-item>
+      <ion-label> 
+        Hybrid (on campus meetings)
+      </ion-label>
+      <ion-checkbox slot="start" formControlName="hybrid"></ion-checkbox>
+      </ion-item>
+  </ion-col>
+
+</ion-row>
+</div> <!-- instructionalMode -->
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label  position="floating">Student Name</ion-label>
+      <ion-input 
+        type="text"
+        formControlName="studentName"></ion-input>
+    </ion-item>
+  </ion-col>
+  <ion-col>
+    <ion-item>
+      <ion-label  position="floating">Student ID#</ion-label>
+      <ion-input 
+        type="text"
+        formControlName="collegeId"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+      <p>
+        This is to verify that the above mentioned student
+        is eligible for disability-related accommodations. 
+        These accommodations are directly related to the educational limitations 
+        caused by the student’s specific disability, and were determined by the DSPS 
+        faculty member. Both state and federal law permit these recommended accommodations.
+      </p>
+      <p>
+        The recommendations below pertain to accommodating the student in class and 
+        during exams. 
+        Information on the services provided below can be obtained from the DSPS Office.
+      </p>
+      
+  </ion-col>
+</ion-row>
+
+
+
+</div>

@@ -1,0 +1,161 @@
+<div [formGroup]="form">
+  <div formGroupName="adaptiveTech">
+
+    <!-- 
+      adaptiveTech: new FormGroup({
+        computer: new FormControl(false, { updateOn: 'blur' }),
+        calculator: new FormControl(false, { updateOn: 'blur' }),
+        cctvMagnifier: new FormControl(false, { updateOn: 'blur' }),
+        assistiveListeningDevice: new FormControl(false, { updateOn: 'blur' }),
+        digitalRecorder: new FormControl(false, { updateOn: 'blur' }),
+        liveScribeSmartPen: new FormControl(false, { updateOn: 'blur' }),
+        ipadAndroidTablet: new FormControl(false, { updateOn: 'blur' }),
+        other: new FormControl(null, { updateOn: 'blur' }),
+      }),
+    -->
+
+  <div *ngIf="grid" >
+    <h1>ADAPTIVE TECHNOLOGY / ASSISTIVE DEVICE</h1>
+
+    <!-- 
+      computer, calculator
+    -->
+    <div class="grid2-inner">
+      <ion-item>
+        <ion-label>Computer</ion-label>
+        <ion-checkbox slot="start" formControlName="computer"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Calculator</ion-label>
+        <ion-checkbox slot="start" formControlName="calculator"></ion-checkbox>
+      </ion-item>
+    </div> 
+
+    <!-- cctvMagnifier, assistiveListeningDevice  -->
+    <div class="grid2-inner">
+      <ion-item>
+        <ion-label>CCTV/Magnifier</ion-label>
+        <ion-checkbox slot="start" formControlName="cctvMagnifier"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Assistive Listening Device</ion-label>
+        <ion-checkbox slot="start" formControlName="assistiveListeningDevice"></ion-checkbox>
+      </ion-item>
+    </div> <!-- grid2 inner -->
+
+    <!-- digitalRecorder,  liveScribeSmartPen -->
+    <div class="grid2-inner">
+      <ion-item>
+        <ion-label>Digital Recorder</ion-label>
+        <ion-checkbox slot="start" formControlName="digitalRecorder"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Livescribe Smart Pen</ion-label>
+        <ion-checkbox slot="start" formControlName="liveScribeSmartPen"></ion-checkbox>
+      </ion-item>
+    </div> <!-- grid2 inner -->
+
+    <!-- ipadAndroidTablet -->
+    <ion-item>
+      <ion-label>iPad/Android tablet</ion-label>
+      <ion-checkbox slot="start" formControlName="ipadAndroidTablet"></ion-checkbox>
+    </ion-item>
+
+    <!--  other -->
+    <ion-item>
+      <ion-label position="floating">Other</ion-label>
+      <ion-textarea rows="3" formControlName="other"></ion-textarea>
+    </ion-item>
+
+  </div> <!-- big page level grid -->
+
+
+  <ion-grid *ngIf="!grid" class="test-ion-grid">
+
+    <ion-row>
+      <ion-col size-sm="12">
+        <ion-item>
+          <h1>ADAPTIVE TECHNOLOGY / ASSISTIVE DEVICE</h1>      
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- computer, calculator -->
+    <ion-row>
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>Computer</ion-label>
+          <ion-checkbox slot="start" formControlName="computer"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>Calculator</ion-label>
+          <ion-checkbox slot="start" formControlName="calculator"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+
+    </ion-row>
+
+    <!-- cctvMagnifier, assistiveListeningDevice  -->
+    <ion-row>
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>CCTV/Magnifier</ion-label>
+          <ion-checkbox slot="start" formControlName="cctvMagnifier"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>Assistive Listening Device</ion-label>
+          <ion-checkbox slot="start" formControlName="assistiveListeningDevice"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- digitalRecorder,  liveScribeSmartPen -->
+    <ion-row>
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>Digital Recorder</ion-label>
+          <ion-checkbox slot="start" formControlName="digitalRecorder"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>Livescribe Smart Pen</ion-label>
+          <ion-checkbox slot="start" formControlName="liveScribeSmartPen"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- ipadAndroidTablet -->
+    <ion-row>
+      <ion-col size-sm="4">
+        <ion-item>
+          <ion-label>iPad/Android tablet</ion-label>
+          <ion-checkbox slot="start" formControlName="ipadAndroidTablet"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!--  other -->
+    <ion-row>
+      <ion-col size-sm="4">
+        <ion-item>
+          <ion-label position="floating">Other</ion-label>
+          <ion-textarea rows="3" formControlName="other"></ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid> <!-- flow layout  -->
+
+  </div> <!-- formGroupName -->
+</div> <!-- formGroup -->
