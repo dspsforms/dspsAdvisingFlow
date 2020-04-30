@@ -52,6 +52,27 @@ export class BluesheetComponent implements OnInit , OnDestroy {
       dayTime: new FormControl(null, {
         updateOn: 'blur'
       }),
+      // these two will require a workflow
+      // studentAck: new FormControl(false, { updateOn: 'blur' }),
+      // studentAckDate: new FormControl(null, { updateOn: 'blur' }),
+      instructionalMode: new FormGroup({
+        onlineCanvas: new FormControl(false, { updateOn: 'blur' }),
+        synchronous: new FormControl(false, { updateOn: 'blur' }),
+        asynchronous: new FormControl(false, { updateOn: 'blur' }),
+        hybrid: new FormControl(false, { updateOn: 'blur' }),
+      }),
+      studentName: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
+      collegeId: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
+      studentEmail: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.email]
+      }),
       examsWithAccommodations: new FormGroup({
         // extendedTime, 1.5x, 2x etc should be hierarchical, but taking a shortcut because users are waiting
         extendedTime: new FormControl(false, { updateOn: 'blur' }),
@@ -146,36 +167,6 @@ export class BluesheetComponent implements OnInit , OnDestroy {
       }),
       completedBy: new FormControl(null, { updateOn: 'blur' }),
       completedByDate: new FormControl(null, { updateOn: 'blur' }),
-
-      // these two will require a workflow
-      // studentAck: new FormControl(false, { updateOn: 'blur' }),
-      // studentAckDate: new FormControl(null, { updateOn: 'blur' }),
-      instructionalMode: new FormGroup({
-        onlineCanvas: new FormControl(false, { updateOn: 'blur' }),
-        synchronous: new FormControl(false, { updateOn: 'blur' }),
-        asynchronous: new FormControl(false, { updateOn: 'blur' }),
-        hybrid: new FormControl(false, { updateOn: 'blur' }),
-      }),
-      studentName: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      collegeId: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      studentEmail: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.email]
-      }),
-      // other stuff
-      services: new FormGroup({
-        eops: new FormControl(false, { updateOn: 'blur' }),
-        calWorks: new FormControl(false, { updateOn: 'blur' }),
-        ssdi: new FormControl(false, { updateOn: 'blur' }),
-        access: new FormControl(false, { updateOn: 'blur' }),
-      }),
-      foo: new FormControl(null, { updateOn: 'blur' })
     });
 
 

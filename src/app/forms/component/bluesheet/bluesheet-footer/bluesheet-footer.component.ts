@@ -10,6 +10,7 @@ export class BluesheetFooterComponent implements OnInit {
 
   @Input() form: FormGroup;
   @Input() grid: boolean;
+  
   constructor() { }
 
   ngOnInit() {}

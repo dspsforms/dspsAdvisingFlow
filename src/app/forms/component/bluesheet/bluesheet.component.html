@@ -9,6 +9,7 @@
     <div class="child1">
       <app-exams-with-accomodations [form]="form" [grid]="grid"></app-exams-with-accomodations>
       <app-physical-access [form]="form" [grid]="grid"></app-physical-access>
+      <app-general [form]="form" [grid]="grid"></app-general>
     </div>
     <div class="child2">
       <app-auxiliary-aids [form]="form" [grid]="grid"></app-auxiliary-aids>
@@ -27,10 +28,11 @@
       <app-physical-access [form]="form" [grid]="grid"></app-physical-access>
       <app-adaptive-tech [form]="form" [grid]="grid" ></app-adaptive-tech>
       <app-alt-format [form]="form" [grid]="grid" ></app-alt-format>
+      <app-general [form]="form" [grid]="grid"></app-general>
   </div> <!-- class == grid -->
     
       
-
+  <app-bluesheet-footer [form]="form" [grid]="grid"></app-bluesheet-footer>
   
    <!-- [disabled]="!form.valid" -->
   <ion-grid>
