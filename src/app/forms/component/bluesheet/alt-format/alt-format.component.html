@@ -1,3 +1,298 @@
-<p>
-  alt-format works!
-</p>
+
+<div [formGroup]="form">
+  <div formGroupName="altMedia">
+
+    <!-- 
+      braille, ebae, ueb, nemeth,
+      tactileGraphics,
+      enlargedPrint, specifyFont,
+      etext, kurzweil, pdf,
+      audioRecorded, learningAlly, bookShare,
+      closedCaption, audioDesc,
+      other
+    -->
+
+  <div *ngIf="grid" >
+
+    <!-- this is a two col grid -->
+
+    <h1 class="ion-text-center">COURSE MATERIALS/MEDIA IN ALTERNATE FORMAT</h1>
+
+    <!-- braille, ebae, ueb, nemeth -->
+    <div class="grid4-inner">
+      <ion-item>
+        <ion-label>Braille</ion-label>
+        <ion-checkbox slot="start" formControlName="braille"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>EBAE</ion-label>
+        <ion-checkbox slot="start" formControlName="ebae"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>UEB</ion-label>
+        <ion-checkbox slot="start" formControlName="ueb"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><span class="wrap-text">Nemeth (Math/Science)</span></ion-label>
+        <ion-checkbox slot="start" formControlName="nemeth"></ion-checkbox>
+      </ion-item>
+
+    </div> <!-- braille grid4-inner -->
+
+    <!--  tactileGraphics -->
+    <ion-item>
+      <ion-label>Tactile Graphics</ion-label>
+      <ion-checkbox slot="start" formControlName="tactileGraphics"></ion-checkbox>
+    </ion-item>
+
+
+    <!--  
+      enlargedPrint, specifyFont
+    -->
+
+    <div class="grid2-inner">
+      <ion-item>
+        <ion-label>Enlarged Print</ion-label>
+        <ion-checkbox slot="start" formControlName="enlargedPrint"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Specify Font</ion-label>
+        <ion-input type="text"  formControlName="specifyFont"></ion-input>
+      </ion-item>
+
+    </div> <!-- enlargedPrint grid2-inner -->
+
+    <!-- etext, kurzweil, pdf -->
+    <div class="grid3-inner">
+
+      <ion-item>
+        <ion-label>Etext</ion-label>
+        <ion-checkbox slot="start" formControlName="etext"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Kurzweil</ion-label>
+        <ion-checkbox slot="start" formControlName="kurzweil"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>PDF</ion-label>
+        <ion-checkbox slot="start" formControlName="pdf"></ion-checkbox>
+      </ion-item>
+
+    </div>  <!-- etext, etc grid3-innner -->
+
+    <!-- audioRecorded, learningAlly, bookShare -->
+    <div class="grid3-inner">
+
+      <ion-item>
+        <ion-label>Audio recorded</ion-label>
+        <ion-checkbox slot="start" formControlName="audioRecorded"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Learning Ally</ion-label>
+        <ion-checkbox slot="start" formControlName="learningAlly"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Bookshare</ion-label>
+        <ion-checkbox slot="start" formControlName="bookShare"></ion-checkbox>
+      </ion-item>
+
+    </div>  <!-- audioRecorded, etc grid3-innner -->
+
+    <!-- closedCaption, audioDesc -->
+    <div class="grid2-inner">
+
+      <ion-item>
+        <ion-label>Closed Captioned Video</ion-label>
+        <ion-checkbox slot="start" formControlName="closedCaption"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Audio Descriptions</ion-label>
+        <ion-checkbox slot="start" formControlName="audioDesc"></ion-checkbox>
+      </ion-item>
+
+    </div>  <!-- closedCaption, etc grid2-innner -->
+
+    <!--  other -->
+    <ion-item>
+      <ion-label position="floating">Other</ion-label>
+      <ion-textarea rows="3" formControlName="other"></ion-textarea>
+    </ion-item>
+
+
+  </div> <!-- ngIf grid -->
+
+  <!-- flow layout when there is no 2 col grid-->
+
+  <ion-grid *ngIf="!grid">
+
+    <ion-row>
+      <ion-col size-sm="12">
+        <ion-item>
+          <h1>COURSE MATERIALS/MEDIA IN ALTERNATE FORMAT</h1>      
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- 
+        braille
+        ebae
+        ueb
+        nemeth
+    -->
+
+    <ion-row>
+      <ion-col size-sm="2">
+        <ion-item>
+          <ion-label>Braille</ion-label>
+          <ion-checkbox slot="start" formControlName="braille"></ion-checkbox>
+          </ion-item>
+      </ion-col>
+  
+      <ion-col size-sm="2">
+        <ion-item>
+          <ion-label>EBAE</ion-label>
+            <ion-checkbox slot="start" formControlName="ebae"></ion-checkbox>
+          </ion-item>
+      </ion-col>
+  
+      <ion-col size-sm="2">
+        <ion-item>
+          <ion-label>UEB</ion-label>
+          <ion-checkbox slot="start" formControlName="ueb"></ion-checkbox>
+          </ion-item>
+      </ion-col>
+  
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label><span class="wrap-text">Nemeth (Math/Science)</span></ion-label>
+          <ion-checkbox slot="start" formControlName="nemeth"></ion-checkbox>
+          </ion-item>
+      </ion-col>
+  
+    </ion-row>
+
+    <!--  tactileGraphics -->
+    <ion-row>
+      <ion-col size-sm="4">
+        <ion-item>
+          <ion-label>Tactile Graphics</ion-label>
+          <ion-checkbox slot="start" formControlName="tactileGraphics"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!--  
+      enlargedPrint
+      specifyFont
+    -->
+    
+    <ion-row>
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>Enlarged Print</ion-label>
+          <ion-checkbox slot="start" formControlName="enlargedPrint"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label position="floating">Specify Font</ion-label>
+          <ion-input type="text"  formControlName="specifyFont"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- etext, kurzweil, pdf -->
+    <ion-row>
+      <ion-col size-sm="2">
+        <ion-item>
+          <ion-label>Etext</ion-label>
+          <ion-checkbox slot="start" formControlName="etext"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-sm="2">
+        <ion-item>
+          <ion-label position="floating">Kurzweil</ion-label>
+          <ion-input type="text"  formControlName="kurzweil"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-sm="2">
+        <ion-item>
+          <ion-label position="floating">PDF</ion-label>
+          <ion-input type="text"  formControlName="pdf"></ion-input>
+        </ion-item>
+      </ion-col>
+
+    </ion-row>
+
+    <!-- audioRecorded, learningAlly, bookShare -->
+    <ion-row>
+      <ion-col size-sm="2">
+        <ion-item>
+          <ion-label>Audio recorded</ion-label>
+          <ion-checkbox slot="start" formControlName="audioRecorded"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-sm="2">
+        <ion-item>
+          <ion-label position="floating">Learning Ally</ion-label>
+          <ion-input type="text"  formControlName="learningAlly"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-sm="2">
+        <ion-item>
+          <ion-label position="floating">Bookshare</ion-label>
+          <ion-input type="text"  formControlName="bookShare"></ion-input>
+        </ion-item>
+      </ion-col>
+
+    </ion-row>
+
+    <!-- closedCaption, audioDesc -->
+    <ion-row>
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>Closed Captioned Video</ion-label>
+          <ion-checkbox slot="start" formControlName="closedCaption"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label position="floating">Audio Descriptions</ion-label>
+          <ion-input type="text"  formControlName="audioDesc"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+     <!--  other -->
+     <ion-row>
+      <ion-col size-sm="4">
+        <ion-item>
+          <ion-label position="floating">Other</ion-label>
+          <ion-textarea rows="3" formControlName="other"></ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</div> <!-- formGroupNamee-->
+</div> <!-- formGroup -->
+
+
+

@@ -2,11 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-bluesheet-footer',
-  templateUrl: './bluesheet-footer.component.html',
-  styleUrls: ['./bluesheet-footer.component.scss'],
+  selector: 'app-general',
+  templateUrl: './general.component.html',
+  styleUrls: ['./general.component.scss'],
 })
-export class BluesheetFooterComponent implements OnInit {
+export class GeneralComponent implements OnInit {
 
   @Input() form: FormGroup;
   @Input() grid: boolean;

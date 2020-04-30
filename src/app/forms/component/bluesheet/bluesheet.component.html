@@ -8,10 +8,12 @@
   <div *ngIf="grid" class="grid2Col">
     <div class="child1">
       <app-exams-with-accomodations [form]="form" [grid]="grid"></app-exams-with-accomodations>
+      <app-physical-access [form]="form" [grid]="grid"></app-physical-access>
     </div>
     <div class="child2">
       <app-auxiliary-aids [form]="form" [grid]="grid"></app-auxiliary-aids>
       <app-adaptive-tech [form]="form" [grid]="grid" ></app-adaptive-tech>
+      <app-alt-format [form]="form" [grid]="grid" ></app-alt-format>
     </div>
 
   </div> <!-- class == grid -->
@@ -22,7 +24,9 @@
 
       <app-exams-with-accomodations [form]="form" [grid]="grid"></app-exams-with-accomodations>
       <app-auxiliary-aids [form]="form" [grid]="grid" ></app-auxiliary-aids>
+      <app-physical-access [form]="form" [grid]="grid"></app-physical-access>
       <app-adaptive-tech [form]="form" [grid]="grid" ></app-adaptive-tech>
+      <app-alt-format [form]="form" [grid]="grid" ></app-alt-format>
   </div> <!-- class == grid -->
     
       

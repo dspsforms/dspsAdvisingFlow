@@ -1,18 +1,205 @@
 <div [formGroup]="form">
-  <div formGroupName="examsWithAccommodations">
+  <div formGroupName="physicalAccess">
 
+    <!-- 
+      accessibleDesk: new FormControl(false, { updateOn: 'blur' }),
+        accessibleChair: new FormControl(false, { updateOn: 'blur' }),
+        preferentialSeating: new FormControl(false, { updateOn: 'blur' }),
+        bypassLines: new FormControl(false, { updateOn: 'blur' }),
+        breaks: new FormControl(false, { updateOn: 'blur' }),
+        twoMinPerHr: new FormControl(false, { updateOn: 'blur' }),
+        fiveMinPerHr: new FormControl(false, { updateOn: 'blur' }),
+        asNeeded: new FormControl(false, { updateOn: 'blur' }),
+        changeClassLoc: new FormControl(false, { updateOn: 'blur' }),
+        other: new FormControl(null, { updateOn: 'blur' })
+
+    -->
   <!-- grid layout -->
   <div *ngIf="grid" >
 
     <!-- this is a two col grid -->
 
-    <h1>EXAMINATIONS WITH ACCOMMODATIONS</h1>
+    <h1 class="ion-text-center">PHYSICAL ACCESS</h1>
+
+    <!-- 
+      accessibleDesk, accessibleChair
+    -->
+    <div class="grid2-inner">
+      <ion-item>
+        <ion-label>Accessible Desk</ion-label>
+        <ion-checkbox slot="start" formControlName="accessibleDesk"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Accessible Chair</ion-label>
+        <ion-checkbox slot="start" formControlName="accessibleChair"></ion-checkbox>
+      </ion-item>
+
+    </div>
+
+    <!-- 
+      preferentialSeating, bypassLines
+    -->
+
+    <div class="grid2-inner">
+      <ion-item>
+        <ion-label>Preferential Seating</ion-label>
+        <ion-checkbox slot="start" formControlName="preferentialSeating"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Bypass Lines</ion-label>
+        <ion-checkbox slot="start" formControlName="bypassLines"></ion-checkbox>
+      </ion-item>
+
+    </div>
+
+    <!-- 
+      breaks, twoMinPerHr, fiveMinPerHr, asNeeded
+    -->
+    <div class="grid4-inner">
+
+      <ion-item>
+        <ion-label>Breaks</ion-label>
+        <ion-checkbox slot="start" formControlName="breaks"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>2 min/hr</ion-label>
+        <ion-checkbox slot="start" formControlName="twoMinPerHr"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>5 min/hr</ion-label>
+        <ion-checkbox slot="start" formControlName="fiveMinPerHr"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>As needed</ion-label>
+        <ion-checkbox slot="start" formControlName="asNeeded"></ion-checkbox>
+      </ion-item>
+
+    </div> <!-- breaks grid4 -->
+
+      <!-- changeClassLoc  -->
+      <ion-item>
+        <ion-label>Change in Class Location</ion-label>
+        <ion-checkbox slot="start" formControlName="changeClassLoc"></ion-checkbox>
+      </ion-item>
+
+      <!-- other -->
+      <ion-item>
+        <ion-label position="floating">Other (Describe)</ion-label>
+        <ion-textarea rows="3" formControlName="other"></ion-textarea>
+      </ion-item>
 
 
   </div> <!-- 2 col grid -->
 
   <!-- flow layout -->
   <div *ngIf="!grid" >
+
+    <ion-row>
+      <ion-col size-sm="12">
+        <ion-item>
+          <h1>PHYSICAL ACCESS</h1>      
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- 
+      accessibleDesk, accessibleChair
+    -->
+
+    <ion-row>
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>Accessible Desk</ion-label>
+          <ion-checkbox slot="start" formControlName="accessibleDesk"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>Accessible Chair</ion-label>
+          <ion-checkbox slot="start" formControlName="accessibleChair"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- 
+      preferentialSeating, bypassLines
+    -->
+
+    <ion-row>
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>Accessible Desk</ion-label>
+          <ion-checkbox slot="start" formControlName="preferentialSeating"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>Accessible Chair</ion-label>
+          <ion-checkbox slot="start" formControlName="bypassLines"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+    <!-- breaks-->
+
+    <ion-row>
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>Breaks</ion-label>
+          <ion-checkbox slot="start" formControlName="breaks"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-sm="2">
+        <ion-item>
+          <ion-label>2 min/hr</ion-label>
+          <ion-checkbox slot="start" formControlName="twoMinPerHr"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-sm="2">
+        <ion-item>
+          <ion-label>5 min/hr</ion-label>
+          <ion-checkbox slot="start" formControlName="fiveMinPerHr"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-sm="2">
+        <ion-item>
+          <ion-label>As needed</ion-label>
+          <ion-checkbox slot="start" formControlName="asNeeded"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- changeClassLoc -->
+    <ion-row>
+      <ion-col size-sm="4">
+        <ion-item>
+          <ion-label>Change in Class Location</ion-label>
+          <ion-checkbox slot="start" formControlName="changeClassLoc"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- other -->
+
+    <ion-row>
+      <ion-col size-sm="4">
+        <ion-item>
+          <ion-label position="floating">Other</ion-label>
+          <ion-textarea rows="3" formControlName="other"></ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row>
 
   </div> <!-- flow laout -->
 

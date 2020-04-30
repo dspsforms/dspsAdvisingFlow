@@ -9,7 +9,7 @@ import { FormGroup } from '@angular/forms';
 export class AltFormatComponent implements OnInit {
 
   @Input() form: FormGroup;
-  @Input() grid : boolean;
+  @Input() grid: boolean;
   constructor() { }
 
   ngOnInit() {}
