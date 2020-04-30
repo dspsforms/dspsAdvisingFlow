@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AppGlobals } from 'src/app/forms/globals';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -10,7 +9,7 @@ import { FormGroup } from '@angular/forms';
 export class AdaptiveTechComponent implements OnInit {
 
   @Input() form: FormGroup;
-  @Input() grid;
+  @Input() grid : boolean;
 
   constructor() { }
 

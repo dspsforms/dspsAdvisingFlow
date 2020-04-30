@@ -1,3 +1,20 @@
-<p>
-  physical-access works!
-</p>
+<div [formGroup]="form">
+  <div formGroupName="examsWithAccommodations">
+
+  <!-- grid layout -->
+  <div *ngIf="grid" >
+
+    <!-- this is a two col grid -->
+
+    <h1>EXAMINATIONS WITH ACCOMMODATIONS</h1>
+
+
+  </div> <!-- 2 col grid -->
+
+  <!-- flow layout -->
+  <div *ngIf="!grid" >
+
+  </div> <!-- flow laout -->
+
+</div> <!-- formGroupName -->
+</div> <!-- form -->

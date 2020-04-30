@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './auth/auth.service';
 import { Router } from '@angular/router';
-import { AppGlobals } from './forms/globals';
 import { AppGlobalsService } from './forms/app-globals.service';
 import { Subscription } from 'rxjs';
 
@@ -21,6 +20,7 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private authService: AuthService,
+    private appGlobalsService: AppGlobalsService,
     private router: Router
 
   ) {
@@ -40,7 +40,7 @@ export class AppComponent {
   }
 
   toggleGrid() {
-    AppGlobals.isGrid = !AppGlobals.isGrid;
+    this.appGlobalsService.toggleGrid();
   }
 
 }

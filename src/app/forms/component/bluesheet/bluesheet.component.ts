@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AppGlobals } from '../../globals';
 import { Subscription } from 'rxjs';
 import { AppGlobalsService } from '../../app-globals.service';
 
@@ -111,6 +110,46 @@ export class BluesheetComponent implements OnInit , OnDestroy {
         ipadAndroidTablet: new FormControl(false, { updateOn: 'blur' }),
         other: new FormControl(null, { updateOn: 'blur' }),
       }),
+      physicalAccess: new FormGroup({
+        accessibleDesk: new FormControl(false, { updateOn: 'blur' }),
+        accessibleChair: new FormControl(false, { updateOn: 'blur' }),
+        preferentialSeating: new FormControl(false, { updateOn: 'blur' }),
+        bypassLines: new FormControl(false, { updateOn: 'blur' }),
+        breaks: new FormControl(false, { updateOn: 'blur' }),
+        twoMinPerHr: new FormControl(false, { updateOn: 'blur' }),
+        fiveMinPerHr: new FormControl(false, { updateOn: 'blur' }),
+        asNeeded: new FormControl(false, { updateOn: 'blur' }),
+        changeClassLoc: new FormControl(false, { updateOn: 'blur' }),
+        other: new FormControl(null, { updateOn: 'blur' })
+      }),
+      altMedia: new FormGroup({
+        braille: new FormControl(false, { updateOn: 'blur' }),
+        ebae: new FormControl(false, { updateOn: 'blur' }),
+        ueb: new FormControl(false, { updateOn: 'blur' }),
+        nemeth: new FormControl(false, { updateOn: 'blur' }),
+        tactileGraphics: new FormControl(false, { updateOn: 'blur' }),
+        enlargedPrint: new FormControl(false, { updateOn: 'blur' }),
+        specifyFont: new FormControl(false, { updateOn: 'blur' }),
+        etext: new FormControl(false, { updateOn: 'blur' }),
+        kurzweil: new FormControl(false, { updateOn: 'blur' }),
+        pdf: new FormControl(false, { updateOn: 'blur' }),
+        audioRecorded: new FormControl(false, { updateOn: 'blur' }),
+        learningAlly: new FormControl(false, { updateOn: 'blur' }),
+        bookShare: new FormControl(false, { updateOn: 'blur' }),
+        closedCaption: new FormControl(false, { updateOn: 'blur' }),
+        audioDesc: new FormControl(false, { updateOn: 'blur' }),
+        other: new FormControl(null, { updateOn: 'blur' })
+      }),
+      general: new FormGroup({
+        envAdjustments: new FormControl(null, { updateOn: 'blur' }),
+        generalNotes: new FormControl(null, { updateOn: 'blur' })
+      }),
+      completedBy: new FormControl(null, { updateOn: 'blur' }),
+      completedByDate: new FormControl(null, { updateOn: 'blur' }),
+
+      // these two will require a workflow
+      // studentAck: new FormControl(false, { updateOn: 'blur' }),
+      // studentAckDate: new FormControl(null, { updateOn: 'blur' }),
       instructionalMode: new FormGroup({
         onlineCanvas: new FormControl(false, { updateOn: 'blur' }),
         synchronous: new FormControl(false, { updateOn: 'blur' }),

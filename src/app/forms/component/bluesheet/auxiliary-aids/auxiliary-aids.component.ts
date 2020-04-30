@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AppGlobals } from 'src/app/forms/globals';
 
 @Component({
   selector: 'app-auxiliary-aids',
@@ -9,7 +8,7 @@ import { AppGlobals } from 'src/app/forms/globals';
 export class AuxiliaryAidsComponent implements OnInit {
 
   @Input() form;
-  @Input() grid;
+  @Input() grid : boolean;
   constructor() { }
 
   ngOnInit() { }

@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { AppGlobals } from 'src/app/forms/globals';
 
 @Component({
   selector: 'app-exams-with-accomodations',
@@ -9,8 +8,8 @@ import { AppGlobals } from 'src/app/forms/globals';
 })
 export class ExamsWithAccomodationsComponent implements OnInit {
 
-  @Input() form;
-  @Input() grid;
+  @Input() form: FormGroup;
+  @Input() grid : boolean;
   constructor() { }
 
   ngOnInit() { }

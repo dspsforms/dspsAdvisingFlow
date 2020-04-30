@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-alt-format',
@@ -7,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AltFormatComponent implements OnInit {
 
+  @Input() form: FormGroup;
+  @Input() grid : boolean;
   constructor() { }
 
   ngOnInit() {}
