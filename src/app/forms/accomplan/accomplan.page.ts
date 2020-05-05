@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsService } from '../forms.service';
+import { FormsService0 } from '../forms0.service';
 import { AccomplanForm } from './component/accomplan.model';
 
 @Component({
@@ -11,7 +11,7 @@ export class AccomplanPage implements OnInit {
 
   listOfForms: AccomplanForm[];
 
-  constructor(private formsService: FormsService) { }
+  constructor(private formsService: FormsService0) { }
 
   ngOnInit() {
     this.listOfForms = this.formsService.accomplanForms ;

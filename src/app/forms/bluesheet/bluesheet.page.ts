@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsService } from '../forms.service';
+import { FormsService0 } from '../forms0.service';
 import { BlueSheetForm } from '../component/bluesheet/model/bluesheet.model';
 
 @Component({
@@ -11,7 +11,7 @@ export class BluesheetPage implements OnInit {
 
   listOfForms: BlueSheetForm[];
 
-  constructor(private formsService: FormsService) { }
+  constructor(private formsService: FormsService0) { }
 
   ngOnInit() {
     this.listOfForms = this.formsService.blueSheetForms;

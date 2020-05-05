@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { FormsService } from '../../forms.service';
+import { FormsService0 } from '../../forms0.service';
 import { BlueSheetForm } from '../../component/bluesheet/model/bluesheet.model';
 
 @Component({
@@ -19,7 +19,7 @@ export class EditBluesheetPage implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private navCtrl: NavController,
-    private formsService: FormsService) { }
+    private formsService: FormsService0) { }
 
   ngOnInit() {
     this.paramSub = this.route.paramMap.subscribe(paramMap => {

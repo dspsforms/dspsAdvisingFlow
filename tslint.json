@@ -55,17 +55,20 @@
       "as-needed"
     ],
     "object-literal-sort-keys": false,
+    "object-literal-shorthand": false,
     "ordered-imports": false,
     "quotemark": [
-      true,
+      false,
       "single"
     ],
     "trailing-comma": false,
+    "no-trailing-whitespace": false,
     "no-output-on-prefix": true,
     "no-inputs-metadata-property": true,
     "no-host-metadata-property": true,
     "no-input-rename": true,
     "no-output-rename": true,
+    "no-string-literal": false,
     "use-lifecycle-interface": true,
     "use-pipe-transform-interface": true,
     "one-variable-per-declaration": false,

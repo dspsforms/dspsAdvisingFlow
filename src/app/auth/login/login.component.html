@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Staff/Faculty/Admin Sign In</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+<form [formGroup]="signInForm" (ngSubmit)="login()" >
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating" >Email address</ion-label>
+        <ion-input type="email" formControlName="email"> </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      
+      <ion-item *ngIf="email.touched && !email.valid">
+          <p *ngIf="email.errors.required">
+                  Email is required.
+          </p>
+          <p *ngIf="!email.errors.required && email.errors.email">
+                  Email format is incorrect.
+          </p>
+      </ion-item>
+       
+      <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type="password"formControlName="password" ></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="password.touched && !password.valid">
+          <p *ngIf="password.errors.required">
+            Password is required.
+          </p>
+      </ion-item>
+
+    </ion-col>
+  </ion-row>
+
+      <ion-button class="primary"
+        [disabled]="!signInForm.valid || !signInForm.dirty"
+        type="submit" >Sign in</ion-button>
+
+      <ion-item *ngIf="errCode || errMsg">
+          <span *ngIf="errCode"> {{errCode}} </span>
+
+          <!-- add a separator, but only if both codes are displayed -->
+          <span *ngIf="errCode && errMsg"> &nbsp; - &nbsp; </span>
+
+          <span *ngIf="errMsg"> {{errMsg}} </span>
+      </ion-item>
+
+  </form>
+
+</ion-content>
+
