@@ -1,6 +1,4 @@
-import { BaseForm } from '../../model/baseform.model';
-
-
+import { BaseForm } from '../../../model/baseform.model';
 
 export class AccomplanForm extends BaseForm {
 

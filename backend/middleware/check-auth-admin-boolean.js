@@ -12,12 +12,11 @@ module.exports = (req, res) => {
     req.userData = {
       email: decodedToken.email,
       userId: decodedToken.userId,
-      isAdmin: decodedToken.isAdmin,
-      isStaff: decodedToken.isStaff
+      role: decodedToken.role
     };
 
     // check if user has admin permission
-    if (req.userData.isAdmin) {
+    if (req.userData.role && req.userData.role.isAdmin) {
       return true;
     } else {
       // not admin

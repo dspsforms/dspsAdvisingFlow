@@ -12,11 +12,19 @@ if (true) {
 
   const currentTime = new Date();
   let user = new User({
-    email: 't2@test.com', // 'missiondsps@vannev.com',
+    email: 't@test.com', // 'missiondsps@vannev.com',
     password: adminHash,
-    name: 'staff',
-    isAdmin: false,
-    isStaff: true,
+    name: 'test user',
+    role: {
+      isAdmin: true,
+      isStaff: false,
+      isFaculty: false,
+      isStudent: false,
+      isInstructor: false
+    },
+    isAdmin: true,
+    isStaff: false,
+    isFaculty: false,
     isStudent: false,
     isInstructor: false,
     created: currentTime,
@@ -32,8 +40,8 @@ if (true) {
 // test admin user
 
 if (false) {
-  const pass = ''; // set this for testing, run it, then erase!
-  User.findOne({ email: 'missiondsps@vannev.com' })
+  const pass = '123'; // set this for testing, run it, then erase!
+  User.findOne({ email: 't@test.com' })
     .then(user => {
       const match = bcrypt.compareSync(pass, user.password);
       console.log("match=", match);

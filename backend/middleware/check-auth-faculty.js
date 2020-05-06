@@ -3,20 +3,23 @@ const config = require("../config/config");
 
 module.exports = (req, res, next) => {
   try {
+    console.log("req.headers", req.headers);
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, config.JSON_WEB_TOKEN_SERVER_KEY);
+    console.log("decodedToken", decodedToken);
     req.userData = {
       email: decodedToken.email,
       userId: decodedToken.userId,
       role: decodedToken.role
     };
 
-    // check if user has staff permission
-    if (req.userData.role && req.userData.role.isStaff) {
+    // check if user has admin permission
+    if (req.userData.role && req.userData.role.isFaculty) {
       next();
     } else {
-      // not admin
-      res.status(401).json({ message: "Need Staff permission" });
+      // not faculty
+      console.log("faculty perm failed");
+      res.status(401).json({ message: "Need faculty permission" });
     }
 
   } catch (error) {

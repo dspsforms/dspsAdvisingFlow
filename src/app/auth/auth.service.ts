@@ -3,8 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 
-import { AuthData } from "./auth-data.model";
-import { AuthType } from "./auth-type.model";
+import { AuthData, Role } from "./auth-data.model";
 import { environment } from "../../environments/environment";
 import { UrlConfig } from "../model/url-config";
 
@@ -12,12 +11,13 @@ import { UrlConfig } from "../model/url-config";
   providedIn: 'root'
 })
 export class AuthService {
-  private isStaffAuthenticated = false;
-  private isAdminAuthenticated = false;
+
+  private role: Role;
+
   private token: string;
   private tokenTimer: any;
   private userId: string;
-  private authStatusListener = new Subject<AuthType>();
+  private authStatusListener = new Subject<Role>();
 
   private dataInitialized = false;
   constructor(private http: HttpClient, private router: Router) {}
@@ -30,10 +30,14 @@ export class AuthService {
     email: string,
     name: string,
     password: string,
-    isStaff: boolean,
-    isAdmin: boolean,
+    role: Role,
     nextUrl: string) {
-    const authData: AuthData = { email: email, name: name, password: password , isStaff: isStaff, isAdmin: isAdmin};
+    const authData: AuthData = {
+      email: email,
+      name: name,
+      password: password,
+      role: role,
+    };
     const url = environment.server + '/api/user/addstaff';
     this.http
       .post(url, authData)
@@ -54,7 +58,9 @@ export class AuthService {
     this.http
       .post<{
         token: string; expiresIn: number, userId: string,
-        isAdmin: boolean, isStaff: boolean, isStudent: boolean, isInstructor: boolean
+        role: Role,
+        // isAdmin: boolean, isStaff: boolean, isFaculty: boolean,
+        // isStudent: boolean, isInstructor: boolean,
       }>(
         url,
         authData
@@ -66,13 +72,8 @@ export class AuthService {
         if (token) {
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
-          if (response.isAdmin) {
-            this.isAdminAuthenticated = true;
-          }
 
-          if (response.isStaff) {
-            this.isStaffAuthenticated = true;
-          }
+          this.role = response.role;
 
           this.userId = response.userId;
 
@@ -80,7 +81,12 @@ export class AuthService {
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           console.log(expirationDate);
-          this.saveAuthDataLocalStorage(token, expirationDate, this.userId, this.isStaffAuthenticated, this.isAdminAuthenticated );
+          this.saveAuthDataLocalStorage(
+            token,
+            expirationDate,
+            this.userId,
+            this.role,
+          );
           this.router.navigate([nextUrl || "/"]);
         }
       });
@@ -95,8 +101,9 @@ export class AuthService {
     const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
     if (expiresIn > 0) {
       this.token = authInformation.token;
-      this.isAdminAuthenticated = authInformation.isAdminAuthenticated;
-      this.isStaffAuthenticated = authInformation.isStaffAuthenticated;
+      this.role = authInformation.role;
+      // this.isAdminAuthenticated = authInformation.isAdminAuthenticated;
+      // this.isStaffAuthenticated = authInformation.isStaffAuthenticated;
       this.userId = authInformation.userId;
       this.setAuthTimer(expiresIn / 1000);
 
@@ -106,23 +113,15 @@ export class AuthService {
 
   // send out an auth change event to those listening
   triggerAuthChangeEvent() {
-    const authType: AuthType = {
-      staffAuth: this.isStaffAuthenticated,
-      adminAuth: this.isAdminAuthenticated
-    };
-    this.authStatusListener.next(authType);
+    this.authStatusListener.next(this.role);
   }
 
   // return current auth
   // refresh from local storage, in case user reloads page
-  getAuth() {
+  getRole() {
 
     this.refreshAuthDataFromLocalStorage();
-    const authType: AuthType = {
-      staffAuth: this.isStaffAuthenticated,
-      adminAuth: this.isAdminAuthenticated
-    };
-    return authType;
+    return this.role;
   }
 
   getToken() {
@@ -136,14 +135,69 @@ export class AuthService {
     if (!this.dataInitialized) {
       this.refreshAuthDataFromLocalStorage();
     }
-    return this.isAdminAuthenticated;
+    if (!this.role) {
+      return false;
+    }
+    
+    return this.role.isAdmin;
   }
 
   getIsStaffAuth() {
     if (!this.dataInitialized) {
       this.refreshAuthDataFromLocalStorage();
     }
-    return this.isStaffAuthenticated;
+    if (!this.role) {
+      return false;
+    }
+
+    return this.role.isStaff;
+  }
+
+  getIsFacultyAuth() {
+    if (!this.dataInitialized) {
+      this.refreshAuthDataFromLocalStorage();
+    }
+    if (!this.role) {
+      return false;
+    }
+
+    return this.role.isFaculty;
+  }
+
+  // staff, admin, faculty
+  getIsDspsAuth() {
+
+    if (!this.dataInitialized) {
+      this.refreshAuthDataFromLocalStorage();
+    }
+    if (!this.role) {
+      return false;
+    }
+    return this.role.isAdmin || this.role.isStaff || this.role.isFaculty;
+  }
+
+  getIsStudentAuth() {
+    if (!this.dataInitialized) {
+      this.refreshAuthDataFromLocalStorage();
+    }
+
+    if (!this.role) {
+      return false;
+    }
+
+    return this.role.isStudent;
+  }
+
+  getIsInstructorAuth() {
+    if (!this.dataInitialized) {
+      this.refreshAuthDataFromLocalStorage();
+    }
+
+    if (!this.role) {
+      return false;
+    }
+
+    return this.role.isInstructor;
   }
 
   getUserId() {
@@ -156,8 +210,7 @@ export class AuthService {
 
   logout() {
     this.token = null;
-    this.isAdminAuthenticated = false;
-    this.isStaffAuthenticated = false;
+    this.role = null;
     this.triggerAuthChangeEvent();
     this.userId = null;
     clearTimeout(this.tokenTimer);
@@ -176,29 +229,28 @@ export class AuthService {
     token: string,
     expirationDate: Date,
     userId: string,
-    isStaffAuthenticated: boolean,
-    isAdminAuthenticated: boolean) {
+    role: Role
+  ) {
     localStorage.setItem("token", token);
     localStorage.setItem("expiration", expirationDate.toISOString());
     localStorage.setItem("userId", userId);
-    localStorage.setItem("isStaffAuthenticated", String(isStaffAuthenticated));
-    localStorage.setItem("isAdminAuthenticated", String(isAdminAuthenticated));
+    localStorage.setItem("role", JSON.stringify(role));
   }
 
   private clearAuthDataLocalStorage() {
     localStorage.removeItem("token");
     localStorage.removeItem("expiration");
     localStorage.removeItem("userId");
-    localStorage.removeItem("isStaffAuthenticated");
-    localStorage.removeItem("isAdminAuthenticated");
+    localStorage.removeItem("role");
   }
 
   private getAuthDataLocalStorage() {
     const token = localStorage.getItem("token");
     const expirationDate = localStorage.getItem("expiration");
     const userId = localStorage.getItem("userId");
-    const isStaffAuthenticated = localStorage.getItem("isStaffAuthenticated");
-    const isAdminAuthenticated = localStorage.getItem("isAdminAuthenticated");
+    const roleStr = localStorage.getItem("role");
+    const role: Role = JSON.parse(roleStr);
+
     if (!token || !expirationDate) {
       return;
     }
@@ -206,8 +258,7 @@ export class AuthService {
       token: token,
       expirationDate: new Date(expirationDate),
       userId: userId,
-      isStaffAuthenticated: isStaffAuthenticated === 'true',
-      isAdminAuthenticated: isAdminAuthenticated === 'true'
+      role: role
     };
   }
 
@@ -216,8 +267,7 @@ export class AuthService {
     // TODO use expirationDate
     const tmpAuth = this.getAuthDataLocalStorage();
     if (tmpAuth) {
-      this.isAdminAuthenticated = tmpAuth.isAdminAuthenticated;
-      this.isStaffAuthenticated = tmpAuth.isStaffAuthenticated;
+      this.role = tmpAuth.role;
       this.token = tmpAuth.token;
       this.userId = tmpAuth.userId;
     }
@@ -227,11 +277,6 @@ export class AuthService {
     this.dataInitialized = true; // this will help ensure we don't keep reading from localStorage
   }
 
-  getUser(_id: string) {
-    // TODO
-  }
-
- 
 
 
 

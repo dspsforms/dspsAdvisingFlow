@@ -24,16 +24,28 @@ exports.addStaff = (req, res, next) => {
   bcrypt.hash(req.body.password, 10).then(hash => {
     const sanitizedEmail = sanitize(req.body.email);
     const sanitizedName = sanitize(req.body.name);
-    const sanitizedIsStaff = sanitize(req.body.isStaff);
-    const sanitizedIsAdmin = sanitize(req.body.isAdmin);
+    const role = req.body.role;
+
+    // for faster fetch
+    const isStudent = role && role.isStudent;
+    const isInstructor = role && role.isInstructor;
+    const isAdmin = role && role.isAdmin;
+    const isStaff = role && role.isStaff;
+    const isFaculty = role && role.isFaculty;
+
     const currentTime = new Date();
      // no query will be run on the password field, so no need to sanitize password before hashing
     const user = new User({
       email: sanitizedEmail,
       name: sanitizedName,
       password: hash,
-      isAdmin: sanitizedIsAdmin,
-      isStaff: sanitizedIsStaff,
+      role: role,
+      isStudent: isStudent,
+      isAdmin: isAdmin,
+      isStaff: isStaff,
+      isFaculty: isFaculty,
+      isInstructor: isInstructor,
+      isStudent: isStudent,
       created: currentTime,
       lastMod: currentTime
     });
@@ -100,10 +112,12 @@ exports.login = (req, res, next) => {
         {
           email: fetchedUser.email,
           userId: fetchedUser._id,
+          role: fetchedUser.role,
           isAdmin: fetchedUser.isAdmin,
           isStaff: fetchedUser.isStaff,
-          isStudent: fetchedUser.isStudent,
-          isInstructor: fetchedUser.isInstructor
+          isFaculty: fetchedUser.isFaculty,
+          isInstructor: fetchedUser.isInstructor,
+          isStudent: fetchedUser.isStudent
         },
         config.JSON_WEB_TOKEN_SERVER_KEY,
         { expiresIn: "1h" }
@@ -115,10 +129,12 @@ exports.login = (req, res, next) => {
         token: token,
         expiresIn: 3600,
         userId: fetchedUser._id,
+        role: fetchedUser.role,
         isAdmin: fetchedUser.isAdmin,
         isStaff: fetchedUser.isStaff,
-        isStudent: fetchedUser.isStudent,
-        isInstructor: fetchedUser.isInstructor
+        isFaculty: fetchedUser.isFaculty,
+        isInstructor: fetchedUser.isInstructor,
+        isStudent: fetchedUser.isStudent
       });
     })
     .catch(err => {
@@ -147,8 +163,12 @@ exports.list = (req, res, next) => {
       return {
         _id: user._id, email: user.email,
         name: user.name,
+        role: user.role,
         isAdmin: user.isAdmin,
         isStaff: user.isStaff,
+        isFaculty: user.isFaculty,
+        isInstructor: user.isInstructor,
+        isStudent: user.isStudent,
         created: user.created || null,
         lastMod: user.lastMod || null
       };

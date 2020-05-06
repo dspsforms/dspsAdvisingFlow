@@ -48,7 +48,7 @@ if it's greater than 0, a new admin will be created if it doesn't already exist
 
 if (config.FIRST_TIME > 0) {
   console.log("config.FIRST_TIME > 0, current time=", new Date());
-  const once = require('./misc/once.tmp');
+  const once = require('./misc/once');
 } else {
   console.log("config.FIRST_TIME is <= 0, current time=", new Date());
 }

@@ -1,4 +1,4 @@
-import { BaseForm } from 'src/app/forms/model/baseform.model';
+import { BaseForm } from '../../../../model/baseform.model';
 
 
 export class BlueSheetForm extends BaseForm {

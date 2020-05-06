@@ -1,0 +1,153 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add New User (faculty, staff, instructor, or admin)</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  
+  <form [formGroup]="signUpForm" (ngSubmit)="addStaffMember()" >
+
+    <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" >Email address</ion-label>
+          <ion-input type="email" formControlName="email" ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="email.touched && !email.valid">
+      <ion-col>
+        <ion-item>
+          <p *ngIf="email.errors.required">
+            Email is a required field.
+          </p>
+          <p *ngIf="!email.errors.required && email.errors.email">
+            Email format is incorrect.
+          </p>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Name</ion-label>
+          <ion-input type="text" formControlName="name" ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="name.touched && !name.valid">
+      <ion-col>
+        <ion-item>
+          <p>Name is a required field.</p>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" >Password</ion-label>
+          <ion-input type="password"  formControlName="password"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="password.touched && !password.valid">
+      <ion-col>
+        <ion-item>
+          <p>
+            Password is a required field.
+          </p>
+        </ion-item>
+        
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" >Repeat Password</ion-label>
+          <ion-input type="password"  formControlName="password2"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="password2.touched && this.signUpForm.errors?.passwordsMustMatch">
+      <ion-col>
+        <ion-item>
+          <p>Passwords must match.</p>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>Please check <u>all</u> that apply:</ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>Staff</ion-label>
+          <ion-checkbox slot="start" formControlName="isStaff"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>DSPS Faculty</ion-label>
+          <ion-checkbox slot="start" formControlName="isFaculty"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+      <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>Admin</ion-label>
+          <ion-checkbox slot="start" formControlName="isAdmin"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+      
+      <!-- <ion-col size-sm="3">
+        <ion-item>
+          <ion-label>Instructor</ion-label>
+          <ion-checkbox slot="start" formControlName="isInstructor"></ion-checkbox>
+        </ion-item>
+      </ion-col> -->
+     
+    </ion-row>
+
+    <ion-row *ngIf="(isAdmin.touched || isStaff.touched || isFaculty.touched || isInstructor.touched) 
+    && this.signUpForm.errors?.atLeastOneOfAdminOrStaff">
+      <ion-col>
+        <ion-item>
+          <p>User must be Staff, Faculty, Instructor and/or Admin</p>
+        </ion-item>
+        
+      </ion-col>
+    </ion-row>
+
+  <ion-button class="primary ion-text-right"
+  [disabled]="!signUpForm.valid || !signUpForm.dirty"
+    type="submit" >Add User</ion-button>
+
+    <div *ngIf="errCode || errMsg" class="danger">
+      <span *ngIf="errCode"> {{errCode}} </span>
+
+      <!-- add a separator, but only if both codes are displayed -->
+      <span *ngIf="errCode && errMsg"> &nbsp; - &nbsp; </span>
+
+      <span *ngIf="errMsg"> {{errMsg}} </span>
+    </div>
+
+  </ion-grid>
+
+  </form>
+
+
+</ion-content>

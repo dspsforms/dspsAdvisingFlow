@@ -1,14 +1,25 @@
-export interface AuthData {
-  email: string;
-  name?: string;
-  password: string;
-  isStaff?: boolean;
-  isAdmin?: boolean;
-  isFaculty?: boolean; // dsps faculty
-  isStudent?: boolean;
-  isInstructor?: boolean; // non dsps faculty or instructor
-  mobilePhone?: string;
+export class Role {
 
-  created?: Date; // tz format
-  lastMod?: Date;
+  constructor(
+    public isStaff: boolean,
+    public isAdmin: boolean,
+    public isFaculty: boolean, // dsps faculty
+    public isStudent?: boolean,
+    public isInstructor?: boolean, // non dsps faculty or instructor
+  ) {}
+  
+}
+
+export class AuthData {
+
+  constructor(
+    public email: string,
+    public password: string,
+    public role?: Role,
+    public name?: string,
+    public created?: Date, // tz format
+    public lastMod?: Date,
+    public mobilePhone?: string,
+  ) {}
+ 
 }

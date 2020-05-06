@@ -1,5 +1,5 @@
 
-import { CheckBoxElem, CheckBoxForm } from '../../../model/checkbox-form.model';
+import { CheckBoxElem, CheckBoxForm } from '../../../../model/checkbox-form.model';
 
 export class ExamsWithAccommodations {
 

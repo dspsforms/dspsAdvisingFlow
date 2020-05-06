@@ -8,16 +8,16 @@ module.exports = (req, res, next) => {
     req.userData = {
       email: decodedToken.email,
       userId: decodedToken.userId,
-      isAdmin: decodedToken.isAdmin,
-      isStaff: decodedToken.isStaff
+      role: decodedToken.role
     };
 
     // check if user has staff or admin permission
-    if (req.userData.isStaff || req.userData.isAdmin) {
+    if ( req.userData.role && (req.userData.role.isStaff || req.userData.role.isFaculty ||
+        req.userData.role.isAdmin)) {
       next();
     } else {
       // not admin
-      res.status(401).json({ message: "Need Staff or Admin permission" });
+      res.status(401).json({ message: "Need Staff, Faculty, or Admin permission" });
     }
 
   } catch (error) {

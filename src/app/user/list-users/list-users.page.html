@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Users</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <p>Name</p>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <p>Email</p>
+        </ion-item>
+      </ion-col>
+      <ion-col *ngIf="isAdminAuth">
+        <ion-item>
+          <p>Is Admin</p>
+        </ion-item>
+      </ion-col>
+      <ion-col *ngIf="isAdminAuth">
+        <ion-item>
+          <p>Is Staff</p>
+        </ion-item>
+      </ion-col>
+
+      <ion-col *ngIf="isAdminAuth">
+        <ion-item>
+          <p>Is Faculty</p>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-item>
+          <p>Created</p>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-item>
+          <p>Last Modified</p>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let user of users; let i=index">
+
+      <ion-col> <ion-item><p>{{ user.name }}</p></ion-item> </ion-col>
+      <ion-col> <ion-item><p>{{ user.email }}</p></ion-item> </ion-col>
+      <ion-col *ngIf="isAdminAuth"> 
+        <ion-item *ngIf="user.role?.isAdmin">
+          <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+        </ion-item>
+      </ion-col>
+      <ion-col *ngIf="isAdminAuth"> 
+        <ion-item *ngIf="user.role?.isStaff">
+          <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+        </ion-item>
+      </ion-col>
+      <ion-col *ngIf="isAdminAuth"> 
+        <ion-item *ngIf="user.role?.isFaculty">
+          <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+        </ion-item>
+      </ion-col>
+      <ion-col> <ion-item><p> {{ user.created | date:'medium' }} </p></ion-item> </ion-col>
+      <ion-col> <ion-item><p> {{ user.lastMod | date:'medium' }}  </p></ion-item> </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+  <!-- 
+
+ 
+  <table class="table table-bordered">
+    <thead>
+        <th>Name</th>
+        <th>Email</th>
+        <th *ngIf="isAdminAuth">Is Admin</th>
+        <th *ngIf="isAdminAuth">Is Staff</th>
+        <th *ngIf="isAdminAuth">Is Faculty</th>
+        <th>Created</th>
+        <th>Last Modified</th>
+    </thead>
+
+    <tr *ngFor="let user of users; let i=index" >
+
+      <td> {{ user.name }} </td>
+      <td> {{ user.email}}  </td>
+      <td *ngIf="isAdminAuth"> <i *ngIf="user.role?.isAdmin" class="glyphicon glyphicon-check"></i> </td>
+      <td *ngIf="isAdminAuth"> <i *ngIf="user.role?.isStaff" class="glyphicon glyphicon-check"></i> </td>
+      <td *ngIf="isAdminAuth"> <i *ngIf="user.role?.isFaculty" class="glyphicon glyphicon-check"></i> </td>
+      <td> {{ user.created | date:'medium' }} </td>
+      <td> {{ user.lastMod | date:'medium' }} </td>
+    </tr>
+  </table>
+
+   -->
+
+</ion-content>

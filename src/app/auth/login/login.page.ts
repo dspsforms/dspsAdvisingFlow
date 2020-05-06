@@ -1,37 +1,44 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { filter } from 'rxjs/operators';
-import { SubscriptionUtil } from '../../shared/subscription-util';
-import { Subscription } from '../../../../node_modules/rxjs';
+import { Subscription } from 'rxjs';
+import { SubscriptionUtil } from 'src/app/util/subscription-util';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  templateUrl: './login.page.html',
+  styleUrls: ['./login.page.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginPage implements OnInit, OnDestroy {
 
   user;
   errCode: string = null;
   errMsg: string = null;
 
   displaySignIn = false;
-  signInForm;
+  signInForm: FormGroup;
 
   next: string;
   querySub: Subscription;
 
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private route: ActivatedRoute,
     public fb: FormBuilder,
     private authService: AuthService)
   {
     this.signInForm = fb.group({
-      email: [ '', [Validators.required, Validators.email] ],
-      password: ['', Validators.required]
+      email: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required, Validators.email]
+      }),
+      password: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      })
     });
 
   }

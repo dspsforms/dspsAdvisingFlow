@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './auth/auth.guard';
+import { AuthDspsGuard } from './auth/guard/auth-dsps.guard';
 
 const routes: Routes = [
   {
@@ -15,7 +15,11 @@ const routes: Routes = [
   {
     path: 'forms',
     loadChildren: () => import('./forms/forms.module').then(m => m.FormsPageModule),
-    canLoad: [AuthGuard]
+    canLoad: [AuthDspsGuard]
+  },
+  {
+    path: 'showUsers',
+    loadChildren: () => import('./user/list-users/list-users.module').then( m => m.ListUsersPageModule)
   },
   
 ];
