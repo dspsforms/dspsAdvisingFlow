@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { UserService } from '../user.service';
 import { AuthData } from '../../auth/auth-data.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-users',
@@ -15,20 +16,42 @@ export class ListUsersPage implements OnInit {
 
   userListSub: Subscription;
 
-  // only admins can see the isAdmin column
+  // only admins can see isAdmin isStaff and isFaculty columns
   isAdminAuth: boolean;
 
-  constructor(private userService: UserService, private authService: AuthService) { }
+  isDspsAuth: boolean;
+
+  constructor(
+    private userService: UserService,
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit() {
 
     this.isAdminAuth = this.authService.getIsAdminAuth();
+    this.isDspsAuth = this.authService.getIsDspsAuth();
+
+    if (!this.isDspsAuth) {
+      this.router.navigateByUrl('/auth/login');
+      return;
+    }
 
     this.userListSub = this.userService.getUserListUpdated().subscribe(res => {
       this.users = res;
     });
 
+    
+  }
+
+  ionViewWillEnter() {
+
+    if (!this.isDspsAuth) {
+      this.router.navigateByUrl('/auth/login');
+      return;
+    }
+
     this.userService.listUsers();
+    
   }
 
 }

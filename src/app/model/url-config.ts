@@ -16,9 +16,20 @@ export class UrlConfig {
   static LIST_COLLECTIONS_ABSOLUTE: '/api/forms';
 
   static ADD_NEW_STAFF_USER = 'addNewStaffUser';
-  static SHOW_USERS = 'showUsers';
 
-  static SHOW_USERS_ABSOLUTE = '/showUsers';
+
+  // static SHOW_USERS = 'showUsers';
+
+  // static SHOW_USERS_ABSOLUTE = '/showUsers';
+
+  static LIST_DSPS_USERS = 'list-users/dsps-users';
+  static LIST_DSPS_USERS_ABSOLUTE = '/list-users/dsps-users';
+
+  static LIST_INSTRUCTORS = 'list-users/instructors';
+  static LIST_INSTRUCTORS_ABSOLUTE = '/list-users/instructors';
+
+  static LIST_STUDENTS = 'list-users/students';
+  static LIST_STUDENTS_ABSOLUTE = '/list-users/students';
 
   // static AGREEMENT_CREATE_EDIT = 'agreementCreateEdit';
   // static AGREEMENT_CREATE_EDIT_ABSOLUTE = '/agreementCreateEdit';

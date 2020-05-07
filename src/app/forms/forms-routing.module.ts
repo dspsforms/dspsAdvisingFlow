@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { FormsPage } from './forms.page';
+import { AuthAdminGuard } from '../auth/guard/auth-admin.guard';
+import { AuthDspsGuard } from '../auth/guard/auth-dsps.guard';
 
 const routes: Routes = [
   {
@@ -12,6 +14,33 @@ const routes: Routes = [
         path: '',
         redirectTo: '/forms/bluesheet',
         pathMatch: 'full'
+      },
+      {
+        path: 'list-users',
+        
+        children: [
+          {
+            path: '',
+            redirectTo: '/forms/list-users/dsps-users',
+            pathMatch: 'full',
+          },
+          {
+            path: 'dsps-users',
+            loadChildren: () => import('../user/list-users/list-users.module').then( m => m.ListUsersPageModule),
+            canLoad: [AuthDspsGuard]
+          },
+          // TODO
+          // {
+          //   path: 'instructors',
+          //   loadChildren: () => import('../user/list-users/list-users.module').then( m => m.ListUsersPageModule),
+          //   canLoad: [AuthAdminGuard]
+          // },
+          // {
+          //   path: 'students',
+          //   loadChildren: () => import('../user/list-users/list-users.module').then( m => m.ListUsersPageModule),
+          //   canLoad: [AuthAdminGuard]
+          // }
+        ]
       },
       {
         path: 'bluesheet',

@@ -17,10 +17,7 @@ const routes: Routes = [
     loadChildren: () => import('./forms/forms.module').then(m => m.FormsPageModule),
     canLoad: [AuthDspsGuard]
   },
-  {
-    path: 'showUsers',
-    loadChildren: () => import('./user/list-users/list-users.module').then( m => m.ListUsersPageModule)
-  },
+ 
   
 ];
 

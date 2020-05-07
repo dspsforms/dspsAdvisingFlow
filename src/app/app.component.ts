@@ -15,6 +15,8 @@ import { Subscription } from 'rxjs';
 })
 export class AppComponent {
 
+  isAdminAuth: boolean;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -31,6 +33,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.authService.getIsAdminAuth();
     });
   }
 

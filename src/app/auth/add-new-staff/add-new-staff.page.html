@@ -1,6 +1,17 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/forms/bluesheet"></ion-back-button>
+    </ion-buttons>
+
     <ion-title>Add New User (faculty, staff, instructor, or admin)</ion-title>
+
+    <ion-buttons slot="primary">
+      <ion-button *ngIf="isAdminAuth" routerLink="/list-users"> 
+        <ion-icon name="list"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 

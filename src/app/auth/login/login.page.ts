@@ -32,11 +32,11 @@ export class LoginPage implements OnInit, OnDestroy {
   {
     this.signInForm = fb.group({
       email: new FormControl(null, {
-        updateOn: 'blur',
+        // updateOn: 'blur',
         validators: [Validators.required, Validators.email]
       }),
       password: new FormControl(null, {
-        updateOn: 'blur',
+        // updateOn: 'blur',
         validators: [Validators.required]
       })
     });
@@ -72,10 +72,23 @@ export class LoginPage implements OnInit, OnDestroy {
 
   login() {
 
+    if (!this.signInForm.valid) {
+      return;
+    }
+
     // redirect to prevUrl (or / if empty) after login
     this.authService.login(this.signInForm.value.email,
       this.signInForm.value.password, this.next);
 
+
+  }
+
+  onEnterKeyDown(event) {
+    if (!this.signInForm.valid) {
+      return;
+    }
+
+    this.login();
 
   }
 

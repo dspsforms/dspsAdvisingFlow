@@ -7,7 +7,8 @@ import { AuthAdminGuard } from './guard/auth-admin.guard';
 const routes: Routes = [
   {
     path: '',
-    component: AuthPage
+    redirectTo: 'login',
+    pathMatch: 'full'
   },
   {
     path: 'login',

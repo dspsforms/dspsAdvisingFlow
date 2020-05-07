@@ -1,24 +1,14 @@
+<!-- not used. can delete -->
+
 <ion-header>
   <ion-toolbar>
-
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/forms/bluesheet"></ion-back-button>
-    </ion-buttons>
-
     <ion-title>Users</ion-title>
-
-    <ion-buttons slot="primary">
-      <ion-button *ngIf="isAdminAuth" routerLink="/auth/add-new-staff"> 
-        <ion-icon name="add"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-     
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content>
 
-  <!-- <ion-grid>
+  <ion-grid>
     <ion-row>
       <ion-col>
         <ion-item>
@@ -83,11 +73,10 @@
       <ion-col> <ion-item><p> {{ user.lastMod | date:'medium' }}  </p></ion-item> </ion-col>
 
     </ion-row>
-  </ion-grid> -->
+  </ion-grid>
 
-  
-  <div class="panel panel-default">
-    <div class="panel-body">
+  <!-- 
+
  
   <table class="table table-bordered">
     <thead>
@@ -104,22 +93,14 @@
 
       <td> {{ user.name }} </td>
       <td> {{ user.email}}  </td>
-      <td *ngIf="isAdminAuth" class="ion-text-center"> 
-        <ion-icon *ngIf="user.role?.isAdmin" name="checkmark" ></ion-icon> 
-      </td>
-      <td *ngIf="isAdminAuth" class="ion-text-center"> 
-        <ion-icon *ngIf="user.role?.isStaff" name="checkmark"></ion-icon> 
-      </td>
-      <td *ngIf="isAdminAuth" class="ion-text-center"> 
-        <ion-icon *ngIf="user.role?.isFaculty" name="checkmark"></ion-icon> 
-      </td>
+      <td *ngIf="isAdminAuth"> <i *ngIf="user.role?.isAdmin" class="glyphicon glyphicon-check"></i> </td>
+      <td *ngIf="isAdminAuth"> <i *ngIf="user.role?.isStaff" class="glyphicon glyphicon-check"></i> </td>
+      <td *ngIf="isAdminAuth"> <i *ngIf="user.role?.isFaculty" class="glyphicon glyphicon-check"></i> </td>
       <td> {{ user.created | date:'medium' }} </td>
       <td> {{ user.lastMod | date:'medium' }} </td>
     </tr>
   </table>
 
-  
-</div> <!-- panel-body -->
-</div> <!-- panel, panel-default -->
+   -->
 
 </ion-content>

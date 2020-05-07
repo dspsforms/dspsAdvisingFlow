@@ -25,7 +25,13 @@ export class BluesheetComponent implements OnInit , OnDestroy {
     public router: Router,
     public appGlobalsService: AppGlobalsService) { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  ionViewWillEnter() {
+    this.initFormObj();
+  }
+
+  initFormObj() {
 
     // blue sheet header
     this.form = new FormGroup({

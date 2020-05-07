@@ -7,6 +7,7 @@ import { AuthService } from '../auth.service';
 import { Subscription } from 'rxjs';
 import { SubscriptionUtil } from 'src/app/util/subscription-util';
 import { Role } from '../auth-data.model';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-add-new-staff',
@@ -27,12 +28,17 @@ export class AddNewStaffPage implements OnInit, OnDestroy {
 
   initialized = false;
 
+  // this is for the user interacting with the form. 
+  // user must be admin to create another user
+  isAdminAuth = false; 
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     public fb: FormBuilder,
     private authService: AuthService)
   {
+    
     this.signUpForm = fb.group({
       email: new FormControl(null, {
         updateOn: 'blur',
@@ -73,6 +79,11 @@ export class AddNewStaffPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    this.isAdminAuth = this.authService.getIsAdminAuth();
+    if (!this.isAdminAuth) {
+      this.router.navigateByUrl("/forms/blueesheet");
+    }
 
     this.initialized = true;
 

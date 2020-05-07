@@ -29,6 +29,7 @@
     "bcrypt": "^4.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "bootstrap": "^4.4.1",
     "classlist.js": "^1.1.20150312",
     "core-js": "^2.5.4",
     "dotenv": "^8.2.0",
@@ -71,5 +72,8 @@
     "tslint": "~5.15.0",
     "typescript": "~3.4.3"
   },
-  "description": "DSPS Forms, Part 2"
+  "description": "DSPS Forms, Part 2",
+  "config": {
+    "ionic_sass": "./sass.config.js"
+  }
 }

@@ -43,7 +43,7 @@ export class AuthService {
       .post(url, authData)
       .subscribe(response => {
         console.log(response);
-        this.router.navigate([nextUrl || UrlConfig.SHOW_USERS_ABSOLUTE]);
+        this.router.navigate([nextUrl || UrlConfig.LIST_DSPS_USERS_ABSOLUTE]);
       });
   }
 
