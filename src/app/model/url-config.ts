@@ -11,25 +11,32 @@ export class UrlConfig {
 
   static BLUESHEET = FormName.BLUESHEET; // 'bluesheet';
   static AAP = FormName.AAP;  // 'aap';
+
+  static ADD_NEW_DSPS_USER = '/auth/add-new-staff';
+
+  // for back buttons, if in doubt, go here
+  static DEFAULT_BACK_BUTTON_HREF = '/dsps-staff/form';
   
 
   static LIST_COLLECTIONS_ABSOLUTE: '/api/forms';
 
-  static ADD_NEW_STAFF_USER = 'addNewStaffUser';
+ 
 
 
   // static SHOW_USERS = 'showUsers';
 
   // static SHOW_USERS_ABSOLUTE = '/showUsers';
 
-  static LIST_DSPS_USERS = 'list-users/dsps-users';
-  static LIST_DSPS_USERS_ABSOLUTE = '/list-users/dsps-users';
 
-  static LIST_INSTRUCTORS = 'list-users/instructors';
-  static LIST_INSTRUCTORS_ABSOLUTE = '/list-users/instructors';
+  static LIST_DSPS_USERS = 'dsps-staff/users/list-dsps-users';
 
-  static LIST_STUDENTS = 'list-users/students';
-  static LIST_STUDENTS_ABSOLUTE = '/list-users/students';
+  static LIST_DSPS_USERS_ABSOLUTE = '/dsps-staff/users/list-dsps-users';
+
+  static LIST_INSTRUCTORS = 'dsps-staff/users/instructors';
+  static LIST_INSTRUCTORS_ABSOLUTE = '/dsps-staff/users/instructors';
+
+  static LIST_STUDENTS = 'dsps-staff/users/students';
+  static LIST_STUDENTS_ABSOLUTE = '/dsps-staff/users/students';
 
   // static AGREEMENT_CREATE_EDIT = 'agreementCreateEdit';
   // static AGREEMENT_CREATE_EDIT_ABSOLUTE = '/agreementCreateEdit';
@@ -39,10 +46,8 @@ export class UrlConfig {
   // static AGREEMENT_VIEW_ABSOLUTE = '/agreementView';
   // static AGREEMENT_VIEW_ABSOLUTE2 = '/agreementView/';
 
-  static LOGIN = 'login';
-
-
-  static LOGOUT = 'logout';
+  static LOGIN = '/auth/login';
+  static LOGOUT = '/auth/logout';
 
 
 }

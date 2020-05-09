@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { SubscriptionUtil } from 'src/app/util/subscription-util';
 import { Role } from '../auth-data.model';
 import { NavController } from '@ionic/angular';
+import { UrlConfig } from 'src/app/model/url-config';
 
 @Component({
   selector: 'app-add-new-staff',
@@ -31,6 +32,9 @@ export class AddNewStaffPage implements OnInit, OnDestroy {
   // this is for the user interacting with the form. 
   // user must be admin to create another user
   isAdminAuth = false; 
+
+  // default href for the back button
+  defaultHref = UrlConfig.DEFAULT_BACK_BUTTON_HREF;
 
   constructor(
     private router: Router,

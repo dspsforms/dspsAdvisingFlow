@@ -5,17 +5,23 @@ import { AuthDspsGuard } from './auth/guard/auth-dsps.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'forms',
+    redirectTo: 'dsps-staff',
     pathMatch: 'full'
   },
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
   },
+  // {
+  //   path: 'forms',
+  //   loadChildren: () => import('./forms/forms.module').then(m => m.FormsPageModule),
+  //   canLoad: [AuthDspsGuard]
+  // },
   {
-    path: 'forms',
-    loadChildren: () => import('./forms/forms.module').then(m => m.FormsPageModule),
+    path: 'dsps-staff',
+    loadChildren: () => import('./dsps-staff/dsps-staff.module').then(m => m.DspsStaffPageModule),
     canLoad: [AuthDspsGuard]
+  
   },
  
   

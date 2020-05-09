@@ -5,8 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './auth/auth.service';
 import { Router } from '@angular/router';
-import { AppGlobalsService } from './forms/app-globals.service';
 import { Subscription } from 'rxjs';
+import { AppGlobalsService } from './dsps-staff/form/app-globals.service';
 
 @Component({
   selector: 'app-root',

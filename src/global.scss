@@ -51,10 +51,19 @@
     display:grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
+   
  }
 
  .grid2Col h1 {
     font-size: 90%;
+ }
+
+//  .child1 {
+//    border-right: 1px solid rgb(68, 8, 179);
+//  }
+ .child2 {
+   // border-left: 1px solid rgb(49, 52, 241);
+   border-left: 1px solid rgb(207, 207, 211);
  }
 
 //  .child1 {

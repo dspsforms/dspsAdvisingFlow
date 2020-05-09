@@ -41,10 +41,10 @@ export class FormUtil {
       // return the label/title for a formName
       static formTitle(formName) {
           try {
-              FormUtil.initializeIfNecessary();
-              return FormUtil.formMap[formName];
+            FormUtil.initializeIfNecessary();
+            return FormUtil.formMap[formName];
   
-          } catch (err) { }
+          } catch (err) { console.log(err); }
       }
   
       static collection2Title(collectionName) {

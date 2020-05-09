@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="m1"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Create {{ formDisplayName }} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngIf="formName == 'bluesheet' ">
+    <app-bluesheet ></app-bluesheet>
+
+
+    <!-- <app-view-alt-media-request
+         [formKey]="data._id"
+         [wrappedForm]="data" > 
+        </app-view-alt-media-request> 
+        <app-mark-archive [data]="data" ></app-mark-archive>
+   -->
+   </div>
+
+</ion-content>
