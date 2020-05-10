@@ -33,7 +33,9 @@ export class FormsService implements OnInit {
 
   private formSaveStatus = new Subject<{ formId: string, message: string, err?: string } > ();
 
-  private formPatchStatus = new Subject<{data: WrappedForm, message: string, err?: string }>();
+  private formPatchStatus = new Subject<{ data: WrappedForm, message: string, err?: string }>();
+  
+  private fullFormPatchStatus = new Subject<{data: WrappedForm, message: string, err?: string }>();
 
   constructor(private http: HttpClient) {
     // initiaze formsUpdateMap. each entry is a key/value pair
@@ -79,6 +81,10 @@ export class FormsService implements OnInit {
 
   getFormPatchStatusListener() {
     return this.formPatchStatus.asObservable();
+  }
+
+  getFullFormPatchStatusListener() {
+    return this.fullFormPatchStatus.asObservable();
   }
 
 
@@ -201,6 +207,24 @@ export class FormsService implements OnInit {
       err => {
         console.log(err);
         this.formPatchStatus.next({ data: null, message: 'an error occured',  err: err });
+    });
+  }
+
+  patchFullForm(formData: WrappedForm, formName: string) {
+
+
+    const url = environment.server + "/api/form/full/" + formName ;
+
+    this.http
+      .patch < { data: any, message: string, err?: string } > (url, formData)
+      .subscribe( response => {
+         console.log(response);
+         this.fullFormPatchStatus.next({ data: response.data, message: response.message });
+         // this.router.navigate([nextUrl || "/"]);
+      },
+      err => {
+        console.log(err);
+        this.fullFormPatchStatus.next({ data: null, message: 'an error occured',  err: err });
     });
   }
 

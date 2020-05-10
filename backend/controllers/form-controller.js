@@ -79,6 +79,7 @@ exports.postForm = (req, res, next) => {
 
 // }
 
+// update the state field of a form
 exports.patchForm = (req, res, next) => {
 
   // https://coursework.vschool.io/mongoose-crud/
@@ -133,6 +134,68 @@ exports.patchForm = (req, res, next) => {
   );
 
 }
+
+// update the entire form
+exports.patchFullForm = (req, res, next) => {
+
+  // https://coursework.vschool.io/mongoose-crud/
+
+  console.log(req.params.id);
+  // https://stackoverflow.com/questions/17223517/mongoose-casterror-cast-to-objectid-failed-for-value-object-object-at-path
+
+
+  const formName = sanitize(req.params.formName);
+  console.log("patchFullForm. req.body=");
+  console.log(req.body);
+
+  /*
+  _id?: string;
+  state?: string;
+  */
+  const id = sanitize(req.body._id);
+
+  console.log("updating, _id=" + id);
+
+  const form = getFormModel(formName);
+
+
+
+  form.findByIdAndUpdate(
+    // the id of the item to find
+    mongoose.Types.ObjectId(id),
+
+    // the change to be made. Mongoose will smartly combine your existing
+    // document with this change, which allows for partial updates too
+    // req.body,
+    // { state: state },
+    req.body,
+
+    // an option that asks mongoose to return the updated version
+    // of the document instead of the pre-updated one.
+    { new: true },
+
+    // the callback function
+    (err, result) => {
+      console.log(result);
+
+      // Handle any possible database errors
+      // formId: string, message: string, err?: string
+      if (err) return res.status(500).send({
+        data: { _id: id },
+        message: "form data update error",
+        err: err
+      });
+      return res.status(200).json({
+        data: { _id: id },
+        message: "form data updated"
+      });
+    }
+
+  );
+
+}
+
+
 
 // "/api/form/list"  -- must have staff permission
 exports.list = (req, res, next) => {

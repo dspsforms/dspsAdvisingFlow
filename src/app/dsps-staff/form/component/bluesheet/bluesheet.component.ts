@@ -221,6 +221,20 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
     });
   }
 
+  createOrEditForm() {
+    console.log("createOrEditForm ", this.formName, "  ", this.form.value);
+    if (!this.form.valid) {
+      // may be saved as a draft later.
+      return;
+    }
+
+    if (this.mode === 'create') {
+      super.createForm();
+    } else if (this.mode === 'edit') {
+      super.editForm(this.formKey);
+    }
+  }
+
   // createOrEditForm() {
   //   console.log(this.form);
   //   if (!this.form.valid) {

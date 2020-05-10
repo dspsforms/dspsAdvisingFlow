@@ -3,7 +3,12 @@
     <ion-buttons slot="start">
       <ion-menu-button menu="m1"></ion-menu-button>
     </ion-buttons>
-    <ion-title>View {{ formInfo.formName }} </ion-title>
+    <ion-title> {{ formInfo.formTitle }} : {{ data?.form?.studentName}} </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="goToEditPage()">
+        <ion-icon slot="icon-only" name="create"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

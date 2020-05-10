@@ -16,6 +16,7 @@ export class UrlConfig {
 
   // for back buttons, if in doubt, go here
   static DEFAULT_BACK_BUTTON_HREF = '/dsps-staff/form';
+
   
 
   static LIST_COLLECTIONS_ABSOLUTE: '/api/forms';

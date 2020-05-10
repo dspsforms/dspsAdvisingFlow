@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WrappedForm } from 'src/app/model/wrapped-form.model';
-import { Config } from '@ionic/angular';
+import { Config, NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { FormsService } from '../forms.service';
 import { SubscriptionUtil } from 'src/app/util/subscription-util';
 import { FormUtil } from 'src/app/model/form.util';
+
+import { AbstractFormRead } from '../abstract-form-read';
 
 
 @Component({
@@ -12,66 +14,21 @@ import { FormUtil } from 'src/app/model/form.util';
   templateUrl: './view.page.html',
   styleUrls: ['./view.page.scss'],
 })
-export class ViewPage implements OnInit, OnDestroy {
-
-  paramSubscription;
-  dbSubscription;
-
-  busy = false;
-  showJson = false;
-
-  config: Config;
-
-  formInfo = { formName: '', formTitle: '', _id: ''};
-
-  data: WrappedForm;
+export class ViewPage extends AbstractFormRead implements OnInit, OnDestroy {
 
   constructor(
-    private route: ActivatedRoute,
-    private formService: FormsService) { }
-
-  ngOnInit() {
-
-    this.data = new WrappedForm({});
-
-    this.paramSubscription = this.route.params.subscribe(
-        params => {
-          console.log("params", params);
-  
-          this.formInfo.formName = params['formName'];
-          this.formInfo.formTitle = FormUtil.formTitle(this.formInfo.formName);
-          this.formInfo._id = params['formId'];
-  
-          this.data.formKey = params['formId'];
-          console.log("formInfo", this.formInfo);
-  
-        });
-    
-    this.busy = true;
-      
-    this.dbSubscription  = this.formService.getCurrentFormUpdatedListener().subscribe(formData => {
-          this.data = formData;
-          this.busy = false;
-    });   
-
+    public route: ActivatedRoute,
+    public formService: FormsService,
+    public navCtrl: NavController) { 
+    super(route, formService);
   }
 
-  ionViewWillEnter() {
-
-    this.data = new WrappedForm({});
-    this.busy = true;
-    this.formService.getFormData2(this.formInfo.formName, this.formInfo._id);
-
+  goToEditPage() {
+    let url = `/dsps-staff/form/edit/${this.formInfo.formName}/${this.formInfo._id}`;
+    console.log("editing url=", url);
+    this.navCtrl.navigateForward(url);
+    /*
+    routerLink="'/dsps-staff/form/edit/' + formInfo.formName + '/' + formInfo._id"
+    */
   }
-  
-  
-  
-  ngOnDestroy() {
-  
-      SubscriptionUtil.unsubscribe(this.paramSubscription);
-      SubscriptionUtil.unsubscribe(this.dbSubscription);
-  
-  }
-  
-
 }

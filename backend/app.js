@@ -30,7 +30,10 @@ mongoose.Promise = global.Promise;
 
 // add a second field options after uri if desired
 
-mongoose.connect(uri).then(
+// https://mongoosejs.com/docs/deprecations.html#findandmodify
+// 
+
+mongoose.connect(uri, { useFindAndModify: false }).then(
     () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
       console.log("connected to database ");
     },

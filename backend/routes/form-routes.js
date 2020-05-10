@@ -25,8 +25,12 @@ router.post("/:formName", FormController.postForm, emailNotify);
 // // post  "/api/form/agreement/:formName"  // add checkAuthStaff or checkAuthAdmin
 // router.post("/agreement/:formName", checkAuthAdmin, FormController.postFormAgreement);
 
-// patch  "/api/form/:formName"  // add checkAuthStaff or checkAuthAdmin
+// patch  "/api/form/:formName"  //  checkAuthDsps 
 router.patch("/:formName", checkAuthDsps, FormController.patchForm);
+
+// patch  "/api/form/full/:formName"  //  checkAuthDsps  will update full form
+router.patch("/full/:formName", checkAuthDsps, FormController.patchFullForm);
+
 
 // "/api/form/list"  -- must have staff permission
 router.get("/list", checkAuthDsps, FormController.list);

@@ -1,9 +1,30 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>edit</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="{{defaultBackButtonHref}}"></ion-back-button>
+    </ion-buttons>
+    <ion-title> Edit {{ formInfo.formTitle }} : {{ data?.form?.studentName}} </ion-title>
+    
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <div *ngIf="formInfo.formName == 'bluesheet' && data && !busy ">
+    <app-bluesheet 
+      [formKey]="data._id"
+      [wrappedForm]="data" 
+      [mode]="'edit'"
+      >
+    </app-bluesheet>
+
+
+    <!-- <app-view-alt-media-request
+         [formKey]="data._id"
+         [wrappedForm]="data" > 
+        </app-view-alt-media-request> 
+        <app-mark-archive [data]="data" ></app-mark-archive>
+   -->
+   </div>
 
 </ion-content>

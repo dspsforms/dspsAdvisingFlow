@@ -35,7 +35,7 @@
   <app-bluesheet-footer [form]="form" [grid]="grid"></app-bluesheet-footer>
   
    <!-- [disabled]="!form.valid" -->
-  <ion-grid>
+  <ion-grid *ngIf="mode !== 'view'">
     <ion-row>
       <ion-col size-sm="6">
         <ion-button type="submit" 
