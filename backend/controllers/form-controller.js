@@ -4,18 +4,22 @@ mongoose.Promise = global.Promise;
 
 const debug = require('../constants/debug');
 
-const IntakeForm = require('../models/intake-form-model');
-const AltMediaRequest = require('../models/alt-media-request-form-model');
-const ApplicationForServices = require('../models/application-for-services-form-model');
+const BluesheetForm = require('../models/bluesheet-form-model');
+const AapForm = require('../models/aap-form-model');
 
-const EmergencyEvacInfo = require('../models/emergency-evac-info-model');
-const Feedback = require('../models/feedback-model');
+// these are for the other server (dsps-forms.missioncollege.edu)
+// const IntakeForm = require('../models/intake-form-model');
+// const AltMediaRequest = require('../models/alt-media-request-form-model');
+// const ApplicationForServices = require('../models/application-for-services-form-model');
 
-const Complaint = require('../models/complaint-model');
+// const EmergencyEvacInfo = require('../models/emergency-evac-info-model');
+// const Feedback = require('../models/feedback-model');
 
-const HistoryOfDisabilty = require('../models/history-of-disability-model');
+// const Complaint = require('../models/complaint-model');
 
-const FormAgreement = require('../models/form-agreement-model');
+// const HistoryOfDisabilty = require('../models/history-of-disability-model');
+
+// const FormAgreement = require('../models/form-agreement-model');
 
 // for complaint forms, user must be an admin.
 const isAdminAuthorized = require('../middleware/check-auth-admin-boolean');
@@ -52,28 +56,28 @@ exports.postForm = (req, res, next) => {
 
 }
 
-exports.postFormAgreement = (req, res, next) => {
+// exports.postFormAgreement = (req, res, next) => {
 
-  const form = createForm(req, true); // true == isAgreement
+//   const form = createForm(req, true); // true == isAgreement
 
-  form.save().then( createdForm => {
-          // success
-          console.log("after save, createdForm=", createdForm);
-          res.status(201).json({
-              message: 'Form ' + form.formName + ' added successfully',
-              formId: createdForm._id
-          });
+//   form.save().then( createdForm => {
+//           // success
+//           console.log("after save, createdForm=", createdForm);
+//           res.status(201).json({
+//               message: 'Form ' + form.formName + ' added successfully',
+//               formId: createdForm._id
+//           });
 
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(401).json({
-      message: 'Form save failed',
-      err: err
-    });
-  });
+//   })
+//   .catch(err => {
+//     console.log(err);
+//     res.status(401).json({
+//       message: 'Form save failed',
+//       err: err
+//     });
+//   });
 
-}
+// }
 
 exports.patchForm = (req, res, next) => {
 
@@ -306,34 +310,34 @@ exports.getAForm = (req, res, next) => {
 
 }
 
-// get "/api/form/agreement/:formName"  -- no permission required to get this
-exports.getFormAgreement = (req, res, next) => {
+// // get "/api/form/agreement/:formName"  -- no permission required to get this
+// exports.getFormAgreement = (req, res, next) => {
 
-  const formName = sanitize(req.params.formName);
+//   const formName = sanitize(req.params.formName);
 
 
-  const form = FormAgreement;
+//   const form = FormAgreement;
 
-  console.log("fetching agreement for =", formName);
+//   console.log("fetching agreement for =", formName);
 
-  form.findOne({ formName: formName }).sort({ field: 'asc', _id: -1 }).limit(1).then(
-      document => {
-        console.log("forms from db", document);
-        res.status(200).json({
-          message: "Form fetched successfully",
-          formData: document
-        });
-      }
-  )
-  .catch((err) => {
-    console.log(err);
-    res.status(404).json({
-      message: "Fetching form agreement failed",
-      err: err
-    });
-  });
+//   form.findOne({ formName: formName }).sort({ field: 'asc', _id: -1 }).limit(1).then(
+//       document => {
+//         console.log("forms from db", document);
+//         res.status(200).json({
+//           message: "Form fetched successfully",
+//           formData: document
+//         });
+//       }
+//   )
+//   .catch((err) => {
+//     console.log(err);
+//     res.status(404).json({
+//       message: "Fetching form agreement failed",
+//       err: err
+//     });
+//   });
 
-}
+// }
 
 // delete "/api/form/:formName/:id"  -- with this pattern, need staff level perm
 exports.deleteAForm = (req, res, next) => {
@@ -380,126 +384,128 @@ exports.deleteAForm = (req, res, next) => {
 // return the mongoose model correspoding to formName
 getFormModel = formName => {
   let form;
-  if (formName == 'intakeForm') {
-    form = IntakeForm;
-  } else if (formName === 'altMediaRequest') {
-    form = AltMediaRequest;
-  } else if (formName === 'applicationForServices') {
-    form = ApplicationForServices;
-  } else if (formName === 'emergencyEvacInfo') {
-    form = EmergencyEvacInfo;
-  } else if (formName === 'feedback') {
-    form = Feedback;
-  } else if (formName === 'complaint') {
-    form = Complaint;
-  } else if (formName === 'historyOfDisability') {
-    form = HistoryOfDisabilty;
+  if (formName == 'bluesheet') {
+    form = BluesheetForm;
+  } else if (formName === 'aap') {
+    form = AapForm;
   }
+  // else if (formName === 'applicationForServices') {
+  //   form = ApplicationForServices;
+  // } else if (formName === 'emergencyEvacInfo') {
+  //   form = EmergencyEvacInfo;
+  // } else if (formName === 'feedback') {
+  //   form = Feedback;
+  // } else if (formName === 'complaint') {
+  //   form = Complaint;
+  // } else if (formName === 'historyOfDisability') {
+  //   form = HistoryOfDisabilty;
+  // }
 
   return form;
 }
 
-createForm = (req, isAgreement) => {
+createForm = (req) => {
 
   // the parameter isAgreement is optional
 
-  const captchaFree = removeCaptcha(req.body);
+  // const captchaFree = removeCaptcha(req.body);
 
   let form;
   const currentTime = new Date();
 
   const formName = sanitize(req.params.formName);
 
-  const captchaScore = req.body.captchaScore;
+  // const captchaScore = req.body.captchaScore;
 
-  if (isAgreement) {
-    form = new FormAgreement({
-      formName: formName,
-      user: sanitize(req.body.user),
-      form: sanitize(captchaFree.form), // "tmp form string",
-      edited: false,
-      created: currentTime,
-      lastMod: currentTime,
-      captchaScore: captchaScore
-    });
+  // if (isAgreement) {
+  //   form = new FormAgreement({
+  //     formName: formName,
+  //     user: sanitize(req.body.user),
+  //     form: sanitize(captchaFree.form), // "tmp form string",
+  //     edited: false,
+  //     created: currentTime,
+  //     lastMod: currentTime,
+  //     captchaScore: captchaScore
+  //   });
 
-    return form;
+  //   return form;
 
-  }
+  // }
 
   // else. not user agreement
 
-  if (formName === 'intakeForm') {
-    form = new IntakeForm({
+  if (formName === 'bluesheet') {
+    form = new BluesheetForm({
       formName: formName,
       user: sanitize(req.body.user),
-      form: sanitize(captchaFree.form), // "tmp form string",
+      form: sanitize(req.body.form), // "tmp form string",
       edited: false,
       created: currentTime,
       lastMod: currentTime,
-      captchaScore: captchaScore
+      // captchaScore: captchaScore
     });
-  } else if (req.params.formName === 'altMediaRequest') {
-    form = new AltMediaRequest({
+  } else if (req.params.formName === 'aap') {
+    form = new AapForm({
       formName: formName,
       user: sanitize(req.body.user),
       form: sanitize(captchaFree.form), // "tmp form string",
       edited: false,
       created: currentTime,
       lastMod: currentTime,
-      captchaScore: captchaScore
-    });
-  } else if (req.params.formName === 'applicationForServices') {
-    form = new ApplicationForServices({
-      formName: formName,
-      user: sanitize(req.body.user),
-      form: sanitize(captchaFree.form), // "tmp form string",
-      edited: false,
-      created: currentTime,
-      lastMod: currentTime,
-      captchaScore: captchaScore
-    });
-  } else if (req.params.formName === 'emergencyEvacInfo') {
-    form = new EmergencyEvacInfo({
-      formName: formName,
-      user: sanitize(req.body.user),
-      form: sanitize(captchaFree.form), // "tmp form string",
-      edited: false,
-      created: currentTime,
-      lastMod: currentTime,
-      captchaScore: captchaScore
-    });
-  } else if (req.params.formName === 'feedback') {
-    form = new Feedback({
-      formName: formName,
-      user: sanitize(req.body.user),
-      form: sanitize(captchaFree.form), // "tmp form string",
-      edited: false,
-      created: currentTime,
-      lastMod: currentTime,
-      captchaScore: captchaScore
-    });
-  } else if (req.params.formName === 'complaint') {
-    form = new Complaint({
-      formName: formName,
-      user: sanitize(req.body.user),
-      form: sanitize(captchaFree.form), // "tmp form string",
-      edited: false,
-      created: currentTime,
-      lastMod: currentTime,
-      captchaScore: captchaScore
-    });
-  } else if (req.params.formName === 'historyOfDisability') {
-    form = new HistoryOfDisabilty({
-      formName: formName,
-      user: sanitize(req.body.user),
-      form: sanitize(captchaFree.form), // "tmp form string",
-      edited: false,
-      created: currentTime,
-      lastMod: currentTime,
-      captchaScore: captchaScore
+      // captchaScore: captchaScore
     });
   }
+  // else if (req.params.formName === 'applicationForServices') {
+  //   form = new ApplicationForServices({
+  //     formName: formName,
+  //     user: sanitize(req.body.user),
+  //     form: sanitize(captchaFree.form), // "tmp form string",
+  //     edited: false,
+  //     created: currentTime,
+  //     lastMod: currentTime,
+  //     captchaScore: captchaScore
+  //   });
+  // } else if (req.params.formName === 'emergencyEvacInfo') {
+  //   form = new EmergencyEvacInfo({
+  //     formName: formName,
+  //     user: sanitize(req.body.user),
+  //     form: sanitize(captchaFree.form), // "tmp form string",
+  //     edited: false,
+  //     created: currentTime,
+  //     lastMod: currentTime,
+  //     captchaScore: captchaScore
+  //   });
+  // } else if (req.params.formName === 'feedback') {
+  //   form = new Feedback({
+  //     formName: formName,
+  //     user: sanitize(req.body.user),
+  //     form: sanitize(captchaFree.form), // "tmp form string",
+  //     edited: false,
+  //     created: currentTime,
+  //     lastMod: currentTime,
+  //     captchaScore: captchaScore
+  //   });
+  // } else if (req.params.formName === 'complaint') {
+  //   form = new Complaint({
+  //     formName: formName,
+  //     user: sanitize(req.body.user),
+  //     form: sanitize(captchaFree.form), // "tmp form string",
+  //     edited: false,
+  //     created: currentTime,
+  //     lastMod: currentTime,
+  //     captchaScore: captchaScore
+  //   });
+  // } else if (req.params.formName === 'historyOfDisability') {
+  //   form = new HistoryOfDisabilty({
+  //     formName: formName,
+  //     user: sanitize(req.body.user),
+  //     form: sanitize(captchaFree.form), // "tmp form string",
+  //     edited: false,
+  //     created: currentTime,
+  //     lastMod: currentTime,
+  //     captchaScore: captchaScore
+  //   });
+  // }
 
   // console.log("req.params=", req.params);
   // console.log("req.body=", req.body);
@@ -515,21 +521,21 @@ createForm = (req, isAgreement) => {
 
 }
 
-removeCaptcha = form => {
-  // remove the reCaptchaV3Token field. also sanitize
+// removeCaptcha = form => {
+//   // remove the reCaptchaV3Token field. also sanitize
 
-  if (debug.CREATE_FORM) {
-    console.log("removeCaptcha: form with captcha", form);
-  }
+//   if (debug.CREATE_FORM) {
+//     console.log("removeCaptcha: form with captcha", form);
+//   }
 
-  const form2Save = form;
-  delete form2Save.reCaptchaV3Token;
+//   const form2Save = form;
+//   delete form2Save.reCaptchaV3Token;
 
-  if (debug.CREATE_FORM) {
-    console.log("removeCaptcha: form2Save with captcha removed", form2Save);
-  }
+//   if (debug.CREATE_FORM) {
+//     console.log("removeCaptcha: form2Save with captcha removed", form2Save);
+//   }
 
-  return form2Save;
-}
+//   return form2Save;
+// }
 
 

@@ -1,8 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { AppGlobalsService } from '../../app-globals.service';
+import { AbstractFormSubmit } from '../../abstract-form-submit';
+import { FormName } from 'src/app/model/form.util';
+import { FormsService } from '../../forms.service';
+import { LastOperationStatusService } from '../../last-operation-status.service';
+import { WrappedForm } from 'src/app/model/wrapped-form.model';
 
 
 
@@ -11,114 +15,112 @@ import { AppGlobalsService } from '../../app-globals.service';
   templateUrl: './bluesheet.component.html',
   styleUrls: ['./bluesheet.component.scss'],
 })
-export class BluesheetComponent implements OnInit , OnDestroy {
+export class BluesheetComponent extends AbstractFormSubmit implements OnInit, OnDestroy {
 
-  public form: FormGroup;
-
-  private globalsSub: Subscription;
-
-  public grid: boolean;
+  @Input() formKey; // for view and edit
+  @Input() wrappedForm: WrappedForm; // when form has data
+  @Input() mode: 'create' | 'view' | 'edit';
 
   
 
   constructor(
     public router: Router,
-    public appGlobalsService: AppGlobalsService) { }
+    public formsService: FormsService,
+    public appGlobalsService: AppGlobalsService,
+    public lastOpStatusService: LastOperationStatusService,
+    ) { 
+      super(FormName.BLUESHEET, router, formsService, appGlobalsService, lastOpStatusService);
+    }
 
   ngOnInit() {
+    super.ngOnInit();
     this.initFormObj();
    }
 
   ionViewWillEnter() {
+    super.ionViewWillEnter();
     this.initFormObj();
   }
 
   initFormObj() {
 
+    
     // blue sheet header
     this.form = new FormGroup({
-      instructor: new FormControl(null, {
+      instructor: new FormControl( null, {
         updateOn: 'blur',
         validators: [Validators.required]
       }),
-      semester: new FormControl(null, {
-        updateOn: 'blur',
-      }),
-      year: new FormControl(null, {
+      semester: new FormControl(null , { updateOn: 'blur'}),
+      year: new FormControl( null , {
         updateOn: 'blur',
         validators: [Validators.min(2019)]
       }),
-      course: new FormControl(null, {
+      course: new FormControl( null, {
         updateOn: 'blur'
       }),
-      section: new FormControl(null, {
-        updateOn: 'blur'
-      }),
-      room: new FormControl(null, {
-        updateOn: 'blur'
-      }),
-      dayTime: new FormControl(null, {
-        updateOn: 'blur'
-      }),
+      section: new FormControl( null, { updateOn: 'blur' }),
+      room: new FormControl( null, { updateOn: 'blur' }),
+      dayTime: new FormControl( null, {  updateOn: 'blur' }),
       // these two will require a workflow
       // studentAck: new FormControl(false, { updateOn: 'blur' }),
       // studentAckDate: new FormControl(null, { updateOn: 'blur' }),
       instructionalMode: new FormGroup({
-        onlineCanvas: new FormControl(false, { updateOn: 'blur' }),
+        onlineCanvas: new FormControl( false, { updateOn: 'blur' }),
         synchronous: new FormControl(false, { updateOn: 'blur' }),
-        asynchronous: new FormControl(false, { updateOn: 'blur' }),
-        hybrid: new FormControl(false, { updateOn: 'blur' }),
+        asynchronous: new FormControl( false, { updateOn: 'blur' }),
+        hybrid: new FormControl( false, {  updateOn: 'blur' }),
       }),
       studentName: new FormControl(null, {
         updateOn: 'blur',
         validators: [Validators.required]
       }),
-      collegeId: new FormControl(null, {
+      collegeId: new FormControl( null, {
         updateOn: 'blur',
         validators: [Validators.required]
       }),
-      studentEmail: new FormControl(null, {
+      studentEmail: new FormControl( null, {
         updateOn: 'blur',
         validators: [Validators.email]
       }),
       examsWithAccommodations: new FormGroup({
         // extendedTime, 1.5x, 2x etc should be hierarchical, but taking a shortcut because users are waiting
-        extendedTime: new FormControl(false, { updateOn: 'blur' }),
-        oneAndHalfX: new FormControl(false, { updateOn: 'blur' }),
+        extendedTime: new FormControl( false,  { updateOn: 'blur' }),
+        oneAndHalfX: new FormControl( false,  { updateOn: 'blur' }),
         twoX: new FormControl(false, { updateOn: 'blur' }),
-        threeX: new FormControl(false, { updateOn: 'blur' }),
+        threeX: new FormControl( false, { updateOn: 'blur' }),
 
         // same with breaks. should be hierarchical
-        breaks: new FormControl(false, { updateOn: 'blur' }),
+        breaks: new FormControl( false,  { updateOn: 'blur' }),
         twoMinPerHr: new FormControl(false, { updateOn: 'blur' }),
-        fiveMinPerHr: new FormControl(false, { updateOn: 'blur' }),
+        fiveMinPerHr: new FormControl( false, { updateOn: 'blur' }),
         asNeeded: new FormControl(false, { updateOn: 'blur' }),
 
-        reader: new FormControl(false, { updateOn: 'blur' }),
+        reader: new FormControl( false, { updateOn: 'blur' }),
         scribe: new FormControl(false, { updateOn: 'blur' }),
 
-        spellChecker: new FormControl(false, { updateOn: 'blur' }),
+        spellChecker: new FormControl( false, { updateOn: 'blur' }),
 
         basicCalc: new FormControl(false, { updateOn: 'blur' }),
-        multTable: new FormControl(false, { updateOn: 'blur' }),
+        multTable: new FormControl( false, { updateOn: 'blur' }),
 
-        adaptedComputer: new FormControl(false, { updateOn: 'blur' }),
+        adaptedComputer: new FormControl( false, { updateOn: 'blur' }),
 
-        reducedDistractionEnv: new FormControl(false, { updateOn: 'blur' }),
+        reducedDistractionEnv: new FormControl( false, { updateOn: 'blur' }),
 
-        remoteProctoring: new FormControl(false, { updateOn: 'blur' }), // without recorded audio video
-        enlargedPrint: new FormControl(false, { updateOn: 'blur' }),
-        specifyFont: new FormControl(false, { updateOn: 'blur' }),
+        remoteProctoring: new FormControl( false, { updateOn: 'blur' }), // without recorded audio video
+        enlargedPrint: new FormControl( false,  { updateOn: 'blur' }),
+        specifyFont: new FormControl( null, { updateOn: 'blur' }),
 
-        magnification: new FormControl(false, { updateOn: 'blur' }),
+        magnification: new FormControl( false, { updateOn: 'blur' }),
 
-        braille: new FormControl(false, { updateOn: 'blur' }),
-        ebae: new FormControl(false, { updateOn: 'blur' }),
-        ueb: new FormControl(false, { updateOn: 'blur' }),
-        nemeth: new FormControl(false, { updateOn: 'blur' }),
+        braille: new FormControl( false, { updateOn: 'blur' }),
+        ebae: new FormControl( false, { updateOn: 'blur' }),
+        ueb: new FormControl( false,  { updateOn: 'blur' }),
+        nemeth: new FormControl(false,  { updateOn: 'blur' }),
 
-        tactileGraphics: new FormControl(false, { updateOn: 'blur' }),
-        other: new FormControl(null, { updateOn: 'blur' }),
+        tactileGraphics: new FormControl( false,  { updateOn: 'blur' }),
+        other: new FormControl( null,{ updateOn: 'blur' }),
       }),
       auxiliaryAids: new FormGroup({
         dspsTutoring: new FormControl(false, { updateOn: 'blur' }),
@@ -170,32 +172,60 @@ export class BluesheetComponent implements OnInit , OnDestroy {
         other: new FormControl(null, { updateOn: 'blur' })
       }),
       general: new FormGroup({
-        envAdjustments: new FormControl(null, { updateOn: 'blur' }),
+        envAdjustments: new FormControl( null, { updateOn: 'blur' }),
         generalNotes: new FormControl(null, { updateOn: 'blur' })
       }),
-      completedBy: new FormControl(null, { updateOn: 'blur' }),
-      completedByDate: new FormControl(null, { updateOn: 'blur' }),
+      completedBy: new FormControl( null, { updateOn: 'blur' }),
+      completedByDate: new FormControl( null,  { updateOn: 'blur' }),
     });
 
 
-    // initial value of grid
-    this.grid = this.appGlobalsService.getGrid();
-
-    // subscribe to changes in grid
-    this.globalsSub = this.appGlobalsService.getGridValueChangeListener()
-      .subscribe(data => {
-        this.grid = data.grid;
-      });
-  }
-
-  createOrEditForm() {
-    console.log(this.form);
-  }
-  
-  ngOnDestroy() {
-    if (this.globalsSub) {
-      this.globalsSub.unsubscribe();
+    if (this.mode === 'view' || this.mode === 'edit') {
+      this.initVal(this.form, this.wrappedForm.form);
     }
+
+    if (this.mode === 'view') {
+      this.disableForm(this.form);
+    }
+
+      
+      
+
+
+    
   }
+
+  disableForm(formGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.disable();
+      } else if (control instanceof FormGroup) {
+        // recurse down the tree
+        this.disableForm(control); 
+      }
+    });
+  }
+
+  initVal(formGroup, data) {
+    console.log("formGroup", formGroup);
+    console.log("data" , data);
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.setValue(data[field]);
+      } else if (control instanceof FormGroup) {
+        // recurse down the tree
+        this.initVal(control, data[field]); 
+      }
+    });
+  }
+
+  // createOrEditForm() {
+  //   console.log(this.form);
+  //   if (!this.form.valid) {
+  //     return;
+  //   }
+  // }
 
 }
