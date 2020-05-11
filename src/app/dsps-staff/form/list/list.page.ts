@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PaginationService } from '../component/pagination/pagination.service';
 import { FormUtil, FormName } from 'src/app/model/form.util';
 import { SubscriptionUtil } from 'src/app/util/subscription-util';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-list',
@@ -44,7 +45,8 @@ export class ListPage implements OnInit, OnDestroy {
   constructor(
     private formService: FormsService,
     private paginationService: PaginationService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private navCtrl: NavController
   ) { }
 
   ngOnInit() {
@@ -117,7 +119,7 @@ export class ListPage implements OnInit, OnDestroy {
 
   getVal(item) {
     if (this.formInfo.formName === FormName.BLUESHEET) {
-      return item.form.studentName;
+      return item.form.studentName + '  -  ' + item.form.course;
     }
 
     // old site:
@@ -156,6 +158,10 @@ export class ListPage implements OnInit, OnDestroy {
     } else {
       return itemState === this.state;
     }
+  }
+
+  onCreateForm() {
+    this.navCtrl.navigateForward(UrlConfig.CREATE_FORM_PRE_ABSOLUTE + this.formInfo.formName);
   }
 
 

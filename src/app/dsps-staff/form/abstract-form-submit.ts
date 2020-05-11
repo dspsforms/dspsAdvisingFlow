@@ -11,6 +11,7 @@ import { SubscriptionUtil } from "../../util/subscription-util";
 import { StatusMessage } from "../../model/status-message";
 import { AppGlobalsService } from './app-globals.service';
 import { EditedForm } from 'src/app/model/edited-form.model';
+import { UrlConfig } from 'src/app/model/url-config';
 
 // base class for form submits
 
@@ -179,6 +180,15 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
         this.initVal(control, data[field]); 
       }
     });
+  }
+
+  onCancel() {
+    // need a guard
+    if (this.form.dirty) {
+      // TODO ask user to confirm if the form is dirty
+    }
+
+    this.router.navigateByUrl(UrlConfig.LIST_FORMS_PRE_ABSOLUTE + this.formName);
   }
 
   ngOnDestroy() {

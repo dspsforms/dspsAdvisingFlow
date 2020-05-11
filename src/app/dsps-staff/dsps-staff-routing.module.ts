@@ -11,7 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/dsps-staff/form',
+        redirectTo: '/dsps-staff/form/list/bluesheet',
         pathMatch: 'full'
       },
       {

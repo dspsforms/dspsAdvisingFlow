@@ -39,6 +39,10 @@ export class UrlConfig {
   static LIST_STUDENTS = 'dsps-staff/users/students';
   static LIST_STUDENTS_ABSOLUTE = '/dsps-staff/users/students';
 
+  static LIST_FORMS_PRE_ABSOLUTE = 'dsps-staff/form/list/'; // append formName
+
+  static CREATE_FORM_PRE_ABSOLUTE = '/dsps-staff/form/create/'; // append formName 
+
   // static AGREEMENT_CREATE_EDIT = 'agreementCreateEdit';
   // static AGREEMENT_CREATE_EDIT_ABSOLUTE = '/agreementCreateEdit';
   // static AGREEMENT_CREATE_EDIT_ABSOLUTE2 = '/agreementCreateEdit/';
