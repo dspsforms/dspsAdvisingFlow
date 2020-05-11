@@ -356,8 +356,14 @@ exports.getAForm = (req, res, next) => {
     // TODO fetch only some select fields from db; also (limit, offeset)
   form.findById(sanitize(req.params._id)).then(
       document => {
-        console.log("forms from db", document);
-        res.status(200).json({
+      console.log("forms from db", document);
+      // test version
+      // let historyModel = form.getHistoryModel();
+      // historyModel.find({ parent: req.params._id }).then(historyDocs => {
+      //   console.log("history logs: ", historyDocs);
+      // });
+      
+      res.status(200).json({
           message: "Form fetched successfully",
           formData: document
         });

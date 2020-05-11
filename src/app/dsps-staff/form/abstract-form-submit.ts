@@ -1,4 +1,4 @@
-import { FormGroup } from "@angular/forms";
+import { FormGroup, FormControl } from "@angular/forms";
 import { SavedForm } from "../../model/saved-form.model";
 import { Subscription } from "rxjs";
 import { FormUtil } from "../../model/form.util";
@@ -155,6 +155,31 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
     } // if this.form.dirty and this.form.valid
   }
 
+  disableForm(formGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.disable();
+      } else if (control instanceof FormGroup) {
+        // recurse down the tree
+        this.disableForm(control); 
+      }
+    });
+  }
+
+  initVal(formGroup, data) {
+    console.log("formGroup", formGroup);
+    console.log("data" , data);
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.setValue(data[field]);
+      } else if (control instanceof FormGroup) {
+        // recurse down the tree
+        this.initVal(control, data[field]); 
+      }
+    });
+  }
 
   ngOnDestroy() {
     SubscriptionUtil.unsubscribe(this.formSaveStatusSub);

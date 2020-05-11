@@ -187,39 +187,12 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
     if (this.mode === 'view') {
       this.disableForm(this.form);
     }
-
-      
-      
-
-
     
   }
 
-  disableForm(formGroup) {
-    Object.keys(formGroup.controls).forEach(field => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        control.disable();
-      } else if (control instanceof FormGroup) {
-        // recurse down the tree
-        this.disableForm(control); 
-      }
-    });
-  }
+ 
 
-  initVal(formGroup, data) {
-    console.log("formGroup", formGroup);
-    console.log("data" , data);
-    Object.keys(formGroup.controls).forEach(field => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        control.setValue(data[field]);
-      } else if (control instanceof FormGroup) {
-        // recurse down the tree
-        this.initVal(control, data[field]); 
-      }
-    });
-  }
+
 
   createOrEditForm() {
     console.log("createOrEditForm ", this.formName, "  ", this.form.value);
@@ -235,11 +208,5 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
     }
   }
 
-  // createOrEditForm() {
-  //   console.log(this.form);
-  //   if (!this.form.valid) {
-  //     return;
-  //   }
-  // }
 
 }
