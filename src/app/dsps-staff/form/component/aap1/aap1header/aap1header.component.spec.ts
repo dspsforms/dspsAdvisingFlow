@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { AapComponent } from './aap.component';
+import { Aap1headerComponent } from './aap1header.component';
 
-describe('AapComponent', () => {
-  let component: AapComponent;
-  let fixture: ComponentFixture<AapComponent>;
+describe('Aap1headerComponent', () => {
+  let component: Aap1headerComponent;
+  let fixture: ComponentFixture<Aap1headerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AapComponent ],
+      declarations: [ Aap1headerComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AapComponent);
+    fixture = TestBed.createComponent(Aap1headerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -1,0 +1,63 @@
+<div [formGroup]="form">
+
+
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating">Semester</ion-label>
+      <ion-input 
+        type="text"
+        formControlName="semester"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-list>
+      <ion-item>
+        <ion-label  position="floating">Name *</ion-label>
+        <ion-input 
+          type="text"
+          formControlName="studentName"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="form.get('studentName').touched && !form.get('studentName').valid">
+        <ion-label>Need a student name</ion-label>
+      </ion-item>
+    </ion-list>  
+  </ion-col>
+  <ion-col>
+    <ion-list>
+      <ion-item>
+        <ion-label  position="floating">Student ID *</ion-label>
+        <ion-input 
+          type="text"
+          formControlName="collegeId"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="form.get('collegeId').touched && !form.get('collegeId').valid">
+        <ion-label>Need Student ID</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <h2>General Description</h2>
+   <p>
+    The services listed below may be provided to a student by DSPS only 
+    if all of the following conditions have been met: 
+    (1) the approved accommodations do not duplicate services or instruction which 
+    are otherwise available to all students; 
+    (2) the accommodations are directly related to the educational limitations of 
+    the verified disabilities of the student to be served; 
+    (3) the accommodations are directly related to the student’s participation in 
+    the educational process at this college; and (4) the accommodations are 
+    intended to promote the maximum independence and integration of the student, 
+    and aid in supporting the student’s participation in educational activities 
+    consistent with the mission of the community colleges. In addition,
+     the college may decline to provide accommodations that would necessitate 
+     fundamental alterations of academic requirements.
+   </p>
+  </ion-col>
+</ion-row>
+
+</div>

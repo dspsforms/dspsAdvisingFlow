@@ -49,7 +49,9 @@ export class ListPage implements OnInit, OnDestroy {
     private navCtrl: NavController
   ) { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  ionViewWillEnter() {
 
     this.paramSubscription = this._route.params.subscribe(params => {
       this.formInfo.formName = params["formName"];
@@ -104,7 +106,10 @@ export class ListPage implements OnInit, OnDestroy {
 
   } // ngOnInit
 
-  ngOnDestroy() {
+  ngOnDestroy() { }
+
+  ionViewWillLeave() {
+
     SubscriptionUtil.unsubscribe(this.dbSubscription);
     SubscriptionUtil.unsubscribe(this.paramSubscription);
   }

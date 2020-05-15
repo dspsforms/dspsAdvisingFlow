@@ -7,6 +7,7 @@ import { FormName } from 'src/app/model/form.util';
 import { FormsService } from '../../forms.service';
 import { LastOperationStatusService } from '../../last-operation-status.service';
 import { WrappedForm } from 'src/app/model/wrapped-form.model';
+import { AuthService } from 'src/app/auth/auth.service';
 
 
 
@@ -26,10 +27,11 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
   constructor(
     public router: Router,
     public formsService: FormsService,
+    public authService: AuthService,
     public appGlobalsService: AppGlobalsService,
     public lastOpStatusService: LastOperationStatusService,
     ) { 
-      super(FormName.BLUESHEET, router, formsService, appGlobalsService, lastOpStatusService);
+      super(FormName.BLUESHEET, router, formsService, authService, appGlobalsService, lastOpStatusService);
     }
 
   ngOnInit() {

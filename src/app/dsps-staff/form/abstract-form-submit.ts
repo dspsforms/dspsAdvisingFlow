@@ -1,5 +1,5 @@
 import { FormGroup, FormControl } from "@angular/forms";
-import { SavedForm } from "../../model/saved-form.model";
+import { SavedForm, VersionDetail } from "../../model/saved-form.model";
 import { Subscription } from "rxjs";
 import { FormUtil } from "../../model/form.util";
 import { Router } from "@angular/router";
@@ -12,6 +12,8 @@ import { StatusMessage } from "../../model/status-message";
 import { AppGlobalsService } from './app-globals.service';
 import { EditedForm } from 'src/app/model/edited-form.model';
 import { UrlConfig } from 'src/app/model/url-config';
+import { UserService } from '../user/user.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 // base class for form submits
 
@@ -35,6 +37,7 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
     public formName: string,
     public router: Router,
     public formService: FormsService,
+    public authService: AuthService,
     public appGlobalsService: AppGlobalsService, 
     public lastOpStatusService: LastOperationStatusService)
   {
@@ -57,22 +60,62 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
   ionViewWillEnter() {
     this.title = FormUtil.formTitle(this.formName);
   }
-
+ 
+  getUserId() {
+    return this.authService.getUserId();
+  }
   
+   /* for each property in form (and recursively), add {version: 1}
+        so if foo: val
+        change to foo: [ { data: val, version: 1} ]
+
+        if foo == {...} 
+        foo: [ { data: {...}, version: 1 } ]
+    */
+  
+  // modifyValueObj(node) {
+
+  //   const result = {};
+  //   if (typeof node === "string" || typeof node === "number" ||
+  //     typeof node === "boolean") {
+
+  //   }
+  //   Object.keys(node).forEach(field => {
+  //     const val = node.get(field);
+  //     if (val instanceof Object) {
+  //       // recurse down the tree
+  //       const children = this.modifyValueObj(val);
+  //     } else if (control instanceof FormGroup) {
+  //       // recurse down the tree
+  //       this.initVal(control, data[field]); 
+  //     }
+  //   });
+    
+  // }
 
   createForm() {
     console.log("create ", this.formName, "  ", this.form.value);
     
+    const completedByUserId = this.getUserId();
+
     if (!this.form.valid) {
       return;
     }
 
     if (this.form.dirty) {
+      const versionDetail = new VersionDetail({
+        version: 1,
+        date: new Date(),
+        completedByUserId: completedByUserId
+      });
+
+     
       this.editedForm = new SavedForm({
-          formName: this.formName,
-          user: 'nobody',
-          form: this.form.value,
-          edited: false,
+        formName: this.formName,
+        user: this.authService.getUserId(),
+        versionHistory: { version: 1, value: versionDetail },
+        form: this.form.value,
+        edited: false,
           // reCaptchaV3Token: tokenData.token
           // created: curTime,
           // lastMod: curTime,
@@ -125,8 +168,10 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
         _id: formKey,
         form: this.form.value,
         formName: this.formName,
+        versionHistory: {}, // TODO
+        currentVersion: 2, // TODO
         edited: true,
-        user: 'nobody'
+        user: this.authService.getUserId()
 
       });
 

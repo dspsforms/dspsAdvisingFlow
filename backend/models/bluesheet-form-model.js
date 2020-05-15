@@ -6,6 +6,8 @@ const bluesheetSchema = mongoose.Schema({
   user: { type: String },
   form: { type: mongoose.Schema.Types.Mixed },
   // form: { type: String },
+  versionHistory: { type: mongoose.Schema.Types.Mixed },
+  currentVersion: { type: Number },
   edited: { type: Boolean },
   created: { type: Date },
   lastMod: { type: Date },

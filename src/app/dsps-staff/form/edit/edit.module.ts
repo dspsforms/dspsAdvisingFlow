@@ -8,6 +8,8 @@ import { EditPageRoutingModule } from './edit-routing.module';
 
 import { EditPage } from './edit.page';
 import { BluesheetComponentModule } from '../component/bluesheet/bluesheet-component.module';
+import { Aap1ComponentModule } from '../component/aap1/aap1.module';
+import { Aap2ComponentModule } from '../component/aap2/aap2.module';
 
 @NgModule({
   imports: [
@@ -15,6 +17,8 @@ import { BluesheetComponentModule } from '../component/bluesheet/bluesheet-compo
     ReactiveFormsModule,
     IonicModule,
     BluesheetComponentModule,
+    Aap1ComponentModule,
+    Aap2ComponentModule,
     EditPageRoutingModule
   ],
   declarations: [EditPage]

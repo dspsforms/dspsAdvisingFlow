@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise;
 const debug = require('../constants/debug');
 
 const BluesheetForm = require('../models/bluesheet-form-model');
-const AapForm = require('../models/aap-form-model');
+const Aap1Form = require('../models/aap1-form-model');
 
 // these are for the other server (dsps-forms.missioncollege.edu)
 // const IntakeForm = require('../models/intake-form-model');
@@ -455,8 +455,8 @@ getFormModel = formName => {
   let form;
   if (formName == 'bluesheet') {
     form = BluesheetForm;
-  } else if (formName === 'aap') {
-    form = AapForm;
+  } else if (formName === 'aap1') {
+    form = Aap1Form;
   }
   // else if (formName === 'applicationForServices') {
   //   form = ApplicationForServices;
@@ -508,16 +508,20 @@ createForm = (req) => {
       formName: formName,
       user: sanitize(req.body.user),
       form: sanitize(req.body.form), // "tmp form string",
+      versionHistory: req.body.versionHistory,
+      currentVersion: req.body.currentVersion,
       edited: false,
       created: currentTime,
       lastMod: currentTime,
       // captchaScore: captchaScore
     });
-  } else if (req.params.formName === 'aap') {
-    form = new AapForm({
+  } else if (req.params.formName === 'aap1') {
+    form = new Aap1Form({
       formName: formName,
       user: sanitize(req.body.user),
-      form: sanitize(captchaFree.form), // "tmp form string",
+      form: sanitize(req.body.form), // "tmp form string",
+      versionHistory: req.body.versionHistory,
+      currentVersion: req.body.currentVersion,
       edited: false,
       created: currentTime,
       lastMod: currentTime,

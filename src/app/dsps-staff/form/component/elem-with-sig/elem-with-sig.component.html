@@ -1,0 +1,56 @@
+
+    <div [formGroup]="form">
+      <div [formGroupName]="formGroupName">
+
+    <div class="grid3ColAap1">
+
+    <!-- first child -->
+    <div>
+      <!-- 
+        if checkbox, make slot=start for ion-checkbox
+
+        if text, make position=floating for ion-label
+
+      -->
+      <ion-item *ngIf="controlType === 'checkbox'" lines="none" >
+        <ion-label>
+          <div class="wrap-text"> {{ label }} </div> 
+        </ion-label>
+        <ion-checkbox 
+          slot="start" 
+          [formControlName]="controlName"
+          (click)="clicked()">
+        </ion-checkbox>
+      </ion-item>
+      <ion-item *ngIf="controlType === 'text'" lines="none" >
+        <ion-label position="floating">{{ label }} </ion-label>
+        <ion-input [formControlName]="controlName"></ion-input>
+      </ion-item>
+
+    </div>
+
+    <!-- second child -->
+    <div>
+      <ion-item 
+        *ngIf="form.get(formGroupName).get(controlName).dirty && valueChanged"
+        lines="none">
+        {{ completedByName}}
+      </ion-item>
+    </div>
+
+    <!-- third child -->
+    <div>
+      <ion-item 
+        lines="none" 
+        *ngIf="form.get(formGroupName).get(controlName).dirty  && valueChanged" >
+        {{ date2Use | date }}
+      </ion-item>
+    </div>
+
+  </div> <!-- grid3ColAap1 -->
+
+  </div> <!-- forGroupName -->
+  </div> <!-- formGroup -->
+
+
+

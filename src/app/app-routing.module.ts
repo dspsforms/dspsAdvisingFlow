@@ -23,6 +23,10 @@ const routes: Routes = [
     canLoad: [AuthDspsGuard]
   
   },
+  {
+    path: 'test',
+    loadChildren: () => import('./test/test.module').then( m => m.TestPageModule)
+  },
  
   
 ];

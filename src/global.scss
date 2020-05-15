@@ -108,6 +108,22 @@
 //    background-color: rgb(231, 220, 227);
 // }
 
+.grid2ColAap1 {
+   display:grid;
+   grid-template-columns: 200px 1fr;
+   grid-gap: 10px;
+}
+
+.grid2ColAap1 > div {
+   border: 2px solid red;
+}
+
+.grid3ColAap1 {
+   display:grid;
+   grid-template-columns: repeat(3, minmax(80px, 1fr));
+   grid-gap: 5px;
+}
+
 
 .item-interactive-disabled.sc-ion-label-md-h:not(.item-multiple-inputs), .item-interactive-disabled:not(.item-multiple-inputs) .sc-ion-label-md-h {
    cursor: default;

@@ -4,7 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
-import { AapComponent } from './aap.component';
+
+import { ElemWithSigComponent } from './elem-with-sig.component';
 
 
 @NgModule({
@@ -15,10 +16,10 @@ import { AapComponent } from './aap.component';
         RouterModule
     ],
     exports: [
-        AapComponent
+        ElemWithSigComponent
     ],
     declarations: [
-        AapComponent
+        ElemWithSigComponent
     ]
 })
-export class AapComponentModule {}
+export class ElemWithSignComponentModule {}

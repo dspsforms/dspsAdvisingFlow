@@ -1,0 +1,101 @@
+
+<div [formGroup]="form"  class="grid2ColAap1">
+
+  <!-- first child of 2-col grid -->
+  <div>
+    <ion-item>
+      <ion-label>
+        <div class="wrap-text">
+          Produce class notes, homework, course requirements, assignments
+          and other written course requirements.
+        </div>
+        
+      </ion-label>
+    </ion-item>
+  </div>  <!-- end of 1st col of 2 col grid -->
+
+      <!-- 
+        @Input() form: FormGroup;
+
+// name of sub group within form
+@Input() formGroupName: string;
+
+// name of the formGroup control
+@Input() controlName: string; 
+
+@Input() controlType: 'checkbox' | 'text';
+
+@Input() label: string;
+
+@Input() refToData; 
+      -->
+
+<!-- second col of 2 col grid -->
+<div>
+
+      <app-elem-with-sig [form]="form"
+        formGroupName="writtenCourseReq"
+        controlName="adaptedComputer"
+        controlType="checkbox"
+        label="Adapted Computer / Equipment"
+        [refToData]="refToData"
+        completedByName="Test Faculty"
+      > </app-elem-with-sig>
+
+      <app-elem-with-sig [form]="form"
+        formGroupName="writtenCourseReq"
+        controlName="assistiveTech"
+        controlType="checkbox"
+        label="Assistive Technology"
+        [refToData]="refToData"
+        completedByName="Test Faculty"
+      > </app-elem-with-sig>
+
+      <app-elem-with-sig [form]="form"
+      formGroupName="writtenCourseReq"
+      controlName="digRecorder"
+      controlType="checkbox"
+      label="Digital Recorder / Smart Pen"
+      [refToData]="refToData"
+      completedByName="Test Faculty"
+    > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="writtenCourseReq"
+    controlName="noteTaker"
+    controlType="checkbox"
+    label="Note-taker"
+    [refToData]="refToData"
+    completedByName="Test Faculty"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="writtenCourseReq"
+    controlName="scribe"
+    controlType="checkbox"
+    label="Scribe"
+    [refToData]="refToData"
+    completedByName="Test Faculty"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="writtenCourseReq"
+    controlName="spellChecker"
+    controlType="checkbox"
+    label="Spell Checker"
+    [refToData]="refToData"
+    completedByName="Test Faculty"
+  > </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+    formGroupName="writtenCourseReq"
+    controlName="other"
+    controlType="text"
+    label="Other"
+    [refToData]="refToData"
+    completedByName="Test Faculty"
+  > </app-elem-with-sig>
+
+</div> <!-- end of 2nd col of two col grid -->
+
+</div>

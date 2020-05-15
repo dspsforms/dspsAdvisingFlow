@@ -10,7 +10,8 @@ export class UrlConfig {
   static SUBMITTED_FORM_ABSOLUTE2 = '/submittedForm/';
 
   static BLUESHEET = FormName.BLUESHEET; // 'bluesheet';
-  static AAP = FormName.AAP;  // 'aap';
+  static AAP1 = FormName.AAP1;  // 'aap1';
+  static AAP2 = FormName.AAP2;  // 'aap1';
 
   static ADD_NEW_DSPS_USER = '/auth/add-new-staff';
 
