@@ -6,6 +6,7 @@ const debug = require('../constants/debug');
 
 const BluesheetForm = require('../models/bluesheet-form-model');
 const Aap1Form = require('../models/aap1-form-model');
+const Aap2Form = require('../models/aap2-form-model');
 
 // these are for the other server (dsps-forms.missioncollege.edu)
 // const IntakeForm = require('../models/intake-form-model');
@@ -379,6 +380,8 @@ exports.getAForm = (req, res, next) => {
 
 }
 
+// legacy
+
 // // get "/api/form/agreement/:formName"  -- no permission required to get this
 // exports.getFormAgreement = (req, res, next) => {
 
@@ -457,6 +460,8 @@ getFormModel = formName => {
     form = BluesheetForm;
   } else if (formName === 'aap1') {
     form = Aap1Form;
+  } else if (formName === 'aap2') {
+    form = Aap2Form;
   }
   // else if (formName === 'applicationForServices') {
   //   form = ApplicationForServices;
@@ -484,6 +489,7 @@ createForm = (req) => {
 
   const formName = sanitize(req.params.formName);
 
+  // legacy
   // const captchaScore = req.body.captchaScore;
 
   // if (isAgreement) {
@@ -507,9 +513,10 @@ createForm = (req) => {
     form = new BluesheetForm({
       formName: formName,
       user: sanitize(req.body.user),
-      form: sanitize(req.body.form), // "tmp form string",
-      versionHistory: req.body.versionHistory,
-      currentVersion: req.body.currentVersion,
+      form: sanitize(req.body.form), 
+      formHistory: sanitize(req.body.formHistory), 
+      versionDetails: sanitize(req.body.versionDetails), 
+      currentVersion: sanitize(req.body.currentVersion),
       edited: false,
       created: currentTime,
       lastMod: currentTime,
@@ -519,66 +526,29 @@ createForm = (req) => {
     form = new Aap1Form({
       formName: formName,
       user: sanitize(req.body.user),
-      form: sanitize(req.body.form), // "tmp form string",
-      versionHistory: req.body.versionHistory,
-      currentVersion: req.body.currentVersion,
+      form: sanitize(req.body.form), 
+      formHistory: sanitize(req.body.formHistory), 
+      versionDetails: sanitize(req.body.versionDetails), 
+      currentVersion: sanitize(req.body.currentVersion),
+      edited: false,
+      created: currentTime,
+      lastMod: currentTime,
+      // captchaScore: captchaScore
+    });
+  }  else if (req.params.formName === 'aap2') {
+    form = new Aap2Form({
+      formName: formName,
+      user: sanitize(req.body.user),
+      form: sanitize(req.body.form), 
+      formHistory: sanitize(req.body.formHistory), 
+      versionDetails: sanitize(req.body.versionDetails), 
+      currentVersion: sanitize(req.body.currentVersion),
       edited: false,
       created: currentTime,
       lastMod: currentTime,
       // captchaScore: captchaScore
     });
   }
-  // else if (req.params.formName === 'applicationForServices') {
-  //   form = new ApplicationForServices({
-  //     formName: formName,
-  //     user: sanitize(req.body.user),
-  //     form: sanitize(captchaFree.form), // "tmp form string",
-  //     edited: false,
-  //     created: currentTime,
-  //     lastMod: currentTime,
-  //     captchaScore: captchaScore
-  //   });
-  // } else if (req.params.formName === 'emergencyEvacInfo') {
-  //   form = new EmergencyEvacInfo({
-  //     formName: formName,
-  //     user: sanitize(req.body.user),
-  //     form: sanitize(captchaFree.form), // "tmp form string",
-  //     edited: false,
-  //     created: currentTime,
-  //     lastMod: currentTime,
-  //     captchaScore: captchaScore
-  //   });
-  // } else if (req.params.formName === 'feedback') {
-  //   form = new Feedback({
-  //     formName: formName,
-  //     user: sanitize(req.body.user),
-  //     form: sanitize(captchaFree.form), // "tmp form string",
-  //     edited: false,
-  //     created: currentTime,
-  //     lastMod: currentTime,
-  //     captchaScore: captchaScore
-  //   });
-  // } else if (req.params.formName === 'complaint') {
-  //   form = new Complaint({
-  //     formName: formName,
-  //     user: sanitize(req.body.user),
-  //     form: sanitize(captchaFree.form), // "tmp form string",
-  //     edited: false,
-  //     created: currentTime,
-  //     lastMod: currentTime,
-  //     captchaScore: captchaScore
-  //   });
-  // } else if (req.params.formName === 'historyOfDisability') {
-  //   form = new HistoryOfDisabilty({
-  //     formName: formName,
-  //     user: sanitize(req.body.user),
-  //     form: sanitize(captchaFree.form), // "tmp form string",
-  //     edited: false,
-  //     created: currentTime,
-  //     lastMod: currentTime,
-  //     captchaScore: captchaScore
-  //   });
-  // }
 
   // console.log("req.params=", req.params);
   // console.log("req.body=", req.body);
@@ -594,6 +564,7 @@ createForm = (req) => {
 
 }
 
+// legacy
 // removeCaptcha = form => {
 //   // remove the reCaptchaV3Token field. also sanitize
 

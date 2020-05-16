@@ -14,6 +14,7 @@ import { EditedForm } from 'src/app/model/edited-form.model';
 import { UrlConfig } from 'src/app/model/url-config';
 import { UserService } from '../user/user.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { DataTransformService } from './data-transform.service';
 
 // base class for form submits
 
@@ -22,7 +23,7 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
   public title: string;
   public form: FormGroup;
 
-  public editedForm: SavedForm;
+  public newForm: SavedForm;
   public err: string;
   public errMsg: string;
   public formSaveStatusSub: Subscription;
@@ -38,6 +39,7 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
     public router: Router,
     public formService: FormsService,
     public authService: AuthService,
+    public dataTxformService: DataTransformService,
     public appGlobalsService: AppGlobalsService, 
     public lastOpStatusService: LastOperationStatusService)
   {
@@ -98,24 +100,28 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
     
     const completedByUserId = this.getUserId();
 
-    if (!this.form.valid) {
+    if (!this.form.valid || !this.form.dirty) {
       return;
     }
 
-    if (this.form.dirty) {
-      const versionDetail = new VersionDetail({
+    // form's history
+    const formHistory = this.dataTxformService.initDataOnCreate(this.form, 1);
+
+    const versionDetail = new VersionDetail({
         version: 1,
         date: new Date(),
         completedByUserId: completedByUserId
-      });
+    });
 
      
-      this.editedForm = new SavedForm({
-        formName: this.formName,
-        user: this.authService.getUserId(),
-        versionHistory: { version: 1, value: versionDetail },
-        form: this.form.value,
-        edited: false,
+    this.newForm = new SavedForm({
+      formName: this.formName,
+      user: this.authService.getUserId(),
+      form: this.form.value,
+      formHistory: formHistory,
+      versionDetails: [versionDetail] , // array of VersionDetail
+      currentVersion: 1,
+      edited: false,
           // reCaptchaV3Token: tokenData.token
           // created: curTime,
           // lastMod: curTime,
@@ -123,7 +129,7 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
       });
 
       // first subscribe to the form save status listener. then, ask formService to save the form
-      this.formSaveStatusSub = this.formService.getFormSaveStatusListener().subscribe(
+    this.formSaveStatusSub = this.formService.getFormSaveStatusListener().subscribe(
         res => {
             if (res.err) {
               // form save failed, show error message, stay on current page
@@ -141,10 +147,9 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
             }
         });
 
-      // ask formService to save the form
-      this.formService.saveForm(this.editedForm);
+    // ask formService to save the form
+    this.formService.saveForm(this.newForm);
 
-    } // if this.form.dirty and this.form.valid
   }
 
   editForm(formKey) {
@@ -164,7 +169,7 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
       */
 
     if (this.form.dirty) {
-      this.editedForm = new EditedForm({
+      this.newForm = new EditedForm({
         _id: formKey,
         form: this.form.value,
         formName: this.formName,
@@ -196,7 +201,7 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
         });
 
       // ask formService to update the form
-      this.formService.patchFullForm(this.editedForm, this.formName);
+      this.formService.patchFullForm(this.newForm, this.formName);
 
     } // if this.form.dirty and this.form.valid
   }
@@ -241,5 +246,7 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
     SubscriptionUtil.unsubscribe(this.editSaveStatusSub);
     SubscriptionUtil.unsubscribe(this.globalsSub);
   }
+
+  
 
 }

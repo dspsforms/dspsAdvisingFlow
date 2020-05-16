@@ -1,18 +1,22 @@
 const mongoose = require('mongoose');
-// const versionHistory = require('mongoose-version-history');
+
+const versionDetailSchema = require('./version-details-schema');
 
 const bluesheetSchema = mongoose.Schema({
   formName: { type: String, required: true },
   user: { type: String },
   form: { type: mongoose.Schema.Types.Mixed },
+  formHistory: { type: mongoose.Schema.Types.Mixed },
+
   // form: { type: String },
-  versionHistory: { type: mongoose.Schema.Types.Mixed },
+  versionDetails: [versionDetailSchema],
   currentVersion: { type: Number },
   edited: { type: Boolean },
   created: { type: Date },
   lastMod: { type: Date },
   captchaScore: { type: String },
-  state: {type: String}
+  state: { type: String }
+
 });
 
 // not quite sure how to get back the history. To be studied.

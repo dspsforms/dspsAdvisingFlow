@@ -1,10 +1,19 @@
 export class SavedForm {
 
+  /*
+   formName: this.formName,
+      user: this.authService.getUserId(),
+      form: this.form.value,
+      formHistory: formHistory,
+      versionDetails: [versionDetail] // array of VersionDetail
+      edited:
+
+  */
   formName?: string;
   user?: string; // legacy
   form?: {};
-  // key == version number, value == versionDetail
-  versionHistory?: {};
+  formHistory?: {};
+  versionDetails?: VersionDetail[]; // each entry is of type VersionDetail
   currentVersion?: number;
   edited?: boolean;  // legacy
   created?: Object;
@@ -15,7 +24,8 @@ export class SavedForm {
         formName?: string,
         user?: string,
         form?: {},
-        versionHistory?: {},
+        formHistory?: {},
+        versionDetails?: VersionDetail[],
         currentVersion?: number,
         edited?: boolean, 
         created?: Object,
@@ -25,7 +35,8 @@ export class SavedForm {
         this.formName = options.formName;
         this.user = options.user;
         this.form = options.form || {};
-        this.versionHistory = options.versionHistory;
+        this.formHistory = options.formHistory;
+        this.versionDetails = options.versionDetails;
         this.currentVersion = options.currentVersion || 0;
         this.edited = options.edited || false;
         this.created = options.created;

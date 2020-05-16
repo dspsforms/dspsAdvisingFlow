@@ -21,14 +21,34 @@
       [mode]="'view'"
       >
     </app-bluesheet>
-
-
     <!-- <app-view-alt-media-request
          [formKey]="data._id"
          [wrappedForm]="data" > 
         </app-view-alt-media-request> 
         <app-mark-archive [data]="data" ></app-mark-archive>
    -->
+   </div>
+
+   <div *ngIf="formInfo.formName == 'aap1' && data && !busy ">
+
+    <app-aap1 
+      [formKey]="data._id"
+      [wrappedForm]="data" 
+      [mode]="'view'"
+      >
+    </app-aap1>
+
+   </div>
+
+   <div *ngIf="formInfo.formName == 'aap2' && data && !busy ">
+
+    <app-aap2
+      [formKey]="data._id"
+      [wrappedForm]="data" 
+      [mode]="'view'"
+      >
+    </app-aap2>
+
    </div>
 
 </ion-content>

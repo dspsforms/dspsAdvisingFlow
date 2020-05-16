@@ -8,6 +8,7 @@ import { LastOperationStatusService } from '../../last-operation-status.service'
 import { WrappedForm } from 'src/app/model/wrapped-form.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/auth/auth.service';
+import { DataTransformService } from '../../data-transform.service';
 
 @Component({
   selector: 'app-aap1',
@@ -26,10 +27,17 @@ export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestr
     public router: Router,
     public formsService: FormsService,
     public authService: AuthService,
+    public dataTxformService: DataTransformService,
     public appGlobalsService: AppGlobalsService,
     public lastOpStatusService: LastOperationStatusService,
     ) { 
-      super(FormName.AAP1, router, formsService, authService, appGlobalsService, lastOpStatusService);
+    super(FormName.AAP1,
+      router,
+      formsService,
+      authService,
+      dataTxformService,
+      appGlobalsService,
+      lastOpStatusService);
     }
 
   ngOnInit() {
@@ -222,6 +230,7 @@ export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestr
 
   createOrEditForm() {
     console.log("createOrEditForm ", this.formName, "  ", this.form.value);
+
     if (!this.form.valid) {
       // may be saved as a draft later.
       return;

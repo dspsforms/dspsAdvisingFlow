@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const versionDetailSchema = require('./version-details-schema');
 
-const aap1Schema = mongoose.Schema({
+const aap2Schema = mongoose.Schema({
   formName: { type: String, required: true },
   user: { type: String },
   form: { type: mongoose.Schema.Types.Mixed },
@@ -19,4 +19,4 @@ const aap1Schema = mongoose.Schema({
   
 });
 
-module.exports = mongoose.model('aap1', aap1Schema);
+module.exports = mongoose.model('aap2', aap2Schema);

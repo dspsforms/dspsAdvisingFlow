@@ -125,6 +125,8 @@ export class ListPage implements OnInit, OnDestroy {
   getVal(item) {
     if (this.formInfo.formName === FormName.BLUESHEET) {
       return item.form.studentName + '  -  ' + item.form.course;
+    } else if (this.formInfo.formName === FormName.AAP1) {
+      return item.form.studentName + '  -  ' + item.form.collegeId;
     }
 
     // old site:
