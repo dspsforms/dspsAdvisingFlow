@@ -10,11 +10,12 @@ export class SavedForm {
 
   */
   formName?: string;
-  user?: string; // legacy
+  user?: string; 
   form?: {};
   formHistory?: {};
   versionDetails?: VersionDetail[]; // each entry is of type VersionDetail
   currentVersion?: number;
+  state?: string;
   edited?: boolean;  // legacy
   created?: Object;
   lastMod?: Object;
@@ -27,6 +28,7 @@ export class SavedForm {
         formHistory?: {},
         versionDetails?: VersionDetail[],
         currentVersion?: number,
+        state?: string,
         edited?: boolean, 
         created?: Object,
         lastMod?: Object;
@@ -38,6 +40,7 @@ export class SavedForm {
         this.formHistory = options.formHistory;
         this.versionDetails = options.versionDetails;
         this.currentVersion = options.currentVersion || 0;
+        this.state = options.state;
         this.edited = options.edited || false;
         this.created = options.created;
         this.lastMod = options.lastMod;

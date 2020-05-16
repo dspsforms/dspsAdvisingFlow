@@ -192,6 +192,9 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
 
     if (this.mode === 'view' || this.mode === 'edit') {
       this.initVal(this.form, this.wrappedForm.form);
+
+      // supply the historical form data to super
+      super.wrappedFormFromDb = this.wrappedForm;
     }
 
     if (this.mode === 'view') {

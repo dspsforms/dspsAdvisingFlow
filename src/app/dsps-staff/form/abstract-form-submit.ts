@@ -15,6 +15,7 @@ import { UrlConfig } from 'src/app/model/url-config';
 import { UserService } from '../user/user.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { DataTransformService } from './data-transform.service';
+import { WrappedForm } from 'src/app/model/wrapped-form.model';
 
 // base class for form submits
 
@@ -33,6 +34,9 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
   public globalsSub: Subscription;
 
   public grid: boolean;
+
+  // the class extending this should supply this
+  public wrappedFormFromDb: WrappedForm;
 
   constructor(
     public formName: string,
@@ -122,6 +126,7 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
       versionDetails: [versionDetail] , // array of VersionDetail
       currentVersion: 1,
       edited: false,
+      state: 'current'
           // reCaptchaV3Token: tokenData.token
           // created: curTime,
           // lastMod: curTime,
@@ -152,7 +157,8 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
 
   }
 
-  editForm(formKey) {
+  // wrappedFormFromDb has formHistory, versionDetail, etc.
+  editForm(formKey: string) {
     console.log("edit ", this.formName, "  ", this.form.value);
     
     if (!this.form.valid) {
@@ -160,24 +166,39 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
     }
 
     /*
-    _id: string,
-      state?: string,
-      form?: any,
+     _id: string,
       formName?: string,
-      edited?: boolean,
-      user?: string
+      user?: string,
+      form?: {},
+      formHistory?: {},
+      versionDetails?: VersionDetail[],
+      currentVersion?: number,
+      state?: string,
+      edited?: boolean, 
+      created?: Object,
+      lastMod?: Object;
+      reCaptchaV3Token?: string;
       */
+
+    // TODO check also that form.value has changed.
 
     if (this.form.dirty) {
       this.newForm = new EditedForm({
         _id: formKey,
-        form: this.form.value,
         formName: this.formName,
-        versionHistory: {}, // TODO
-        currentVersion: 2, // TODO
-        edited: true,
-        user: this.authService.getUserId()
+        user: this.authService.getUserId(),
+        form: this.form.value,
 
+        formHistory: {} ,  // TODO 
+        versionDetails: [], // TODO
+        currentVersion: 2, // TODO
+
+        state: 'current' , // VERIFY that this is always the case
+        edited: true,
+
+        created: null, // TODO  
+        lastMod: new Date(),
+        
       });
 
       // first subscribe to the form save status listener. then, ask formService to save the form

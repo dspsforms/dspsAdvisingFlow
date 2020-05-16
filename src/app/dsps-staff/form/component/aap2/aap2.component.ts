@@ -56,6 +56,9 @@ export class Aap2Component extends AbstractFormSubmit implements OnInit, OnDestr
 
     if (this.mode === 'view' || this.mode === 'edit') {
       this.initVal(this.form, this.wrappedForm.form);
+
+      // supply the historical form data to super
+      super.wrappedFormFromDb = this.wrappedForm;
     }
 
     if (this.mode === 'view') {
