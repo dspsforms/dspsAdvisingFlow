@@ -32,6 +32,9 @@ export class AbstractFormRead implements OnInit, OnDestroy {
 
   
     ngOnInit() {
+    }
+
+    ionViewWillEnter() {
 
         this.data = new WrappedForm({});
     
@@ -55,9 +58,9 @@ export class AbstractFormRead implements OnInit, OnDestroy {
               this.busy = false;
         });   
     
-    }
     
-    ionViewWillEnter() {
+    
+    
     
         this.data = new WrappedForm({});
         this.busy = true;
@@ -65,6 +68,12 @@ export class AbstractFormRead implements OnInit, OnDestroy {
     
     }
       
+    ionViewWillExit() {
+      
+        SubscriptionUtil.unsubscribe(this.paramSubscription);
+        SubscriptionUtil.unsubscribe(this.dbSubscription);
+    
+    }
       
       
     ngOnDestroy() {
