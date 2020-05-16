@@ -34,6 +34,10 @@ export class AbstractFormRead implements OnInit, OnDestroy {
     ngOnInit() {
     }
 
+    //  multiple this.busy= true etc 
+    // are probably not needed. it's there because at one point
+    // part of this was in ngOnInit and part in ionViewWillEnter
+    // but it doesn't seem to hurt, so we are going to keep it here.
     ionViewWillEnter() {
 
         this.data = new WrappedForm({});
@@ -57,10 +61,7 @@ export class AbstractFormRead implements OnInit, OnDestroy {
               this.data = formData;
               this.busy = false;
         });   
-    
-    
-    
-    
+
     
         this.data = new WrappedForm({});
         this.busy = true;
@@ -75,6 +76,9 @@ export class AbstractFormRead implements OnInit, OnDestroy {
     
     }
       
+    // ngOnInit and ngOnDestroy are not useful for an Ionic 5 page
+    // because of caching. ionViewWillEnter and ionViewWillExit are
+    // serving the original purpose of ngOnInit and ngOnDestroy
       
     ngOnDestroy() {
       
