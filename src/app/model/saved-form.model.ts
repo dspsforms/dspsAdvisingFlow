@@ -11,8 +11,8 @@ export class SavedForm {
   */
   formName?: string;
   user?: string; 
-  form?: {};
-  formHistory?: {};
+  formWithLatestHistory?: {}; // form with latest history
+  formHistoryArr?: {}; // entire history of form
   versionDetails?: VersionDetail[]; // each entry is of type VersionDetail
   currentVersion?: number;
   state?: string;
@@ -24,8 +24,8 @@ export class SavedForm {
       constructor(options: {
         formName?: string,
         user?: string,
-        form?: {},
-        formHistory?: {},
+        formWithLatestHistory?: {},
+        formHistoryArr?: {},
         versionDetails?: VersionDetail[],
         currentVersion?: number,
         state?: string,
@@ -36,8 +36,8 @@ export class SavedForm {
       }) {
         this.formName = options.formName;
         this.user = options.user;
-        this.form = options.form || {};
-        this.formHistory = options.formHistory;
+        this.formWithLatestHistory = options.formWithLatestHistory || {};
+        this.formHistoryArr = options.formHistoryArr;
         this.versionDetails = options.versionDetails;
         this.currentVersion = options.currentVersion || 0;
         this.state = options.state;

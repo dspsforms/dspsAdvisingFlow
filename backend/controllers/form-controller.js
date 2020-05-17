@@ -509,43 +509,47 @@ createForm = (req) => {
 
   // else. not user agreement
 
+
   if (formName === 'bluesheet') {
     form = new BluesheetForm({
       formName: formName,
       user: sanitize(req.body.user),
-      form: sanitize(req.body.form), 
-      formHistory: sanitize(req.body.formHistory), 
+      formWithLatestHistory: sanitize(req.body.formWithLatestHistory), 
+      formHistoryArr: sanitize(req.body.formHistoryArr), 
       versionDetails: sanitize(req.body.versionDetails), 
       currentVersion: sanitize(req.body.currentVersion),
       edited: false,
       created: currentTime,
       lastMod: currentTime,
+      state: sanitize(req.body.state || 'current'),
       // captchaScore: captchaScore
     });
   } else if (req.params.formName === 'aap1') {
     form = new Aap1Form({
       formName: formName,
       user: sanitize(req.body.user),
-      form: sanitize(req.body.form), 
-      formHistory: sanitize(req.body.formHistory), 
+      formWithLatestHistory: sanitize(req.body.formWithLatestHistory), 
+      formHistoryArr: sanitize(req.body.formHistoryArr), 
       versionDetails: sanitize(req.body.versionDetails), 
       currentVersion: sanitize(req.body.currentVersion),
       edited: false,
       created: currentTime,
       lastMod: currentTime,
+      state: sanitize(req.body.state || 'current' ),
       // captchaScore: captchaScore
     });
   }  else if (req.params.formName === 'aap2') {
     form = new Aap2Form({
       formName: formName,
       user: sanitize(req.body.user),
-      form: sanitize(req.body.form), 
-      formHistory: sanitize(req.body.formHistory), 
+      formWithLatestHistory: sanitize(req.body.formWithLatestHistory), 
+      formHistoryArr: sanitize(req.body.formHistoryArr), 
       versionDetails: sanitize(req.body.versionDetails), 
       currentVersion: sanitize(req.body.currentVersion),
       edited: false,
       created: currentTime,
       lastMod: currentTime,
+      state: sanitize(req.body.state || 'current'),
       // captchaScore: captchaScore
     });
   }

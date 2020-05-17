@@ -4,33 +4,33 @@ export class WrappedForm {
 
   formKey?: string;
   _id?: string;
-  form?: {};
+  formWithLatestHistory?: {};
   state?: string;
   formName?: string;
   user?: string;
-  formHistory?: {};
+  formHistoryArr?: {};
   versionDetails?: VersionDetail[];
   currentVersion?: number;
   
   constructor(options: {
     formKey?: string,
     _id?: string,
-    form?: any,
+    formWithLatestHistory?: any,
     state?: string,
     formName?: string,
     user?: string,
-    formHistory?: {},
+    formHistoryArr?: {},
     versionDetails?: VersionDetail[],
     currentVersion?: number          
   })
   {
     this.formKey = options.formKey;
     this._id = options._id;
-    this.form = options.form || {};
+    this.formWithLatestHistory = options.formWithLatestHistory || {};
     this.state = options.state;
     this.formName = options.formName;
     this.user = options.user;
-    this.formHistory = options.formHistory;
+    this.formHistoryArr = options.formHistoryArr;
     this.versionDetails = options.versionDetails;
     this.currentVersion = options.currentVersion;
   }

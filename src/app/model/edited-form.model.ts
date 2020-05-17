@@ -5,8 +5,8 @@ export class EditedForm {
   _id: string;
   formName?: string;
   user?: string; 
-  form?: {};
-  formHistory?: {};
+  formWithLatestHistory?: {};
+  formHistoryArr?: {};
   versionDetails?: VersionDetail[]; // each entry is of type VersionDetail
   currentVersion?: number;
   state?: string;
@@ -21,8 +21,8 @@ export class EditedForm {
       _id: string,
       formName?: string,
       user?: string,
-      form?: {},
-      formHistory?: {},
+      formWithLatestHistory?: {},
+      formHistoryArr?: {},
       versionDetails?: VersionDetail[],
       currentVersion?: number,
       state?: string,
@@ -35,8 +35,8 @@ export class EditedForm {
       this._id = options._id;
       this.formName = options.formName;
       this.user = options.user;
-      this.form = options.form || {};
-      this.formHistory = options.formHistory;
+      this.formWithLatestHistory = options.formWithLatestHistory || {};
+      this.formHistoryArr = options.formHistoryArr;
       this.versionDetails = options.versionDetails;
       this.currentVersion = options.currentVersion || 0;
       this.state = options.state;

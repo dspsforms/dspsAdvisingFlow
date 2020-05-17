@@ -124,24 +124,24 @@ export class ListPage implements OnInit, OnDestroy {
 
   getVal(item) {
     if (this.formInfo.formName === FormName.BLUESHEET) {
-      return item.form.studentName + '  -  ' + item.form.course;
+      return item.formWithLatestHistory.studentName.val + '  -  ' + item.formWithLatestHistory.course.val;
     } else if (this.formInfo.formName === FormName.AAP1) {
-      return item.form.studentName + '  -  ' + item.form.collegeId;
+      return item.formWithLatestHistory.studentName.val + '  -  ' + item.formWithLatestHistory.collegeId.val;
     }
 
     // old site:
 
-    // if (item.form.fullName) {
-    //   return item.form.fullName;
+    // if (item.formWithLatestHistory.fullName.val) {
+    //   return item.formWithLatestHistory.fullName.val;
     // }
 
     // // for complaint, it's firstName middle lastName
     // else {
-    //   let c = item.form.firstName;
-    //   if (item.form.middle) {
-    //     c += " " + item.form.middle;
+    //   let c = item.formWithLatestHistory.firstName.val;
+    //   if (item.formWithLatestHistory.middle.val) {
+    //     c += " " + item.formWithLatestHistory.middle.val;
     //   }
-    //   c += " " + item.form.lastName;
+    //   c += " " + item.formWithLatestHistory.lastName.val;
 
     //   return c;
     // }

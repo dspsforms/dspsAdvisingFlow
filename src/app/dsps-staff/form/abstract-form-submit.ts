@@ -108,8 +108,23 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
       return;
     }
 
+    const now = new Date();
     // form's history
-    const formHistory = this.dataTxformService.initDataOnCreate(this.form, 1);
+    const formHistoryArr = this.dataTxformService.initDataOnCreate(
+      this.form,
+      1,
+      completedByUserId,
+      now,
+      'array');
+    
+    // the last value -- which is will be assigned to the form
+    // property has no array
+    const formHistoryNoArray = this.dataTxformService.initDataOnCreate(
+      this.form,
+      1,
+      completedByUserId,
+      now,
+      'noarray');
 
     const versionDetail = new VersionDetail({
         version: 1,
@@ -121,8 +136,8 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
     this.newForm = new SavedForm({
       formName: this.formName,
       user: this.authService.getUserId(),
-      form: this.form.value,
-      formHistory: formHistory,
+      formWithLatestHistory: formHistoryNoArray, // was  this.form.value,
+      formHistoryArr: formHistoryArr,
       versionDetails: [versionDetail] , // array of VersionDetail
       currentVersion: 1,
       edited: false,
@@ -187,9 +202,9 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
         _id: formKey,
         formName: this.formName,
         user: this.authService.getUserId(),
-        form: this.form.value,
+        formWithLatestHistory: this.form.value, // TODO
 
-        formHistory: {} ,  // TODO 
+        formHistoryArr: {} ,  // TODO 
         versionDetails: [], // TODO
         currentVersion: 2, // TODO
 
@@ -239,16 +254,21 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
     });
   }
 
-  initVal(formGroup, data) {
+  initVal(formGroup, latestValueHistory, fullValueHistory) {
     console.log("formGroup", formGroup);
-    console.log("data" , data);
+    console.log("data" , latestValueHistory);
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
-        control.setValue(data[field]);
+        if (latestValueHistory[field] && latestValueHistory[field].val) {
+          control.setValue(latestValueHistory[field].val);
+        }
+        // keep the history data with the control, so they could be used to display the history
+        control['latestValueHistory'] = latestValueHistory[field]; 
+        control['fullValueHistory'] = fullValueHistory[field];
       } else if (control instanceof FormGroup) {
         // recurse down the tree
-        this.initVal(control, data[field]); 
+        this.initVal(control, latestValueHistory[field], fullValueHistory[field]); 
       }
     });
   }

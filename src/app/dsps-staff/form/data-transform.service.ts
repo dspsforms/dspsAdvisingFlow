@@ -8,7 +8,12 @@ export class DataTransformService {
 
   constructor() { }
 
-  initDataOnCreate(form: FormGroup, version: number) {
+  initDataOnCreate(
+    form: FormGroup,
+    version: number,
+    completedByUserId: string,
+    now: Date,
+    mode: 'array' | 'noarray') {
     
     /*
     convert form.value which may be of the form
@@ -21,28 +26,53 @@ export class DataTransformService {
 
       to
 
-      name1: [ { val : value1 , version: 1} ]
+      name1: [ { val : value1 , version: 1, usedId: ..., date: now} ]
       obj2: {
-        name21: [ { val: value21, version: 1 } ]
-        name22: [ { val: value22, version: 1 } ]
+        name21: [ { val: value21, version: 1, userId: ..., date: now } ]
+        name22: [ { val: value22, version: 1 , userId: ..., date: now } ]
       }
+
+       return the leaf node as array or without the array, depending on mode
+
     */
     
-    const result = this.stuff(form.value, version);
+    const result = this.initVersionRecursive(
+      form.value,
+      version,
+      completedByUserId,
+      now,
+      mode);
+    
     console.log(result);
     return result;
 
   }
 
-  stuff(node, version: number) {
+  /*
+    return the leaf node as array or without the array, depending on mode
+  */
+  // 
+  initVersionRecursive(
+    node,
+    version: number,
+    userId: string,
+    now: Date,
+    mode: 'array' | 'noarray')
+  {
     let foo = {};
 
     if (this.isLeaf(node)) {
-      return  [{ val: node, version: version }];
+      if (mode === 'array') {
+        return  [{ val: node, version: version, userId: userId, date: now }];
+      } else {
+        return  { val: node, version: version, userId: userId, date: now };
+      }
+      
     }
     
     Object.keys(node).forEach(field => {
-      foo[field] = this.stuff(node[field], version);
+      foo[field] =
+        this.initVersionRecursive(node[field], version, userId, now, mode);
     });
 
     return foo;

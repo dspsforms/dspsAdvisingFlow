@@ -5,8 +5,12 @@ const versionDetailSchema = require('./version-details-schema');
 const bluesheetSchema = mongoose.Schema({
   formName: { type: String, required: true },
   user: { type: String },
-  form: { type: mongoose.Schema.Types.Mixed },
-  formHistory: { type: mongoose.Schema.Types.Mixed },
+
+  // form with one (latest) history for each field
+  formWithLatestHistory: { type: mongoose.Schema.Types.Mixed },
+
+  // form with entire history
+  formHistoryArr: { type: mongoose.Schema.Types.Mixed },
 
   // form: { type: String },
   versionDetails: [versionDetailSchema],
