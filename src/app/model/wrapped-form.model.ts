@@ -11,6 +11,10 @@ export class WrappedForm {
   formHistoryArr?: {};
   versionDetails?: VersionDetail[];
   currentVersion?: number;
+  edited: boolean;
+  created: Object;
+  lastMod?: Object;
+  reCaptchaV3Token?: string;
   
   constructor(options: {
     formKey?: string,
@@ -21,7 +25,11 @@ export class WrappedForm {
     user?: string,
     formHistoryArr?: {},
     versionDetails?: VersionDetail[],
-    currentVersion?: number          
+    currentVersion?: number,
+    edited?: boolean,
+    created?: Object,
+    lastMod?: Object;
+    reCaptchaV3Token?: string;
   })
   {
     this.formKey = options.formKey;
@@ -33,6 +41,11 @@ export class WrappedForm {
     this.formHistoryArr = options.formHistoryArr;
     this.versionDetails = options.versionDetails;
     this.currentVersion = options.currentVersion;
+    this.edited = options.edited;
+    this.created = options.created;
+    this.lastMod = options.lastMod;
+    this.reCaptchaV3Token = options.reCaptchaV3Token;
+
   }
   
 }

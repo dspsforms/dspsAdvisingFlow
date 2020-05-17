@@ -5,6 +5,7 @@ import { WrappedForm } from '../../model/wrapped-form.model';
 import { FormName, FormUtil } from '../../model/form.util';
 import { environment } from '../../../environments/environment';
 import { SavedForm } from '../../model/saved-form.model';
+import { EditedForm } from 'src/app/model/edited-form.model';
 
 
 
@@ -210,7 +211,7 @@ export class FormsService implements OnInit {
     });
   }
 
-  patchFullForm(formData: WrappedForm, formName: string) {
+  patchFullForm(formData: EditedForm, formName: string) {
 
 
     const url = environment.server + "/api/form/full/" + formName ;

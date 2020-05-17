@@ -197,27 +197,66 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
 
     // TODO check also that form.value has changed.
 
-    if (this.form.dirty) {
-      this.newForm = new EditedForm({
+    let atLeastOneDirty = false;
+    if (!this.form.dirty) {
+      return;
+    }
+
+    if (!this.form.valid || !this.form.dirty) {
+      return;
+    }
+
+    const now = new Date();
+    const completedByUserId = this.getUserId();
+    const newVersion = this.wrappedFormFromDb.currentVersion + 1;
+
+    // forHistoryArr and formWithLatestHistory need to be updated
+    // with values that have changed
+
+    // update form history objects -- in place
+    const hasUpdates = this.updateFormHistory(
+      this.form,
+      newVersion, // new version to use if there is a value change
+      completedByUserId, // form completed by this user in this version
+      now, // current date
+      this.wrappedFormFromDb.formWithLatestHistory, // hopefully, data will get updated in place
+      this.wrappedFormFromDb.formHistoryArr // again, testing if updating in place will do the trick
+  
+    );
+
+    if (!hasUpdates) {
+      console.log("form is dirty, but has no upddated values, not saving");
+      return;
+    }
+
+    const versionDetail = new VersionDetail({
+        version: newVersion,
+        date: now,
+        completedByUserId: completedByUserId
+    });
+
+    this.wrappedFormFromDb.versionDetails.push(versionDetail);
+
+    const updatedForm = new EditedForm({
         _id: formKey,
         formName: this.formName,
         user: this.authService.getUserId(),
-        formWithLatestHistory: this.form.value, // TODO
+        formWithLatestHistory: this.wrappedFormFromDb.formWithLatestHistory, // has been updated in place
 
-        formHistoryArr: {} ,  // TODO 
-        versionDetails: [], // TODO
-        currentVersion: 2, // TODO
+        formHistoryArr: this.wrappedFormFromDb.formHistoryArr ,   // has been updated in place
+        versionDetails: this.wrappedFormFromDb.versionDetails,
+        currentVersion: newVersion, 
 
-        state: 'current' , // VERIFY that this is always the case
+        state: this.wrappedFormFromDb.state || 'current' , // VERIFY that this is always the case
         edited: true,
 
-        created: null, // TODO  
-        lastMod: new Date(),
+        created: this.wrappedFormFromDb.created, 
+        lastMod: now,
         
       });
 
-      // first subscribe to the form save status listener. then, ask formService to save the form
-      this.editSaveStatusSub = this.formService.getFullFormPatchStatusListener().subscribe(
+    // first subscribe to the form save status listener. then, ask formService to save the form
+    this.editSaveStatusSub = this.formService.getFullFormPatchStatusListener().subscribe(
         res => {
             if (res.err) {
               // form save failed, show error message, stay on current page
@@ -237,9 +276,9 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
         });
 
       // ask formService to update the form
-      this.formService.patchFullForm(this.newForm, this.formName);
+    this.formService.patchFullForm(updatedForm, this.formName);
 
-    } // if this.form.dirty and this.form.valid
+    // if this.form.dirty and this.form.valid
   }
 
   disableForm(formGroup) {
@@ -271,6 +310,74 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
         this.initVal(control, latestValueHistory[field], fullValueHistory[field]); 
       }
     });
+  }
+
+   /*
+   Each FormControl has properties from it's history.
+   we had set it this way when the form was initialized with data from db
+      control['latestValueHistory'] = latestValueHistory[field]; 
+      control['fullValueHistory'] = fullValueHistory[field];
+  */
+  updateFormHistory(
+    formGroup: FormGroup,
+    newVersion: number,
+    userId: string,
+    now: Date,
+    formWithLatestHistory,
+    formHistoryArr
+
+  ): boolean {
+    console.log("formGroup before update:", formGroup);
+    
+    let atLeastOneChange = false;
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl && control.dirty) {
+        // if (latestValueHistory[field] && latestValueHistory[field].val) {
+        //   control.setValue(latestValueHistory[field].val);
+        // }
+        // keep the history data with the control, so they could be used to display the history
+        // control['latestValueHistory'] = latestValueHistory[field]; 
+        // control['fullValueHistory'] = fullValueHistory[field];
+
+        const prevValue = control['latestValueHistory'].val;
+        if (control.value !== prevValue) {
+          atLeastOneChange = true;
+          const foo = {
+            val: control.value,
+            version: newVersion,
+            userId: userId,
+            date: now
+          };
+          formWithLatestHistory[field] = foo;
+          formHistoryArr[field].push(foo);
+        }
+      } else if (control instanceof FormGroup) {
+
+
+        // recurse down the tree
+        // need to compute updateFormHistory() regardless of prev
+        // value of atLeastOneChange. 
+        // atLeastOneChange = atLeastOneChange || updateFormHistory()
+        // will short circuit if atLeastOneChange is already true.
+        const hasRecursiveChange =  this.updateFormHistory(
+          control,
+          newVersion,
+          userId,
+          now,
+          formWithLatestHistory[field],
+          formHistoryArr[field]
+        ); 
+
+        atLeastOneChange = atLeastOneChange || hasRecursiveChange;
+      }
+    });
+
+    console.log("formGroup after update:", formGroup);
+    console.log("atLeastOneChange=", atLeastOneChange);
+
+    return atLeastOneChange;
+
   }
 
   onCancel() {
