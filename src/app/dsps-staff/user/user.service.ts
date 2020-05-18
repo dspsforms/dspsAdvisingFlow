@@ -35,8 +35,21 @@ export class UserService {
     });
   }
 
+  // // if userList is already around, don't send a request to server. else do.
+  // listUsersIfNeeded() {
+    
+  //   if (!this.userList || this.userList.length === 0) {
+  //     this.listUsers();
+  //   }
+    
+  // }
+
   getUserListUpdated() {
     return this.userListUpdated.asObservable();
+  }
+
+  getUserList() {
+    return this.userList;
   }
 
 }

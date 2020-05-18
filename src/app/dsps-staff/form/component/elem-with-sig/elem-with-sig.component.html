@@ -32,9 +32,17 @@
     <!-- second child -->
     <div>
       <ion-item 
-        *ngIf="form.get(formGroupName).get(controlName).dirty && valueChanged"
+        *ngIf="form.get(formGroupName).get(controlName).dirty && valueChanged && !emptyValue"
         lines="none">
-        {{ completedByName}}
+        {{ currentUserName}}
+      </ion-item>
+
+      <ion-item 
+        *ngIf="(!form.get(formGroupName).get(controlName).dirty || !valueChanged)
+        && form.get(formGroupName).get(controlName)['latestValueHistory'] && !emptyValue"
+        lines="none">
+        <!-- if none available, this will be empty -->
+        {{ lastHistoricalUser}}
       </ion-item>
     </div>
 
@@ -42,8 +50,16 @@
     <div>
       <ion-item 
         lines="none" 
-        *ngIf="form.get(formGroupName).get(controlName).dirty  && valueChanged" >
+        *ngIf="form.get(formGroupName).get(controlName).dirty  && valueChanged && !emptyValue" >
         {{ date2Use | date }}
+      </ion-item>
+
+      <ion-item 
+        *ngIf="(!form.get(formGroupName).get(controlName).dirty || !valueChanged)
+        && form.get(formGroupName).get(controlName)['latestValueHistory'] && !emptyValue"
+        lines="none">
+        <!-- if none available, this will be empty -->
+        {{ lastHistoricalDate | date}}
       </ion-item>
     </div>
 

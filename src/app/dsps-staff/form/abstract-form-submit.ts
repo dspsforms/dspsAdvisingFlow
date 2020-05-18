@@ -16,6 +16,7 @@ import { UserService } from '../user/user.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { DataTransformService } from './data-transform.service';
 import { WrappedForm } from 'src/app/model/wrapped-form.model';
+import { AuthData } from 'src/app/auth/auth-data.model';
 
 // base class for form submits
 
@@ -38,6 +39,9 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
   // the class extending this should supply this
   public wrappedFormFromDb: WrappedForm;
 
+  public userListSub: Subscription;
+  public userList: AuthData[];
+
   constructor(
     public formName: string,
     public router: Router,
@@ -45,6 +49,7 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
     public authService: AuthService,
     public dataTxformService: DataTransformService,
     public appGlobalsService: AppGlobalsService, 
+    public userService: UserService,
     public lastOpStatusService: LastOperationStatusService)
   {
 
@@ -61,6 +66,23 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
       .subscribe(data => {
         this.grid = data.grid;
       });
+
+    this.userList = this.userService.getUserList();
+
+    if (!this.userList || this.userList.length === 0) {
+
+       // subcribe to userList 
+      this.userListSub = this.userService.getUserListUpdated()
+        .subscribe(data => {
+          this.userList = data;
+        });
+      
+      // initiate db call
+      this.userService.listUsers();
+    }
+    
+   
+
   }
 
   ionViewWillEnter() {
@@ -393,6 +415,7 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
     SubscriptionUtil.unsubscribe(this.formSaveStatusSub);
     SubscriptionUtil.unsubscribe(this.editSaveStatusSub);
     SubscriptionUtil.unsubscribe(this.globalsSub);
+    SubscriptionUtil.unsubscribe(this.userListSub);
   }
 
   

@@ -7,6 +7,8 @@ import {
 import { catchError } from "rxjs/operators";
 import { throwError } from "rxjs";
 import { Injectable } from "@angular/core";
+import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 // import { MatDialog } from "@angular/material";
 
 // import { ErrorComponent } from "./error/error.component";
@@ -17,6 +19,9 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   // constructor(  private dialog: MatDialog,
   //   private errorService: ErrorService) { }
+
+  constructor(private router: Router) {
+  }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     return next.handle(req).pipe(
@@ -31,7 +36,12 @@ export class ErrorInterceptor implements HttpInterceptor {
         }
         // this.dialog.open(ErrorComponent, {data: {message: errorMessage}});
         // this.errorService.throwError(errorMessage);
+        console.log(error);
 
+        if (errorMessage && errorMessage.indexOf('Auth failed. User may not be signed in') >= 0) {
+          console.log("here 3");
+          this.router.navigateByUrl('/auth/login');
+        }
         console.log(error);
         return throwError(error);
       })

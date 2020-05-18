@@ -20,6 +20,7 @@ export class AuthData {
     public created?: Date, // tz format
     public lastMod?: Date,
     public mobilePhone?: string,
+    public _id?: string, // user Id
   ) {}
  
 }

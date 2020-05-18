@@ -9,6 +9,7 @@ import { WrappedForm } from 'src/app/model/wrapped-form.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/auth/auth.service';
 import { DataTransformService } from '../../data-transform.service';
+import { UserService } from 'src/app/dsps-staff/user/user.service';
 
 @Component({
   selector: 'app-aap1',
@@ -29,6 +30,7 @@ export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestr
     public authService: AuthService,
     public dataTxformService: DataTransformService,
     public appGlobalsService: AppGlobalsService,
+    public userService: UserService,
     public lastOpStatusService: LastOperationStatusService,
     ) { 
     super(FormName.AAP1,
@@ -37,6 +39,7 @@ export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestr
       authService,
       dataTxformService,
       appGlobalsService,
+      userService,
       lastOpStatusService);
     }
 

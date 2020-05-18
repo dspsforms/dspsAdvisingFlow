@@ -3,7 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="{{defaultBackButtonHref}}"></ion-back-button>
     </ion-buttons>
-    <ion-title> Edit {{ formInfo.formTitle }} : {{ data?.form?.studentName}} </ion-title>
+    <!-- studentName has to be specified this way because 
+      formWithLatestHistory's type is not defined in any 
+      interface or class
+      that's on purpose. It needs to support any form
+    -->
+    <ion-title> Edit {{ formInfo.formTitle }} : {{ studentName }} </ion-title>
     
   </ion-toolbar>
 </ion-header>
@@ -25,6 +30,28 @@
         </app-view-alt-media-request> 
         <app-mark-archive [data]="data" ></app-mark-archive>
    -->
+   </div>
+
+   <div *ngIf="formInfo.formName == 'aap1' && data && !busy ">
+
+    <app-aap1 
+      [formKey]="data._id"
+      [wrappedForm]="data" 
+      [mode]="'edit'"
+      >
+    </app-aap1>
+
+   </div>
+
+   <div *ngIf="formInfo.formName == 'aap2' && data && !busy ">
+
+    <app-aap2
+      [formKey]="data._id"
+      [wrappedForm]="data" 
+      [mode]="'edit'"
+      >
+    </app-aap2>
+
    </div>
 
 </ion-content>

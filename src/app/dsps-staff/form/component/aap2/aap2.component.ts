@@ -8,6 +8,7 @@ import { AppGlobalsService } from '../../app-globals.service';
 import { LastOperationStatusService } from '../../last-operation-status.service';
 import { FormName } from 'src/app/model/form.util';
 import { WrappedForm } from 'src/app/model/wrapped-form.model';
+import { UserService } from 'src/app/dsps-staff/user/user.service';
 
 @Component({
   selector: 'app-aap2',
@@ -27,6 +28,7 @@ export class Aap2Component extends AbstractFormSubmit implements OnInit, OnDestr
     public authService: AuthService,
     public dataTxformService: DataTransformService,
     public appGlobalsService: AppGlobalsService,
+    public userService: UserService,
     public lastOpStatusService: LastOperationStatusService,
     ) { 
     super(FormName.AAP2,
@@ -35,6 +37,7 @@ export class Aap2Component extends AbstractFormSubmit implements OnInit, OnDestr
       authService,
       dataTxformService,
       appGlobalsService,
+      userService,
       lastOpStatusService);
     
   }

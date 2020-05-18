@@ -1,10 +1,10 @@
 <form *ngIf="form" [formGroup]="form" (ngSubmit)="createOrEditForm()" >
   <h1 class="ion-padding">AAP Part 1</h1>
 
-  <app-aap1header [form]="form"></app-aap1header>
+  <app-aap1header [form]="form" [userList]="userList"></app-aap1header>
 
  
-  <app-written-course-req [form]="form"></app-written-course-req>
+  <app-written-course-req [form]="form" [userList]="userList"></app-written-course-req>
 
    <!-- [disabled]="!form.valid" -->
    <ion-grid *ngIf="mode !== 'view'">

@@ -87,4 +87,18 @@ export class AbstractFormRead implements OnInit, OnDestroy {
       
     }
 
+    get studentName() {
+
+        if (this.data &&
+            this.data.formWithLatestHistory &&
+            this.data.formWithLatestHistory['studentName']
+        ) {
+            return this.data.formWithLatestHistory['studentName'].val;
+        }
+        else {
+            return null;
+        }
+
+    }
+
 }

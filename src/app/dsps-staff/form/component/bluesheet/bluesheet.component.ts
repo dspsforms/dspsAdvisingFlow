@@ -9,6 +9,7 @@ import { LastOperationStatusService } from '../../last-operation-status.service'
 import { WrappedForm } from 'src/app/model/wrapped-form.model';
 import { AuthService } from 'src/app/auth/auth.service';
 import { DataTransformService } from '../../data-transform.service';
+import { UserService } from 'src/app/dsps-staff/user/user.service';
 
 
 
@@ -31,6 +32,7 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
     public authService: AuthService,
     public dataTxformService: DataTransformService,
     public appGlobalsService: AppGlobalsService,
+    public userService: UserService,
     public lastOpStatusService: LastOperationStatusService,
     ) { 
     super(FormName.BLUESHEET,
@@ -39,6 +41,7 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
       authService,
       dataTxformService,
       appGlobalsService,
+      userService,
       lastOpStatusService);
     }
 

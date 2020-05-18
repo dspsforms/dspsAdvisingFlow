@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { AuthData } from 'src/app/auth/auth-data.model';
 
 @Component({
   selector: 'app-written-course-req',
@@ -9,6 +10,7 @@ import { FormGroup } from '@angular/forms';
 export class WrittenCourseReqComponent implements OnInit , OnChanges{
 
   @Input() form: FormGroup;
+  @Input() userList: AuthData[];
 
   refToData = { foo: 1 };
   constructor() { }
