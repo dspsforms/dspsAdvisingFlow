@@ -1,0 +1,113 @@
+
+<div [formGroup]="form"  class="grid2ColAap1">
+
+  <!-- first child of 2-col grid -->
+  <div>
+    <ion-item>
+      <ion-label>
+        <div class="wrap-text">
+          Produce class notes, homework, course requirements, assignments
+          and other written course requirements.
+        </div>
+        
+      </ion-label>
+    </ion-item>
+  </div>  <!-- end of 1st col of 2 col grid -->
+
+  
+
+<!-- second col of 2 col grid -->
+<div>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="visualAids"
+    controlName="assistiveTech"
+    controlType="checkbox"
+    label="Assistive Technology"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="visualAids"
+    controlName="audio"
+    controlType="checkbox"
+    label="Audio"
+    [userList]="userList"
+  > </app-elem-with-sig>
+  
+  <app-elem-with-sig [form]="form"
+  formGroupName="visualAids"
+  controlName="brail"
+  controlType="checkbox"
+  label="Braille"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+  formGroupName="visualAids"
+  controlName="cctv"
+  controlType="checkbox"
+  label="CCTV / Magnifier"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+  formGroupName="visualAids"
+  controlName="etext"
+  controlType="checkbox"
+  label="E-text"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+  formGroupName="visualAids"
+  controlName="enlargedPrint"
+  controlType="checkbox"
+  label="Enlarged Print (written and / or digital)"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+  formGroupName="visualAids"
+  controlName="fontSize"
+  controlType="text"
+  label="Specify font size"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+  formGroupName="visualAids"
+  controlName="noteTaking"
+  controlType="checkbox"
+  label="Note-taking"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+  formGroupName="visualAids"
+  controlName="prefSeating"
+  controlType="checkbox"
+  label="Preferential seating"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+  formGroupName="visualAids"
+  controlName="reader"
+  controlType="checkbox"
+  label="Reader"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+  formGroupName="visualAids"
+  controlName="other"
+  controlType="text"
+  label="Other"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+
+</div> <!-- end of 2nd col of two col grid -->
+
+</div>

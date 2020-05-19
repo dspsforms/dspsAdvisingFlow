@@ -120,7 +120,7 @@
 
 .grid3ColAap1 {
    display:grid;
-   grid-template-columns: repeat(3, minmax(80px, 1fr));
+   grid-template-columns: minmax(250px, 2fr) repeat(2, minmax(80px, 1fr));
    grid-gap: 5px;
 }
 

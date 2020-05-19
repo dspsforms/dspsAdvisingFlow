@@ -34,7 +34,7 @@ export class AddNewStaffPage implements OnInit, OnDestroy {
   isAdminAuth = false; 
 
   // default href for the back button
-  defaultHref = UrlConfig.DEFAULT_BACK_BUTTON_HREF;
+  defaultHref = UrlConfig.DEFAULT_BACK_BUTTON_HREF_LIST_USERS;
 
   constructor(
     private router: Router,

@@ -1,0 +1,56 @@
+ 
+<div [formGroup]="form"  class="grid2ColAap1">
+
+  <!-- first child of 2-col grid -->
+  <div>
+    <ion-item>
+      <ion-label>
+        <div class="wrap-text">
+          Plan appropriate class(es) complete registration process.
+        </div>
+        
+      </ion-label>
+    </ion-item>
+  </div>  <!-- end of 1st col of 2 col grid -->
+
+  
+
+<!-- second col of 2 col grid -->
+<div>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="planClasses"
+    controlName="priorityReg"
+    controlType="checkbox"
+    label="Priority Registration"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="planClasses"
+    controlName="regAssistance"
+    controlType="checkbox"
+    label="Registration Assistance"
+    [userList]="userList"
+  > </app-elem-with-sig>
+  
+  <app-elem-with-sig [form]="form"
+  formGroupName="planClasses"
+  controlName="schedMofification"
+  controlType="checkbox"
+  label="Schedule Modification"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+  formGroupName="planClasses"
+  controlName="other"
+  controlType="text"
+  label="Other"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+
+</div> <!-- end of 2nd col of two col grid -->
+
+</div>

@@ -316,8 +316,8 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
   }
 
   initVal(formGroup, latestValueHistory, fullValueHistory) {
-    console.log("formGroup", formGroup);
-    console.log("data" , latestValueHistory);
+    // console.log("formGroup", formGroup);
+    // console.log("data" , latestValueHistory);
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
@@ -362,7 +362,9 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
         // control['latestValueHistory'] = latestValueHistory[field]; 
         // control['fullValueHistory'] = fullValueHistory[field];
 
-        const prevValue = control['latestValueHistory'].val;
+        // control['latestValueHistory'] is going to be around during edit, but during testing a new form
+        // some controls are added along the way, so it may not be around.
+        const prevValue = control['latestValueHistory'] ? control['latestValueHistory'].val : null ;
         if (control.value !== prevValue) {
           atLeastOneChange = true;
           const foo = {

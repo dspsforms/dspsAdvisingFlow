@@ -6,7 +6,18 @@
  
   <app-written-course-req [form]="form" [userList]="userList"></app-written-course-req>
 
-   <!-- [disabled]="!form.valid" -->
+  <app-moving-around-campus [form]="form" [userList]="userList"></app-moving-around-campus>
+  
+  <app-visual-aids [form]="form" [userList]="userList"></app-visual-aids>
+
+  <app-tests [form]="form" [userList]="userList" ></app-tests>
+
+  <app-hear-lectures [form]="form" [userList]="userList" ></app-hear-lectures>
+
+  <app-plan-classes [form]="form" [userList]="userList" ></app-plan-classes>
+
+
+  <!-- [disabled]="!form.valid" -->
    <ion-grid *ngIf="mode !== 'view'">
     <ion-row>
       <ion-col size-sm="6">

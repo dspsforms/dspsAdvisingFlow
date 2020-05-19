@@ -3,15 +3,15 @@ import { FormGroup } from '@angular/forms';
 import { AuthData } from 'src/app/auth/auth-data.model';
 
 @Component({
-  selector: 'app-written-course-req',
-  templateUrl: './written-course-req.component.html',
-  styleUrls: ['./written-course-req.component.scss'],
+  selector: 'app-visual-aids',
+  templateUrl: './visual-aids.component.html',
+  styleUrls: ['./visual-aids.component.scss'],
 })
-export class WrittenCourseReqComponent implements OnInit {
+export class VisualAidsComponent implements OnInit {
 
   @Input() form: FormGroup;
   @Input() userList: AuthData[];
-
+  
   constructor() { }
 
   ngOnInit() {}

@@ -11,13 +11,21 @@ import { UrlConfig } from 'src/app/model/url-config';
 })
 export class EditPage extends AbstractFormRead implements OnInit, OnDestroy {
 
-  defaultBackButtonHref: string;
+  // defaultBackButtonHref: string;
   constructor(
     public route: ActivatedRoute,
     public formService: FormsService) { 
     super(route, formService);
 
-    this.defaultBackButtonHref = UrlConfig.DEFAULT_BACK_BUTTON_HREF;
+    
+  }
+
+  get defaultBackButtonHref() {
+    if (this.formInfo && this.formInfo.formName) {
+      return UrlConfig.LIST_FORMS_PRE_ABSOLUTE + this.formInfo.formName;
+    } else {
+      return UrlConfig.DEFAULT_BACK_BUTTON_HREF;
+    }
   }
 
 }

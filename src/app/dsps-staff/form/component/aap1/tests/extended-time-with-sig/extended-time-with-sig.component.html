@@ -1,0 +1,116 @@
+
+    <div [formGroup]="form">
+      <div [formGroupName]="formGroupName">
+
+    <div class="grid3ColAap1 bottom-border">
+
+    <!-- first child of grid3ColAap1 -->
+    <div>
+
+      <ion-radio-group 
+          formControlName="extendedTime" 
+          allow-empty-selection="true" 
+          (ionChange)="onChangeHandler($event)" >
+
+        <div class="grid-extended-time-outer">
+
+          <!-- first child of grid-extended-time-outer -->
+          <div class="ion-text-center"> 
+            <ion-item lines="none" > 
+              <div >
+                Extended Time
+              </div> 
+            </ion-item>
+          </div> 
+
+          <!-- second child of grid-extended-time-outer -->
+          <div>
+
+            <!-- 4 slot horizontal grid -->
+            <div class="grid4-extended-time-inner">
+
+              <ion-item lines="none">
+                <ion-label>N/A</ion-label>
+                <ion-radio 
+                  [disabled]="isDisabled"
+                  value="na">
+                </ion-radio>
+              </ion-item>
+
+            <ion-item lines="none">
+              <ion-label>1.5x</ion-label>
+              <ion-radio
+                [disabled]="isDisabled"
+                value="oneAndHalfX">
+              </ion-radio>
+            </ion-item>
+
+            <ion-item lines="none">
+              <ion-label>2x</ion-label>
+              <ion-radio 
+                [disabled]="isDisabled"
+                value="twoX" >
+              </ion-radio>
+            </ion-item>
+
+            <ion-item lines="none">
+              <ion-label>3x</ion-label>
+              <ion-radio 
+                [disabled]="isDisabled"
+                value="threeX" >
+              </ion-radio>
+            </ion-item>
+
+          </div> <!-- grid4-extended-time-inner -->
+
+        </div> <!-- end second child  grid-extended-time-outer -->
+
+      </div> <!-- grid-extended-time-outer -->
+
+    </ion-radio-group>
+
+    </div> <!-- end first child of grid3ColAap1 -->
+
+
+    <!-- second child of grid3ColAap1 -->
+    <div>
+      <ion-item 
+        *ngIf="form.get(formGroupName).get(controlName).dirty && valueChanged && !emptyValue"
+        lines="none">
+        {{ currentUserName || 'no current userName'}}
+      </ion-item>
+
+      <ion-item 
+        *ngIf="(!form.get(formGroupName).get(controlName).dirty || !valueChanged)
+        && form.get(formGroupName).get(controlName)['latestValueHistory'] && !emptyValue"
+        lines="none">
+        <!-- if none available, this will be empty -->
+        {{ lastHistoricalUser}}
+      </ion-item>
+
+    </div> <!-- end second child of grid3ColAap1 -->
+
+    <!-- third child of grid3ColAap1 -->
+    <div>
+      <ion-item 
+        lines="none" 
+        *ngIf="form.get(formGroupName).get(controlName).dirty  && valueChanged && !emptyValue" >
+        {{ date2Use | date }}
+      </ion-item>
+
+      <ion-item 
+        *ngIf="(!form.get(formGroupName).get(controlName).dirty || !valueChanged)
+        && form.get(formGroupName).get(controlName)['latestValueHistory'] && !emptyValue"
+        lines="none">
+        <!-- if none available, this will be empty -->
+        {{ lastHistoricalDate | date}}
+      </ion-item>
+    </div>
+
+  </div> <!-- grid3ColAap1 -->
+
+  </div> <!-- forGroupName -->
+  </div> <!-- formGroup -->
+
+
+

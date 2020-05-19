@@ -3,35 +3,25 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from 'src/app/auth/auth.service';
 import { AuthData } from 'src/app/auth/auth-data.model';
 
+
 @Component({
-  selector: 'app-elem-with-sig',
-  templateUrl: './elem-with-sig.component.html',
-  styleUrls: ['./elem-with-sig.component.scss'],
+  selector: 'app-extended-time-with-sig',
+  templateUrl: './extended-time-with-sig.component.html',
+  styleUrls: ['./extended-time-with-sig.component.scss'],
 })
-export class ElemWithSigComponent implements OnInit {
+export class ExtendedTimeWithSigComponent implements OnInit {
 
   @Input() form: FormGroup;
 
   // name of sub group within form
   @Input() formGroupName: string;
 
-  // name of the formGroup control
-  @Input() controlName: string;
-
-  @Input() controlType: 'checkbox' | 'text';
-
-  @Input() label: string;
-
   @Input() userList: AuthData[];
-
-  // @Input() mode: 'create' | 'view' | 'edit';
-
-  // @Input() refToData;  // a reference so data can be written to it.
 
   date2Use: Date;
 
   origValue;
-  isCheckbox;
+  controlName = 'extendedTime';
 
   currentUserId: string;
 
@@ -40,17 +30,14 @@ export class ElemWithSigComponent implements OnInit {
 
   ngOnInit() { 
 
-    // was: on edit or view, this is an object {val: foo, version: number, userId: ..., date: ...}
-    // now, it's a scalar
+    // this is a scalar
     this.origValue = this.form.get(this.formGroupName).get(this.controlName).value;
 
-    this.isCheckbox = this.controlType === 'checkbox';
-  
     this.date2Use = new Date();
 
     this.currentUserId = this.authService.getUserId();
     
-    // console.log("currentUserId from ElemWithSigComponent.ngOnInit()=", this.currentUserId);
+    console.log("extendedTimeWIthSig currentUserId from ElemWithSigComponent.ngOnInit()=", this.currentUserId);
     
   }
 
@@ -81,29 +68,12 @@ export class ElemWithSigComponent implements OnInit {
   }
 
   get valueChanged() {
-    if (this.isCheckbox) {
-      return this.checkboxClickCount % 2 !== 0; // odd true, even false
-    } else {
-      // origValue may be null. check for both null and empty string
-      // let orig = null;
-      // let foo = this.form.get(this.formGroupName).get(this.controlName)['latestValueHistory'];
-      // if (foo) {
-      //   orig = foo.val;
-      // } 
-      return ! (
-        this.origValue === this.form.get(this.formGroupName).get(this.controlName).value)
-        // || '' === orig || null === orig)
-        ;
-    }
+      return this.radioClickCount  % 2 !== 0; // odd true, even false
   }
 
   get emptyValue() {
     const val = this.form.get(this.formGroupName).get(this.controlName).value;
-    if (this.isCheckbox) {
-      return !val;
-    } else {
-      return !val || val.trim() === '';
-    }
+    return !val;
     
   }
 
@@ -116,15 +86,11 @@ export class ElemWithSigComponent implements OnInit {
     if (!this.form.get(this.formGroupName).get(this.controlName).value) {
       return null;
     }
-    const test = this.form.get(this.formGroupName).get(this.controlName)['latestValueHistory'];
-    // console.log("latestValueHistory", test);
-
     const lastHistoricalUserId = this.latestValueHistory.userId;
    // return lastHistoricalUserId;
     if (lastHistoricalUserId) {
       const personName = this.getUserNameWithDelay(lastHistoricalUserId);
-      
-      // console.log("userId, lastHistoricalUser=", this.latestValueHistory.userId, personName);
+      //  console.log("extendedTimeWIthSig: userId, lastHistoricalUser=", this.latestValueHistory.userId, personName);
       return personName;
     } else {
       return null;
@@ -148,20 +114,20 @@ export class ElemWithSigComponent implements OnInit {
   }
 
   // if this is even, value is same as orig value (for checkbox)
-  checkboxClickCount = 0;
+  radioClickCount  = 0;
 
   
 
-  clicked() {
-    this.checkboxClickCount++;
-    console.log("changeCounter", this.checkboxClickCount);
+  onChangeHandler(event) {
+    this.radioClickCount ++;
+    console.log("radioChangeCounter", this.radioClickCount );
     console.log(this.form);
 
   }
 
-  // if the form value has changed since loading, and it's not an empty value
-  get edited() {
-    return this.form.get(this.formGroupName).get(this.controlName).dirty && this.valueChanged && !this.emptyValue;
+  // for ion-radio, even if the corresponding formControl is disabled, the ion-radio is not. 
+  get isDisabled() {
+    return this.form.get(this.formGroupName).get(this.controlName).disabled;
   }
 
 }

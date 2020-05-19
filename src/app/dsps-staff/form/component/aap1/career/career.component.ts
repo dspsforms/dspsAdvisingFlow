@@ -3,11 +3,11 @@ import { FormGroup } from '@angular/forms';
 import { AuthData } from 'src/app/auth/auth-data.model';
 
 @Component({
-  selector: 'app-written-course-req',
-  templateUrl: './written-course-req.component.html',
-  styleUrls: ['./written-course-req.component.scss'],
+  selector: 'app-career',
+  templateUrl: './career.component.html',
+  styleUrls: ['./career.component.scss'],
 })
-export class WrittenCourseReqComponent implements OnInit {
+export class CareerComponent implements OnInit {
 
   @Input() form: FormGroup;
   @Input() userList: AuthData[];

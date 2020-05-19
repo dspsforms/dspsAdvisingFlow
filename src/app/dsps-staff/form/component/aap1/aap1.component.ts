@@ -124,10 +124,12 @@ export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestr
       tests: new FormGroup({
         // Take tests in the traditional manner
         sectionHeader: new FormControl(false, { updateOn: 'change' }),
+        // extendedTime is a radio control. values are oneAndHalfX, twoX, or threeX
         extendedTime: new FormControl(false, { updateOn: 'change' }),
-        oneAndHalfX: new FormControl(false, { updateOn: 'change' }),
-        twoX: new FormControl(false, { updateOn: 'change' }),
-        threeX: new FormControl(false, { updateOn: 'change' }),
+        // these are now radio values for extendedTime
+        // oneAndHalfX: new FormControl(false, { updateOn: 'change' }),
+        // twoX: new FormControl(false, { updateOn: 'change' }),
+        // threeX: new FormControl(false, { updateOn: 'change' }),
         distractionReduced: new FormControl(false, { updateOn: 'change' }),
         breaks: new FormControl(null, { updateOn: 'change' }),
         altFormat: new FormControl(false, { updateOn: 'change' }),

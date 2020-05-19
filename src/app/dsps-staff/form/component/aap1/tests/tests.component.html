@@ -1,0 +1,177 @@
+
+<div [formGroup]="form"  class="grid2ColAap1">
+
+  <!-- first child of 2-col grid -->
+  <div>
+    <ion-item>
+      <ion-label>
+        <div class="wrap-text">
+          Take tests in the traditional manner.
+        </div>
+        
+      </ion-label>
+    </ion-item>
+  </div>  <!-- end of 1st col of 2 col grid -->
+
+<!-- second col of 2 col grid -->
+<div>
+
+  <!-- 
+
+  
+  <app-elem-with-sig [form]="form"
+    formGroupName="tests"
+    controlName="extendedTime"
+    controlType="checkbox"
+    label="Extended Time% "
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="tests"
+    controlName="oneAndHalfX"
+    controlType="checkbox"
+    label="1.5x"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="tests"
+    controlName="twoX"
+    controlType="checkbox"
+    label="2x"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="tests"
+    controlName="threeX"
+    controlType="checkbox"
+    label="3x"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  -->
+
+  <app-extended-time-with-sig
+    [form]="form"
+    formGroupName="tests"
+    [userList]="userList"
+  ></app-extended-time-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="tests"
+    controlName="distractionReduced"
+    controlType="checkbox"
+    label="Distraction Reduced Setting"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="tests"
+    controlName="breaks"
+    controlType="text"
+    label="Breaks"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="tests"
+    controlName="altFormat"
+    controlType="checkbox"
+    label="Alternate Format"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="tests"
+    controlName="adaptedComputer"
+    controlType="checkbox"
+    label="Adapted Computer"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="tests"
+    controlName="brail"
+    controlType="checkbox"
+    label="Braille"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="tests"
+    controlName="calculator"
+    controlType="checkbox"
+    label="Calculator"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="tests"
+    controlName="dictionary"
+    controlType="checkbox"
+    label="Dictionary"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="tests"
+    controlName="enlargedPrint"
+    controlType="checkbox"
+    label="Enlarged Print"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="tests"
+    controlName="reader"
+    controlType="checkbox"
+    label="Reader"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="tests"
+    controlName="scribe"
+    controlType="checkbox"
+    label="Scribe"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="tests"
+    controlName="spellChecker"
+    controlType="checkbox"
+    label="Spell Checker"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="tests"
+    controlName="serviceAnimal"
+    controlType="checkbox"
+    label="Service Animal"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="tests"
+    controlName="other"
+    controlType="text"
+    label="Other"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+
+
+
+</div> <!-- end of 2nd col of two col grid -->
+
+</div>
+
+
+  
+ 
+  

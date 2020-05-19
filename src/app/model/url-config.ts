@@ -18,6 +18,8 @@ export class UrlConfig {
   // for back buttons, if in doubt, go here
   static DEFAULT_BACK_BUTTON_HREF = '/dsps-staff/form';
 
+  static DEFAULT_BACK_BUTTON_HREF_LIST_USERS = '/dsps-staff/users/list-dsps-users';
+
   
 
   static LIST_COLLECTIONS_ABSOLUTE: '/api/forms';
@@ -40,7 +42,7 @@ export class UrlConfig {
   static LIST_STUDENTS = 'dsps-staff/users/students';
   static LIST_STUDENTS_ABSOLUTE = '/dsps-staff/users/students';
 
-  static LIST_FORMS_PRE_ABSOLUTE = 'dsps-staff/form/list/'; // append formName
+  static LIST_FORMS_PRE_ABSOLUTE = '/dsps-staff/form/list/'; // append formName
 
   static CREATE_FORM_PRE_ABSOLUTE = '/dsps-staff/form/create/'; // append formName 
 

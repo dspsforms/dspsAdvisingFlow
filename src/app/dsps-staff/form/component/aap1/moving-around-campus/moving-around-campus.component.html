@@ -1,0 +1,58 @@
+
+<div [formGroup]="form"  class="grid2ColAap1">
+
+  <!-- first child of 2-col grid -->
+  <div>
+    <ion-item>
+      <ion-label>
+        <div class="wrap-text">
+          Moving around campus or classroom
+        </div>
+        
+      </ion-label>
+    </ion-item>
+  </div>  <!-- end of 1st col of 2 col grid -->
+
+<!-- second col of 2 col grid -->
+<div>
+
+  <app-elem-with-sig [form]="form"
+        formGroupName="movingAroundCampus"
+        controlName="bypassLines"
+        controlType="checkbox"
+        label="By-pass Lines"
+        [userList]="userList"
+      > 
+  </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+        formGroupName="movingAroundCampus"
+        controlName="mobilityOrientation"
+        controlType="checkbox"
+        label="Mobility Orientation"
+        [userList]="userList"
+      > 
+</app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+        formGroupName="movingAroundCampus"
+        controlName="serviceAnimal"
+        controlType="checkbox"
+        label="Service Animal"
+        [userList]="userList"
+      > 
+  </app-elem-with-sig>
+
+ 
+
+<app-elem-with-sig [form]="form"
+    formGroupName="movingAroundCampus"
+    controlName="other"
+    controlType="text"
+    label="Other"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+</div> <!-- end of 2nd col of two col grid -->
+
+</div>

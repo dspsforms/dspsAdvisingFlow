@@ -1,0 +1,88 @@
+
+  
+ 
+
+
+
+
+<div [formGroup]="form"  class="grid2ColAap1">
+
+  <!-- first child of 2-col grid -->
+  <div>
+    <ion-item>
+      <ion-label>
+        <div class="wrap-text">
+          Deal with disability related personal issues, 
+          interact with college instructors, 
+          counselors and other personal related to special needs.
+        </div>
+        
+      </ion-label>
+    </ion-item>
+  </div>  <!-- end of 1st col of 2 col grid -->
+
+  
+
+<!-- second col of 2 col grid -->
+<div>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="personalIssues"
+    controlName="campusServiceRef"
+    controlType="checkbox"
+    label="Campus Service Referral"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="personalIssues"
+    controlName="communityServiceRef"
+    controlType="checkbox"
+    label="Community Service Referral"
+    [userList]="userList"
+  > </app-elem-with-sig>
+  
+  <app-elem-with-sig [form]="form"
+  formGroupName="personalIssues"
+  controlName="counseling"
+  controlType="checkbox"
+  label="Disability-related Counseling"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+  formGroupName="healthSafety"
+  controlName="cctv"
+  controlType="checkbox"
+  label="Health and Safety Recommendations"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+  formGroupName="personalIssues"
+  controlName="liason"
+  controlType="checkbox"
+  label="Liaison"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+  formGroupName="personalIssues"
+  controlName="serviceAnimal"
+  controlType="checkbox"
+  label="Service Animal"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+  formGroupName="personalIssues"
+  controlName="other"
+  controlType="text"
+  label="Other"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+
+</div> <!-- end of 2nd col of two col grid -->
+
+</div>

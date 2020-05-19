@@ -1,0 +1,91 @@
+
+<div [formGroup]="form"  class="grid2ColAap1">
+
+  <!-- first child of 2-col grid -->
+  <div>
+    <ion-item>
+      <ion-label>
+        <div class="wrap-text">
+          Hear or process lectures, student discussions 
+          and related oral presentations.
+        </div>
+        
+      </ion-label>
+    </ion-item>
+  </div>  <!-- end of 1st col of 2 col grid -->
+
+  
+
+<!-- second col of 2 col grid -->
+<div>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="hearLectures"
+    controlName="assistiveListening"
+    controlType="checkbox"
+    label="Assistive Listening Device"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="hearLectures"
+    controlName="closedCaptioning"
+    controlType="checkbox"
+    label="Closed Captioning"
+    [userList]="userList"
+  > </app-elem-with-sig>
+  
+  <app-elem-with-sig [form]="form"
+  formGroupName="hearLectures"
+  controlName="oralInterpreter"
+  controlType="checkbox"
+  label="Oral Interpreter"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+  formGroupName="hearLectures"
+  controlName="prefSeating"
+  controlType="checkbox"
+  label="Preferential Seating"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+  formGroupName="hearLectures"
+  controlName="realTimeCaptioning"
+  controlType="checkbox"
+  label="Real Time Captioning"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+  formGroupName="hearLectures"
+  controlName="signLangInterpreter"
+  controlType="checkbox"
+  label="Sign Language Interpreter"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+
+<app-elem-with-sig [form]="form"
+  formGroupName="hearLectures"
+  controlName="serviceAnimal"
+  controlType="checkbox"
+  label="Service Animal"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+
+<app-elem-with-sig [form]="form"
+  formGroupName="hearLectures"
+  controlName="other"
+  controlType="text"
+  label="Other"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+
+</div> <!-- end of 2nd col of two col grid -->
+
+</div>
