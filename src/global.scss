@@ -112,11 +112,44 @@
    display:grid;
    grid-template-columns: 200px 1fr;
    grid-gap: 10px;
+   // border-bottom-color: var(--own-grid-border-color-rgb, red);
+   border-bottom-color: var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));
+   border-bottom-width: 1px;
+   border-bottom-style: solid;
 }
 
 .grid2ColAap1 > div {
-   border: 2px solid red;
+   border-left-color: var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));
+   border-left-width: 1px;
+   border-left-style: solid;
+
+   border-bottom-color: var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));
+   border-bottom-width: 1px;
+   border-bottom-style: solid;
+   
 }
+
+// .grid2ColAap1:last-child, .aap1Child2 {
+//   //  border: 2px solid red;
+//   border-right-color: var(--own-grid-border-color-rgb, red);
+//   border-right-width: 1px;
+//   border-right-style: solid;
+// }
+
+// .grid2ColAap1:first-child, .grid2ColAap1:last-child , .aap1Child1, .aap1Child2{
+//    //  border: 2px solid red;
+//    border-top-color: var(--own-grid-border-color-rgb, red);
+//    border-top-width: 2px;
+//    border-top-style: solid;
+
+//    border-bottom-color: var(--own-grid-border-color-rgb, red);
+//    border-bottom-width: 1px;
+//    border-bottom-style: solid;
+
+//    border-left-color: var(--own-grid-border-color-rgb, red);
+//    border-left-width: 2px;
+//    border-left-style: solid;
+//  }
 
 .grid3ColAap1 {
    display:grid;

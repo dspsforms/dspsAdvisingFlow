@@ -1,0 +1,37 @@
+<div [formGroup]="form">
+
+
+  <ion-row>
+    <ion-col>
+     <p class="strong">
+      I, the undersigned DSPS professional, agree that the 
+      accommodations approved above are reasonable for certain classes or 
+      educational settings at this college and may not apply to other institutions. 
+      If an agreement between faculty member, student, and myself cannot be reached, 
+      I will refer the student to the formal college grievance procedure.
+     </p>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-list>
+        <ion-item>
+          <ion-label  position="floating">DSPS Specialist Signature *</ion-label>
+          <ion-input 
+            type="text"
+            formControlName="completedBySignature"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="form.get('completedBySignature').touched && !form.get('completedBySignature').valid">
+          <ion-label>Signature is needed.</ion-label>
+        </ion-item>
+
+        <!-- <ion-item>
+          <ion-label>(Date of signature will be the date you submit this form first.)</ion-label>
+        </ion-item> -->
+      </ion-list>  
+    </ion-col>
+  </ion-row>
+
+
+</div>

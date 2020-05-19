@@ -419,6 +419,46 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
     this.router.navigateByUrl(UrlConfig.LIST_FORMS_PRE_ABSOLUTE + this.formName);
   }
 
+  get currentVersion() {
+    if (this.wrappedFormFromDb &&
+        this.wrappedFormFromDb.currentVersion
+    ) {
+        return this.wrappedFormFromDb.currentVersion;
+    } else {
+        return null;
+    }
+  }
+
+  get lastModified() {
+
+    if (this.wrappedFormFromDb) {
+        if (this.wrappedFormFromDb.lastMod) {
+            return this.wrappedFormFromDb.lastMod;
+        } else if (this.wrappedFormFromDb.created) {
+            return this.wrappedFormFromDb.created;
+        }
+    }
+    
+    return null;     
+  }
+
+  get lastModifiedBy() {
+    if (!this.userList || this.userList.length == 0) {
+        // userList will come over time, over a subscription
+        return;
+    }
+    if (this.wrappedFormFromDb && this.wrappedFormFromDb.user
+    ) {
+        const lastUserIdWhoEdited = this.wrappedFormFromDb.user;
+        const lastUserWhoEdited =
+            this.userList.find(user => user._id === lastUserIdWhoEdited);
+        return lastUserWhoEdited.name; // if null, that's ok
+    } else {
+        return null;
+    }
+
+}
+
   ngOnDestroy() {
     SubscriptionUtil.unsubscribe(this.formSaveStatusSub);
     SubscriptionUtil.unsubscribe(this.editSaveStatusSub);

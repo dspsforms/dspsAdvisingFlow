@@ -6,6 +6,8 @@ import { FormsService } from './forms.service';
 import { SubscriptionUtil } from 'src/app/util/subscription-util';
 import { FormUtil } from '../../model/form.util';
 import { Subscription } from 'rxjs';
+import { UserService } from '../user/user.service';
+import { AuthData } from 'src/app/auth/auth-data.model';
 
 
 
@@ -24,7 +26,7 @@ export class AbstractFormRead implements OnInit, OnDestroy {
     formInfo = { formName: '', formTitle: '', _id: ''};
 
     data: WrappedForm;
-    
+
 
     constructor(
         public route: ActivatedRoute,
@@ -66,6 +68,7 @@ export class AbstractFormRead implements OnInit, OnDestroy {
         this.data = new WrappedForm({});
         this.busy = true;
         this.formService.getFormData2(this.formInfo.formName, this.formInfo._id);
+
     
     }
       
@@ -73,6 +76,8 @@ export class AbstractFormRead implements OnInit, OnDestroy {
       
         SubscriptionUtil.unsubscribe(this.paramSubscription);
         SubscriptionUtil.unsubscribe(this.dbSubscription);
+
+        // no need to destroy the userList here. that will hardly ever change
     
     }
       
@@ -82,8 +87,10 @@ export class AbstractFormRead implements OnInit, OnDestroy {
       
     ngOnDestroy() {
       
-          SubscriptionUtil.unsubscribe(this.paramSubscription);
-          SubscriptionUtil.unsubscribe(this.dbSubscription);
+        SubscriptionUtil.unsubscribe(this.paramSubscription);
+        SubscriptionUtil.unsubscribe(this.dbSubscription);
+        
+     
       
     }
 
@@ -94,11 +101,12 @@ export class AbstractFormRead implements OnInit, OnDestroy {
             this.data.formWithLatestHistory['studentName']
         ) {
             return this.data.formWithLatestHistory['studentName'].val;
-        }
-        else {
+        } else {
             return null;
         }
 
     }
+
+    
 
 }

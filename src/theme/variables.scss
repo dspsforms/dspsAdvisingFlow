@@ -74,6 +74,11 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+
+  /** own variables **/
+  --own-grid-border-color-rgb: rgb(207, 207, 211);
+  
 }
 
 @media (prefers-color-scheme: dark) {

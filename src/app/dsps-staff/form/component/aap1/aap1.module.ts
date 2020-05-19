@@ -20,6 +20,7 @@ import { PlanClassesComponent } from './plan-classes/plan-classes.component';
 import { TestsComponent } from './tests/tests.component';
 import { VisualAidsComponent } from './visual-aids/visual-aids.component';
 import { ExtendedTimeWithSigComponent } from './tests/extended-time-with-sig/extended-time-with-sig.component';
+import { Aap1footerComponent } from './aap1footer/aap1footer.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { ExtendedTimeWithSigComponent } from './tests/extended-time-with-sig/ext
     exports: [
         Aap1Component,
         Aap1headerComponent,
+        Aap1footerComponent,
         CareerComponent,
         DevelopSkillsComponent,
         FacilitiesComponent,
@@ -50,6 +52,7 @@ import { ExtendedTimeWithSigComponent } from './tests/extended-time-with-sig/ext
     declarations: [
         Aap1Component,
         Aap1headerComponent,
+        Aap1footerComponent,
         CareerComponent,
         DevelopSkillsComponent,
         FacilitiesComponent,
