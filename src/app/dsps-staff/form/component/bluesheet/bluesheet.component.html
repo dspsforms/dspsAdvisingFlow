@@ -34,8 +34,8 @@
       
   <app-bluesheet-footer [form]="form" [grid]="grid"></app-bluesheet-footer>
   
-  <ion-grid *ngIf="mode !== 'view'">
-    <ion-row>
+  <ion-grid >
+    <ion-row  *ngIf="mode !== 'view'">
 
       <ion-col size-sm="3" offset-sm="2">
         <ion-button 
@@ -52,7 +52,26 @@
           Cancel
         </ion-button>
       </ion-col>
+    </ion-row>  <!-- submit and cancel buttons -->
+
+    <ion-row  *ngIf="mode !== 'create'">
+      <ion-col size-sm="4">
+        <ion-item *ngIf="lastModifiedBy" lines="none">
+          <ion-label >
+            Last edited by  {{ lastModifiedBy }},  {{ lastModified | date }}.
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col size-sm="2">
+          <ion-item *ngIf="currentVersion" lines="none" >
+            <ion-label >
+               Version:  {{ currentVersion }}
+            </ion-label>
+          </ion-item>
+      </ion-col>
+    
     </ion-row>
+    
   </ion-grid>
 
   </form>
