@@ -161,7 +161,15 @@ export class ElemWithSigComponent implements OnInit {
 
   // if the form value has changed since loading, and it's not an empty value
   get edited() {
-    return this.form.get(this.formGroupName).get(this.controlName).dirty && this.valueChanged && !this.emptyValue;
+    let result = null;
+    try {
+      result= this.form.get(this.formGroupName).get(this.controlName).dirty && this.valueChanged && !this.emptyValue;
+    } catch (err) {
+      console.log(err);
+    }
+
+    return result;
+    
   }
 
 }

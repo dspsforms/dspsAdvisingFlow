@@ -1,3 +1,41 @@
-<p>
-  health-related-support works!
-</p>
+
+  <div [formGroup]="form"  class="grid2ColAap1">
+
+    <!-- first child of 2-col grid -->
+    <div>
+      <ion-item>
+        <ion-label>
+          <div class="wrap-text">
+            Adapted physical and mental health related support
+          </div>
+          
+        </ion-label>
+      </ion-item>
+    </div>  <!-- end of 1st col of 2 col grid -->
+  
+  
+  <!-- second col of 2 col grid -->
+  <div>
+  
+    <app-elem-with-sig [form]="form"
+      formGroupName="healthRelatedSupport"
+      controlName="adaptiveKinesiology"
+      controlType="checkbox"
+      label="Adaptive Kinesiology"
+      [userList]="userList"
+    > </app-elem-with-sig>
+  
+   
+  <app-elem-with-sig [form]="form"
+    formGroupName="healthRelatedSupport"
+    controlName="other"
+    controlType="text"
+    label="Other"
+    [userList]="userList"
+  > </app-elem-with-sig>
+  
+  
+  </div> <!-- end of 2nd col of two col grid -->
+  
+  </div>
+  

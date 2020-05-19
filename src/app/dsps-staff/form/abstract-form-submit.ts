@@ -374,6 +374,12 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
             date: now
           };
           formWithLatestHistory[field] = foo;
+
+          // in rare cases, e.g, if a new field is added to an existing
+          // form, there is no history for that field.
+          if (!formHistoryArr[field]) {
+            formHistoryArr[field] = [];
+          }
           formHistoryArr[field].push(foo);
         }
       } else if (control instanceof FormGroup) {

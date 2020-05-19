@@ -182,9 +182,9 @@ export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestr
         sectionHeader: new FormControl(false, { updateOn: 'change' }),
         adaptedFurniture: new FormControl(false, { updateOn: 'change' }),
         assistiveTech: new FormControl(false, { updateOn: 'change' }),
-        breaks: new FormControl(false, { updateOn: 'change' }),
-        frequency: new FormControl(null, { updateOn: 'change' }),
-        duration: new FormControl(null, { updateOn: 'change' }),
+        // breaks: new FormControl(false, { updateOn: 'change' }),
+        breaksFrequency: new FormControl(null, { updateOn: 'change' }),
+        breaksDuration: new FormControl(null, { updateOn: 'change' }),
         envAdj: new FormControl(false, { updateOn: 'change' }),
         prefSeating: new FormControl(false, { updateOn: 'change' }),  
         standingOrLeavingClassroom: new FormControl(false, { updateOn: 'change' }),  
@@ -219,6 +219,7 @@ export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestr
       other: new FormGroup({
         // Other (please specify)
         sectionHeader: new FormControl(null, { updateOn: 'change' }),
+        other: new FormControl(null, { updateOn: 'change' }),
       }),
      // also needed: studentSig and studentSigDate
       

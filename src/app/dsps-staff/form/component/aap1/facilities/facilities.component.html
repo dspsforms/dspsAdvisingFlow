@@ -1,3 +1,96 @@
-<p>
-  facilities works!
-</p>
+
+<div [formGroup]="form"  class="grid2ColAap1">
+
+  <!-- first child of 2-col grid -->
+  <div>
+    <ion-item>
+      <ion-label>
+        <div class="wrap-text">
+          Using educational facilities, materials and equipment
+        </div>
+        
+      </ion-label>
+    </ion-item>
+  </div>  <!-- end of 1st col of 2 col grid -->
+
+
+<!-- second col of 2 col grid -->
+<div>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="facilities"
+    controlName="adaptedFurniture"
+    controlType="checkbox"
+    label="Adapted Furniture"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="facilities"
+    controlName="assistiveTech"
+    controlType="checkbox"
+    label="Assistive Technology"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="facilities"
+    controlName="breaksFrequency"
+    controlType="text"
+    label="Breaks - Frequency"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [form]="form"
+    formGroupName="facilities"
+    controlName="breaksDuration"
+    controlType="text"
+    label="Breaks - Duration"
+    [userList]="userList"
+  > </app-elem-with-sig>
+ 
+  <app-elem-with-sig [form]="form"
+    formGroupName="facilities"
+    controlName="envAdj"
+    controlType="checkbox"
+    label="Environmental Adjustments"
+    [userList]="userList"
+  > </app-elem-with-sig>
+  
+  <app-elem-with-sig [form]="form"
+  formGroupName="facilities"
+  controlName="prefSeating"
+  controlType="checkbox"
+  label="Preferential Seating"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+  formGroupName="facilities"
+  controlName="standingOrLeavingClassroom"
+  controlType="checkbox"
+  label="Standing or leaving classroom"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+  formGroupName="facilities"
+  controlName="serviceAnimal"
+  controlType="checkbox"
+  label="Service Animal"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [form]="form"
+  formGroupName="facilities"
+  controlName="other"
+  controlType="text"
+  label="Other"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+
+</div> <!-- end of 2nd col of two col grid -->
+
+</div>
+
