@@ -55,7 +55,7 @@ export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestr
 
   initFormObj() {
   
-    // blue sheet header
+    //  header
     this.form = new FormGroup({
       
       /*
