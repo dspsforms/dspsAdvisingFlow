@@ -1,0 +1,46 @@
+<div [formGroup]="form">
+  <div [formGroupName]="secondaryGroup">
+
+    <ion-radio-group 
+      [formControlName]="controlName" 
+      allow-empty-selection="true" 
+      (ionChange)="onChangeHandler($event)" >
+
+      <!--  horizontal arrangement -->
+      <ion-grid>
+      
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label>
+              {{ label }}
+            </ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label>Yes</ion-label>
+            <ion-radio 
+              [disabled]="isDisabled"
+              value="yes">
+            </ion-radio>
+          </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label>No</ion-label>
+            <ion-radio
+              [disabled]="isDisabled"
+              value="no">
+            </ion-radio>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+    </ion-radio-group>
+  </div>
+</div>

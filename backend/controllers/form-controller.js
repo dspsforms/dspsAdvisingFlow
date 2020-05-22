@@ -7,6 +7,7 @@ const debug = require('../constants/debug');
 const BluesheetForm = require('../models/bluesheet-form-model');
 const Aap1Form = require('../models/aap1-form-model');
 const Aap2Form = require('../models/aap2-form-model');
+const GreensheetForm = require('../models/greensheet-form-model');
 
 // these are for the other server (dsps-forms.missioncollege.edu)
 // const IntakeForm = require('../models/intake-form-model');
@@ -462,6 +463,8 @@ getFormModel = formName => {
     form = Aap1Form;
   } else if (formName === 'aap2') {
     form = Aap2Form;
+  } else if (formName === 'greensheet') {
+    form = GreensheetForm;
   }
   // else if (formName === 'applicationForServices') {
   //   form = ApplicationForServices;
@@ -540,6 +543,20 @@ createForm = (req) => {
     });
   }  else if (req.params.formName === 'aap2') {
     form = new Aap2Form({
+      formName: formName,
+      user: sanitize(req.body.user),
+      formWithLatestHistory: sanitize(req.body.formWithLatestHistory), 
+      formHistoryArr: sanitize(req.body.formHistoryArr), 
+      versionDetails: sanitize(req.body.versionDetails), 
+      currentVersion: sanitize(req.body.currentVersion),
+      edited: false,
+      created: currentTime,
+      lastMod: currentTime,
+      state: sanitize(req.body.state || 'current'),
+      // captchaScore: captchaScore
+    });
+  } else if (req.params.formName === 'greensheet') {
+    form = new GreensheetForm({
       formName: formName,
       user: sanitize(req.body.user),
       formWithLatestHistory: sanitize(req.body.formWithLatestHistory), 

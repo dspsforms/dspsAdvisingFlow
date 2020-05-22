@@ -51,4 +51,15 @@
 
    </div>
 
+   <div *ngIf="formInfo.formName == 'greensheet' && data && !busy ">
+
+    <app-greensheet
+      [formKey]="data._id"
+      [wrappedForm]="data" 
+      [mode]="'view'"
+      >
+    </app-greensheet>
+
+   </div>
+
 </ion-content>

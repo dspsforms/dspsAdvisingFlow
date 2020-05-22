@@ -10,6 +10,7 @@ import { EditPage } from './edit.page';
 import { BluesheetComponentModule } from '../component/bluesheet/bluesheet-component.module';
 import { Aap1ComponentModule } from '../component/aap1/aap1.module';
 import { Aap2ComponentModule } from '../component/aap2/aap2.module';
+import { GreesheetComponentModule } from '../component/greensheet/greensheet.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { Aap2ComponentModule } from '../component/aap2/aap2.module';
     BluesheetComponentModule,
     Aap1ComponentModule,
     Aap2ComponentModule,
+    GreesheetComponentModule,
     EditPageRoutingModule
   ],
   declarations: [EditPage]

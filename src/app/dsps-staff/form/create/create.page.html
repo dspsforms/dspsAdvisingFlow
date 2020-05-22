@@ -25,4 +25,12 @@
     <app-aap1 [mode]="'create'" ></app-aap1>
    </div>
 
+   <div *ngIf="formName == 'aap2' ">
+    <app-aap2 [mode]="'create'" ></app-aap2>
+   </div>
+
+   <div *ngIf="formName == 'greensheet' ">
+    <app-greensheet [mode]="'create'" ></app-greensheet>
+   </div>
+
 </ion-content>

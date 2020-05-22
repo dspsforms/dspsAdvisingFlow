@@ -7,10 +7,13 @@ export class FormName {
   
   static AAP2 = 'aap2';
 
+  static GREENSHEET = 'greensheet';
+
     static formNames = [
       FormName.BLUESHEET,
       FormName.AAP1,
-      FormName.AAP2
+      FormName.AAP2,
+      FormName.GREENSHEET
     ];
 
   }
@@ -36,6 +39,7 @@ export class FormUtil {
             FormUtil.mongo2FormNameMap["bluesheets"] = FormName.BLUESHEET;
             FormUtil.mongo2FormNameMap["aap1s"] = FormName.AAP1;
             FormUtil.mongo2FormNameMap["aap2s"] = FormName.AAP2;
+            FormUtil.mongo2FormNameMap["greensheets"] = FormName.GREENSHEET;
         
   
             FormUtil.initialized = true;
