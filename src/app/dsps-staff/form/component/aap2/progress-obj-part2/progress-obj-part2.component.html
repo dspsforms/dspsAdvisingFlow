@@ -1,3 +1,34 @@
-<p>
-  progress-obj-part2 works!
-</p>
+<div [formGroup]="form" >
+  <div formGroupName="progressObj">
+
+    <ion-list>
+
+      <ion-item>
+        <ion-label position="floating">Educational or Other Goal</ion-label>
+        <ion-textarea rows="3" formControlName="edOrOtherGoal"></ion-textarea>
+      </ion-item>
+
+      <app-label-yes-no
+        [form]="form"
+        secondaryGroup="progressObj"
+        controlName="edAssistanceThisSem"
+        label="Educational Assistance Courses this Semester"></app-label-yes-no>
+
+      <ion-item>
+        <ion-label position="floating">Course Name(s)</ion-label>
+        <ion-textarea rows="2" formControlName="courseNames"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Progress in EAC</ion-label>
+        <ion-textarea rows="2" formControlName="progressEAC"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">General Progress</ion-label>
+        <ion-textarea rows="3" formControlName="genProgress"></ion-textarea>
+      </ion-item>
+    </ion-list>
+
+  </div> <!-- formGroupName -->
+</div> <!-- formGroup -->

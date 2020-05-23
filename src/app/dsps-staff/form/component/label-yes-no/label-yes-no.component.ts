@@ -23,8 +23,7 @@ export class LabelYesNoComponent implements OnInit {
    }
   
   onChangeHandler() {
-    console.log("here");
-    console.log(this.label, this.form.get(this.secondaryGroup).get(this.controlName));
+    // console.log(this.label, this.form.get(this.secondaryGroup).get(this.controlName));
   }
 
   // for ion-radio, even if the corresponding formControl is disabled, the ion-radio is not. 

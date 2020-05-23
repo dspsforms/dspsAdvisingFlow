@@ -32,8 +32,8 @@ export class FormUtil {
   
             FormUtil.formMap[FormName.BLUESHEET] = "Bluesheet";
   
-            FormUtil.formMap[FormName.AAP1] = "Academic Accommodations Plan Part 1";
-            FormUtil.formMap[FormName.AAP2] = "Academic Accommodations Plan Part 2";
+            FormUtil.formMap[FormName.AAP1] = "Academic Accommodations Plan - Part 1";
+            FormUtil.formMap[FormName.AAP2] = "Academic Accommodations Plan - Part 2";
             FormUtil.formMap[FormName.GREENSHEET] = "Greensheet";
   
             // mongo collections are named intakeforms, etc.

@@ -72,7 +72,7 @@ export class Aap2Component extends AbstractFormSubmit implements OnInit, OnDestr
       // completedByDate: new FormControl(null, { updateOn: 'change' }), // automatic -- hidden
 
       // where there are validators, updateOn blur. else, updateOn change
-      semester: new FormControl(null, { updateOn: 'change' }),
+      
       studentName: new FormControl(null, {
         updateOn: 'blur',
         validators: [Validators.required]

@@ -1,3 +1,35 @@
-<p>
-  aap2header works!
-</p>
+<div [formGroup]="form">
+
+  <ion-item>
+    <ion-label position="floating">Form completed and approved eligible by *</ion-label>
+    <ion-input formControlName="completedBySignature"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="form.get('completedBySignature').touched && !form.get('completedBySignature').valid">
+    <ion-label color="danger">DSPS Specialist's signature is required.</ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Name *</ion-label>
+    <ion-input formControlName="studentName"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="form.get('studentName').touched && !form.get('studentName').valid">
+    <ion-label color="danger">Student name is required.</ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Student ID *</ion-label>
+    <ion-input formControlName="collegeId"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="form.get('collegeId').touched && !form.get('collegeId').valid">
+    <ion-label color="danger">Student ID is required.</ion-label>
+  </ion-item>
+
+  <ion-item >
+    <ion-label position="floating"> Email * </ion-label>
+    <ion-input  formControlName="studentEmail"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="form.get('studentEmail').touched && !form.get('studentEmail').valid">
+    <ion-label color="danger">A valid email is required.</ion-label>
+  </ion-item>
+
+  </div> <!-- form -->

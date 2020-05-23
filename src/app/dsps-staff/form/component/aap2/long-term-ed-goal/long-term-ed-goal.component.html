@@ -1,3 +1,48 @@
-<p>
-  long-term-ed-goal works!
-</p>
+<h2 class="ion-text-center gap-top">Long-Term Educational Goal:</h2>
+
+<div [formGroup]="form" >
+  <div formGroupName="longTermEdGoal">
+
+<!-- if grid -->
+<div *ngIf="grid" class="grid2Col gap-top" >
+
+  <!-- left col -->
+    <ion-list>
+      <ion-item *ngFor="let key of allKeysLeftCol;">
+        <ion-label>{{ labelsLeftCol[key] }} </ion-label>
+        <ion-checkbox slot="start" [formControlName]="key"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+
+  <!-- right col -->
+  <ion-list class="left-border">
+    <ion-item *ngFor="let key of allKeysRightCol;">
+      <ion-label>{{ labelsRightCol[key] }} </ion-label>
+      <ion-checkbox slot="start" [formControlName]="key"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+</div>
+
+
+<!-- if not grid -->
+<div *ngIf="! grid" class="gap-top">
+
+  <ion-list>
+    <ion-item *ngFor="let key of allKeysLeftCol;">
+      <ion-label>{{ labelsLeftCol[key] }} </ion-label>
+      <ion-checkbox slot="start" [formControlName]="key"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item *ngFor="let key of allKeysLeftCol;">
+      <ion-label>{{ labelsLeftCol[key] }} </ion-label>
+      <ion-checkbox slot="start" [formControlName]="key"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+</div>
+
+
+</div> <!-- formGroupName -->
+</div> <!-- formGroup -->
