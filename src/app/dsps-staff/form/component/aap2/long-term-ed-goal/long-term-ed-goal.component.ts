@@ -34,7 +34,7 @@ export class LongTermEdGoalComponent implements OnInit {
     this.labelsRightCol['acquire'] = 'Acquire Job Skills Only';
     this.labelsRightCol['update'] = 'Update Job Skills Only';
     this.labelsRightCol['maintain'] = 'Maintain Certificate or License';
-    this.labelsRightCol['personalDev'] = 'Personal Educational Developmen';
+    this.labelsRightCol['personalDev'] = 'Personal Educational Development';
 
   }
 

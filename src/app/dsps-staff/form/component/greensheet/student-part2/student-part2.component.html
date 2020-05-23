@@ -9,7 +9,11 @@
       > </app-label-yes-no>
         <ion-item lines="none">
           <ion-label position="floating">End Date</ion-label>
-          <ion-datetime formControlName="deptRahabEndDate"></ion-datetime>
+          <ion-datetime 
+            min="2020-01-01" 
+            max="2024-12-31" 
+            formControlName="deptRahabEndDate">
+          </ion-datetime>
         </ion-item>
       </div> <!-- grid local -->
 
