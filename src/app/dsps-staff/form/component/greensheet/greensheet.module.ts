@@ -10,6 +10,7 @@ import { DisabilityServicesContainerComponent } from './disability-services-cont
 import { LabelYesNoComponentModule } from '../label-yes-no/label-yes-no.module';
 import { StudentPart2Component } from './student-part2/student-part2.component';
 import { StudentPersonalInfoComponent } from './student-personal-info/student-personal-info.component';
+import { StudentPart3Component } from './student-part3/student-part3.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { StudentPersonalInfoComponent } from './student-personal-info/student-pe
         DisabilityServicesComponent,
         DisabilityServicesContainerComponent,
         StudentPart2Component,
+        StudentPart3Component,
         StudentPersonalInfoComponent,
     ],
     declarations: [
@@ -32,6 +34,7 @@ import { StudentPersonalInfoComponent } from './student-personal-info/student-pe
         DisabilityServicesComponent,
         DisabilityServicesContainerComponent,
         StudentPart2Component,
+        StudentPart3Component,
         StudentPersonalInfoComponent,
     ]
 })

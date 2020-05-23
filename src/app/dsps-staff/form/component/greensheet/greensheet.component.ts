@@ -73,19 +73,19 @@ export class GreensheetComponent extends AbstractFormSubmit implements OnInit, O
       semester: new FormControl(null, { updateOn: 'change' }),
       studentName: new FormControl(null, {
         updateOn: 'blur',
-        // validators: [Validators.required]
+        validators: [Validators.required]
       }),
       collegeId: new FormControl( null, {
         updateOn: 'blur',
-        // validators: [Validators.required]
+        validators: [Validators.required]
       }),
       studentEmail: new FormControl( null, {
         updateOn: 'blur',
-        // validators: [Validators.email]
+        validators: [Validators.email]
       }),
       completedBySignature: new FormControl(null, {
         updateOn: 'blur',
-        // validators: [Validators.required]
+        validators: [Validators.required]
       }), // signature, shown to user
       // student sig also needed
 

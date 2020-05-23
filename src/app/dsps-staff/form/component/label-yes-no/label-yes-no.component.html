@@ -7,18 +7,17 @@
       (ionChange)="onChangeHandler($event)" >
 
       <!--  horizontal arrangement -->
-      <ion-grid>
-      
-      <ion-row>
-        <ion-col>
+      <ul class="no-left-padding">
+
+        <li>
           <ion-item lines="none">
             <ion-label>
               {{ label }}
             </ion-label>
           </ion-item>
-        </ion-col>
+        </li>
 
-        <ion-col>
+        <li>
           <ion-item lines="none">
             <ion-label>Yes</ion-label>
             <ion-radio 
@@ -26,9 +25,9 @@
               value="yes">
             </ion-radio>
           </ion-item>
-        </ion-col>
+        </li>
 
-        <ion-col>
+        <li>
           <ion-item lines="none">
             <ion-label>No</ion-label>
             <ion-radio
@@ -36,10 +35,9 @@
               value="no">
             </ion-radio>
           </ion-item>
-        </ion-col>
-      </ion-row>
-
-    </ion-grid>
+        </li>
+     
+      </ul>
 
     </ion-radio-group>
   </div>

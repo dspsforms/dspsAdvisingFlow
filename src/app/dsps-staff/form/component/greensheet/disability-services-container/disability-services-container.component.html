@@ -1,4 +1,5 @@
-<div *ngIf="grid" class="grid2Col" >
+<h1 class="ion-text-center gap-top">Disability Services</h1>
+<div *ngIf="grid" class="grid2Col gap-top" >
   <app-disability-services
     [form]="form"
     controlName="disabilityServicesPrimary"
@@ -9,12 +10,13 @@
     [form]="form"
     controlName="disabilityServicesSecondary"
     title="Secondary"
+    class="left-border"
   ></app-disability-services>
 
 </div>
 
 
-<div *ngIf="! grid" >
+<div *ngIf="! grid" class="gap-top">
 
   <!-- same stuff here, but because parent class is not grid2Col 
     these will be displayed one after the other instead of side by side.

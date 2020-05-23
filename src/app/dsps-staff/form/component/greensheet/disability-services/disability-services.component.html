@@ -1,6 +1,6 @@
-<div [formGroup]="form">
+<div [formGroup]="form" >
   <div [formGroupName]="controlName">
-    <h1>{{ title }} </h1>
+    <h2 class="ion-text-center underline">{{ title }} </h2>
     <ion-list>
       <ion-item *ngFor="let key of allKeys;">
         <ion-label>{{ labels[key] }} </ion-label>

@@ -127,7 +127,12 @@ export class ListPage implements OnInit, OnDestroy {
       return item.formWithLatestHistory.studentName.val + '  -  ' + item.formWithLatestHistory.course.val;
     } else if (this.formInfo.formName === FormName.AAP1) {
       return item.formWithLatestHistory.studentName.val + '  -  ' + item.formWithLatestHistory.collegeId.val;
+    } else if (this.formInfo.formName === FormName.AAP2) {
+      return item.formWithLatestHistory.studentName.val + '  -  ' + item.formWithLatestHistory.collegeId.val;
+    } else if (this.formInfo.formName === FormName.GREENSHEET) {
+      return item.formWithLatestHistory.studentName.val + '  -  ' + item.formWithLatestHistory.collegeId.val;
     }
+
 
     // old site:
 

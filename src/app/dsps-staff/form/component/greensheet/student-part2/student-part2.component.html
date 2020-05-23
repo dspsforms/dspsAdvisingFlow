@@ -1,18 +1,42 @@
 <div [formGroup]="form">
-  <div formGroupName="part2">
-
+  <div formGroupName="part2" class="box-outline">
+    <div class="grid-local-1">
         <app-label-yes-no
         [form]="form"
         secondaryGroup="part2"
         controlName="deptRehabClient"
         label="Department of Rehabilitation Client"
       > </app-label-yes-no>
-        <ion-item>
+        <ion-item lines="none">
           <ion-label position="floating">End Date</ion-label>
           <ion-datetime formControlName="deptRahabEndDate"></ion-datetime>
         </ion-item>
+      </div> <!-- grid local -->
 
+      <app-label-yes-no
+        [form]="form"
+        secondaryGroup="part2"
+        controlName="fosterYouth"
+        label="Foster Youth, as defined in Education Code 66025.9(b)"
+      > </app-label-yes-no>
 
+      <div class="grid-local-2">
+        <app-label-yes-no
+        [form]="form"
+        secondaryGroup="part2"
+        controlName="veteran"
+        label="Veteran"
+      > </app-label-yes-no>
+
+      <app-label-yes-no
+        [form]="form"
+        secondaryGroup="part2"
+        controlName="homeless"
+        label="Homeless"
+      > </app-label-yes-no>
+
+      </div>
+       
    <!--   
      part2:
         deptRehabClient: new FormControl(false, { updateOn: 'change' }), // yes/no radio

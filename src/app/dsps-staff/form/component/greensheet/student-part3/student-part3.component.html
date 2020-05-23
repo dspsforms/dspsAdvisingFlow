@@ -1,0 +1,26 @@
+<div [formGroup]="form">
+  <div formGroupName="part2" class="box-outline-bottom">
+
+    <app-label-yes-no
+        [form]="form"
+        secondaryGroup="part2"
+        controlName="instructionalSetting"
+        label="Instructional Setting"
+      > </app-label-yes-no>
+
+    <ion-item lines="none">
+      <ion-label>
+        On Campus Regular (Enrolled in Mainstream Classes)
+      </ion-label>
+      <ion-checkbox slot="start" formControlName="onCampusReg"></ion-checkbox>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label>
+        On Campus Special 
+        (Enrolled in Educational Assistance or Adaptive Kinesiology Classes)
+      </ion-label>
+      <ion-checkbox slot="start" formControlName="onCampusSpecial"></ion-checkbox>
+    </ion-item>
+</div>
+</div>

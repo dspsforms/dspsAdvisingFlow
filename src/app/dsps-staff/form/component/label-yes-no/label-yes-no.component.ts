@@ -13,7 +13,7 @@ export class LabelYesNoComponent implements OnInit {
   @Input() controlName;
   @Input() label;
 
-  @Input() isDisabled = false;
+  // @Input() isDisabled = false;
  
  
   constructor() { }
@@ -27,4 +27,8 @@ export class LabelYesNoComponent implements OnInit {
     console.log(this.label, this.form.get(this.secondaryGroup).get(this.controlName));
   }
 
+  // for ion-radio, even if the corresponding formControl is disabled, the ion-radio is not. 
+  get isDisabled() {
+    return this.form.get(this.secondaryGroup).get(this.controlName).disabled;
+  }
 }

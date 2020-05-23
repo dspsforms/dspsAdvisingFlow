@@ -1,3 +1,61 @@
-<p>
-  student-personal-info works!
-</p>
+<div [formGroup]="form">
+
+    <ion-item>
+      <ion-label position="floating">Form completed and approved eligible by *</ion-label>
+      <ion-input formControlName="completedBySignature"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Semester</ion-label>
+      <ion-input formControlName="semester"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Name *</ion-label>
+      <ion-input formControlName="studentName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Student ID *</ion-label>
+      <ion-input formControlName="collegeId"></ion-input>
+    </ion-item>
+
+    <div formGroupName="address">
+ 
+      <ion-item>
+        <ion-label position="floating">Address</ion-label>
+        <ion-input  formControlName="addrLine"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">City</ion-label>
+        <ion-input formControlName="city"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Zip</ion-label>
+        <ion-input  formControlName="zip"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Home Phone</ion-label>
+        <ion-input  formControlName="homePhone"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Cell Phone</ion-label>
+        <ion-input  formControlName="cellPhone"></ion-input>
+      </ion-item>
+
+    </div> <!-- formGroupName address -->
+
+    <ion-item >
+      <ion-label position="floating"> Email * </ion-label>
+      <ion-input  formControlName="studentEmail"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label position="floating"> Major</ion-label>
+      <ion-input  formControlName="major"></ion-input>
+    </ion-item>
+
+</div> <!-- formGroup -->
