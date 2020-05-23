@@ -20,7 +20,7 @@ export class ProgressObjPart1Component implements OnInit {
     return this.form.get('progressObj').get('studentType').disabled;
   }
 
-  onChangeHandler() {
+  onChangeHandler(event) {
     // console.log(this.form.get('progressObj').get('studentType'));
   }
 

@@ -22,7 +22,7 @@ export class LabelYesNoComponent implements OnInit {
 
    }
   
-  onChangeHandler() {
+  onChangeHandler(event) {
     // console.log(this.label, this.form.get(this.secondaryGroup).get(this.controlName));
   }
 
