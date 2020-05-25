@@ -7,7 +7,7 @@ import {
 import { catchError } from "rxjs/operators";
 import { throwError } from "rxjs";
 import { Injectable } from "@angular/core";
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 // import { MatDialog } from "@angular/material";
 
@@ -20,7 +20,9 @@ export class ErrorInterceptor implements HttpInterceptor {
   // constructor(  private dialog: MatDialog,
   //   private errorService: ErrorService) { }
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private alertCtrl : AlertController) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
@@ -39,12 +41,64 @@ export class ErrorInterceptor implements HttpInterceptor {
         console.log(error);
 
         if (errorMessage && errorMessage.indexOf('Auth failed. User may not be signed in') >= 0) {
-          console.log("here 3");
-          this.router.navigateByUrl('/auth/login');
+          this.showAuthError(errorMessage);
+          // this.router.navigateByUrl('/auth/login');
+        } else if (errorMessage && errorMessage.toLowerCase().indexOf('mongo') >= 0) {
+          this.showMongoError(errorMessage);
+        } else {
+          this.showOtherError(errorMessage);
         }
         console.log(error);
         return throwError(error);
       })
     );
+  }
+
+  showAuthError(errorMsg) {
+    this.alertCtrl.create({
+      header: 'You need to login (again)',
+      message: errorMsg,
+      buttons: [{
+        text: 'Okay',
+        handler: () => {
+          console.log('routing to /auth/login ');
+          this.router.navigateByUrl('/auth/login');
+        }
+      }]
+    }).then(alertElem => {
+      alertElem.present();
+    });
+  }
+
+  showMongoError(errorMsg) {
+    this.alertCtrl.create({
+      header: 'Please ask your IT to check if the database is up, and reachable',
+      message: errorMsg,
+      buttons: [{
+        text: 'Okay',
+        handler: () => {
+          console.log(errorMsg);
+          // check the database connection
+        }
+      }]
+    }).then(alertElem => {
+      alertElem.present();
+    });
+  }
+
+  showOtherError(errorMsg) {
+    this.alertCtrl.create({
+      header: 'Please share a screenshot of this error with your IT contact',
+      message: errorMsg,
+      buttons: [{
+        text: 'Okay',
+        handler: () => {
+          console.log(errorMsg);
+          // need more info to decide what to do
+        }
+      }]
+    }).then(alertElem => {
+      alertElem.present();
+    });
   }
 }
