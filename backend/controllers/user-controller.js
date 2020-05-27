@@ -120,15 +120,16 @@ exports.login = (req, res, next) => {
           isStudent: fetchedUser.isStudent
         },
         config.JSON_WEB_TOKEN_SERVER_KEY,
+        { expiresIn: "1d" }
         // { expiresIn: "1h" }
-        { expiresIn: "1m" }
+        // { expiresIn: "1m" }
       );
       // we are sending back the isAdmin/isStaff etc info, but if client uses these,
       // they will be re verified at the server. i.e., the info is for efficient client side
       // UI, but will be double checked.
       res.status(200).json({
         token: token,
-        expiresIn: 3600,
+        expiresIn: 3600 * 24,
         userId: fetchedUser._id,
         role: fetchedUser.role,
         isAdmin: fetchedUser.isAdmin,

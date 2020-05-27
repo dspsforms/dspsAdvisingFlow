@@ -71,13 +71,14 @@ export class AuthService {
         this.token = token;
         if (token) {
           const expiresInDuration = response.expiresIn;
+          console.log("expiresInDuration=", expiresInDuration);
           this.setAuthTimer(expiresInDuration);
 
           this.role = response.role;
 
           this.userId = response.userId;
 
-          this.triggerAuthChangeEvent();
+          
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           console.log(expirationDate);
@@ -87,29 +88,33 @@ export class AuthService {
             this.userId,
             this.role,
           );
+
+          this.dataInitialized = true;
+
+          this.triggerAuthChangeEvent();
           this.router.navigate([nextUrl || "/"]);
         }
       });
   }
 
-  autoAuthUser() {
-    const authInformation = this.getAuthDataLocalStorage();
-    if (!authInformation) {
-      return;
-    }
-    const now = new Date();
-    const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
-    if (expiresIn > 0) {
-      this.token = authInformation.token;
-      this.role = authInformation.role;
-      // this.isAdminAuthenticated = authInformation.isAdminAuthenticated;
-      // this.isStaffAuthenticated = authInformation.isStaffAuthenticated;
-      this.userId = authInformation.userId;
-      this.setAuthTimer(expiresIn / 1000);
+  // autoAuthUser() {
+  //   const authInformation = this.getAuthDataLocalStorage();
+  //   if (!authInformation) {
+  //     return;
+  //   }
+  //   const now = new Date();
+  //   const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
+  //   if (expiresIn > 0) {
+  //     this.token = authInformation.token;
+  //     this.role = authInformation.role;
+  //     // this.isAdminAuthenticated = authInformation.isAdminAuthenticated;
+  //     // this.isStaffAuthenticated = authInformation.isStaffAuthenticated;
+  //     this.userId = authInformation.userId;
+  //     this.setAuthTimer(expiresIn / 1000);
 
-      this.triggerAuthChangeEvent();
-    }
-  }
+  //     this.triggerAuthChangeEvent();
+  //   }
+  // }
 
   // send out an auth change event to those listening
   triggerAuthChangeEvent() {
@@ -207,22 +212,25 @@ export class AuthService {
     return this.userId;
   }
 
-
-  logout() {
+  clearAuth() {
     this.token = null;
     this.role = null;
     this.triggerAuthChangeEvent();
     this.userId = null;
     clearTimeout(this.tokenTimer);
     this.clearAuthDataLocalStorage();
+  }
+
+  logout() {
+    this.clearAuth();
     this.router.navigate(["/"]);
   }
 
-  private setAuthTimer(duration: number) {
-    console.log("Setting timer: " + duration);
+  private setAuthTimer(numSeconds: number) {
+    console.log("setAuthTimer: setting timer for numSeconds: " + numSeconds);
     this.tokenTimer = setTimeout(() => {
       this.logout();
-    }, duration * 1000);
+    }, numSeconds * 1000);
   }
 
   private saveAuthDataLocalStorage(
@@ -276,8 +284,6 @@ export class AuthService {
 
     this.dataInitialized = true; // this will help ensure we don't keep reading from localStorage
   }
-
-
 
 
 }

@@ -4,32 +4,40 @@
 <ion-row>
   <ion-col>
     <ion-item>
-      <ion-label position="floating">Instructor</ion-label>
+      <ion-label position="floating">Instructor *</ion-label>
       <ion-input 
         type="text"
         formControlName="instructor"></ion-input>
     </ion-item>
-    <ion-item 
+    <p 
       *ngIf="form.get('instructor').touched && !form.get('instructor').valid">
-      <ion-label>Need an instructor name</ion-label>
-    </ion-item>
+      <ion-label color="danger">Need an instructor name</ion-label>
+    </p>
   </ion-col>
   <ion-col>
     <ion-item>
-      <ion-label  position="floating">Semester</ion-label>
+      <ion-label  position="floating">Semester *</ion-label>
       <ion-input 
         type="text"
         placeholder="Choose Term"
         formControlName="semester"></ion-input>
     </ion-item>
+    <p 
+      *ngIf="form.get('semester').touched && !form.get('semester').valid">
+      <ion-label color="danger">Semester is required</ion-label>
+    </p>
   </ion-col>
   <ion-col>
     <ion-item>
-      <ion-label  position="floating">Year</ion-label>
+      <ion-label  position="floating">Year *</ion-label>
       <ion-input 
         type="text"
         formControlName="year"></ion-input>
     </ion-item>
+    <p 
+    *ngIf="form.get('year').touched && !form.get('year').valid">
+    <ion-label color="danger">Year is required. It must be at least 2020.</ion-label>
+  </p>
   </ion-col>
 </ion-row>
 <ion-row>
@@ -117,28 +125,40 @@
 <ion-row>
   <ion-col>
     <ion-item>
-      <ion-label  position="floating">Student Name</ion-label>
+      <ion-label  position="floating">Student Name *</ion-label>
       <ion-input 
         type="text"
         formControlName="studentName"></ion-input>
     </ion-item>
+    <p 
+      *ngIf="form.get('studentName').touched && !form.get('studentName').valid">
+      <ion-label color="danger">Student Name is required</ion-label>
+    </p>
   </ion-col>
   <ion-col>
     <ion-item>
-      <ion-label  position="floating">Student ID#</ion-label>
+      <ion-label  position="floating">Student ID *</ion-label>
       <ion-input 
         type="text"
         formControlName="collegeId"></ion-input>
     </ion-item>
+    <p 
+      *ngIf="form.get('collegeId').touched && !form.get('collegeId').valid">
+      <ion-label color="danger">Student ID is required</ion-label>
+    </p>
   </ion-col>
 
   <ion-col>
     <ion-item>
-      <ion-label  position="floating">Student Email</ion-label>
+      <ion-label  position="floating">Student Email * </ion-label>
       <ion-input 
         type="email"
         formControlName="studentEmail"></ion-input>
     </ion-item>
+    <p 
+      *ngIf="form.get('studentEmail').touched && !form.get('studentEmail').valid">
+      <ion-label color="danger">A valid student email is required</ion-label>
+    </p>
   </ion-col>
 
 </ion-row>

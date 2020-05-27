@@ -146,7 +146,13 @@
         ueb
         nemeth
     -->
-    <div class="grid4-inner">
+    
+    <ion-item>
+      <ion-label>Braille</ion-label>
+      <ion-checkbox slot="start" formControlName="braille"></ion-checkbox>
+    </ion-item>
+
+    <!-- <div class="grid4-inner">
 
       <ion-item>
         <ion-label>Braille</ion-label>
@@ -168,7 +174,8 @@
         <ion-checkbox slot="start" formControlName="nemeth"></ion-checkbox>
       </ion-item>
 
-    </div> <!-- grid4-inner -->
+    </div> --> 
+    <!--  end grid4-inner -->
 
     <!--  tactileGraphics -->
 
@@ -402,14 +409,14 @@
     -->
 
     <ion-row>
-      <ion-col size-sm="2">
+      <ion-col size-sm="4">
         <ion-item>
           <ion-label>Braille</ion-label>
           <ion-checkbox slot="start" formControlName="braille"></ion-checkbox>
           </ion-item>
       </ion-col>
   
-      <ion-col size-sm="2">
+      <!-- <ion-col size-sm="2">
         <ion-item>
           <ion-label>EBAE</ion-label>
             <ion-checkbox slot="start" formControlName="ebae"></ion-checkbox>
@@ -428,7 +435,7 @@
           <ion-label><span class="wrap-text">Nemeth (Math/Science)</span></ion-label>
           <ion-checkbox slot="start" formControlName="nemeth"></ion-checkbox>
           </ion-item>
-      </ion-col>
+      </ion-col> -->
   
     </ion-row>
 

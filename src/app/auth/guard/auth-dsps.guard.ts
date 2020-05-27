@@ -18,7 +18,7 @@ export class AuthDspsGuard implements CanLoad {
       if (this.authService.getIsDspsAuth()) {
         return true;
       } else {
-        this.router.navigateByUrl('/auth');
+        this.router.navigateByUrl('/landing');
         return false;
       }
   }

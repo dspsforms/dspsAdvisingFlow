@@ -21,6 +21,6 @@ module.exports = (req, res, next) => {
     }
 
   } catch (error) {
-    res.status(401).json({ message: "Auth failed. User may not be signed in, or it may have expired" });
+    res.status(401).json({ message: "Dsps Auth failed. User may not be signed in, or it may have expired" });
   }
 };

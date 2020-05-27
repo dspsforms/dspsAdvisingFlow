@@ -56,6 +56,7 @@ export class LoginPage implements OnInit, OnDestroy {
       this.next =  params.next;
     });
 
+    
     /*
     this will not work because the route has already changed to /login
 
@@ -68,6 +69,18 @@ export class LoginPage implements OnInit, OnDestroy {
     });
     */
 
+  }
+
+  ionViewWillEnter() {
+      // if we are logged in, go to dsps-staff or student
+    if (this.authService.getIsDspsAuth()) {
+      this.router.navigateByUrl('/dsps-staff');
+
+    } else if (this.authService.getIsStudentAuth()) {
+      this.router.navigateByUrl('/student'); // TBD
+    } else if (this.authService.getIsInstructorAuth()) {
+      this.router.navigateByUrl('/instructor'); // TBD
+    }
   }
 
   login() {

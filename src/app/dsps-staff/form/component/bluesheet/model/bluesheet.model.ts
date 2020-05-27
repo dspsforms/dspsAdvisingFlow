@@ -46,9 +46,9 @@ export class BluesheetAltMedia {
 
     constructor(
         public braille: boolean,
-        public ebae: boolean,
-        public ueb: boolean,
-        public nemeth: boolean,
+        // public ebae: boolean,
+        // public ueb: boolean,
+        // public nemeth: boolean,
         public tactileGraphics: boolean,
         public enlargedPrint: boolean,
         public specifyFont: boolean,
@@ -136,9 +136,9 @@ export class BlueesheetExamsWithAccommodations {
     public magnification: boolean,
 
     public braille: boolean,
-    public ebae: boolean,
-    public ueb: boolean,
-    public nemeth: boolean,
+    // public ebae: boolean,
+    // public ueb: boolean,
+    // public nemeth: boolean,
 
     public tactileGraphics: boolean,
     public other: string) {}

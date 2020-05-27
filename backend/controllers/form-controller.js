@@ -58,28 +58,6 @@ exports.postForm = (req, res, next) => {
 
 }
 
-// exports.postFormAgreement = (req, res, next) => {
-
-//   const form = createForm(req, true); // true == isAgreement
-
-//   form.save().then( createdForm => {
-//           // success
-//           console.log("after save, createdForm=", createdForm);
-//           res.status(201).json({
-//               message: 'Form ' + form.formName + ' added successfully',
-//               formId: createdForm._id
-//           });
-
-//   })
-//   .catch(err => {
-//     console.log(err);
-//     res.status(401).json({
-//       message: 'Form save failed',
-//       err: err
-//     });
-//   });
-
-// }
 
 // update the state field of a form
 exports.patchForm = (req, res, next) => {

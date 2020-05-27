@@ -64,32 +64,35 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
         updateOn: 'blur',
         validators: [Validators.required]
       }),
-      semester: new FormControl(null , { updateOn: 'blur'}),
+      semester: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
       year: new FormControl( null , {
         updateOn: 'blur',
-        validators: [Validators.min(2019)]
+        validators: [Validators.required, Validators.min(2020)]
       }),
       course: new FormControl( null, {
         updateOn: 'blur'
       }),
-      section: new FormControl( null, { updateOn: 'blur' }),
-      room: new FormControl( null, { updateOn: 'blur' }),
-      dayTime: new FormControl( null, {  updateOn: 'blur' }),
+      section: new FormControl( null, { updateOn: 'change' }),
+      room: new FormControl( null, { updateOn: 'change' }),
+      dayTime: new FormControl( null, {  updateOn: 'change' }),
       // these two will require a workflow
-      // studentAck: new FormControl(false, { updateOn: 'blur' }),
-      // studentAckDate: new FormControl(null, { updateOn: 'blur' }),
+      // studentAck: new FormControl(false, { updateOn: 'change' }),
+      // studentAckDate: new FormControl(null, { updateOn: 'change' }),
       instructionalMode: new FormGroup({
-        onlineCanvas: new FormControl( false, { updateOn: 'blur' }),
-        synchronous: new FormControl(false, { updateOn: 'blur' }),
-        asynchronous: new FormControl( false, { updateOn: 'blur' }),
-        hybrid: new FormControl( false, {  updateOn: 'blur' }),
+        onlineCanvas: new FormControl( false, { updateOn: 'change' }),
+        synchronous: new FormControl(false, { updateOn: 'change' }),
+        asynchronous: new FormControl( false, { updateOn: 'change' }),
+        hybrid: new FormControl( false, {  updateOn: 'change' }),
       }),
       studentName: new FormControl(null, {
-        updateOn: 'blur',
+        updateOn: 'change',
         validators: [Validators.required]
       }),
       collegeId: new FormControl( null, {
-        updateOn: 'blur',
+        updateOn: 'change',
         validators: [Validators.required]
       }),
       studentEmail: new FormControl( null, {
@@ -98,98 +101,98 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
       }),
       examsWithAccommodations: new FormGroup({
         // extendedTime, 1.5x, 2x etc should be hierarchical, but taking a shortcut because users are waiting
-        extendedTime: new FormControl( false,  { updateOn: 'blur' }),
-        oneAndHalfX: new FormControl( false,  { updateOn: 'blur' }),
-        twoX: new FormControl(false, { updateOn: 'blur' }),
-        threeX: new FormControl( false, { updateOn: 'blur' }),
+        extendedTime: new FormControl( false,  { updateOn: 'change' }),
+        oneAndHalfX: new FormControl( false,  { updateOn: 'change' }),
+        twoX: new FormControl(false, { updateOn: 'change' }),
+        threeX: new FormControl( false, { updateOn: 'change' }),
 
         // same with breaks. should be hierarchical
-        breaks: new FormControl( false,  { updateOn: 'blur' }),
-        twoMinPerHr: new FormControl(false, { updateOn: 'blur' }),
-        fiveMinPerHr: new FormControl( false, { updateOn: 'blur' }),
-        asNeeded: new FormControl(false, { updateOn: 'blur' }),
+        breaks: new FormControl( false,  { updateOn: 'change' }),
+        twoMinPerHr: new FormControl(false, { updateOn: 'change' }),
+        fiveMinPerHr: new FormControl( false, { updateOn: 'change' }),
+        asNeeded: new FormControl(false, { updateOn: 'change' }),
 
-        reader: new FormControl( false, { updateOn: 'blur' }),
-        scribe: new FormControl(false, { updateOn: 'blur' }),
+        reader: new FormControl( false, { updateOn: 'change' }),
+        scribe: new FormControl(false, { updateOn: 'change' }),
 
-        spellChecker: new FormControl( false, { updateOn: 'blur' }),
+        spellChecker: new FormControl( false, { updateOn: 'change' }),
 
-        basicCalc: new FormControl(false, { updateOn: 'blur' }),
-        multTable: new FormControl( false, { updateOn: 'blur' }),
+        basicCalc: new FormControl(false, { updateOn: 'change' }),
+        multTable: new FormControl( false, { updateOn: 'change' }),
 
-        adaptedComputer: new FormControl( false, { updateOn: 'blur' }),
+        adaptedComputer: new FormControl( false, { updateOn: 'change' }),
 
-        reducedDistractionEnv: new FormControl( false, { updateOn: 'blur' }),
+        reducedDistractionEnv: new FormControl( false, { updateOn: 'change' }),
 
-        remoteProctoring: new FormControl( false, { updateOn: 'blur' }), // without recorded audio video
-        enlargedPrint: new FormControl( false,  { updateOn: 'blur' }),
-        specifyFont: new FormControl( null, { updateOn: 'blur' }),
+        remoteProctoring: new FormControl( false, { updateOn: 'change' }), // without recorded audio video
+        enlargedPrint: new FormControl( false,  { updateOn: 'change' }),
+        specifyFont: new FormControl( null, { updateOn: 'change' }),
 
-        magnification: new FormControl( false, { updateOn: 'blur' }),
+        magnification: new FormControl( false, { updateOn: 'change' }),
 
-        braille: new FormControl( false, { updateOn: 'blur' }),
-        ebae: new FormControl( false, { updateOn: 'blur' }),
-        ueb: new FormControl( false,  { updateOn: 'blur' }),
-        nemeth: new FormControl(false,  { updateOn: 'blur' }),
+        braille: new FormControl( false, { updateOn: 'change' }),
+        // ebae: new FormControl( false, { updateOn: 'change' }),
+        // ueb: new FormControl( false,  { updateOn: 'change' }),
+        // nemeth: new FormControl(false,  { updateOn: 'change' }),
 
-        tactileGraphics: new FormControl( false,  { updateOn: 'blur' }),
-        other: new FormControl( null,{ updateOn: 'blur' }),
+        tactileGraphics: new FormControl( false,  { updateOn: 'change' }),
+        other: new FormControl( null,{ updateOn: 'change' }),
       }),
       auxiliaryAids: new FormGroup({
-        dspsTutoring: new FormControl(false, { updateOn: 'blur' }),
-        serviceAnimal: new FormControl(false, { updateOn: 'blur' }),
-        signLangInterpreting: new FormControl(false, { updateOn: 'blur' }),
-        realTimeCaptioning: new FormControl(false, { updateOn: 'blur' }),
-        sharedNotes: new FormControl(false, { updateOn: 'blur' }),
-        audioRecordLectures: new FormControl(false, { updateOn: 'blur' }),
-        other: new FormControl(null, { updateOn: 'blur' }),
+        dspsTutoring: new FormControl(false, { updateOn: 'change' }),
+        serviceAnimal: new FormControl(false, { updateOn: 'change' }),
+        signLangInterpreting: new FormControl(false, { updateOn: 'change' }),
+        realTimeCaptioning: new FormControl(false, { updateOn: 'change' }),
+        sharedNotes: new FormControl(false, { updateOn: 'change' }),
+        audioRecordLectures: new FormControl(false, { updateOn: 'change' }),
+        other: new FormControl(null, { updateOn: 'change' }),
       }),
       adaptiveTech: new FormGroup({
-        computer: new FormControl(false, { updateOn: 'blur' }),
-        calculator: new FormControl(false, { updateOn: 'blur' }),
-        cctvMagnifier: new FormControl(false, { updateOn: 'blur' }),
-        assistiveListeningDevice: new FormControl(false, { updateOn: 'blur' }),
-        digitalRecorder: new FormControl(false, { updateOn: 'blur' }),
-        liveScribeSmartPen: new FormControl(false, { updateOn: 'blur' }),
-        ipadAndroidTablet: new FormControl(false, { updateOn: 'blur' }),
-        other: new FormControl(null, { updateOn: 'blur' }),
+        computer: new FormControl(false, { updateOn: 'change' }),
+        calculator: new FormControl(false, { updateOn: 'change' }),
+        cctvMagnifier: new FormControl(false, { updateOn: 'change' }),
+        assistiveListeningDevice: new FormControl(false, { updateOn: 'change' }),
+        digitalRecorder: new FormControl(false, { updateOn: 'change' }),
+        liveScribeSmartPen: new FormControl(false, { updateOn: 'change' }),
+        ipadAndroidTablet: new FormControl(false, { updateOn: 'change' }),
+        other: new FormControl(null, { updateOn: 'change' }),
       }),
       physicalAccess: new FormGroup({
-        accessibleDesk: new FormControl(false, { updateOn: 'blur' }),
-        accessibleChair: new FormControl(false, { updateOn: 'blur' }),
-        preferentialSeating: new FormControl(false, { updateOn: 'blur' }),
-        bypassLines: new FormControl(false, { updateOn: 'blur' }),
-        breaks: new FormControl(false, { updateOn: 'blur' }),
-        twoMinPerHr: new FormControl(false, { updateOn: 'blur' }),
-        fiveMinPerHr: new FormControl(false, { updateOn: 'blur' }),
-        asNeeded: new FormControl(false, { updateOn: 'blur' }),
-        changeClassLoc: new FormControl(false, { updateOn: 'blur' }),
-        other: new FormControl(null, { updateOn: 'blur' })
+        accessibleDesk: new FormControl(false, { updateOn: 'change' }),
+        accessibleChair: new FormControl(false, { updateOn: 'change' }),
+        preferentialSeating: new FormControl(false, { updateOn: 'change' }),
+        bypassLines: new FormControl(false, { updateOn: 'change' }),
+        breaks: new FormControl(false, { updateOn: 'change' }),
+        twoMinPerHr: new FormControl(false, { updateOn: 'change' }),
+        fiveMinPerHr: new FormControl(false, { updateOn: 'change' }),
+        asNeeded: new FormControl(false, { updateOn: 'change' }),
+        changeClassLoc: new FormControl(false, { updateOn: 'change' }),
+        other: new FormControl(null, { updateOn: 'change' })
       }),
       altMedia: new FormGroup({
-        braille: new FormControl(false, { updateOn: 'blur' }),
-        ebae: new FormControl(false, { updateOn: 'blur' }),
-        ueb: new FormControl(false, { updateOn: 'blur' }),
-        nemeth: new FormControl(false, { updateOn: 'blur' }),
-        tactileGraphics: new FormControl(false, { updateOn: 'blur' }),
-        enlargedPrint: new FormControl(false, { updateOn: 'blur' }),
-        specifyFont: new FormControl(false, { updateOn: 'blur' }),
-        etext: new FormControl(false, { updateOn: 'blur' }),
-        kurzweil: new FormControl(false, { updateOn: 'blur' }),
-        pdf: new FormControl(false, { updateOn: 'blur' }),
-        audioRecorded: new FormControl(false, { updateOn: 'blur' }),
-        learningAlly: new FormControl(false, { updateOn: 'blur' }),
-        bookShare: new FormControl(false, { updateOn: 'blur' }),
-        closedCaption: new FormControl(false, { updateOn: 'blur' }),
-        audioDesc: new FormControl(false, { updateOn: 'blur' }),
-        other: new FormControl(null, { updateOn: 'blur' })
+        braille: new FormControl(false, { updateOn: 'change' }),
+        // ebae: new FormControl(false, { updateOn: 'change' }),
+        // ueb: new FormControl(false, { updateOn: 'change' }),
+        // nemeth: new FormControl(false, { updateOn: 'change' }),
+        tactileGraphics: new FormControl(false, { updateOn: 'change' }),
+        enlargedPrint: new FormControl(false, { updateOn: 'change' }),
+        specifyFont: new FormControl(false, { updateOn: 'change' }),
+        etext: new FormControl(false, { updateOn: 'change' }),
+        kurzweil: new FormControl(false, { updateOn: 'change' }),
+        pdf: new FormControl(false, { updateOn: 'change' }),
+        audioRecorded: new FormControl(false, { updateOn: 'change' }),
+        learningAlly: new FormControl(false, { updateOn: 'change' }),
+        bookShare: new FormControl(false, { updateOn: 'change' }),
+        closedCaption: new FormControl(false, { updateOn: 'change' }),
+        audioDesc: new FormControl(false, { updateOn: 'change' }),
+        other: new FormControl(null, { updateOn: 'change' })
       }),
       general: new FormGroup({
-        envAdjustments: new FormControl( null, { updateOn: 'blur' }),
-        generalNotes: new FormControl(null, { updateOn: 'blur' })
+        envAdjustments: new FormControl( null, { updateOn: 'change' }),
+        generalNotes: new FormControl(null, { updateOn: 'change' })
       }),
-      completedBy: new FormControl( null, { updateOn: 'blur' }),
-      completedByDate: new FormControl( null,  { updateOn: 'blur' }),
+      completedBy: new FormControl( null, { updateOn: 'change' }),
+      completedByDate: new FormControl( null,  { updateOn: 'change' }),
     });
 
 

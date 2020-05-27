@@ -9,6 +9,7 @@ import { throwError } from "rxjs";
 import { Injectable } from "@angular/core";
 import { NavController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 // import { MatDialog } from "@angular/material";
 
 // import { ErrorComponent } from "./error/error.component";
@@ -22,7 +23,8 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   constructor(
     private router: Router,
-    private alertCtrl : AlertController) {
+    private alertCtrl: AlertController,
+  private authService: AuthService) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
@@ -61,6 +63,8 @@ export class ErrorInterceptor implements HttpInterceptor {
       buttons: [{
         text: 'Okay',
         handler: () => {
+          // clear any stale cached auth
+          this.authService.clearAuth();
           console.log('routing to /auth/login ');
           this.router.navigateByUrl('/auth/login');
         }

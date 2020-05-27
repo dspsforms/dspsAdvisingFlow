@@ -19,7 +19,12 @@
     <h1 class="ion-text-center">COURSE MATERIALS/MEDIA IN ALTERNATE FORMAT</h1>
 
     <!-- braille, ebae, ueb, nemeth -->
-    <div class="grid4-inner">
+    <ion-item>
+      <ion-label>Braille</ion-label>
+      <ion-checkbox slot="start" formControlName="braille"></ion-checkbox>
+    </ion-item>
+    
+    <!-- <div class="grid4-inner">
       <ion-item>
         <ion-label>Braille</ion-label>
         <ion-checkbox slot="start" formControlName="braille"></ion-checkbox>
@@ -40,7 +45,8 @@
         <ion-checkbox slot="start" formControlName="nemeth"></ion-checkbox>
       </ion-item>
 
-    </div> <!-- braille grid4-inner -->
+    </div>  -->
+    <!-- braille grid4-inner -->
 
     <!--  tactileGraphics -->
     <ion-item>
@@ -150,14 +156,14 @@
     -->
 
     <ion-row>
-      <ion-col size-sm="2">
+      <ion-col size-sm="4">
         <ion-item>
           <ion-label>Braille</ion-label>
           <ion-checkbox slot="start" formControlName="braille"></ion-checkbox>
           </ion-item>
       </ion-col>
   
-      <ion-col size-sm="2">
+      <!-- <ion-col size-sm="2">
         <ion-item>
           <ion-label>EBAE</ion-label>
             <ion-checkbox slot="start" formControlName="ebae"></ion-checkbox>
@@ -176,7 +182,7 @@
           <ion-label><span class="wrap-text">Nemeth (Math/Science)</span></ion-label>
           <ion-checkbox slot="start" formControlName="nemeth"></ion-checkbox>
           </ion-item>
-      </ion-col>
+      </ion-col> -->
   
     </ion-row>
 
