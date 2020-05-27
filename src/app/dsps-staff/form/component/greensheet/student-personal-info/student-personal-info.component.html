@@ -14,7 +14,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Name *</ion-label>
+      <ion-label position="floating">Student Name *</ion-label>
       <ion-input formControlName="studentName"></ion-input>
     </ion-item>
     <ion-item *ngIf="form.get('studentName').touched && !form.get('studentName').valid">
@@ -30,7 +30,7 @@
     </ion-item>
 
     <ion-item >
-      <ion-label position="floating"> Email * </ion-label>
+      <ion-label position="floating">Student Email </ion-label>
       <ion-input  formControlName="studentEmail"></ion-input>
     </ion-item>
     <ion-item *ngIf="form.get('studentEmail').touched && !form.get('studentEmail').valid">

@@ -10,6 +10,7 @@ import { WrappedForm } from 'src/app/model/wrapped-form.model';
 import { AuthService } from 'src/app/auth/auth.service';
 import { DataTransformService } from '../../data-transform.service';
 import { UserService } from 'src/app/dsps-staff/user/user.service';
+import { FormValidators } from '../../form-validators';
 
 
 
@@ -97,7 +98,7 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
       }),
       studentEmail: new FormControl( null, {
         updateOn: 'blur',
-        validators: [Validators.email]
+        validators: [Validators.required, Validators.email, FormValidators.validWvmEmail]
       }),
       examsWithAccommodations: new FormGroup({
         // extendedTime, 1.5x, 2x etc should be hierarchical, but taking a shortcut because users are waiting
@@ -167,7 +168,8 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
         fiveMinPerHr: new FormControl(false, { updateOn: 'change' }),
         asNeeded: new FormControl(false, { updateOn: 'change' }),
         changeClassLoc: new FormControl(false, { updateOn: 'change' }),
-        other: new FormControl(null, { updateOn: 'change' })
+        other: new FormControl(null, { updateOn: 'change' }),
+        envAdjustments: new FormControl( null, { updateOn: 'change' }),
       }),
       altMedia: new FormGroup({
         braille: new FormControl(false, { updateOn: 'change' }),
@@ -188,7 +190,6 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
         other: new FormControl(null, { updateOn: 'change' })
       }),
       general: new FormGroup({
-        envAdjustments: new FormControl( null, { updateOn: 'change' }),
         generalNotes: new FormControl(null, { updateOn: 'change' })
       }),
       completedBy: new FormControl( null, { updateOn: 'change' }),

@@ -12,6 +12,10 @@ export class BluesheetHeaderComponent implements OnInit {
   constructor() { }
 
   ngOnInit() { }
+
+  get studentEmail() {
+    return this.form.get('studentEmail');
+  }
  
 
 }

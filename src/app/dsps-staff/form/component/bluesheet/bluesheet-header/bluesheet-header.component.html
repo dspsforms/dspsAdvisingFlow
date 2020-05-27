@@ -62,7 +62,7 @@
 <ion-row>
   <ion-col>
     <ion-item>
-      <ion-label  position="floating">Room</ion-label>
+      <ion-label  position="floating">Room (if applicable)</ion-label>
       <ion-input 
         type="text"
         formControlName="room"></ion-input>
@@ -150,15 +150,22 @@
 
   <ion-col>
     <ion-item>
-      <ion-label  position="floating">Student Email * </ion-label>
+      <ion-label  position="floating">Student WVM Email * </ion-label>
       <ion-input 
         type="email"
         formControlName="studentEmail"></ion-input>
     </ion-item>
-    <p 
-      *ngIf="form.get('studentEmail').touched && !form.get('studentEmail').valid">
-      <ion-label color="danger">A valid student email is required</ion-label>
-    </p>
+  
+    <div  *ngIf="studentEmail.touched" >
+      <p *ngIf="studentEmail.errors?.required"  >
+        <ion-label color="danger"> Student email is required </ion-label>
+      </p>
+      <p *ngIf="studentEmail.errors?.validWvmEmail || studentEmail.errors?.email"  >
+        <ion-label color="danger"> This must be a valid wvm.edu email </ion-label>
+      </p>
+    </div>
+
+   
   </ion-col>
 
 </ion-row>

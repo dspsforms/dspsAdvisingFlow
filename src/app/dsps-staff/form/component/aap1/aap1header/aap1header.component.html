@@ -20,9 +20,9 @@
           type="text"
           formControlName="studentName"></ion-input>
       </ion-item>
-      <ion-item *ngIf="form.get('studentName').touched && !form.get('studentName').valid">
-        <ion-label>Need a student name</ion-label>
-      </ion-item>
+      <p *ngIf="form.get('studentName').touched && !form.get('studentName').valid">
+        <ion-label color="danger">Need a student name</ion-label>
+      </p>
     </ion-list>  
   </ion-col>
   <ion-col>
@@ -33,9 +33,28 @@
           type="text"
           formControlName="collegeId"></ion-input>
       </ion-item>
-      <ion-item *ngIf="form.get('collegeId').touched && !form.get('collegeId').valid">
-        <ion-label>Need Student ID</ion-label>
+      <p *ngIf="form.get('collegeId').touched && !form.get('collegeId').valid">
+        <ion-label color="danger">Need Student ID</ion-label>
+      </p>
+    </ion-list>
+  </ion-col>
+
+  <ion-col>
+    <ion-list>
+      <ion-item>
+        <ion-label  position="floating">Student WVM Email *</ion-label>
+        <ion-input 
+          type="text"
+          formControlName="studentEmail"></ion-input>
       </ion-item>
+      <div  *ngIf="studentEmail.touched" >
+        <p *ngIf="studentEmail.errors?.required"  >
+          <ion-label color="danger"> Student email is required </ion-label>
+        </p>
+        <p *ngIf="studentEmail.errors?.validWvmEmail || studentEmail.errors?.email"  >
+          <ion-label color="danger"> This must be a valid wvm.edu email </ion-label>
+        </p>
+      </div>
     </ion-list>
   </ion-col>
 </ion-row>

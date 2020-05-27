@@ -10,6 +10,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/auth/auth.service';
 import { DataTransformService } from '../../data-transform.service';
 import { UserService } from 'src/app/dsps-staff/user/user.service';
+import { FormValidators } from '../../form-validators';
 
 @Component({
   selector: 'app-aap1',
@@ -72,19 +73,19 @@ export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestr
       // where there are validators, updateOn blur. else, updateOn change
       semester: new FormControl(null, { updateOn: 'change' }),
       studentName: new FormControl(null, {
-        updateOn: 'blur',
+        updateOn: 'change',
         validators: [Validators.required]
       }),
       collegeId: new FormControl( null, {
-        updateOn: 'blur',
+        updateOn: 'change',
         validators: [Validators.required]
       }),
       studentEmail: new FormControl( null, {
         updateOn: 'blur',
-        validators: [Validators.email]
+        validators: [Validators.required, Validators.email, FormValidators.validWvmEmail]
       }),
       completedBySignature: new FormControl(null, {
-        updateOn: 'blur',
+        updateOn: 'change',
         validators: [Validators.required]
       }), // signature, shown to user
       
@@ -153,6 +154,7 @@ export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestr
         sectionHeader: new FormControl(false, { updateOn: 'change' }),
         assistiveListening: new FormControl(false, { updateOn: 'change' }),
         closedCaptioning: new FormControl(false, { updateOn: 'change' }),
+        audioDescOfVideos: new FormControl(false, { updateOn: 'change' }),
         oralInterpreter: new FormControl(false, { updateOn: 'change' }),
         prefSeating: new FormControl(false, { updateOn: 'change' }),
         realTimeCaptioning: new FormControl(false, { updateOn: 'change' }),
@@ -189,7 +191,7 @@ export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestr
         // breaks: new FormControl(false, { updateOn: 'change' }),
         breaksFrequency: new FormControl(null, { updateOn: 'change' }),
         breaksDuration: new FormControl(null, { updateOn: 'change' }),
-        envAdj: new FormControl(false, { updateOn: 'change' }),
+        envAdj: new FormControl(null, { updateOn: 'change' }),
         prefSeating: new FormControl(false, { updateOn: 'change' }),  
         standingOrLeavingClassroom: new FormControl(false, { updateOn: 'change' }),  
         serviceAnimal: new FormControl(false, { updateOn: 'change' }),

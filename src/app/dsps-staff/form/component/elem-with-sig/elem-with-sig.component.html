@@ -12,7 +12,7 @@
         if text, make position=floating for ion-label
 
       -->
-      <ion-item *ngIf="controlType === 'checkbox'" lines="none" >
+      <ion-item *ngIf="controlType === 'checkbox'"  > <!-- lines="none" -->
         <ion-label>
           <div class="wrap-text"> {{ label }} </div> 
         </ion-label>
@@ -22,7 +22,7 @@
           (click)="clicked()">
         </ion-checkbox>
       </ion-item>
-      <ion-item *ngIf="controlType === 'text'" lines="none" >
+      <ion-item *ngIf="controlType === 'text'"  > <!-- lines="none" -->
         <ion-label position="floating">{{ label }} </ion-label>
         <ion-input [formControlName]="controlName"></ion-input>
       </ion-item>

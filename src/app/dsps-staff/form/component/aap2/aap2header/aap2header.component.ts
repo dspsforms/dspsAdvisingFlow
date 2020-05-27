@@ -13,6 +13,10 @@ export class Aap2headerComponent implements OnInit {
   
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
+  
+  get studentEmail() {
+    return this.form.get('studentEmail');
+  }
 
 }
