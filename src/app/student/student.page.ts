@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-student',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentPage implements OnInit {
 
-  constructor() { }
+  ownUserId;
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+    this.ownUserId = this.authService.getUserId();
+    
+    // get the student record for ownUserId
   }
 
 }

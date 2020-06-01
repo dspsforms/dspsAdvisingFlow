@@ -95,7 +95,7 @@ export class AuthService {
 
     const url = environment.server + '/api/user/verifyemail';
     this.http
-      .post(url, randomKey)
+      .post(url, { key: randomKey })
       .subscribe(response => {
         console.log(response);
         this.verifyEmailtListener.next(response as SubmitStatus);

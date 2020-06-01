@@ -180,14 +180,15 @@ exports.verifyEmail = (req, res, next) => {
         // document with this change, which allows for partial updates too
         // req.body,
         {
-          state: 'active',
+          status: 'active',
           emailVerificatonDate : new Date(),
           password: null  // delete the password from the student collection
         },
       
         // an option that asks mongoose to return the updated version
         // of the document instead of the pre-updated one.
-        { new: true },
+        // ask for the pre-update version so we have the value of password
+        { new: false }, 
       
         // the callback function
         (err, result) => {
@@ -200,8 +201,8 @@ exports.verifyEmail = (req, res, next) => {
           } else {
               
             const user = createStudentUser(result); // an instance of User
-            user.save().then(res => {
-              console.log(res);
+            user.save().then(newUser => {
+              console.log(newUser);
               //  user collection has a new user. student collection has also been updated. send success message
               res.status(201).json({
                   message: "Student " + result.name + " verified."
@@ -313,7 +314,7 @@ createStudentUser = (student) => {
   const user = new User({
     email: student.email,
     name: student.name,
-    password: student.password,
+    password: student.password, 
     role: {
       isStudent: true,
       isAdmin: false,
