@@ -45,16 +45,24 @@
             [disabled]="!signInForm.valid || !signInForm.dirty"
             type="submit" >Sign in</ion-button>
         </ion-item>
+
+        <ion-button 
+          type="button" 
+          color="primary" 
+          fill="clear" 
+          routerLink="/auth/student-signup"
+          expand="block">Switch to Student Signup'</ion-button>
      
 
-        <ion-item *ngIf="errCode || errMsg">
+        <!-- <ion-item *ngIf="errCode || errMsg">
             <span *ngIf="errCode"> {{errCode}} </span>
 
-            <!-- add a separator, but only if both codes are displayed -->
+            // add a separator, but only if both codes are displayed 
             <span *ngIf="errCode && errMsg"> &nbsp; - &nbsp; </span>
 
             <span *ngIf="errMsg"> {{errMsg}} </span>
         </ion-item>
+       -->
 
     </ion-list>
 

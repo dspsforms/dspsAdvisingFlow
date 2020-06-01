@@ -80,8 +80,8 @@ exports.addStaff = (req, res, next) => {
       })
       .catch(err => {
         console.log(err);
-        res.status(500).json({
-          error: err,
+        res.status(201).json({
+          err: err,
           message: "User creation failed. "
         });
       });
@@ -130,32 +130,32 @@ exports.addStudentStep1 = (req, res, next) => {
       studentResult => {
         const randomKey = new RandomKey({
           key: randomStr,
-          tmpId: result._id,
+          tmpId: studentResult._id,
           creatorIP: req.ip,
           created: currentTime,
           status: 'pending'
         });
         randomKey.save().then(randomKeyResult => {
 
+          console.log("randomKeyResult=", randomKeyResult);
           console.log("TODO: send an email here");
 
           res.status(201).json({
-            message: "Student " + result.name + " added. Pending email verification",
-            status: 0 // success
+            message: "Student " + studentResult.name + " added. Pending email verification"
           });
         }).catch(err => {
           console.log("Student record created. However, email verification step failed. ");
           console.log(err);
-          res.status(500).json({
-            error: err,
+          res.status(201).json({
+            err: err,
             message: "Student record created. However, email verification step failed. "
           });
         }); // inner catch for randomKey.save
         
       }).catch(err => {
         console.log(err);
-        res.status(500).json({
-          error: err,
+        res.status(200).json({
+          err: err,
           message: "Student creation failed. "
         });
       }); // outer catch, for student.save
@@ -225,7 +225,7 @@ exports.verifyEmail = (req, res, next) => {
     console.log("student verification failed for key=", req.body.key);
 
     res.status(500).json({
-      error: err,
+      err: err,
       message: "Student verification failed"
     });
           

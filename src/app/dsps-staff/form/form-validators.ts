@@ -42,7 +42,7 @@ export class FormValidators {
 
     // check if it ends with wvm.edu
     if (!control.value.toLowerCase().match('wvm.edu$')) {
-      console.log("not wvm email:", control.value);
+     // console.log("not wvm email:", control.value);
       return { validWvmEmail: true };
     }
 

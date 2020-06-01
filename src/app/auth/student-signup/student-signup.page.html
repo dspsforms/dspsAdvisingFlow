@@ -6,7 +6,7 @@
 
 <ion-content class="ion-padding">
 
-<form [formGroup]="signUpForm" (ngSubmit)="signUp()"  (keydown.enter)="onEnterKeyDown($event)" >
+<form *ngIf="signUpForm" [formGroup]="signUpForm" (ngSubmit)="signUp()"  (keydown.enter)="onEnterKeyDown($event)" >
 
   <ion-grid>
 
@@ -27,24 +27,32 @@
           <ion-input type="email" formControlName="collegeId"> </ion-input>
         </ion-item>
 
-        <ion-item *ngIf="collegeId.touched && !collegeId.valid">
-          <ion-label color="danger"> Student ID is required. </ion-label>
-        </ion-item>
+        <div *ngIf="collegeId.touched">
+          <ion-item *ngIf="collegeId.errors?.required">
+            <ion-label color="danger"> Student ID is required. </ion-label>
+          </ion-item>
+          <ion-item *ngIf="collegeId.errors?.collegeIdFormat">
+            <ion-label color="danger"> Please check the Student ID format. </ion-label>
+          </ion-item>
+        </div>
+        
 
         <ion-item>
           <ion-label position="floating" >Your wvm.edu email address * </ion-label>
           <ion-input type="email" formControlName="email"> </ion-input>
         </ion-item>
 
-        <ion-item *ngIf="email.touched">
-            <p *ngIf="email.errors?.required">
-              <ion-label color="danger">  Email is required. </ion-label>
-            </p>
-            <p *ngIf="!email.errors?.required && 
-              (email.errors?.email || email.errors?.validWvmEmail) ">
-              <ion-label color="danger"> You can sign up only with your wvm.edu email. </ion-label>
-            </p>
-        </ion-item>
+        <div *ngIf="email.touched && !email.valid">
+          <ion-item>
+            <ion-label 
+              *ngIf="email.errors?.required" color="danger">  Email is required. 
+            </ion-label>
+            <ion-label 
+              *ngIf="!email.errors?.required && (email.errors?.email || email.errors?.validWvmEmail)" 
+              color="danger"> You can sign up only with your wvm.edu email. 
+            </ion-label>
+          </ion-item>
+        </div>
    
         <div formGroupName="passwords"> 
 
@@ -87,11 +95,31 @@
         <!-- show the spinner when data is being submitted to the server -->
         <ion-spinner *ngIf="busy" class="ion-text-center"></ion-spinner>
      
+        <div *ngIf="duplicateAccountErr">
+          <ion-item color="danger" >
+            An account for your email address already exists. Please check 
+            your email for a verification link to validate your email. 
+          </ion-item>
 
-        <ion-item *ngIf="submitStatus">
+          <ion-button
+            type="button" 
+            color="primary"
+            fill="clear" 
+            expand="block" 
+            (click)="newVerificationLink()" >
+              Request a new verification link. 
+          </ion-button>
+
+        </div>
+        
+
+         
+       
+
+        <!-- <ion-item *ngIf="submitStatus">
           <ion-label *ngIf="submitStatus.message"> {{ submitStatus.message }} </ion-label>
           <pre *ngIf="submitStatus.err"> {{submitStatus.err}} </pre>
-        </ion-item>
+        </ion-item> -->
 
     </ion-list>
 

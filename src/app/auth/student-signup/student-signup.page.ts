@@ -6,28 +6,33 @@ import { FormValidators } from 'src/app/dsps-staff/form/form-validators';
 import { UrlConfig } from 'src/app/model/url-config';
 import { Subscription } from 'rxjs';
 import { SubscriptionUtil } from 'src/app/util/subscription-util';
-import { SubmitStatus } from '../auth-data.model';
+import { SubmitStatus, MongoErr } from '../auth-data.model';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-student-signup',
   templateUrl: './student-signup.page.html',
   styleUrls: ['./student-signup.page.scss'],
 })
-export class StudentSignupPage implements OnInit {
+export class StudentSignupPage implements OnInit , OnDestroy {
 
   signUpForm: FormGroup;
 
-  submitStatus: SubmitStatus;
+  // submitStatus: SubmitStatus;
 
   submitSub: Subscription;
 
   busy = false;
 
+  // if student already has created an account (duplicate email)
+  duplicateAccountErr = false;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private authService: AuthService) {
+    private authService: AuthService,
+    public alertCtrl: AlertController) {
     
     this.signUpForm = fb.group({
       studentName: new FormControl(null, {
@@ -51,7 +56,7 @@ export class StudentSignupPage implements OnInit {
           validators: [Validators.required]
         }),
         password2: new FormControl(null, {
-          updateOn: 'blur',
+          updateOn: 'change',
           validators: [Validators.required]
         }),
       }, {
@@ -64,7 +69,10 @@ export class StudentSignupPage implements OnInit {
   }
 
   isSamePassword(control: AbstractControl) {
-    if (control.get('password1') === control.get('password2').value) {
+    // check for null -- during initialization
+    if (! control.get(['passwords', 'password1']) || !control.get(['passwords', 'password2'])) {
+      return null;
+    } else if (control.get(['passwords', 'password1']).value === control.get(['passwords', 'password2']).value) {
       return null;
     } else {
       return { isSamePassword: true };
@@ -72,6 +80,34 @@ export class StudentSignupPage implements OnInit {
   }
 
   ngOnInit() {
+
+    this.submitSub = this.authService.getCreateStudentListener().subscribe(
+      statusData => {
+        // remove spinner
+        this.busy = false;
+        this.duplicateAccountErr = false;
+        // this.submitStatus = statusData as SubmitStatus;
+        if(!statusData.err) {
+          // data successfully submitted
+          this.showSuccess(statusData); // will navigate out when user clicks ok
+        } else {
+
+          // check if this is a duplicate account error
+
+          // e.g.,
+          // MongoError: E11000 duplicate key error collection: 
+          // dspsmisc.students index: email_1 dup key: { : "foo@wvm.edu" }
+
+          const err = statusData.err as MongoErr;
+          if (err.errmsg && err.errmsg.indexOf('duplicate key') >= 0) {
+            this.duplicateAccountErr = true;
+          } else {
+            this.showError(statusData);
+          }
+          
+        }
+      }
+    );
   }
 
   get studentName() {
@@ -109,19 +145,6 @@ export class StudentSignupPage implements OnInit {
     // for the spinner
     this.busy = true;
 
-    this.submitSub = this.authService.getCreateStudentListener().subscribe(
-      statusData => {
-        // remove spinner
-        this.busy = false;
-        this.submitStatus = statusData as SubmitStatus;
-        if (!statusData.err) {
-          // data successfully submitted
-          // ask user to verify message
-          this.router.navigateByUrl(UrlConfig.VERIFY_EMAIL_MSG);
-        }
-      }
-    );
-
     this.authService.createStudentUserStep1(
       this.signUpForm.get('email').value,
       this.signUpForm.get('studentName').value,
@@ -132,8 +155,67 @@ export class StudentSignupPage implements OnInit {
 
   }
 
-  ionViewWillExit() {
+  ngOnDestroy() {
     SubscriptionUtil.unsubscribe(this.submitSub);
+  }
+
+  showSuccess(statusData : SubmitStatus) {
+    this.alertCtrl.create({
+      header: statusData.message,
+      buttons: [{
+        text: 'Okay',
+        handler: () => {
+          this.router.navigateByUrl(UrlConfig.LANDING);
+        }
+      }]
+    }).then(alertElem => {
+      alertElem.present();
+    });
+  }
+
+  showError(statusData: SubmitStatus) {
+    let errMsg = String(statusData.err);
+
+    const err = statusData.err as MongoErr;
+    if (err.errmsg) {
+      errMsg = err.errmsg;
+      // remove collection info if any
+      const index = errMsg.indexOf('collection');
+      if (index >= 0) {
+        // truncate
+        errMsg = errMsg.substring(0, index);
+      }
+    } else if (statusData.err instanceof Object) {
+      errMsg = JSON.stringify(statusData.err);
+    } 
+    this.alertCtrl.create({
+      header: statusData.message,
+      subHeader: errMsg,
+      buttons: [{
+        text: 'Okay',
+        handler: () => {
+          // stay on page, i.e., no-op
+        }
+      }]
+    }).then(alertElem => {
+      alertElem.present();
+    });
+  }
+
+  newVerificationLink() {
+    // TODO
+    this.alertCtrl.create({
+      header: 'This is a TODO',
+      subHeader: 'As a workaround, please talk to your IT person',
+      buttons: [{
+        text: 'Okay',
+        handler: () => {
+          // stay on page, i.e., no-op
+        }
+      }]
+    }).then(alertElem => {
+      alertElem.present();
+    });
   }
 
 }

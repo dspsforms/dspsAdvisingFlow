@@ -21,7 +21,7 @@ export class ChangePasswordPage implements OnInit, OnDestroy {
 
   busy = false;
 
-  submitStatus: SubmitStatus;
+  // submitStatus: SubmitStatus;
 
   constructor(
     public authService: AuthService,

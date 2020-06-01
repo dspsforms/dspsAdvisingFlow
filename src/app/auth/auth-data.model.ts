@@ -38,7 +38,15 @@ export class StudentData {
   ) {}
 }
 
+export interface MongoErr {
+  driver?: boolean;
+  name?: string;
+  index?: number;
+  code?: number;
+  errmsg?: string;
+}
+
 export interface SubmitStatus {
   message: string;
-  err: string | {}; 
+  err: string | MongoErr | {}; 
 }
