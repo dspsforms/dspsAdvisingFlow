@@ -1,9 +1,21 @@
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+
 const config = require("../config/config");
 
 const User = require("../models/user-model");
+
+const Student = require("../models/student-model");
+
+const RandomKey = require("../models/random-key.model");
+
+const { v4: uuidv4 } = require('uuid');
+
+
 
 /*
 preventing nosql injections:
@@ -77,6 +89,293 @@ exports.addStaff = (req, res, next) => {
   });
 }
 
+exports.addStudentStep1 = (req, res, next) => {
+
+  bcrypt.hash(req.body.password, 10).then(hash => {
+
+    
+    const sanitizedEmail = sanitize(req.body.email);
+    const sanitizedName = sanitize(req.body.name);
+    const sanitizedCollegeId = sanitize(req.body.collegeId);
+    const sanitizedCellPhone = req.body.cellPhone ? sanitize(req.body.cellPhone) : null;
+
+    /*
+    public email: string,
+    public password: string,
+    public name?: string,
+    public collegeId?: string,
+    public cellPhone?: string,
+    */
+    const currentTime = new Date();
+
+    let randomStr = uuidv4(); // a random uuid v4, see https://www.npmjs.com/package/uuid
+    randomStr += currentTime.getTime(); // append currentTime in msec to make it less likely to match anything else
+
+    const student = new Student({
+      email: sanitizedEmail,
+      name: sanitizedName,
+      password: hash,
+      collegeId: sanitizedCollegeId,
+      cellPhone: sanitizedCellPhone,
+      creatorIP: req.ip, // this is part of express, see https://expressjs.com/en/api.html#req.ip
+      created: currentTime,
+      lastMod: currentTime,
+      status: 'pending'
+    });
+
+    // TODO check if student record (email, collegeId) already exists.
+    // if so, need to decide what to do. perhaps ask user to verify email?
+
+    student.save().then(
+      studentResult => {
+        const randomKey = new RandomKey({
+          key: randomStr,
+          tmpId: result._id,
+          creatorIP: req.ip,
+          created: currentTime,
+          status: 'pending'
+        });
+        randomKey.save().then(randomKeyResult => {
+
+          console.log("TODO: send an email here");
+
+          res.status(201).json({
+            message: "Student " + result.name + " added. Pending email verification",
+            status: 0 // success
+          });
+        }).catch(err => {
+          console.log("Student record created. However, email verification step failed. ");
+          console.log(err);
+          res.status(500).json({
+            error: err,
+            message: "Student record created. However, email verification step failed. "
+          });
+        }); // inner catch for randomKey.save
+        
+      }).catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err,
+          message: "Student creation failed. "
+        });
+      }); // outer catch, for student.save
+
+  }); // bcrypt hash
+
+}
+
+exports.verifyEmail = (req, res, next) => {
+
+  const sanitizedKey = sanitize(req.body.key);
+    
+  try {
+      
+    RandomKey.findOne({ key: sanitizedKey }).then(randomKey => {
+      Student.findByIdAndUpdate(
+        
+        // the id of the student to find
+        mongoose.Types.ObjectId(randomKey.tmpId),
+          
+        // the change to be made. Mongoose will smartly combine your existing
+        // document with this change, which allows for partial updates too
+        // req.body,
+        {
+          state: 'active',
+          emailVerificatonDate : new Date(),
+          password: null  // delete the password from the student collection
+        },
+      
+        // an option that asks mongoose to return the updated version
+        // of the document instead of the pre-updated one.
+        { new: true },
+      
+        // the callback function
+        (err, result) => {
+      
+          // result is an instance of student
+
+          // Handle any possible database errors
+          if (err) {
+            throw (err);
+          } else {
+              
+            const user = createStudentUser(result); // an instance of User
+            user.save().then(res => {
+              console.log(res);
+              //  user collection has a new user. student collection has also been updated. send success message
+              res.status(201).json({
+                  message: "Student " + result.name + " verified."
+              });
+
+            }).catch(err => {
+              throw (err);
+            });
+        
+          }; // else -- no error
+        } // callback of findByIdAndUpdate
+
+      ); // findByIdAndUpdate
+            
+    }) // RandomKey.findOne.then()
+
+  
+  } // try
+  catch(err) {
+    console.log(err);
+    console.log("student verification failed for key=", req.body.key);
+
+    res.status(500).json({
+      error: err,
+      message: "Student verification failed"
+    });
+          
+  }; // catch
+      
+    
+} // verifyRandomStrKey
+
+
+
+// exports.verifyRandomStrKey = (req, res, next) => {
+
+//   const sanitizedKey = sanitize(req.body.key);
+  
+//   try {
+    
+//     RandomKey.findOne({ key: sanitizedKey }).then(randomKey => {
+//       Student.findOne({ _id: randomKey.tmpId }).then(student => {
+
+//         const user = createStudentUser(student); // an instance of User
+//         user.save() .then(res => {
+//           console.log(res);
+
+//           // patch student
+//           student.findByIdAndUpdate(
+//             // the id of the student to find
+//             mongoose.Types.ObjectId(student._id),
+        
+//             // the change to be made. Mongoose will smartly combine your existing
+//             // document with this change, which allows for partial updates too
+//             // req.body,
+//             {
+//               state: state,
+//               password: null  // delete the password from the student collection
+//             },
+        
+//             // an option that asks mongoose to return the updated version
+//             // of the document instead of the pre-updated one.
+//             { new: true },
+        
+//             // the callback function
+//             (err, result) => {
+//               console.log(result);
+        
+//               // Handle any possible database errors
+//               if (err) {
+//                 throw (err);
+//               } else {
+                
+//               }
+              
+//             }
+        
+//           ); // findByIdAndUpdate
+//         }).catch(err => {
+//           console.log(err);
+//           throw (err);
+//         });
+//         // res.status(201).json({
+//         //   message: "Student " + student.name + " verified.",
+//         //   status: 0 // success
+//         // });
+//       }).catch(err => {
+//         console.log(err);
+//         throw (err);
+//       }); // innner then/catch
+
+//     }) // outer then
+//       .catch(err => {
+//         console.log(err);
+        
+//       }); // outer catch
+    
+//   } catch (err) {
+//     res.status(500).json({
+//       error: err,
+//       message: "Student verification failed. "
+//     });
+//   } // catch
+  
+// } // verifyRandomStrKey
+
+createStudentUser = (student) => {
+
+  const user = new User({
+    email: student.email,
+    name: student.name,
+    password: student.password,
+    role: {
+      isStudent: true,
+      isAdmin: false,
+      isStaff: false,
+      isFaculty: false,
+      isInstructor: false
+    },
+    isStudent: true,
+    isAdmin: false,
+    isStaff: false,
+    isFaculty: false,
+    isInstructor: false,
+    created: student.created, 
+    lastMod: student.lastMod
+  }); 
+  return user; // don't save user yet. we need to do it in the main loop
+
+}
+
+// patchStudent = (student, state, promises) => {
+
+//   // TODO study this; https://github.com/kriskowal/q
+//   // let itemDefer = Q.defer();
+
+//   student.findByIdAndUpdate(
+//     // the id of the item to find
+//     mongoose.Types.ObjectId(id),
+
+//     // the change to be made. Mongoose will smartly combine your existing
+//     // document with this change, which allows for partial updates too
+//     // req.body,
+//     {
+//       state: state,
+//       password: null  // delete the password from the student collection
+//     },
+
+//     // an option that asks mongoose to return the updated version
+//     // of the document instead of the pre-updated one.
+//     { new: true },
+
+//     // the callback function
+//     (err, result) => {
+//       console.log(result);
+
+//       // Handle any possible database errors
+//       // formId: string, message: string, err?: string
+//       if (err) {
+//         throw (err);
+//         // itemDefer.reject(err);
+//         // return err;
+//       } else {
+//         // no op
+//         // itemDefer.resolve(result);
+//       }
+//       // promises.push(itemDefer);
+      
+//     }
+
+//   ); // findByIdAndUpdate
+
+// }  // patchStudent
+
 exports.login = (req, res, next) => {
   console.log("in login");
   let fetchedUser;
@@ -146,6 +445,112 @@ exports.login = (req, res, next) => {
       });
     });
 }
+
+
+exports.checkAndUpdatePassword = (req, res, next) => {
+  console.log("in checkAndUpdatePassword");
+  let fetchedUser;
+
+  /*
+  from extract-userId.js
+  req.userData = {
+      email: decodedToken.email,
+      userId: decodedToken.userId,
+    };
+  */
+  const sanitizedUserId = sanitize(req.userData.userId);
+  console.log("orig: ", req.userData.userId, "sanitized: ", sanitizedUserId);
+  User.findOne({ _id: sanitizedUserId })
+    .then(user => {
+      if (!user) {
+        console.log("no matching user for _id " + sanitizedUserId);
+        return res.status(401).json({
+          message: "Auth failed. Please login again and try. ",
+          err: 'no user found. user may not be logged on, or login may have expired'
+        });
+      }
+      fetchedUser = user;
+      return bcrypt.compare(req.body.oldPassword, user.password);
+    }, err => {
+        console.log(err);
+    })
+    .then(result => {
+
+      // if the previous then failed, we have already sent client an error message
+      if (!fetchedUser) {
+        return null;
+      }
+      if (!result) {
+        console.log("password match failed for user._id = ", sanitizedUserId);
+        return res.status(200).json({
+          message: "Auth failed.",
+          err: 'The existing password you supplied did not match the one in the system.'
+        });
+      }
+
+      console.log("changing password for " + sanitizedUserId);
+      
+      bcrypt.hash(req.body.newPassword, 10).then(hash => {
+        //   User.update(
+        //     { _id: sanitizedUserId },
+        //     {
+        //       $set: {
+        //         password: hash,
+        //         lastMod: new Date()
+        //       }
+        //     }
+        //   ).then(status => {
+
+        //   })
+        // }
+        
+        User.findByIdAndUpdate(
+        
+          // the id of the user to find
+          mongoose.Types.ObjectId(sanitizedUserId),
+          
+          // the change to be made. Mongoose will smartly combine your existing
+          // document with this change, which allows for partial updates too
+          // req.body,
+          {
+            password: hash,
+            lastMod: new Date()
+          },
+      
+          // an option that asks mongoose to return the updated version
+          // of the document instead of the pre-updated one.
+          { new: true },
+      
+          // the callback function
+          (err, result) => {
+      
+            // result is an instance of User
+
+            // Handle any possible database errors
+            if (err) {
+              throw (err);
+            } else {
+              console.log(result);
+              res.status(201).json({
+                message: "Password updated for " + result.name
+              });
+            }; // else -- no error
+          } // callback of findByIdAndUpdate
+
+        ); // findByIdAndUpdate
+      
+      
+      }) // bcrypt then
+        .catch(err => {
+          console.log(err);
+          return res.status(401).json({
+            message: "Auth failed " + err
+          });
+        });
+      
+    }); // User.findOne.then()
+  
+}  // checkAndUpdatePassword
 
 exports.list = (req, res, next) => {
   console.log("in list");

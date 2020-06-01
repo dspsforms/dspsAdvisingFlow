@@ -3,9 +3,10 @@ import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 
-import { AuthData, Role } from "./auth-data.model";
+import { AuthData, Role, StudentData, SubmitStatus } from "./auth-data.model";
 import { environment } from "../../environments/environment";
 import { UrlConfig } from "../model/url-config";
+import { StatusMessage } from '../model/status-message';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +20,29 @@ export class AuthService {
   private userId: string;
   private authStatusListener = new Subject<Role>();
 
+  private createStudentListener = new Subject<SubmitStatus>();
+
+  private verifyEmailtListener = new Subject<SubmitStatus>();
+
+  private changePasswordListener = new Subject<SubmitStatus>();
+
   private dataInitialized = false;
   constructor(private http: HttpClient, private router: Router) {}
 
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
+  }
+
+  getCreateStudentListener() {
+    return this.createStudentListener.asObservable();
+  }
+
+  getVerifyEmailListener() {
+    return this.verifyEmailtListener.asObservable();
+  }
+
+  getChangePasswordListener() {
+    return this.changePasswordListener.asObservable();
   }
 
   createUser(
@@ -45,6 +64,59 @@ export class AuthService {
         console.log(response);
         this.router.navigate([nextUrl || UrlConfig.LIST_DSPS_USERS_ABSOLUTE]);
       });
+  }
+
+  createStudentUserStep1(
+    email: string,
+    name: string,
+    password: string,
+    collegeId: string,
+    cellPhone: string) {
+    const studentData: StudentData = {
+      email: email,
+      name: name,
+      password: password,
+      collegeId: collegeId,
+      cellPhone: cellPhone
+    };
+    const url = environment.server + '/api/user/addstudentstep1';
+    this.http
+      .post(url, studentData)
+      .subscribe(response => {
+        console.log(response);
+        this.createStudentListener.next(response as SubmitStatus);
+      }, err => {
+          console.log(err);
+          this.createStudentListener.next({ err: err, message: 'https call encountered an error' });
+      });
+  }
+
+  verifyEmail(randomKey: string) {
+
+    const url = environment.server + '/api/user/verifyemail';
+    this.http
+      .post(url, randomKey)
+      .subscribe(response => {
+        console.log(response);
+        this.verifyEmailtListener.next(response as SubmitStatus);
+    }, err => {
+      console.log(err);
+      this.verifyEmailtListener.next({ err: err, message: 'https call encountered an error' });
+    });
+
+  }
+
+  checkAndUpdatePassword(oldPassword: string, newPassword: string) {
+    const url = environment.server + '/api/user/checkandupdatepassword';
+    this.http
+      .post(url, {oldPassword: oldPassword, newPassword: newPassword} )
+      .subscribe(response => {
+        console.log(response);
+        this.changePasswordListener.next(response as SubmitStatus);
+    }, err => {
+      console.log(err);
+      this.changePasswordListener.next({ err: err, message: 'https call encountered an error' });
+    });
   }
 
   login(

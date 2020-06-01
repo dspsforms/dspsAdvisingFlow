@@ -19,8 +19,26 @@ export class AuthData {
     public name?: string,
     public created?: Date, // tz format
     public lastMod?: Date,
-    public mobilePhone?: string,
+    public cellPhone?: string,
     public _id?: string, // user Id
   ) {}
  
+}
+
+export class StudentData {
+  constructor(
+    public email: string,
+    public password: string,
+    public name?: string,
+    public collegeId?: string,
+    public cellPhone?: string,
+    public created?: Date, // tz format
+    public lastMod?: Date,
+    public _id?: string, // user Id
+  ) {}
+}
+
+export interface SubmitStatus {
+  message: string;
+  err: string | {}; 
 }

@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Student Sign Up</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+<form [formGroup]="signUpForm" (ngSubmit)="signUp()"  (keydown.enter)="onEnterKeyDown($event)" >
+
+  <ion-grid>
+
+  <ion-row>
+    <ion-col size-sm="6" offset-sm="3">
+      <ion-list>
+
+        <ion-item>
+          <ion-label position="floating" >Student Name *</ion-label>
+          <ion-input type="email" formControlName="studentName"> </ion-input>
+        </ion-item>
+        <ion-item *ngIf="studentName.touched && !studentName.valid">
+          <ion-label color="danger"> Student name is required. </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" >Student ID *</ion-label>
+          <ion-input type="email" formControlName="collegeId"> </ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="collegeId.touched && !collegeId.valid">
+          <ion-label color="danger"> Student ID is required. </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" >Your wvm.edu email address * </ion-label>
+          <ion-input type="email" formControlName="email"> </ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="email.touched">
+            <p *ngIf="email.errors?.required">
+              <ion-label color="danger">  Email is required. </ion-label>
+            </p>
+            <p *ngIf="!email.errors?.required && 
+              (email.errors?.email || email.errors?.validWvmEmail) ">
+              <ion-label color="danger"> You can sign up only with your wvm.edu email. </ion-label>
+            </p>
+        </ion-item>
+   
+        <div formGroupName="passwords"> 
+
+       
+        <ion-item>
+          <ion-label position="floating">Password *</ion-label>
+          <ion-input type="password" formControlName="password1" ></ion-input>
+        </ion-item>
+    
+        <ion-item *ngIf="password1.touched && !password1.valid">
+          <ion-label color="danger">  Password is required.</ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Confirm Password *</ion-label>
+          <ion-input type="password" formControlName="password2" ></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="password1.touched && !password1.valid">
+          <ion-label color="danger"> Please confirm your password.</ion-label>
+        </ion-item>
+
+        <ion-item *ngIf="password1.touched && password2.touched && password1.value != password2.value">
+            <ion-label color="danger"> Passwords do not match. </ion-label>
+        </ion-item>
+
+      </div> <!-- formGroupName == passwords -->
+ 
+        <ion-item>
+          <ion-label position="floating" >Cell Phone</ion-label>
+          <ion-input type="email" formControlName="cellPhone"> </ion-input>
+        </ion-item>
+      
+        <ion-item>
+          <ion-button class="primary" expand="block"
+            [disabled]="!signUpForm.valid"
+            type="submit" >Sign Up</ion-button>
+        </ion-item>
+
+        <!-- show the spinner when data is being submitted to the server -->
+        <ion-spinner *ngIf="busy" class="ion-text-center"></ion-spinner>
+     
+
+        <ion-item *ngIf="submitStatus">
+          <ion-label *ngIf="submitStatus.message"> {{ submitStatus.message }} </ion-label>
+          <pre *ngIf="submitStatus.err"> {{submitStatus.err}} </pre>
+        </ion-item>
+
+    </ion-list>
+
+    </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  </form>
+
+</ion-content>
+
+

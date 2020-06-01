@@ -20,7 +20,7 @@ export class UrlConfig {
 
   static DEFAULT_BACK_BUTTON_HREF_LIST_USERS = '/dsps-staff/users/list-dsps-users';
 
-  
+  static LANDING = '/landing';
 
   static LIST_COLLECTIONS_ABSOLUTE: '/api/forms';
 
@@ -46,6 +46,7 @@ export class UrlConfig {
 
   static CREATE_FORM_PRE_ABSOLUTE = '/dsps-staff/form/create/'; // append formName 
 
+  static VERIFY_EMAIL_MSG = '/auth/verify-email-message';
   // static AGREEMENT_CREATE_EDIT = 'agreementCreateEdit';
   // static AGREEMENT_CREATE_EDIT_ABSOLUTE = '/agreementCreateEdit';
   // static AGREEMENT_CREATE_EDIT_ABSOLUTE2 = '/agreementCreateEdit/';
