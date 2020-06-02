@@ -111,6 +111,10 @@ exports.addStudentStep1 = (req, res, next) => {
     let randomStr = uuidv4(); // a random uuid v4, see https://www.npmjs.com/package/uuid
     randomStr += currentTime.getTime(); // append currentTime in msec to make it less likely to match anything else
 
+    // to be used in the next step of the pipeline, in email-verify-email.js
+    req['emailData'] = { randomStr: randomStr, recipientEmail: sanitizedEmail };
+    req['sendEmail'] = true; // change this to false if there is an error below
+
     const student = new Student({
       email: sanitizedEmail,
       name: sanitizedName,
@@ -138,14 +142,15 @@ exports.addStudentStep1 = (req, res, next) => {
         randomKey.save().then(randomKeyResult => {
 
           console.log("randomKeyResult=", randomKeyResult);
-          console.log("TODO: send an email here");
 
           res.status(201).json({
             message: "Student " + studentResult.name + " added. Pending email verification"
           });
+          next(); // send email.
         }).catch(err => {
           console.log("Student record created. However, email verification step failed. ");
           console.log(err);
+          req['sendEmail'] = false; // do not send email
           res.status(201).json({
             err: err,
             message: "Student record created. However, email verification step failed. "
@@ -154,6 +159,8 @@ exports.addStudentStep1 = (req, res, next) => {
         
       }).catch(err => {
         console.log(err);
+        req['sendEmail'] = false; // do not send email
+
         res.status(200).json({
           err: err,
           message: "Student creation failed. "
@@ -181,8 +188,8 @@ exports.verifyEmail = (req, res, next) => {
         // req.body,
         {
           status: 'active',
-          emailVerificatonDate : new Date(),
-          password: null  // delete the password from the student collection
+          emailVerificatonDate : new Date()
+          // password: null  // keeping this in case troubleshooting is necessary
         },
       
         // an option that asks mongoose to return the updated version

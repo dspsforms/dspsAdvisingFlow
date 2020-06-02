@@ -1,4 +1,5 @@
 import { FormControl } from "@angular/forms";
+import { environment } from 'src/environments/environment';
 
 export class FormValidators {
 
@@ -32,6 +33,11 @@ export class FormValidators {
 
   static validWvmEmail(control: FormControl) {
     // mywvm.wvm.edu
+
+    // during testing, allow creation of non wvm accoounts
+    if (!environment.enforceWvmEmail) {
+      return null;
+    }
 
      // if no value, let required-check handle it, i.e., return null
     if (!control || !control.value) {

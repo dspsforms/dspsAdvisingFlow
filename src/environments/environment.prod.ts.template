@@ -5,6 +5,9 @@ export const environment = {
   // change this to your production server
   server: "https://www.dspsmisc.com",
 
+  // during testing, this can be false, so personal emails can be used to test accounts
+  enforceWvmEmail: true,
+
   // client side key for reCaptcha V3.
   // the data here is NOT a valid key. supply your own
   reCaptchaV3ClientKey: 'asdfghklzxcvbnmqwertyuiop'

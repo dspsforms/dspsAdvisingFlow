@@ -7,6 +7,9 @@ const checkAuthAdmin = require("../middleware/check-auth-admin");
 // (staff or admin or dsps faculty) guard
 const checkAuthDsps = require("../middleware/check-auth-dsps");
 
+const emailVerifyEmail = require("../middleware/email-verify-email");
+
+
 // currently, staff and faculty have same access
 
 // // staff guard
@@ -35,13 +38,15 @@ router.post("/addstaff", checkAuthAdmin, UserController.addStaff);
 
 
 // post /api/user/addstudentstep1 -- student user signup. no auth permission reqd
-router.post("/addstudentstep1", UserController.addStudentStep1);
+router.post("/addstudentstep1", UserController.addStudentStep1, emailVerifyEmail);
 
 // post /api/user/verifyemail -- student user signup. no auth permission reqd
+// TODO send a welcome email
 router.post("/verifyemail", UserController.verifyEmail);
 
 // post /api/user/checkandupdatepassword -- check and update password
 // extractUserId will extract userId and email from web token, and put it in req.userData
+// TODO send an alert email
 router.post("/checkandupdatepassword", extractUserId,  UserController.checkAndUpdatePassword);
 
 // this and stuent users may need email verification workflow
