@@ -55,11 +55,22 @@ async function emailRetrievePasswordLink(emConfig, req){
         }
     });
 
-    // this needs to work when the node server is behind the apache proxy
-    // req.get('host') will return localhost:port 
-    // req.hostname will return the servername as seen by the client
-    // 
-    const firstPart = req.protocol + '://' + req.hostname; 
+    /* 
+        this needs to work when the node server is behind the apache proxy
+        req.get('host') will return localhost:port 
+        someone said req.hostname will return the servername as seen by the client
+        but it's not working for us. 
+        req.header('x-forwarded-server') works
+    
+        aside: java equivalents are
+            request.getScheme(), request.getServerName(), request.getServerPort()
+    */
+    
+    const serverName = req.header('x-forwarded-server');
+    // console.log('x-forwarded-server', serverName);
+
+    const firstPart = req.protocol + '://' + serverName;
+    
     const url = firstPart + '/auth/reset-password/' + req.emailData.randomStr;
     // setup email data with unicode symbols
 
