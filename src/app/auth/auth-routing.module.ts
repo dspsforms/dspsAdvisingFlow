@@ -33,6 +33,10 @@ const routes: Routes = [
     loadChildren: () => import('./verify-email-msg/verify-email-msg.module').then( m => m.VerifyEmailMsgPageModule)
   },
   {
+    path: 'verify-email-msg/:expirationTime',
+    loadChildren: () => import('./verify-email-msg/verify-email-msg.module').then( m => m.VerifyEmailMsgPageModule)
+  },
+  {
     path: 'change-password',
     loadChildren: () => import('./change-password/change-password.module').then( m => m.ChangePasswordPageModule),
     canLoad: [IsloggedinGuardGuard]

@@ -20,6 +20,7 @@ export class LoginPage implements OnInit, OnDestroy {
   errCode: string = null;
   errMsg: string = null;
 
+
   displaySignIn = false;
   signInForm: FormGroup;
 
@@ -138,7 +139,13 @@ export class LoginPage implements OnInit, OnDestroy {
       .then(resultData => {
         console.log(resultData.data, resultData.role);
         if (resultData.role === 'confirmed') {
-          this.successMsg = resultData.data.message;
+
+          if (resultData.data.err) {
+            this.errMsg = resultData.data.err;
+          } else {
+            this.successMsg = resultData.data.message;
+          }
+          
           console.log('email sent!');
         }
       }).catch(err => {

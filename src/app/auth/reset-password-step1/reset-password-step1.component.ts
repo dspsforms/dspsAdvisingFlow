@@ -36,7 +36,7 @@ export class ResetPasswordStep1Component implements OnInit, OnDestroy {
       
         // dismiss modal
         if (submitStatus.err) {
-          this.modalCtrl.dismiss({ message: submitStatus.err}, 'confirmed');
+          this.modalCtrl.dismiss({ err: submitStatus.err}, 'confirmed');
         } else {
           this.modalCtrl.dismiss({message: submitStatus.message}, 'confirmed');
         }

@@ -57,13 +57,22 @@ async function sendEmailVerification(emConfig, req){
 
     const firstPart = req.protocol + '://' + req.get('host');
     const url = firstPart + '/auth/validate-signup/' + req.emailData.randomStr;
+
+    let text = "Please verify your email by going to the following page" + url;
+    let html = "Please verify your email by going to the following page <a href='" + url + "'>" + url + "</a>.";
+
+    if (req["RANDOM_KEY_TIME_LIMIT"]) {
+        text += ' This link is valid for ' + req["RANDOM_KEY_TIME_LIMIT"] + " minutes.";
+        html += ' This link is valid for ' + req["RANDOM_KEY_TIME_LIMIT"] + " minutes." ;
+    }
+
     // setup email data with unicode symbols
     let mailOptions = {
         from: emConfig.from,  // '"Mission DSPS" <missiondsps@vannev.com>', // sender address
         to: req.emailData.recipientEmail , // user trying to create account
         subject: "Welcome to DSPS Forms 2. Please verify your email", // Subject line
-        text: "Please verify your email by going to the following page" + url, // plain text body
-        html: "Please verify your email by going to the following page <a href='" + url +  "'>" + url + "</a>." // html body
+        text: text, // plain text body
+        html: html // html body
     };
 
   // send mail with defined transport object

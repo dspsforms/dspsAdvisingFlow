@@ -1,11 +1,80 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Verifying your email</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="m1"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ titleMsg }} </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
 
   <ion-spinner *ngIf="busy" class="ion-text-center" ></ion-spinner>
+
+  <ion-grid>
+    <ion-row *ngIf="signUpSuccess">
+      <ion-col size-sm="6" offset-sm="3">
+
+        <ion-list >
+          <ion-item>
+            <ion-text> You have successfully signed up. </ion-text>
+          </ion-item>
+
+          <ion-button
+                type="button" 
+                color="tertiary" 
+                fill="clear" 
+                routerLink="/auth/login"
+                >Go to the login page</ion-button>
+      
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="errMsg">
+      <ion-col size-sm="6" offset-sm="3">
+
+        <ion-list >
+          <ion-item *ngIf="submitStatus.message">
+            <ion-text> {{ submitStatus.message }} </ion-text>
+          </ion-item>
+
+          <ion-item *ngIf="errMsg">
+            <div>
+             {{ errMsg }}  
+            </div>
+          </ion-item>
+
+          <ion-item>
+            <ion-text>
+              Please contact DSPS for help with signing up. 
+            </ion-text>
+          </ion-item>
+
+          <!-- <ion-item>
+            <ion-text>
+              Or try <a routerLink="/auth/student-signup">signing up again.</a>
+            </ion-text>
+          </ion-item> -->
+
+          <ion-item>
+            <ion-button
+            type="button" 
+            color="tertiary" 
+            fill="clear" 
+            routerLink="/auth/student-signup"
+            > Or try signing up again</ion-button>
+
+          </ion-item>
+          
+        </ion-list>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  
+
+  
 
 </ion-content>

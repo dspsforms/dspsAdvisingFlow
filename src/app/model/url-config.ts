@@ -46,7 +46,7 @@ export class UrlConfig {
 
   static CREATE_FORM_PRE_ABSOLUTE = '/dsps-staff/form/create/'; // append formName 
 
-  static VERIFY_EMAIL_MSG = '/auth/verify-email-message';
+  static VERIFY_EMAIL_MSG = '/auth/verify-email-msg';
   // static AGREEMENT_CREATE_EDIT = 'agreementCreateEdit';
   // static AGREEMENT_CREATE_EDIT_ABSOLUTE = '/agreementCreateEdit';
   // static AGREEMENT_CREATE_EDIT_ABSOLUTE2 = '/agreementCreateEdit/';

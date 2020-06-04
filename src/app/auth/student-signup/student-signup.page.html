@@ -6,7 +6,7 @@
 
 <ion-content class="ion-padding">
 
-<form *ngIf="signUpForm" [formGroup]="signUpForm" (ngSubmit)="signUp()"  (keydown.enter)="onEnterKeyDown($event)" >
+<form *ngIf="signUpForm" [formGroup]="signUpForm"   (keydown.enter)="onEnterKeyDown($event)" >
 
   <ion-grid>
 
@@ -89,6 +89,7 @@
         <ion-item>
           <ion-button class="primary" expand="block"
             [disabled]="!signUpForm.valid"
+            (click)="signUp()"
             type="submit" >Sign Up</ion-button>
         </ion-item>
 

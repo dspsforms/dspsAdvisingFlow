@@ -17,9 +17,15 @@ export class ValidateSignupPage implements OnInit , OnDestroy{
   paramSub: Subscription;
   verifyEmailSub: Subscription;
 
-  // submitStatus: SubmitStatus;
+  submitStatus: SubmitStatus;
 
   busy = false;
+
+  titleMsg = "Verifying your email";
+
+  signUpSuccess = false; // pending
+
+  errMsg: string = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -69,47 +75,54 @@ export class ValidateSignupPage implements OnInit , OnDestroy{
   }
 
   signUpSuccessful() {
-    // TODO
-    this.alertCtrl.create({
-      header: 'Welcome Aboard!',
-      buttons: [{
-        text: 'Okay',
-        handler: () => {
-          this.router.navigateByUrl(UrlConfig.LOGIN);
-        }
-      }]
-    }).then(alertElem => {
-      alertElem.present();
-    });
+
+    this.titleMsg = "Welcome Aboard!";
+    this.signUpSuccess = true;
+
+    // this.alertCtrl.create({
+    //   header: 'Welcome Aboard!',
+    //   buttons: [{
+    //     text: 'Okay',
+    //     handler: () => {
+    //       this.router.navigateByUrl(UrlConfig.LOGIN);
+    //     }
+    //   }]
+    // }).then(alertElem => {
+    //   alertElem.present();
+    // });
   }
 
   showError(statusData: SubmitStatus) {
-    let errMsg = String(statusData.err);
+    let errMsgTmp = String(statusData.err);
 
     const err = statusData.err as MongoErr;
     if (err.errmsg) {
-      errMsg = err.errmsg;
+      errMsgTmp = err.errmsg;
       // remove collection info if any
-      const index = errMsg.indexOf('collection');
+      const index = errMsgTmp.indexOf('collection');
       if (index >= 0) {
         // truncate
-        errMsg = errMsg.substring(0, index);
+        errMsgTmp = errMsgTmp.substring(0, index);
       }
     } else if (statusData.err instanceof Object) {
-      errMsg = JSON.stringify(statusData.err);
+      errMsgTmp = JSON.stringify(statusData.err);
     } 
-    this.alertCtrl.create({
-      header: statusData.message,
-      subHeader: errMsg,
-      buttons: [{
-        text: 'Okay',
-        handler: () => {
-          // stay on page, i.e., no-op
-        }
-      }]
-    }).then(alertElem => {
-      alertElem.present();
-    });
+
+    this.errMsg = errMsgTmp;
+    this.submitStatus = statusData;
+
+    // this.alertCtrl.create({
+    //   header: statusData.message,
+    //   subHeader: errMsgTmp,
+    //   buttons: [{
+    //     text: 'Okay',
+    //     handler: () => {
+    //       // stay on page, i.e., no-op
+    //     }
+    //   }]
+    // }).then(alertElem => {
+    //   alertElem.present();
+    // });
   }
 
 

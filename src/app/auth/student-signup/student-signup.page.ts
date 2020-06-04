@@ -132,15 +132,14 @@ export class StudentSignupPage implements OnInit , OnDestroy {
   }
 
   onEnterKeyDown(event) {
-    if (!this.signUpForm.valid) {
-      return;
-    }
-
     this.signUp();
-
   }
 
   signUp() {
+
+    if (!this.signUpForm.valid) {
+      return;
+    }
 
     // for the spinner
     this.busy = true;
@@ -159,18 +158,26 @@ export class StudentSignupPage implements OnInit , OnDestroy {
     SubscriptionUtil.unsubscribe(this.submitSub);
   }
 
-  showSuccess(statusData : SubmitStatus) {
-    this.alertCtrl.create({
-      header: statusData.message,
-      buttons: [{
-        text: 'Okay',
-        handler: () => {
-          this.router.navigateByUrl(UrlConfig.LANDING);
-        }
-      }]
-    }).then(alertElem => {
-      alertElem.present();
-    });
+  showSuccess(statusData: SubmitStatus) {
+    
+    let navigateTo = UrlConfig.VERIFY_EMAIL_MSG;
+    if (statusData.expirationTime) {
+      navigateTo += "/" + statusData.expirationTime;
+     
+    }
+    this.router.navigateByUrl(navigateTo);
+
+    // this.alertCtrl.create({
+    //   header: statusData.message,
+    //   buttons: [{
+    //     text: 'Okay',
+    //     handler: () => {
+    //       this.router.navigateByUrl(UrlConfig.LANDING);
+    //     }
+    //   }]
+    // }).then(alertElem => {
+    //   alertElem.present();
+    // });
   }
 
   showError(statusData: SubmitStatus) {
@@ -202,20 +209,20 @@ export class StudentSignupPage implements OnInit , OnDestroy {
     });
   }
 
-  newVerificationLink() {
-    // TODO
-    this.alertCtrl.create({
-      header: 'This is a TODO',
-      subHeader: 'As a workaround, please talk to your IT person',
-      buttons: [{
-        text: 'Okay',
-        handler: () => {
-          // stay on page, i.e., no-op
-        }
-      }]
-    }).then(alertElem => {
-      alertElem.present();
-    });
-  }
+  // newVerificationLink() {
+  //   // TODO
+  //   this.alertCtrl.create({
+  //     header: 'This is a TODO',
+  //     subHeader: 'As a workaround, please talk to your IT person',
+  //     buttons: [{
+  //       text: 'Okay',
+  //       handler: () => {
+  //         // stay on page, i.e., no-op
+  //       }
+  //     }]
+  //   }).then(alertElem => {
+  //     alertElem.present();
+  //   });
+  // }
 
 }

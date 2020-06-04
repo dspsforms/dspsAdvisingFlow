@@ -49,6 +49,7 @@ export interface MongoErr {
 export interface SubmitStatus {
   message: string;
   err: string | MongoErr | {}; 
+  expirationTime?: number ;
 }
 
 export interface UserFromRandomKey {

@@ -10,6 +10,7 @@ const config = require("../config/config");
 const User = require("../models/user-model");
 
 const Student = require("../models/student-model");
+const StudentTmp = require("../models/student-tmp-model");
 
 const RandomKey = require("../models/random-key.model");
 
@@ -96,95 +97,126 @@ exports.addStaff = (req, res, next) => {
 
 exports.addStudentStep1 = (req, res, next) => {
 
-  bcrypt.hash(req.body.password, 10).then(hash => {
+
+  // TODO check if student record (email, collegeId) already exists.
+  // if so, need to decide what to do. perhaps ask user to verify email?
+
+  try {
+
+  
+    bcrypt.hash(req.body.password, 10).then(hash => {
 
     
-    const sanitizedEmail = sanitize(req.body.email);
-    const sanitizedName = sanitize(req.body.name);
-    const sanitizedCollegeId = sanitize(req.body.collegeId);
-    const sanitizedCellPhone = req.body.cellPhone ? sanitize(req.body.cellPhone) : null;
+      const sanitizedEmail = sanitize(req.body.email);
+      const sanitizedName = sanitize(req.body.name);
+      const sanitizedCollegeId = sanitize(req.body.collegeId);
+      const sanitizedCellPhone = req.body.cellPhone ? sanitize(req.body.cellPhone) : null;
 
-    /*
-    public email: string,
-    public password: string,
-    public name?: string,
-    public collegeId?: string,
-    public cellPhone?: string,
-    */
-    const currentTime = new Date();
-    let expiresAt = null;
-    // RANDOM_KEY_TIME_LIMIT is in minutes
-    if (config.RANDOM_KEY_TIME_LIMIT && config.RANDOM_KEY_TIME_LIMIT > 0) {
-      expiresAt = new Date(currentTime.getTime() + config.RANDOM_KEY_TIME_LIMIT * 60000); 
+      /*
+      public email: string,
+      public password: string,
+      public name?: string,
+      public collegeId?: string,
+      public cellPhone?: string,
+      */
+      const currentTime = new Date();
+      let expiresAt = null;
+      // RANDOM_KEY_TIME_LIMIT is in minutes
+      if (config.RANDOM_KEY_TIME_LIMIT && config.RANDOM_KEY_TIME_LIMIT > 0) {
+        expiresAt = new Date(currentTime.getTime() + config.RANDOM_KEY_TIME_LIMIT * 60000);
 
-      // kludge. the next middleware which will send email to user needs this value. 
-      req["RANDOM_KEY_TIME_LIMIT"] = config.RANDOM_KEY_TIME_LIMIT;
-    }
+        // kludge. the next middleware which will send email to user needs this value. 
+        req["RANDOM_KEY_TIME_LIMIT"] = config.RANDOM_KEY_TIME_LIMIT;
+      }
 
-    let randomStr = uuidv4(); // a random uuid v4, see https://www.npmjs.com/package/uuid
-    randomStr += currentTime.getTime(); // append currentTime in msec to make it less likely to match anything else
+      let randomStr = uuidv4(); // a random uuid v4, see https://www.npmjs.com/package/uuid
+      randomStr += currentTime.getTime(); // append currentTime in msec to make it less likely to match anything else
 
-    // to be used in the next step of the pipeline, in email-verify-email.js
-    req['emailData'] = { randomStr: randomStr, recipientEmail: sanitizedEmail };
-    req['sendEmail'] = true; // change this to false if there is an error below
+      // to be used in the next step of the pipeline, in email-verify-email.js
+      req['emailData'] = { randomStr: randomStr, recipientEmail: sanitizedEmail };
+      req['sendEmail'] = true; // change this to false if there is an error below
 
-    const student = new Student({
-      email: sanitizedEmail,
-      name: sanitizedName,
-      password: hash,
-      collegeId: sanitizedCollegeId,
-      cellPhone: sanitizedCellPhone,
-      creatorIP: req.ip, // this is part of express, see https://expressjs.com/en/api.html#req.ip
-      created: currentTime,
-      lastMod: currentTime,
-      status:  'pending'
-    });
+      const randomKey = new RandomKey({
+        key: randomStr,
+        email: sanitizedEmail,
+        // tmpId: studentResult._id,
+        creatorIP: req.ip,
+        created: currentTime,
+        expiresAt: expiresAt,
+        status: 'pending',
+        purpose: RandomKeyPurpose.NEW_USER_SIGN_UP
+      });
 
-    // TODO check if student record (email, collegeId) already exists.
-    // if so, need to decide what to do. perhaps ask user to verify email?
+      randomKey.save().then(randomKeyResult => {
+        console.log("randomKeyResult=", randomKeyResult);
 
-    student.save().then(
-      studentResult => {
-        const randomKey = new RandomKey({
-          key: randomStr,
-          tmpId: studentResult._id,
-          creatorIP: req.ip,
+        const studentTmp = new StudentTmp({
+          key: randomKeyResult.key,
+          email: sanitizedEmail,
+          name: sanitizedName,
+          password: hash,
+          collegeId: sanitizedCollegeId,
+          cellPhone: sanitizedCellPhone,
+          creatorIP: req.ip, // this is part of express, see https://expressjs.com/en/api.html#req.ip
           created: currentTime,
-          expiresAt: expiresAt,
-          status: 'pending',
-          purpose: RandomKeyPurpose.NEW_USER_SIGN_UP
+          lastMod: currentTime,
+          status: 'pending'
         });
-        randomKey.save().then(randomKeyResult => {
 
-          console.log("randomKeyResult=", randomKeyResult);
+        studentTmp.save().then(
+          studentTmpResult => {
 
-          res.status(201).json({
-            message: "Student " + studentResult.name + " added. Please verify your email within 30 minutes"
-          });
-          next(); // send email.
-        }).catch(err => {
-          console.log("Student record created. However, email verification step failed. ");
-          console.log(err);
-          req['sendEmail'] = false; // do not send email
-          res.status(201).json({
-            err: err,
-            message: "Student record created. However, email verification step failed. "
-          });
-        }); // inner catch for randomKey.save
+            console.log("studentTmpResult", studentTmpResult);
+          
+            let message = "Thank you for signing up.";
+            if (config.RANDOM_KEY_TIME_LIMIT) {
+              message += "Please verify your email within " + config.RANDOM_KEY_TIME_LIMIT + " minutes";
+            }
+            res.status(201).json({
+              message: message,
+              expirationTime: config.RANDOM_KEY_TIME_LIMIT
+            });
+            
+            next(); // send email.
+
+          }); // studentTmp.save
+
+      }); // randomKey.save
+
+    }); // bcrypt
+
+  } catch (err) {
+    console.log(err);
+
+    res.status(201).json({
+      err: err,
+      message: "There was an error. "
+    });
+  }
+
+  //   .catch(err => {
+  //         console.log("Student record created. However, email verification step failed. ");
+  //         console.log(err);
+  //         req['sendEmail'] = false; // do not send email
+  //         res.status(201).json({
+  //           err: err,
+  //           message: "Student record created. However, email verification step failed. "
+  //         });
+  //       }); // inner catch for randomKey.save
         
-      }).catch(err => {
-        console.log(err);
-        req['sendEmail'] = false; // do not send email
+  //     }).catch(err => {
+  //       console.log(err);
+  //       req['sendEmail'] = false; // do not send email
 
-        res.status(200).json({
-          err: err,
-          message: "Student creation failed. "
-        });
-      }); // outer catch, for student.save
+  //       res.status(200).json({
+  //         err: err,
+  //         message: "Student creation failed. "
+  //       });
+  //     }); // outer catch, for student.save
 
-  }); // bcrypt hash
+  // }); // bcrypt hash
 
-}
+} // addStudentStep1
 
 exports.verifyEmail = (req, res, next) => {
 
@@ -214,57 +246,50 @@ exports.verifyEmail = (req, res, next) => {
 
         return;
       }
-      
-      Student.findByIdAndUpdate(
+
+      const currentTime = new Date();
+
+      StudentTmp.findOne({ key: randomKey.key, email: randomKey.email }).then(studentTmp => {
         
-        // the id of the student to find
-        mongoose.Types.ObjectId(randomKey.tmpId),
-          
-        // the change to be made. Mongoose will smartly combine your existing
-        // document with this change, which allows for partial updates too
-        // req.body,
-        {
+        // create Student
+        const student = new Student({
+          email: studentTmp.email,
+          name: studentTmp.name,
+          password: studentTmp.password,
+          collegeId: studentTmp.collegeId,
+          cellPhone: studentTmp.cellPhone,
+          creatorIP: studentTmp.creatorIP,
+          created: studentTmp.created,
+          lastMod: currentTime,
           status: 'active',
-          emailVerificatonDate : new Date()
-          // password: null  // keeping this in case troubleshooting is necessary
-        },
-      
-        // an option that asks mongoose to return the updated version
-        // of the document instead of the pre-updated one.
-        // ask for the pre-update version so we have the value of password
-        { new: false }, 
-      
-        // the callback function
-        (err, result) => {
-      
-          // result is an instance of student
+          emailVerificatonDate: currentTime,
+          emailVerificatonIP: req.ip, // this is part of express, see https://expressjs.com/en/api.html#req.ip
+          // cellPhoneVerificationDate: { type: Date },
+        });
 
-          // Handle any possible database errors
-          if (err) {
-            throw (err);
-          } else {
-              
-            const user = createStudentUser(result, req); // an instance of User
-            user.save().then(newUser => {
-              console.log(newUser);
+        student.save().then(newStudent => {
 
-              //  user collection has a new user. student collection has also been updated. send success message
-              res.status(201).json({
-                  message: "Student " + result.name + " verified."
-              });
+          // new create a user from student
+          const user = createStudentUser(student, req); // an instance of User
 
-              next(); // call randomKeyUpdateStatus
+          user.save().then(newUser => {
+            console.log("newUser", newUser);
 
-            }).catch(err => {
-              throw (err);
+            //  user collection has a new user. student collection has also been updated. send success message
+            res.status(201).json({
+              message: "Student " + newUser.name + " verified."
             });
-        
-          }; // else -- no error
-        } // callback of findByIdAndUpdate
 
-      ); // findByIdAndUpdate
+            next(); // call randomKeyUpdateStatus
+
+          }); // user.save()
+
+        }); // student.save()
+      }); // StudentTmp.findOne()
+      
+             
             
-    }) // RandomKey.findOne.then()
+    }); // RandomKey.findOne.then()
 
   
   } // try
@@ -272,7 +297,7 @@ exports.verifyEmail = (req, res, next) => {
     console.log(err);
     console.log("student verification failed for key=", req.body.key);
 
-    res.status(500).json({
+    res.status(200).json({
       err: err,
       message: "Student verification failed"
     });
@@ -280,7 +305,7 @@ exports.verifyEmail = (req, res, next) => {
   }; // catch
       
     
-} // verifyRandomStrKey
+} // verifyEmail
 
 // retrieveUserFromRandomKey
 exports.retrieveUserFromRandomKey = (req, res, next) => {
@@ -776,6 +801,14 @@ checkRandomKey = (randomKey, purpose) => {
 
   if (purpose && purpose !== randomKey.purpose) {
     return {err: 'The stated purpose of the link is inconsistent with its use'};
+  }
+
+  if (randomKey.status !== 'pending') {
+    let foo = '';
+    if (randomKey.status === 'used') foo = ' has been ';
+    else foo = ' has ';  // expired
+
+    return {err: 'This link ' + foo +  randomKey.status};
   }
 
   return null; // { message: 'success' };
