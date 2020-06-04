@@ -209,20 +209,20 @@ export class StudentSignupPage implements OnInit , OnDestroy {
     });
   }
 
-  // newVerificationLink() {
-  //   // TODO
-  //   this.alertCtrl.create({
-  //     header: 'This is a TODO',
-  //     subHeader: 'As a workaround, please talk to your IT person',
-  //     buttons: [{
-  //       text: 'Okay',
-  //       handler: () => {
-  //         // stay on page, i.e., no-op
-  //       }
-  //     }]
-  //   }).then(alertElem => {
-  //     alertElem.present();
-  //   });
-  // }
+  newVerificationLink() {
+    // TODO
+    this.alertCtrl.create({
+      header: 'This is a TODO',
+      subHeader: 'As a workaround, please talk to your IT person',
+      buttons: [{
+        text: 'Okay',
+        handler: () => {
+          // stay on page, i.e., no-op
+        }
+      }]
+    }).then(alertElem => {
+      alertElem.present();
+    });
+  }
 
 }
