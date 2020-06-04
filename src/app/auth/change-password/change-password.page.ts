@@ -6,7 +6,7 @@ import { SubmitStatus } from '../auth-data.model';
 import { UrlConfig } from 'src/app/model/url-config';
 import { Router } from '@angular/router';
 import { SubscriptionUtil } from 'src/app/util/subscription-util';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ActionSheetController } from '@ionic/angular';
 
 @Component({
   selector: 'app-change-password',
@@ -26,6 +26,7 @@ export class ChangePasswordPage implements OnInit, OnDestroy {
   constructor(
     public authService: AuthService,
     public router: Router,
+    public actionSheetCtrl: ActionSheetController,
     public alertCtrl: AlertController) { }
   
   initForm() {
@@ -119,8 +120,8 @@ export class ChangePasswordPage implements OnInit, OnDestroy {
 
   
 
-  showSuccess(statusData : SubmitStatus) {
-    this.alertCtrl.create({
+  showSuccess(statusData: SubmitStatus) {
+    this.actionSheetCtrl.create({
       header: statusData.message,
       buttons: [{
         text: 'Okay',
@@ -128,8 +129,8 @@ export class ChangePasswordPage implements OnInit, OnDestroy {
           this.router.navigateByUrl(UrlConfig.LANDING);
         }
       }]
-    }).then(alertElem => {
-      alertElem.present();
+    }).then(actionSheetElem => {
+      actionSheetElem.present();
     });
   }
 

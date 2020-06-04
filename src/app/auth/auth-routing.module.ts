@@ -36,6 +36,10 @@ const routes: Routes = [
     path: 'change-password',
     loadChildren: () => import('./change-password/change-password.module').then( m => m.ChangePasswordPageModule),
     canLoad: [IsloggedinGuardGuard]
+  },
+  {
+    path: 'reset-password/:randomKey',
+    loadChildren: () => import('./reset-password-step2/reset-password-step2.module').then( m => m.ResetPasswordStep2PageModule)
   }
 
 ];

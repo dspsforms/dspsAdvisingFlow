@@ -9,6 +9,8 @@ const checkAuthDsps = require("../middleware/check-auth-dsps");
 
 const emailVerifyEmail = require("../middleware/email-verify-email");
 
+const emailResetPasswordMail = require("../middleware/email-reset-password-email");
+
 
 // currently, staff and faculty have same access
 
@@ -27,6 +29,10 @@ const checkAuthStudent = require("../middleware/check-auth-student");
 // extract userId, check if user is logged in
 const extractUserId = require("../middleware/extract-userId");
 
+// this marks a random key as used, along with date and ip address
+// needs req.randomStr
+const randomKeyUpdateStatus = require("../middleware/randomkey-update-status");
+
 
 const UserController = require("../controllers/user-controller");
 
@@ -42,12 +48,21 @@ router.post("/addstudentstep1", UserController.addStudentStep1, emailVerifyEmail
 
 // post /api/user/verifyemail -- student user signup. no auth permission reqd
 // TODO send a welcome email
-router.post("/verifyemail", UserController.verifyEmail);
+router.post("/verifyemail", UserController.verifyEmail, randomKeyUpdateStatus);
 
 // post /api/user/checkandupdatepassword -- check and update password
 // extractUserId will extract userId and email from web token, and put it in req.userData
 // TODO send an alert email
 router.post("/checkandupdatepassword", extractUserId,  UserController.checkAndUpdatePassword);
+
+// resetpasswordstep1
+router.post("/resetpasswordstep1",  UserController.resetPasswordStep1, emailResetPasswordMail);
+
+// retrieveuserfromrandomkey
+router.post("/retrieveuserfromrandomkey",  UserController.retrieveUserFromRandomKey, randomKeyUpdateStatus);
+
+// resetpasswordstep2
+router.post("/resetpasswordstep2",  UserController.updatePasswordBasedOnEmail);
 
 // this and stuent users may need email verification workflow
 // post /api/user/addinstructor -- requester must be dsps staff, faculty or admin

@@ -28,7 +28,10 @@ if (true) {
     isStudent: false,
     isInstructor: false,
     created: currentTime,
-    lastMod: currentTime
+    lastMod: currentTime,
+    metaHistoryArr: [ 
+      { ip: 'localhost', date: currentTime, type: 'newUser' }
+    ]
 
   });
 

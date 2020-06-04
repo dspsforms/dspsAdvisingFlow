@@ -40,19 +40,35 @@
         </ion-item>
  
       
-        <ion-item>
-          <ion-button class="primary" expand="block"
-            [disabled]="!signInForm.valid || !signInForm.dirty"
-            type="submit" >Sign in</ion-button>
-        </ion-item>
+       
+        <ion-button 
+          class="primary" 
+          expand="block"
+          [disabled]="!signInForm.valid || !signInForm.dirty"
+          type="submit" >Sign in</ion-button>
+      
+        
 
         <ion-button 
           type="button" 
           color="primary" 
           fill="clear" 
           routerLink="/auth/student-signup"
-          expand="block">Switch to Student Signup'</ion-button>
+          expand="block">Switch to Student Signup</ion-button>
+
+        <ion-button 
+          type="button" 
+          color="primary" 
+          fill="clear" 
+          class="small-font"
+          (click)="openForgotPasswordModal()"
+          expand="block"
+          >Forgot Password</ion-button>
+
      
+          <ion-item *ngIf="successMsg" lines="none">
+            <p class="ion-text-center"> {{ successMsg }} </p>
+          </ion-item>
 
         <!-- <ion-item *ngIf="errCode || errMsg">
             <span *ngIf="errCode"> {{errCode}} </span>

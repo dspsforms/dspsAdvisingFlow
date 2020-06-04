@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 
-import { AuthData, Role, StudentData, SubmitStatus } from "./auth-data.model";
+import { AuthData, Role, StudentData, SubmitStatus, UserFromRandomKey } from "./auth-data.model";
 import { environment } from "../../environments/environment";
 import { UrlConfig } from "../model/url-config";
 import { StatusMessage } from '../model/status-message';
@@ -26,6 +26,11 @@ export class AuthService {
 
   private changePasswordListener = new Subject<SubmitStatus>();
 
+  private resetPasswordStep1Listener = new Subject<SubmitStatus>();
+  private retrieveUserFromRandomKeyListener = new Subject<UserFromRandomKey>();
+
+  private resetPasswordStep2Listener = new Subject<SubmitStatus>();
+
   private dataInitialized = false;
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -44,6 +49,20 @@ export class AuthService {
   getChangePasswordListener() {
     return this.changePasswordListener.asObservable();
   }
+
+  getResetPasswordStep1Listener() {
+    return this.resetPasswordStep1Listener.asObservable();
+  }
+
+  getRetrieveUserFromRandomKeyListener() {
+    return this.retrieveUserFromRandomKeyListener.asObservable();
+  }
+
+  getResetPasswordStep2Listener() {
+    return this.resetPasswordStep2Listener.asObservable();
+  }
+
+  
 
   createUser(
     email: string,
@@ -116,6 +135,58 @@ export class AuthService {
     }, err => {
       console.log(err);
       this.changePasswordListener.next({ err: err, message: 'https call encountered an error' });
+    });
+  }
+
+  resetPasswordStep1(email: string) {
+    const url = environment.server + '/api/user/resetpasswordstep1';
+    this.http
+      .post(url, {email: email} )
+      .subscribe(response => {
+        console.log(response);
+        this.resetPasswordStep1Listener.next(response as SubmitStatus);
+    }, err => {
+      console.log(err);
+      this.resetPasswordStep1Listener.next({ err: err, message: 'https call encountered an error' });
+    });
+  }
+
+  // part of reset password
+  retrieveUserFromRandomKey(randomKey: string) {
+
+    const url = environment.server + '/api/user/retrieveuserfromrandomkey';
+    this.http
+      .post(url, { key: randomKey })
+      .subscribe(response => {
+        console.log(response);
+        /*
+        response looks like this:
+        { user: u,  // type AuthData, has u.email
+          emailInRandomKeyReq: email2,
+          err: e  // if there is an error
+
+        }
+        */
+        const updatedResponse = response as UserFromRandomKey;
+        updatedResponse.key = randomKey;
+        this.retrieveUserFromRandomKeyListener.next(updatedResponse as UserFromRandomKey);
+    }, err => {
+      console.log(err);
+      this.retrieveUserFromRandomKeyListener.next({ err: err, message: 'https call encountered an error' });
+    });
+
+  }
+
+  resetPasswordStep2(email: string, password: string, key: string) {
+    const url = environment.server + '/api/user/resetpasswordstep2';
+    this.http
+      .post(url, {email: email, password: password, key: key} )
+      .subscribe(response => {
+        console.log(response);
+        this.resetPasswordStep2Listener.next(response as SubmitStatus);
+    }, err => {
+      console.log(err);
+      this.resetPasswordStep2Listener.next({ err: err, message: 'https call encountered an error' });
     });
   }
 

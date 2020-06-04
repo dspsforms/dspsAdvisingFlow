@@ -6,7 +6,9 @@ import { IonicModule } from '@ionic/angular';
 
 import { LoginPageRoutingModule } from './login-routing.module';
 
+
 import { LoginPage } from './login.page';
+import { ResetPasswordStep1Component } from '../reset-password-step1/reset-password-step1.component';
 
 @NgModule({
   imports: [
@@ -16,6 +18,13 @@ import { LoginPage } from './login.page';
     ReactiveFormsModule,
     LoginPageRoutingModule
   ],
-  declarations: [LoginPage]
+  declarations: [
+    LoginPage,
+    ResetPasswordStep1Component
+  ],
+  entryComponents: [
+    ResetPasswordStep1Component
+  ]
+ 
 })
 export class LoginPageModule {}

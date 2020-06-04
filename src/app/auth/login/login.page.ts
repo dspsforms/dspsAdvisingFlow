@@ -5,6 +5,9 @@ import { AuthService } from '../auth.service';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { SubscriptionUtil } from 'src/app/util/subscription-util';
+import { ModalController } from '@ionic/angular';
+import { ResetPasswordStep1Component } from '../reset-password-step1/reset-password-step1.component';
+
 
 @Component({
   selector: 'app-login',
@@ -23,11 +26,13 @@ export class LoginPage implements OnInit, OnDestroy {
   next: string;
   querySub: Subscription;
 
+  successMsg: string = null;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     public fb: FormBuilder,
+    public modalCtrl: ModalController,
     private authService: AuthService)
   {
     this.signInForm = fb.group({
@@ -117,6 +122,29 @@ export class LoginPage implements OnInit, OnDestroy {
 
   get password() {
       return this.signInForm.get('password');
+  }
+
+  openForgotPasswordModal() {
+
+    console.log("before opening modal");
+    this.modalCtrl.create({
+      component: ResetPasswordStep1Component,
+      componentProps: {}
+    })
+      .then(modalEl => {
+        modalEl.present();
+        return modalEl.onDidDismiss(); // this is a promise
+      })
+      .then(resultData => {
+        console.log(resultData.data, resultData.role);
+        if (resultData.role === 'confirmed') {
+          this.successMsg = resultData.data.message;
+          console.log('email sent!');
+        }
+      }).catch(err => {
+        console.log(err);
+      });
+
   }
 
 }

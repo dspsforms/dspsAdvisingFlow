@@ -50,3 +50,11 @@ export interface SubmitStatus {
   message: string;
   err: string | MongoErr | {}; 
 }
+
+export interface UserFromRandomKey {
+  user?: AuthData;
+  emailFromRandomKey?: string;
+  err?: string | MongoErr | {}; 
+  message?: string;
+  key?: string; 
+}

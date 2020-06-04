@@ -13,6 +13,8 @@ const Student = require("../models/student-model");
 
 const RandomKey = require("../models/random-key.model");
 
+const RandomKeyPurpose = require("../constants/random-key-purpose");
+
 const { v4: uuidv4 } = require('uuid');
 
 
@@ -59,7 +61,10 @@ exports.addStaff = (req, res, next) => {
       isInstructor: isInstructor,
       isStudent: isStudent,
       created: currentTime,
-      lastMod: currentTime
+      lastMod: currentTime,
+      metaHistoryArr: [ 
+        { ip: req.ip, date: currentTime, type: 'newUser' }
+      ]
     });
     console.log("user to be added=", user);
 
@@ -107,6 +112,14 @@ exports.addStudentStep1 = (req, res, next) => {
     public cellPhone?: string,
     */
     const currentTime = new Date();
+    let expiresAt = null;
+    // RANDOM_KEY_TIME_LIMIT is in minutes
+    if (config.RANDOM_KEY_TIME_LIMIT && config.RANDOM_KEY_TIME_LIMIT > 0) {
+      expiresAt = new Date(currentTime.getTime() + config.RANDOM_KEY_TIME_LIMIT * 60000); 
+
+      // kludge. the next middleware which will send email to user needs this value. 
+      req["RANDOM_KEY_TIME_LIMIT"] = config.RANDOM_KEY_TIME_LIMIT;
+    }
 
     let randomStr = uuidv4(); // a random uuid v4, see https://www.npmjs.com/package/uuid
     randomStr += currentTime.getTime(); // append currentTime in msec to make it less likely to match anything else
@@ -124,7 +137,7 @@ exports.addStudentStep1 = (req, res, next) => {
       creatorIP: req.ip, // this is part of express, see https://expressjs.com/en/api.html#req.ip
       created: currentTime,
       lastMod: currentTime,
-      status: 'pending'
+      status:  'pending'
     });
 
     // TODO check if student record (email, collegeId) already exists.
@@ -137,14 +150,16 @@ exports.addStudentStep1 = (req, res, next) => {
           tmpId: studentResult._id,
           creatorIP: req.ip,
           created: currentTime,
-          status: 'pending'
+          expiresAt: expiresAt,
+          status: 'pending',
+          purpose: RandomKeyPurpose.NEW_USER_SIGN_UP
         });
         randomKey.save().then(randomKeyResult => {
 
           console.log("randomKeyResult=", randomKeyResult);
 
           res.status(201).json({
-            message: "Student " + studentResult.name + " added. Pending email verification"
+            message: "Student " + studentResult.name + " added. Please verify your email within 30 minutes"
           });
           next(); // send email.
         }).catch(err => {
@@ -178,6 +193,28 @@ exports.verifyEmail = (req, res, next) => {
   try {
       
     RandomKey.findOne({ key: sanitizedKey }).then(randomKey => {
+
+      // and randomStr to req for next middleware
+      req['randomStr'] = randomKey.key;
+
+      // check if randomKey status is pending, purpose is newUser
+      // and has not expired
+      const check = checkRandomKey(randomKey, RandomKeyPurpose.NEW_USER_SIGN_UP);
+
+      if (check && check.err) {
+
+        // mark this link as expired
+        req['randomStrStatus'] = 'expired';
+
+        res.status(201).json({
+          err: check.err
+        });
+
+        next(); // call randomKeyUpdateStatus
+
+        return;
+      }
+      
       Student.findByIdAndUpdate(
         
         // the id of the student to find
@@ -207,13 +244,16 @@ exports.verifyEmail = (req, res, next) => {
             throw (err);
           } else {
               
-            const user = createStudentUser(result); // an instance of User
+            const user = createStudentUser(result, req); // an instance of User
             user.save().then(newUser => {
               console.log(newUser);
+
               //  user collection has a new user. student collection has also been updated. send success message
               res.status(201).json({
                   message: "Student " + result.name + " verified."
               });
+
+              next(); // call randomKeyUpdateStatus
 
             }).catch(err => {
               throw (err);
@@ -242,81 +282,142 @@ exports.verifyEmail = (req, res, next) => {
     
 } // verifyRandomStrKey
 
+// retrieveUserFromRandomKey
+exports.retrieveUserFromRandomKey = (req, res, next) => {
 
-
-// exports.verifyRandomStrKey = (req, res, next) => {
-
-//   const sanitizedKey = sanitize(req.body.key);
-  
-//   try {
+  const sanitizedKey = sanitize(req.body.key);
     
-//     RandomKey.findOne({ key: sanitizedKey }).then(randomKey => {
-//       Student.findOne({ _id: randomKey.tmpId }).then(student => {
+  try {
+      
+    RandomKey.findOne({ key: sanitizedKey }).then(randomKey => {
 
-//         const user = createStudentUser(student); // an instance of User
-//         user.save() .then(res => {
-//           console.log(res);
-
-//           // patch student
-//           student.findByIdAndUpdate(
-//             // the id of the student to find
-//             mongoose.Types.ObjectId(student._id),
-        
-//             // the change to be made. Mongoose will smartly combine your existing
-//             // document with this change, which allows for partial updates too
-//             // req.body,
-//             {
-//               state: state,
-//               password: null  // delete the password from the student collection
-//             },
-        
-//             // an option that asks mongoose to return the updated version
-//             // of the document instead of the pre-updated one.
-//             { new: true },
-        
-//             // the callback function
-//             (err, result) => {
-//               console.log(result);
-        
-//               // Handle any possible database errors
-//               if (err) {
-//                 throw (err);
-//               } else {
-                
-//               }
-              
-//             }
-        
-//           ); // findByIdAndUpdate
-//         }).catch(err => {
-//           console.log(err);
-//           throw (err);
-//         });
-//         // res.status(201).json({
-//         //   message: "Student " + student.name + " verified.",
-//         //   status: 0 // success
-//         // });
-//       }).catch(err => {
-//         console.log(err);
-//         throw (err);
-//       }); // innner then/catch
-
-//     }) // outer then
-//       .catch(err => {
-//         console.log(err);
-        
-//       }); // outer catch
-    
-//   } catch (err) {
-//     res.status(500).json({
-//       error: err,
-//       message: "Student verification failed. "
-//     });
-//   } // catch
+      //  check randomKey.status is not pending, purpose is forgotPassword,
+      // and key has expired. if so, do not process this
   
-// } // verifyRandomStrKey
+      // and randomStr to req for next middleware
+      req['randomStr'] = sanitizedKey;
 
-createStudentUser = (student) => {
+      const check = checkRandomKey(randomKey, RandomKeyPurpose.FORGOT_PASSWORD);
+
+      if (check && check.err) {
+
+        // mark this link as expired
+        req['randomStrStatus'] = 'expired';
+
+        res.status(201).json({
+          err: check.err
+        });
+
+        
+        next(); // mark link expired
+
+        return;
+      }
+
+      User.findOne({ email: randomKey.email }).then(user => {
+        console.log("randomKey=", randomKey, "user=", user);
+      
+        req['randomStrStatus'] = 'used';
+        res.status(201).json({
+          user: user,
+          emailFromRandomKey: randomKey.email
+        });
+
+        next();
+      })
+    }).catch(err => {
+        throw (err);
+    });
+  
+  } // try
+  catch(err) {
+    console.log(err);
+    console.log("retrieveUserFromRandomKey failed for key=", req.body.key);
+
+    res.status(500).json({
+      err: err,
+      message: "Password Reset based on key failed"
+    });
+          
+  }; // catch
+      
+    
+} // retrieveUserFromRandomKey
+
+// send an email to user with a randomStr link
+exports.resetPasswordStep1 = (req, res, next) => {
+
+  /*
+  save randomStr, email, ip, created, status
+  */
+  
+  const sanitizedEmail = sanitize(req.body.email);
+
+  // email must have a corresponding valid user
+  User.findOne({ email: sanitizedEmail }).then(user => {
+    if (!user) {
+      // no user found
+      res.status(201).json({
+        message: "No user account found for " + sanitizedEmail,
+        err: "No user account found for " + sanitizedEmail
+      });
+      return;
+    }
+    // else
+
+  
+    const currentTime = new Date();
+
+    let expiresAt = null;
+    // RANDOM_KEY_TIME_LIMIT is in minutes
+    if (config.RANDOM_KEY_TIME_LIMIT && config.RANDOM_KEY_TIME_LIMIT > 0) {
+      expiresAt = new Date(currentTime.getTime() + config.RANDOM_KEY_TIME_LIMIT * 60000); 
+
+      // kludge. the next middleware which will send email to user needs this value. 
+      req["RANDOM_KEY_TIME_LIMIT"] = config.RANDOM_KEY_TIME_LIMIT;
+    }
+  
+    let randomStr = uuidv4(); // a random uuid v4, see https://www.npmjs.com/package/uuid
+    randomStr += currentTime.getTime(); // append currentTime in msec to make it less likely to match anything else
+
+    // to be used in the next step of the pipeline, in email-reset-password-email.js
+    req['emailData'] = { randomStr: randomStr, recipientEmail: sanitizedEmail };
+    req['sendEmail'] = true; // change this to false if there is an error below
+
+    
+    const randomKey = new RandomKey({
+      key: randomStr,
+      email: sanitizedEmail,
+      creatorIP: req.ip,
+      created: currentTime,
+      expiresAt: expiresAt,
+      status: 'pending',
+      purpose: RandomKeyPurpose.FORGOT_PASSWORD
+    });
+
+    randomKey.save().then(randomKeyResult => {
+
+      console.log("randomKeyResult=", randomKeyResult);
+
+      res.status(201).json({
+        message: "An email has been sent to " + sanitizedEmail + ". Please check your email."
+      });
+      next(); // send email.
+    }).catch(err => {
+      console.log("Random key saving to db failed. ");
+      console.log(err);
+      req['sendEmail'] = false; // do not send email
+      res.status(201).json({
+        err: err,
+        message: "Random key saving to db failed. "
+      });
+    }); // catch  randomKey.save
+    
+  }); // User.findOne 
+
+}
+
+createStudentUser = (student, req) => {
 
   const user = new User({
     email: student.email,
@@ -335,7 +436,10 @@ createStudentUser = (student) => {
     isFaculty: false,
     isInstructor: false,
     created: student.created, 
-    lastMod: student.lastMod
+    lastMod: student.lastMod,
+    metaHistoryArr: [ 
+      { ip: req.ip, date: student.lastMod, type: 'newUser' }
+    ]
   }); 
   return user; // don't save user yet. we need to do it in the main loop
 
@@ -560,6 +664,60 @@ exports.checkAndUpdatePassword = (req, res, next) => {
   
 }  // checkAndUpdatePassword
 
+exports.updatePasswordBasedOnEmail = (req, res, next) => {
+  console.log("in updatePasswordBasedOnEmail");
+
+  const sanitizedEmail = sanitize(req.body.email);
+  const key = req.body.key;
+  // TODO verify that key/email pair exists, and in correct state: 'pulled' and NOT 'used'
+
+  RandomKey.findOne({ key: key, email: sanitizedEmail }).then(keyObj => {
+    // TODO check keyObj.status also
+    if (!keyObj) {
+      // no key/email pair in randomkeys collection
+      res.status(200).json({
+        message: "Invalid key or email",
+        err: "Invalid key or email"
+      });
+      return;
+    }
+    // else
+
+    bcrypt.hash(req.body.password, 10).then(hash => {
+
+      // find the user, and rest the password.
+      // TODO: also update ip address of every password change
+      const filter = { email: sanitizedEmail };
+      const update = {
+        "$set" : {
+          password: hash,
+          lastMod: new Date()
+        },
+        "$push" : {
+          metaHistoryArr: { ip: req.ip, date: new Date(), type: 'password' }
+        }
+        
+      };
+      
+      User.findOneAndUpdate(filter, update).then(user => {
+        console.log(user);
+        res.status(201).json({
+          message: "Password reset for " + user.name
+        });
+      })
+  
+    }) // bcrypt then
+  }) // keyObj
+    .catch(err => {
+          console.log(err);
+          return res.status(500).json({
+            message: "Auth operation failed " + err,
+            err: err
+          });
+    }); // catch 
+  
+}  // updatePasswordBasedOnEmail
+
 exports.list = (req, res, next) => {
   console.log("in list");
 
@@ -601,5 +759,25 @@ exports.list = (req, res, next) => {
       message: "List failed " + err
     });
   });
+
+}
+
+// check randomKey.status is not pending, purpose is what the param says it is,
+// and key has not expired. 
+checkRandomKey = (randomKey, purpose) => {
+
+  if (!randomKey) return {err: 'This link is invalid'};
+
+  if (randomKey.expiresAt && randomKey.expiresAt.getTime() <
+    (new Date()).getTime()) {
+    // expired
+    return {err: 'This link has expired'};
+  }
+
+  if (purpose && purpose !== randomKey.purpose) {
+    return {err: 'The stated purpose of the link is inconsistent with its use'};
+  }
+
+  return null; // { message: 'success' };
 
 }

@@ -12,6 +12,7 @@ module.exports = {
   EMAIL_PORT: process.env.EMAIL_PORT || 0,
   EMAIL_AUTH_USER: process.env.EMAIL_AUTH_USER || '',
   EMAIL_AUTH_PASS: process.env.EMAIL_AUTH_PASS || '',
-  EMAIL_NO_EMAIL: process.env.EMAIL_NO_EMAIL || 0
+  EMAIL_NO_EMAIL: parseInt(process.env.EMAIL_NO_EMAIL || '0'),
+  RANDOM_KEY_TIME_LIMIT:parseInt(process.env.RANDOM_KEY_TIME_LIMIT || '0')
 }
 // hard wired email notification end points
