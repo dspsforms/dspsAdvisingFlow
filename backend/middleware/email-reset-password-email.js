@@ -55,7 +55,11 @@ async function emailRetrievePasswordLink(emConfig, req){
         }
     });
 
-    const firstPart = req.protocol + '://' + req.get('host');
+    // this needs to work when the node server is behind the apache proxy
+    // req.get('host') will return localhost:port 
+    // req.hostname will return the servername as seen by the client
+    // 
+    const firstPart = req.protocol + '://' + req.hostname; 
     const url = firstPart + '/auth/reset-password/' + req.emailData.randomStr;
     // setup email data with unicode symbols
 

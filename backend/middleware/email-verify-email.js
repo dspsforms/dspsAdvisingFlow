@@ -55,7 +55,12 @@ async function sendEmailVerification(emConfig, req){
         }
     });
 
-    const firstPart = req.protocol + '://' + req.get('host');
+    // this needs to work when the node server is behind the apache proxy
+    // req.get('host') will return localhost:port 
+    // req.hostname will return the servername as seen by the client
+    // 
+    const firstPart = req.protocol + '://' + req.hostname; 
+    
     const url = firstPart + '/auth/validate-signup/' + req.emailData.randomStr;
 
     let text = "Please verify your email by going to the following page" + url;
