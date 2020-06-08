@@ -192,7 +192,7 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
       general: new FormGroup({
         generalNotes: new FormControl(null, { updateOn: 'change' })
       }),
-      completedBy: new FormControl( null, { updateOn: 'change' }),
+      completedBy: new FormControl( null, { updateOn: 'change' , validators: [Validators.required] }),
       completedByDate: new FormControl( null,  { updateOn: 'change' }),
     });
 

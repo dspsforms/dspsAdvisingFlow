@@ -9,19 +9,6 @@ const Aap1Form = require('../models/aap1-form-model');
 const Aap2Form = require('../models/aap2-form-model');
 const GreensheetForm = require('../models/greensheet-form-model');
 
-// these are for the other server (dsps-forms.missioncollege.edu)
-// const IntakeForm = require('../models/intake-form-model');
-// const AltMediaRequest = require('../models/alt-media-request-form-model');
-// const ApplicationForServices = require('../models/application-for-services-form-model');
-
-// const EmergencyEvacInfo = require('../models/emergency-evac-info-model');
-// const Feedback = require('../models/feedback-model');
-
-// const Complaint = require('../models/complaint-model');
-
-// const HistoryOfDisabilty = require('../models/history-of-disability-model');
-
-// const FormAgreement = require('../models/form-agreement-model');
 
 // for complaint forms, user must be an admin.
 const isAdminAuthorized = require('../middleware/check-auth-admin-boolean');
@@ -31,30 +18,38 @@ const isAdminAuthorized = require('../middleware/check-auth-admin-boolean');
 
 exports.postForm = (req, res, next) => {
 
-  const form = createForm(req);
+  createForm(req).then(form => {
 
-  form.save().then( createdForm => {
-          // success
+    form.save().then( createdForm => {
+      // success
 
-    if (debug.POST_FORM) {
-      console.log("after save, createdForm=", createdForm);
-    }
+      if (debug.POST_FORM) {
+        console.log("after save, createdForm=", createdForm);
+      }
 
-    res.status(201).json({
-      message: 'Form ' + form.formName + ' added successfully',
-      formId: createdForm._id
-    });
+      res.status(201).json({
+        message: 'Form ' + form.formName + ' added successfully',
+        formId: createdForm._id
+      });
 
-    next(); // send email notification that a new form has been submitted
+      next(); // send email notification that a new form has been submitted
 
-  })
-  .catch(err => {
+      })
+      .catch(err => {  // form.save().then
+      console.log(err);
+        res.status(500).json({
+          message: 'Form save failed',
+          err: err
+        });
+      });
+
+  }).catch(err => { // createForm.then
     console.log(err);
-    res.status(401).json({
-      message: 'Form save failed',
-      err: err
-    });
-  });
+      res.status(500).json({
+        message: 'Form model creation failed',
+        err: err
+      });
+  });;
 
 }
 
@@ -460,6 +455,31 @@ getFormModel = formName => {
 }
 
 createForm = (req) => {
+
+  const formName = sanitize(req.params.formName);
+
+  const formModel = mongoose.model(formName);
+
+  const currentTime = new Date();
+
+  // create returns a Promise
+  const modelInstancePromise = formModel.create({
+    formName: formName,
+    user: sanitize(req.body.user),
+    formWithLatestHistory: sanitize(req.body.formWithLatestHistory),
+    formHistoryArr: sanitize(req.body.formHistoryArr),
+    versionDetails: sanitize(req.body.versionDetails),
+    currentVersion: sanitize(req.body.currentVersion),
+    edited: false,
+    created: currentTime,
+    lastMod: currentTime,
+    state: sanitize(req.body.state || 'current')
+  });
+
+  return modelInstancePromise;
+}
+
+createFormOld = (req) => {
 
   // the parameter isAgreement is optional
 

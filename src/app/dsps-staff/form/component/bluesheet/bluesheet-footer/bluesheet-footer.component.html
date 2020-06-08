@@ -8,9 +8,13 @@
   <ion-row>
     <ion-col size-sm="4">
       <ion-item>
-        <ion-label position="floating">Completed by (DSPS faculty)</ion-label>
+        <ion-label position="floating">Completed by (DSPS faculty) *</ion-label>
         <ion-input type="text" formControlName="completedBy"></ion-input>
       </ion-item>
+      <p 
+      *ngIf="form.get('completedBy').touched && !form.get('completedBy').valid">
+      <ion-label color="danger">Completed by (DSPS faculty) is required.</ion-label>
+    </p>
     </ion-col>
 
 

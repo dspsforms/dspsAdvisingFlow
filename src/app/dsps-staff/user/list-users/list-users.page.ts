@@ -13,10 +13,10 @@ import { UrlConfig } from 'src/app/model/url-config';
 })
 export class ListUsersPage implements OnInit {
 
-  users: AuthData[];
+  dspsUsers: AuthData[];
 
 
-  userListSub: Subscription;
+  dspsUserListSub: Subscription;
 
   // only admins can see isAdmin isStaff and isFaculty columns
   isAdminAuth: boolean;
@@ -40,8 +40,8 @@ export class ListUsersPage implements OnInit {
       return;
     }
 
-    this.userListSub = this.userService.getUserListUpdated().subscribe(res => {
-      this.users = res;
+    this.dspsUserListSub = this.userService.getDspsUserListListener().subscribe(res => {
+      this.dspsUsers = res;
     });
 
     
@@ -54,7 +54,7 @@ export class ListUsersPage implements OnInit {
       return;
     }
 
-    this.userService.listUsers();
+    this.userService.listDspsUsers();
     
   }
 

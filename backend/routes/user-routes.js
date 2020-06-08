@@ -7,6 +7,8 @@ const checkAuthAdmin = require("../middleware/check-auth-admin");
 // (staff or admin or dsps faculty) guard
 const checkAuthDsps = require("../middleware/check-auth-dsps");
 
+const checkAuthLoggedIn = require("../middleware/check-auth-loggedin");
+
 const emailVerifyEmail = require("../middleware/email-verify-email");
 
 const emailResetPasswordMail = require("../middleware/email-reset-password-email");
@@ -71,8 +73,13 @@ router.post("/resetpasswordstep2",  UserController.updatePasswordBasedOnEmail);
 // post /api/user/login -- requester is not logged in, no auth needed
 router.post("/login", UserController.login);
 
-// /api/user/list -- requester be admin
-router.get("/list", checkAuthAdmin, UserController.list);
+// /api/user/listdsps -- requester be dsps user
+router.get("/listdsps", checkAuthDsps, UserController.listDspsUsers);
+
+// /api/user/listdspssmall -- requester must be logged in
+router.get("/listdspssmall", checkAuthLoggedIn, UserController.listDspsUsersSmall);
+
+
 
 // // instructors and students can be listed by dsps staff or faculty + admin
 // router.get("/listinstructors", checkAuthDsps, UserController.listInstructors);

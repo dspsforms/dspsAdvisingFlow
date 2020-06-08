@@ -100,21 +100,21 @@
         <th>Last Modified</th>
     </thead>
 
-    <tr *ngFor="let user of users; let i=index" >
+    <tr *ngFor="let dspsUser of dspsUsers; let i=index" >
 
-      <td> {{ user.name }} </td>
-      <td> {{ user.email}}  </td>
+      <td> {{ dspsUser.name }} </td>
+      <td> {{ dspsUser.email}}  </td>
       <td *ngIf="isAdminAuth" class="ion-text-center"> 
-        <ion-icon *ngIf="user.role?.isAdmin" name="checkmark" ></ion-icon> 
+        <ion-icon *ngIf="dspsUser.role?.isAdmin" name="checkmark" ></ion-icon> 
       </td>
       <td *ngIf="isAdminAuth" class="ion-text-center"> 
-        <ion-icon *ngIf="user.role?.isStaff" name="checkmark"></ion-icon> 
+        <ion-icon *ngIf="dspsUser.role?.isStaff" name="checkmark"></ion-icon> 
       </td>
       <td *ngIf="isAdminAuth" class="ion-text-center"> 
-        <ion-icon *ngIf="user.role?.isFaculty" name="checkmark"></ion-icon> 
+        <ion-icon *ngIf="dspsUser.role?.isFaculty" name="checkmark"></ion-icon> 
       </td>
-      <td> {{ user.created | date:'medium' }} </td>
-      <td> {{ user.lastMod | date:'medium' }} </td>
+      <td> {{ dspsUser.created | date:'medium' }} </td>
+      <td> {{ dspsUser.lastMod | date:'medium' }} </td>
     </tr>
   </table>
 

@@ -133,8 +133,8 @@
      
     </ion-row>
 
-    <ion-row *ngIf="(isAdmin.touched || isStaff.touched || isFaculty.touched || isInstructor.touched) 
-    && this.signUpForm.errors?.atLeastOneOfAdminOrStaff">
+    <ion-row 
+    *ngIf="(isAdmin.touched || isStaff.touched || isFaculty.touched || isInstructor.touched) && this.signUpForm.errors?.atLeastOneOfAdminOrStaff">
       <ion-col>
         <ion-item>
           <p>User must be Staff, Faculty, Instructor and/or Admin</p>

@@ -39,8 +39,11 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
   // the class extending this should supply this
   public wrappedFormFromDb: WrappedForm;
 
-  public userListSub: Subscription;
-  public userList: AuthData[];
+  public dspsUserListSmallSub: Subscription;
+
+  // dspsUserList is the list of dsps employees -- staff, faculty, admin
+  // this list is need for completedBy fields
+  public dspsUserListSmall: AuthData[];
 
   constructor(
     public formName: string,
@@ -67,18 +70,18 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
         this.grid = data.grid;
       });
 
-    this.userList = this.userService.getUserList();
+    this.dspsUserListSmall = this.userService.getDspsUserListSmall();
 
-    if (!this.userList || this.userList.length === 0) {
+    if (!this.dspsUserListSmall || this.dspsUserListSmall.length === 0) {
 
        // subcribe to userList 
-      this.userListSub = this.userService.getUserListUpdated()
+      this.dspsUserListSmallSub = this.userService.getDspsUserListSmallListener()
         .subscribe(data => {
-          this.userList = data;
+          this.dspsUserListSmall = data;
         });
       
       // initiate db call
-      this.userService.listUsers();
+      this.userService.listDspsUsersSmall();
     }
     
    
@@ -443,7 +446,7 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
   }
 
   get lastModifiedBy() {
-    if (!this.userList || this.userList.length == 0) {
+    if (!this.dspsUserListSmall || this.dspsUserListSmall.length == 0) {
         // userList will come over time, over a subscription
         return;
     }
@@ -451,7 +454,7 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
     ) {
         const lastUserIdWhoEdited = this.wrappedFormFromDb.user;
         const lastUserWhoEdited =
-            this.userList.find(user => user._id === lastUserIdWhoEdited);
+            this.dspsUserListSmall.find(user => user._id === lastUserIdWhoEdited);
         return lastUserWhoEdited.name; // if null, that's ok
     } else {
         return null;
@@ -463,7 +466,7 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
     SubscriptionUtil.unsubscribe(this.formSaveStatusSub);
     SubscriptionUtil.unsubscribe(this.editSaveStatusSub);
     SubscriptionUtil.unsubscribe(this.globalsSub);
-    SubscriptionUtil.unsubscribe(this.userListSub);
+    SubscriptionUtil.unsubscribe(this.dspsUserListSmallSub);
   }
 
   

@@ -11,23 +11,25 @@ import { environment } from "../../../environments/environment";
 })
 export class UserService {
 
-  private userList: AuthData[];
+  private dspsUserList: AuthData[];
+  private dspsUserListSmall: AuthData[]; // same as dspsUserList but with smaller data
 
-  private userListUpdated = new Subject<AuthData[]>();
+  private dspsUserListListener = new Subject<AuthData[]>();
+  private dspsUserListSmallListener = new Subject<AuthData[]>();
 
   constructor(private http: HttpClient, private router: Router) { }
 
   // retrieve list of users -- dsps staff, faculty, and admin only
   // for instructors and students, use separate end point
-  listUsers() {
+  listDspsUsers() {
 
-    const url = environment.server + '/api/user/list' ;
-    this.http.get<{ message: string, users: AuthData[] }>(url)
+    const url = environment.server + '/api/user/listdsps' ;
+    this.http.get<{ message: string, dspsUsers: AuthData[] }>(url)
       .subscribe(res => {
-        console.log("listUsers()", res);
+        console.log("listDspsUsers()", res);
 
-        this.userList = res.users;
-        this.userListUpdated.next([...this.userList]);
+        this.dspsUserList = res.dspsUsers;
+        this.dspsUserListListener.next([...this.dspsUserList]);
 
       },
       err => {
@@ -35,21 +37,36 @@ export class UserService {
     });
   }
 
-  // // if userList is already around, don't send a request to server. else do.
-  // listUsersIfNeeded() {
-    
-  //   if (!this.userList || this.userList.length === 0) {
-  //     this.listUsers();
-  //   }
-    
-  // }
+  listDspsUsersSmall() {
 
-  getUserListUpdated() {
-    return this.userListUpdated.asObservable();
+    const url = environment.server + '/api/user/listdspssmall' ;
+    this.http.get<{ message: string, dspsUsers: AuthData[] }>(url)
+      .subscribe(res => {
+        console.log("listDspsUsersSmall()", res);
+
+        this.dspsUserListSmall = res.dspsUsers;
+        this.dspsUserListSmallListener.next([...this.dspsUserListSmall]);
+
+      },
+      err => {
+        console.log("err", err);
+    });
   }
 
-  getUserList() {
-    return this.userList;
+  getDspsUserListListener() {
+    return this.dspsUserListListener.asObservable();
+  }
+
+  getDspsUserListSmallListener() {
+    return this.dspsUserListSmallListener.asObservable();
+  }
+
+  getDspsUserList() {
+    return [...this.dspsUserList];
+  }
+
+  getDspsUserListSmall() {
+    return [...this.dspsUserListSmall];
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import { filter } from 'rxjs/operators';
 
 import { AuthService } from '../auth.service';
@@ -45,36 +45,36 @@ export class AddNewStaffPage implements OnInit, OnDestroy {
     
     this.signUpForm = fb.group({
       email: new FormControl(null, {
-        updateOn: 'blur',
+        updateOn: 'change',
         validators: [Validators.required, Validators.email]
       }),
       name: new FormControl(null, {
-        updateOn: 'blur',
+        updateOn: 'change',
         validators: [Validators.required]
       }),
       password: new FormControl(null, {
-        updateOn: 'blur',
+        updateOn: 'change',
         validators: [Validators.required]
       }),
       password2: new FormControl(null, {
-        updateOn: 'blur',
+        updateOn: 'change',
         validators: [Validators.required]
       }),
       isStaff: new FormControl(false, {
-        updateOn: 'blur',
+        updateOn: 'change',
       }),
       isAdmin: new FormControl(false, {
-        updateOn: 'blur',
+        updateOn: 'change',
       }),
       isFaculty: new FormControl(false, {
-        updateOn: 'blur',
+        updateOn: 'change',
       }),
       isInstructor: new FormControl(false, {
-        updateOn: 'blur',
+        updateOn: 'change',
       }),
       // not an option in the form, student account flow TBD
       isStudent: new FormControl(false, {
-        updateOn: 'blur',
+        updateOn: 'change',
       }),
     }, {
       validator: [this.passwordsMustMatch, this.atLeastOneOfAdminOrStaff, ]
@@ -101,17 +101,17 @@ export class AddNewStaffPage implements OnInit, OnDestroy {
     console.log("signUpForm=", this.signUpForm);
 
     const role: Role = {
-      isStaff: this.signUpForm.value.isStaff,
-      isAdmin: this.signUpForm.value.isAdmin,
-      isFaculty: this.signUpForm.value.isFaculty, // dsps faculty
-      isStudent: this.signUpForm.value.isStudent,
-      isInstructor: this.signUpForm.value.isInstructor
+      isStaff: this.signUpForm.get('isStaff').value,
+      isAdmin: this.signUpForm.get('isAdmin').value,
+      isFaculty: this.signUpForm.get('isFaculty').value, // dsps faculty
+      isStudent: this.signUpForm.get('isStudent').value,
+      isInstructor: this.signUpForm.get('isInstructor').value
     };
     
     this.authService.createUser(
-      this.signUpForm.value.email,
-      this.signUpForm.value.name,
-      this.signUpForm.value.password,
+      this.signUpForm.get('email').value,
+      this.signUpForm.get('name').value,
+      this.signUpForm.get('password').value,
       role,
       this.next);
   }
@@ -159,7 +159,7 @@ export class AddNewStaffPage implements OnInit, OnDestroy {
   }
 
 
-  atLeastOneOfAdminOrStaff(group: FormGroup) {
+  atLeastOneOfAdminOrStaff(group: AbstractControl) {
     if (group.get('isAdmin').value ||
       group.get('isStaff').value ||
       group.get('isFaculty').value || 

@@ -743,17 +743,18 @@ exports.updatePasswordBasedOnEmail = (req, res, next) => {
   
 }  // updatePasswordBasedOnEmail
 
-exports.list = (req, res, next) => {
+exports.listDspsUsers = (req, res, next) => {
   console.log("in list");
 
-  User.find().then(userList => {
-    console.log(userList);
-    if (!userList) {
+  const filter = { isDsps: true };
+  User.find(filter).then(dspsUsrList => {
+    console.log(dspsUsrList);
+    if (!dspsUsrList) {
       return res.status(401).json({
         message: "No users could be returned"
       });
     }
-    const cleanUserList = userList.map(user => {
+    const cleanUserList = dspsUsrList.map(user => {
       // deleting the property should work, no? need to debug.
       // for now, we are recreating the rest of the fields (except _v0)
       // delete user.password;
@@ -762,6 +763,7 @@ exports.list = (req, res, next) => {
         _id: user._id, email: user.email,
         name: user.name,
         role: user.role,
+        isDsps: user.isDsps,
         isAdmin: user.isAdmin,
         isStaff: user.isStaff,
         isFaculty: user.isFaculty,
@@ -773,8 +775,49 @@ exports.list = (req, res, next) => {
     });
     console.log("cleanUserList", cleanUserList);
     return res.status(200).json({
-      message: "User List",
-      users: cleanUserList
+      message: "DSPS User List",
+      dspsUsers: cleanUserList
+
+    });
+
+  }).catch(err => {
+    console.log(err);
+    return res.status(401).json({
+      message: "List failed " + err
+    });
+  });
+
+}
+
+exports.listDspsUsersSmall = (req, res, next) => {
+  console.log("in list");
+
+  const filter = { isDsps: true };
+  User.find(filter).then(dspsUsrList => {
+    console.log(dspsUsrList);
+    if (!dspsUsrList) {
+      return res.status(401).json({
+        message: "No users could be returned"
+      });
+    }
+    const cleanUserList = dspsUsrList.map(user => {
+      // remove sensitive info such as email, password, etc
+      return {
+        _id: user._id, 
+        name: user.name,
+        role: user.role,
+        isDsps: user.isDsps,
+        isAdmin: user.isAdmin,
+        isStaff: user.isStaff,
+        isFaculty: user.isFaculty,
+        isInstructor: user.isInstructor,
+        isStudent: user.isStudent
+      };
+    });
+    console.log("cleanUserList", cleanUserList);
+    return res.status(200).json({
+      message: "DSPS User List Small",
+      dspsUsers: cleanUserList
 
     });
 

@@ -32,8 +32,12 @@ mongoose.Promise = global.Promise;
 
 // https://mongoosejs.com/docs/deprecations.html#findandmodify
 // 
+// autoIndex is set to false to avoid performance hit in production
+// https://mongoosejs.com/docs/guide.html
 
-mongoose.connect(uri, { useFindAndModify: false }).then(
+mongoose.connect(uri, {
+  useFindAndModify: false,
+  autoIndex: false}).then(
     () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
       console.log("connected to database ");
     },
