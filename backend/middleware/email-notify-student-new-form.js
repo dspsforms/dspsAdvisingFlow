@@ -66,13 +66,33 @@ async function emailNotifyStudentNewForm(emConfig, req){
             request.getScheme(), request.getServerName(), request.getServerPort()
     */
     
-    const serverName = req.header('x-forwarded-server');
+    // this works when the node server is behind apache proxy
+    let serverName = req.header('x-forwarded-server');
     // console.log('x-forwarded-server', serverName);
+
+    if (!serverName) {
+        // in dev environments.
+        serverName = req.header['origin']; // dev angular client
+    }
+
+    if (!serverName) {
+        serverName = req.header['host']; // dev sever
+    }
+
+    if (!serverName) {
+        serverName = req.host;
+    }
+
+    if (!serverName) {
+        console.log('serverName could not be determined. mail not sent to student');
+        return;
+    }
+
 
     const url = req.protocol + '://' + serverName;
     
-    let text = "You have new communication from DSPS. Please login to the following site and check: " + url + " ." ;
-    let html = "You have new communication from DSPS. Please login to the following site and check: <a href='" + url + "'>" + url + "</a>.";
+    let text = "You have new communication from DSPS. Please login and check: " + url + " ." ;
+    let html = "You have new communication from DSPS. Please login  and check: <a href='" + url + "'>" + url + "</a>.";
 
     let mailOptions = {
         from: emConfig.from,  // '"Mission DSPS" <missiondsps@vannev.com>', // sender address

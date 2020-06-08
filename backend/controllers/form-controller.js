@@ -23,20 +23,24 @@ exports.postForm = (req, res, next) => {
     form.save().then( createdForm => {
       // success
 
-      if (debug.POST_FORM) {
-        console.log("after save, createdForm=", createdForm);
-      }
+        if (debug.POST_FORM) {
+          console.log("after save, createdForm=", createdForm);
+        }
 
-      res.status(201).json({
-        message: 'Form ' + form.formName + ' added successfully',
-        formId: createdForm._id
-      });
+        res.status(201).json({
+          message: 'Form ' + form.formName + ' added successfully',
+          formId: createdForm._id
+        });
 
-      // to send email notification to student
-      req['emailData'] = { studentEmail: createdForm.studentEmail };
-      req['sendEmail'] = true; // change this to false if you dont' want to send email
-
-      next(); // send email notification that a new form has been submitted
+        // for greensheets, students don't get email
+        if (form.formName !== 'greensheet') {
+          // to send email notification to student
+          req['emailData'] = { studentEmail: createdForm.studentEmail };
+          req['sendEmail'] = true; // change this to false if you dont' want to send email
+        
+          next(); // send email notification that a new form has been submitted
+          
+        }
 
       })
       .catch(err => {  // form.save().then

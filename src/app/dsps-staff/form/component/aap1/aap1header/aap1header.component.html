@@ -1,7 +1,7 @@
 <div [formGroup]="form">
 
   <!-- show user color of background for required fields -->
-  <app-required-field-prompt></app-required-field-prompt>
+  <app-required-field-prompt [showRequired]="showRequired(mode)"></app-required-field-prompt>
 
 <ion-row>
   <ion-col>
