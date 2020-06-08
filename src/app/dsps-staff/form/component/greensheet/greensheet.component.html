@@ -1,7 +1,8 @@
 <form *ngIf="form" [formGroup]="form" (ngSubmit)="createOrEditForm()" >
 
   <h1 class="ion-padding">DSPS Student Data Collection Form</h1>
-  <app-student-personal-info [form]="form" [grid]="grid"></app-student-personal-info>
+
+  <app-student-personal-info [form]="form" [grid]="grid" [mode]="mode"></app-student-personal-info>
   
 
   <app-student-part2 [form]="form" [grid]="grid"></app-student-part2>

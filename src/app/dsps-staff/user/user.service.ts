@@ -66,7 +66,11 @@ export class UserService {
   }
 
   getDspsUserListSmall() {
-    return [...this.dspsUserListSmall];
+    if (this.dspsUserListSmall) {
+      return [...this.dspsUserListSmall];
+    }
+    else return null;
+    
   }
 
 }

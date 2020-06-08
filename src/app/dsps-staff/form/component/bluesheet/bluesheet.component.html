@@ -3,7 +3,7 @@
 
   <h1 class="ion-padding">Recommendations for Academic Support and Accommodations</h1>
   
-  <app-bluesheet-header [form]="form"></app-bluesheet-header>
+  <app-bluesheet-header [form]="form" [mode]="mode"></app-bluesheet-header>
 
   <div *ngIf="grid" class="grid2Col">
     <div class="child1">
@@ -36,7 +36,7 @@
   </div> <!-- class == grid -->
     
       
-  <app-bluesheet-footer [form]="form" [grid]="grid"></app-bluesheet-footer>
+  <app-bluesheet-footer [form]="form" [grid]="grid" [mode]="mode"></app-bluesheet-footer>
   
   <ion-grid >
     <ion-row  *ngIf="mode !== 'view'">

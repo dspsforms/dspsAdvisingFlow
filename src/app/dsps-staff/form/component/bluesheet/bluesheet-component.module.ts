@@ -13,6 +13,7 @@ import { PhysicalAccessComponent } from './physical-access/physical-access.compo
 import { AltFormatComponent } from './alt-format/alt-format.component';
 import { GeneralComponent } from './general/general.component';
 import { BluesheetFooterComponent } from './bluesheet-footer/bluesheet-footer.component';
+import { RequiredFieldPromptComponentModule } from '../required-field-prompt/required-field-prompt.module';
 
 
 
@@ -21,7 +22,8 @@ import { BluesheetFooterComponent } from './bluesheet-footer/bluesheet-footer.co
     CommonModule,
     IonicModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    RequiredFieldPromptComponentModule
   ],
   exports: [
     BluesheetComponent,

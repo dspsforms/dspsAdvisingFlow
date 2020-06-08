@@ -1,12 +1,16 @@
 
 <div [formGroup]="form">
 
+  <!-- show user color of background for required fields -->
+  <app-required-field-prompt [showRequired]="showRequired(mode)"></app-required-field-prompt>
+
 <ion-row>
   <ion-col>
     <ion-item>
       <ion-label position="floating">Instructor *</ion-label>
       <ion-input 
         type="text"
+        [class.required]="showRequired(mode)"
         formControlName="instructor"></ion-input>
     </ion-item>
     <p 
@@ -19,7 +23,7 @@
       <ion-label  position="floating">Semester *</ion-label>
       <ion-input 
         type="text"
-        placeholder="Choose Term"
+        [class.required]="showRequired(mode)"
         formControlName="semester"></ion-input>
     </ion-item>
     <p 
@@ -32,6 +36,7 @@
       <ion-label  position="floating">Year *</ion-label>
       <ion-input 
         type="text"
+        [class.required]="showRequired(mode)"
         formControlName="year"></ion-input>
     </ion-item>
     <p 
@@ -128,6 +133,7 @@
       <ion-label  position="floating">Student Name *</ion-label>
       <ion-input 
         type="text"
+        [class.required]="showRequired(mode)"
         formControlName="studentName"></ion-input>
     </ion-item>
     <p 
@@ -140,6 +146,7 @@
       <ion-label  position="floating">Student ID *</ion-label>
       <ion-input 
         type="text"
+        [class.required]="showRequired(mode)"
         formControlName="collegeId"></ion-input>
     </ion-item>
     <p 
@@ -153,6 +160,7 @@
       <ion-label  position="floating">Student WVM Email * </ion-label>
       <ion-input 
         type="email"
+        [class.required]="showRequired(mode)"
         formControlName="studentEmail"></ion-input>
     </ion-item>
   

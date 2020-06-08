@@ -1,8 +1,14 @@
 <div [formGroup]="form">
 
+  <!-- show user color of background for required fields -->
+  <app-required-field-prompt [showRequired]="showRequired(mode)"></app-required-field-prompt>
+
+
     <ion-item>
       <ion-label position="floating">Form completed and approved eligible by *</ion-label>
-      <ion-input formControlName="completedBySignature"></ion-input>
+      <ion-input 
+        [class.required]="showRequired(mode)"
+        formControlName="completedBySignature"></ion-input>
     </ion-item>
     <ion-item *ngIf="form.get('completedBySignature').touched && !form.get('completedBySignature').valid">
       <ion-label color="danger">DSPS Specialist's signature is required.</ion-label>
@@ -15,7 +21,9 @@
 
     <ion-item>
       <ion-label position="floating">Student Name *</ion-label>
-      <ion-input formControlName="studentName"></ion-input>
+      <ion-input 
+        [class.required]="showRequired(mode)"
+        formControlName="studentName"></ion-input>
     </ion-item>
     <ion-item *ngIf="form.get('studentName').touched && !form.get('studentName').valid">
       <ion-label color="danger">Need student name.</ion-label>
@@ -23,7 +31,9 @@
 
     <ion-item>
       <ion-label position="floating">Student ID *</ion-label>
-      <ion-input formControlName="collegeId"></ion-input>
+      <ion-input 
+        [class.required]="showRequired(mode)"
+        formControlName="collegeId"></ion-input>
     </ion-item>
     <ion-item *ngIf="form.get('collegeId').touched && !form.get('collegeId').valid">
       <ion-label color="danger">Need Student ID</ion-label>
@@ -31,7 +41,9 @@
 
     <ion-item >
       <ion-label position="floating">Student Email </ion-label>
-      <ion-input  formControlName="studentEmail"></ion-input>
+      <ion-input 
+        [class.required]="showRequired(mode)"
+        formControlName="studentEmail"></ion-input>
     </ion-item>
     <ion-item *ngIf="form.get('studentEmail').touched && !form.get('studentEmail').valid">
       <ion-label color="danger">Please provide a valid email</ion-label>

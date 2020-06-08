@@ -10,6 +10,7 @@ import { LongTermEdGoalComponent } from './long-term-ed-goal/long-term-ed-goal.c
 import { ProgressObjPart1Component } from './progress-obj-part1/progress-obj-part1.component';
 import { ProgressObjPart2Component } from './progress-obj-part2/progress-obj-part2.component';
 import { LabelYesNoComponentModule } from '../label-yes-no/label-yes-no.module';
+import { RequiredFieldPromptComponentModule } from '../required-field-prompt/required-field-prompt.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { LabelYesNoComponentModule } from '../label-yes-no/label-yes-no.module';
         IonicModule,
         ReactiveFormsModule,
         LabelYesNoComponentModule,
+        RequiredFieldPromptComponentModule,
         RouterModule
     ],
     exports: [

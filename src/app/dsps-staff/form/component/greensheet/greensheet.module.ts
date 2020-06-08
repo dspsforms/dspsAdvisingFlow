@@ -11,6 +11,7 @@ import { LabelYesNoComponentModule } from '../label-yes-no/label-yes-no.module';
 import { StudentPart2Component } from './student-part2/student-part2.component';
 import { StudentPersonalInfoComponent } from './student-personal-info/student-personal-info.component';
 import { StudentPart3Component } from './student-part3/student-part3.component';
+import { RequiredFieldPromptComponentModule } from '../required-field-prompt/required-field-prompt.module';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { StudentPart3Component } from './student-part3/student-part3.component';
         IonicModule,
         ReactiveFormsModule,
         LabelYesNoComponentModule,
+        RequiredFieldPromptComponentModule,
         RouterModule
     ],
     exports: [

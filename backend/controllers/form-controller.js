@@ -32,6 +32,10 @@ exports.postForm = (req, res, next) => {
         formId: createdForm._id
       });
 
+      // to send email notification to student
+      req['emailData'] = { studentEmail: createdForm.studentEmail };
+      req['sendEmail'] = true; // change this to false if you dont' want to send email
+
       next(); // send email notification that a new form has been submitted
 
       })

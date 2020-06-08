@@ -21,6 +21,7 @@ import { TestsComponent } from './tests/tests.component';
 import { VisualAidsComponent } from './visual-aids/visual-aids.component';
 import { ExtendedTimeWithSigComponent } from './tests/extended-time-with-sig/extended-time-with-sig.component';
 import { Aap1footerComponent } from './aap1footer/aap1footer.component';
+import { RequiredFieldPromptComponentModule } from '../required-field-prompt/required-field-prompt.module';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { Aap1footerComponent } from './aap1footer/aap1footer.component';
         IonicModule,
         ReactiveFormsModule,
         ElemWithSignComponentModule,
+        RequiredFieldPromptComponentModule,
         RouterModule
     ],
     exports: [

@@ -11,7 +11,9 @@ const checkAuthAdmin = require("../middleware/check-auth-admin");
 
 // const verifyCaptchaV3 = require("../middleware/verify-captchav3");
 
-const emailNotify = require("../middleware/email-notify");
+const emailNotifyDsps = require("../middleware/email-notify-dsps");
+
+const emailNotifyStudentNewForm = require("../middleware/email-notify-student-new-form");
 
 const router = express.Router();
 
@@ -20,7 +22,9 @@ const FormController = require('../controllers/form-controller');
 
 // post  "/api/form/:formName" verify captcha v3
 // router.post("/:formName", verifyCaptchaV3, FormController.postForm, emailNotify);
-router.post("/:formName", FormController.postForm, emailNotify);
+// emailNotifyDsps is not required. because faculty just filled out the form
+// they don't need a notification -- until student signs
+router.post("/:formName", FormController.postForm, emailNotifyStudentNewForm);
 
 // // post  "/api/form/agreement/:formName"  // add checkAuthStaff or checkAuthAdmin
 // router.post("/agreement/:formName", checkAuthAdmin, FormController.postFormAgreement);

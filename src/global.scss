@@ -179,3 +179,12 @@
 .datetime-disabled {
    opacity: 0.7; // default 0.3
 }
+
+.required {
+   background-color: #f7f72147;
+}
+.required.prompt {
+   color: #948c8c !important;
+   padding: 10px 10px 10px 20px;
+   font-size: 1.5vw;
+}

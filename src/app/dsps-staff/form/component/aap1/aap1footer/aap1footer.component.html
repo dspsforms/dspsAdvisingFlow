@@ -25,6 +25,7 @@
           <ion-label  position="floating">DSPS Specialist Signature *</ion-label>
           <ion-input 
             type="text"
+            [class.required]="showRequired(mode)"
             formControlName="completedBySignature"></ion-input>
         </ion-item>
         <ion-item *ngIf="form.get('completedBySignature').touched && !form.get('completedBySignature').valid">

@@ -27,6 +27,7 @@ module.exports = (req, res, next) => {
       newFormSubmittedNotification(emailConfig, formName).catch(console.error);
     }
 
+
   } catch (error) {
     res.status(401).json({ message: "email notification failed. formName=" + formName });
   }
