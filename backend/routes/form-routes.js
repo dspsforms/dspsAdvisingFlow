@@ -7,6 +7,9 @@ const checkAuthDsps = require("../middleware/check-auth-dsps");
 // admin guard
 const checkAuthAdmin = require("../middleware/check-auth-admin");
 
+// logged in guard
+const checkAuthLoggedIn = require("../middleware/check-auth-loggedin");
+
 // verify captcha
 
 // const verifyCaptchaV3 = require("../middleware/verify-captchav3");
@@ -36,8 +39,9 @@ router.patch("/:formName", checkAuthDsps, FormController.patchForm);
 router.patch("/full/:formName", checkAuthDsps, FormController.patchFullForm);
 
 
-// "/api/form/list"  -- must have staff permission
+// "/api/form/list"  -- must have dsps permission
 router.get("/list", checkAuthDsps, FormController.list);
+
 
 // // get "/api/form/agreement/:formName"
 // router.get("/agreement/:formName", FormController.getFormAgreement);

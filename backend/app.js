@@ -16,7 +16,7 @@ const config = require('./config/config');
 
 const formRoutes = require('./routes/form-routes');
 const userRoutes = require('./routes/user-routes');
-
+const ownFormRoutes = require('./routes/own-form-routes');
 
 
 // Connection URL
@@ -122,6 +122,7 @@ mongoose.connection.db.listCollections().toArray().then(collections => {
 
 app.use("/api/form", formRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/ownform", ownFormRoutes);
 
 
 app.use((req, res, next) => {

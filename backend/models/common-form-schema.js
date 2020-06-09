@@ -21,8 +21,9 @@ const commonFormSchema = mongoose.Schema({
     created: { type: Date },
     lastMod: { type: Date },
     captchaScore: { type: String },
-    state: { type: String, index: true }
-  
+    state: { type: String, index: true },
+    studentSigStatus: { type: String, index: true }, // 'pending', 'signed', 'not-required'
+    studentSigId: { type: String, index: true, unique: true } // key in student-sig collection
 });
 
 commonFormSchema.pre('save', function(next) {

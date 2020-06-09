@@ -14,6 +14,8 @@
 
 <ion-content>
 
+  <!-- <section ion-content-print> -->
+
   <div *ngIf="formInfo.formName == 'bluesheet' && data && !busy ">
     <app-bluesheet 
       [formKey]="data._id"
@@ -61,5 +63,7 @@
     </app-greensheet>
 
    </div>
+
+  <!-- </section> -->
 
 </ion-content>

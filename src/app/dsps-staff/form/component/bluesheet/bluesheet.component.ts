@@ -66,7 +66,7 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
         validators: [Validators.required]
       }),
       semester: new FormControl(null, {
-        updateOn: 'blur',
+        updateOn: 'change',
         validators: [Validators.required]
       }),
       year: new FormControl( null , {
@@ -74,9 +74,12 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
         validators: [Validators.required, Validators.min(2020)]
       }),
       course: new FormControl( null, {
-        updateOn: 'blur'
+        updateOn: 'change',
+        validators: [Validators.required]
       }),
-      section: new FormControl( null, { updateOn: 'change' }),
+      section: new FormControl(null, {
+        updateOn: 'change'
+      }),
       room: new FormControl( null, { updateOn: 'change' }),
       dayTime: new FormControl( null, {  updateOn: 'change' }),
       // these two will require a workflow

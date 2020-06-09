@@ -48,11 +48,16 @@
 <ion-row>
   <ion-col>
     <ion-item>
-      <ion-label  position="floating">Course</ion-label>
+      <ion-label  position="floating">Course *</ion-label>
       <ion-input 
         type="text"
+        [class.required]="showRequired(mode)"
         formControlName="course"></ion-input>
     </ion-item>
+    <p 
+    *ngIf="form.get('course').touched && !form.get('course').valid">
+    <ion-label color="danger">Course is required</ion-label>
+  </p>
   </ion-col>
   <ion-col>
     <ion-item>
