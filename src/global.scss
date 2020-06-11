@@ -28,6 +28,9 @@
 /* how to use bootstrap with Ionic, see https://stackoverflow.com/a/50215970/3170526 */
 @import "bootstrap";
 
+@import "./assets/print.css";
+
+
 // @media print{
 //    ion-header{ display: none !important; }  
  
@@ -37,6 +40,34 @@
  
 //    [ion-content-print]{ overflow-y: visible !important; position: relative; }
 //  }
+
+// following suggested here:
+// https://stackoverflow.com/questions/25187715/css-print-media-query-prints-only-first-page
+//
+// but does not work
+// @media print {
+//    body * {
+//        visibility: hidden;
+//    }
+//    #print-container, #print-container * {
+//        visibility: visible;
+//    }
+//    #print-container {
+//        left: 0px;
+//        top: 0px;
+//        position:absolute;
+//    }
+//    p {
+//        page-break-before: always;
+//    }
+// }
+
+// a comment on 
+// https://stackoverflow.com/questions/1312320/print-stylesheet-one-page-prints-and-cuts-off-remaining-text/1312456#1312456
+// does not work
+//
+// * { overflow: auto !important; }
+
 
 
 .wrap-text {
@@ -199,3 +230,12 @@
    padding: 10px 10px 10px 20px;
    font-size: 1.5vw;
 }
+
+// body, #print-container {
+//    height: auto;
+//  }
+
+// ion-content {
+//    // contain: none;
+//    height: 100%;
+// }

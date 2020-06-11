@@ -40,6 +40,12 @@ const routes: Routes = [
     path: 'landing',
     loadChildren: () => import('./landing/landing.module').then( m => m.LandingPageModule)
   },
+  {
+    path: 'print-view/:formName/:formId' ,
+    loadChildren: () => import('./print-view/print-view.module').then(m => m.PrintViewPageModule),
+    // canLoad: [AuthFooGuard]  -- TODO create a new guard that will allow student to see their's
+    // instructor to see what they have a right to see, and dsps to see everything
+  },
  
   
 ];

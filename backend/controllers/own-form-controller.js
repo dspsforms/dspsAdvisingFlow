@@ -12,15 +12,20 @@ const GreensheetForm = require('../models/greensheet-form-model');
 // every path starts with /api/ownform -- which is already processed
 // by app.js before we get here
 
-// get /api/ownform/list
-//     /api/ownform/list/:signatureStatus (pending, signed)
+// get /api/ownform/list  -- goes to OwnFormController.ownList
 //
-// get /api/ownform/:formName/:id
+//     /api/ownform/list/:studentSigStatus (pending, signed)
+//
+// get /api/ownform/getaform/:formName/:_id   -- goes to OwnFormController.getAForm
+//
+//      
+
 // post /api/ownform/sign/:formName/:id   
 //
 // get /api/ownform/listCategory/:formName
 
 // /api/ownform/list
+// also, /api/ownform/list/:studentSigStatus (pending, signed)
 exports.ownList = (req, res, next) => {
 
     try {
@@ -30,12 +35,25 @@ exports.ownList = (req, res, next) => {
         const formNames = ['bluesheet', 'aap1', 'aap2'];
 
         // use email from decoded token in check-auth-loggedin.js
-        const ownEmail = req.userData.email;
+        // const ownEmail = req.userData.email;
 
-        // const ownEmail = 'am@amarnathm.com'; // for testing
+        const ownEmail = 'am@amarnathm.com'; // for testing
         // const ownEmail = 'c@test.com'; // for testing
 
-        const filter = { studentEmail: ownEmail };
+        const studentSigStatus = sanitize(req.params.studentSigStatus);
+
+        let filter;
+
+        if (!studentSigStatus) {
+            filter = { studentEmail: ownEmail };
+        } else {
+            filter = {
+                $and: [
+                    { studentEmail: ownEmail },
+                    { studentSigStatus : studentSigStatus }
+                ]
+            }
+        }
 
         var fn = function createFindPromise(formName) { //  async action
         

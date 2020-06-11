@@ -1,0 +1,52 @@
+<div  id="print-container" class="container-fluid" *ngIf="formInfo.formName && data && !busy " >
+
+  <h1>{{ formInfo.formTitle }} : {{ studentName }}</h1>
+
+  <div class="row">
+    <div class="col-sm-10">
+
+      <div *ngIf="formInfo.formName == 'bluesheet' && data && !busy ">
+        <app-bluesheet 
+          [formKey]="data._id"
+          [wrappedForm]="data" 
+          [mode]="'view'"
+          >
+        </app-bluesheet>
+      </div>
+
+      <div *ngIf="formInfo.formName == 'aap1' && data && !busy ">
+
+        <app-aap1 
+          [formKey]="data._id"
+          [wrappedForm]="data" 
+          [mode]="'view'"
+          >
+        </app-aap1>
+    
+       </div>
+    
+       <div *ngIf="formInfo.formName == 'aap2' && data && !busy ">
+    
+        <app-aap2
+          [formKey]="data._id"
+          [wrappedForm]="data" 
+          [mode]="'view'"
+          >
+        </app-aap2>
+    
+       </div>
+    
+       <div *ngIf="formInfo.formName == 'greensheet' && data && !busy ">
+    
+        <app-greensheet
+          [formKey]="data._id"
+          [wrappedForm]="data" 
+          [mode]="'view'"
+          >
+        </app-greensheet>
+    
+       </div>
+
+    </div> <!-- col -->
+  </div> <!-- row -->
+</div> <!-- container-fluid -->

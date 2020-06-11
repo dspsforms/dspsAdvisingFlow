@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const versionDetailSchema = require('./version-details-schema');
+const StudentSigStatus = require('../constants/student-sig-status');
 
 const commonFormSchema = mongoose.Schema({
     formName: { type: String, required: true },
@@ -29,6 +30,13 @@ const commonFormSchema = mongoose.Schema({
 commonFormSchema.pre('save', function(next) {
     this.studentEmail = this.formWithLatestHistory.studentEmail.val;
     this.collegeId = this.formWithLatestHistory.collegeId.val;
+
+    // signature does not apply to greensheet
+    // in order to not complicate things as more forms are added,
+    // we are keeping the sig field even if we are not using it.
+    this.studentSigStatus = StudentSigStatus.PENDING;
+    
+    
     console.log("from commonFormSchema.pre-save. this=", this);
     next();
 });

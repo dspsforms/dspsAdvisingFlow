@@ -1,13 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { WrappedForm } from 'src/app/model/wrapped-form.model';
-import { Config, NavController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { FormsService } from '../forms.service';
-import { SubscriptionUtil } from 'src/app/util/subscription-util';
-import { FormUtil } from 'src/app/model/form.util';
 
 import { AbstractFormRead } from '../abstract-form-read';
-import { UserService } from '../../user/user.service';
 
 
 @Component({

@@ -14,7 +14,10 @@ const OwnFormController = require('../controllers/own-form-controller');
 
 // "/api/ownform/list"  -- own forms, for student. must be logged in
 // add checkAuthLoggedIn
-router.get("/list", checkAuthLoggedIn, OwnFormController.ownList);
+router.get("/list", OwnFormController.ownList);
+
+// "/api/ownform/list/:studentSigStatus"  -- own forms, with a given signature status
+router.get("/list/:studentSigStatus",  OwnFormController.ownList);
 
 // /api/ownform/getaform/:formName/:_id
 // add checkAuthLoggedIn
