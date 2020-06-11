@@ -1,5 +1,5 @@
 {
-  "name": "dspsmisc",
+  "name": "dspsmisc-ionic",
   "version": "0.0.1",
   "author": "am",
   "homepage": "TODO",
@@ -9,9 +9,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "start:server": "nodemon backend/server.js",
-    "prod": "node backend/server.js"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -26,23 +24,11 @@
     "@ionic-native/splash-screen": "^5.0.0",
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^5.0.0",
-    "bcrypt": "^4.0.1",
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
     "bootstrap": "^4.4.1",
     "classlist.js": "^1.1.20150312",
     "core-js": "^2.5.4",
     "dotenv": "^8.2.0",
-    "email-templates": "^7.0.4",
-    "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongo-sanitize": "^1.1.0",
-    "mongoose": "^5.9.12",
-    "nodemailer": "^6.4.6",
-    "nodemon": "^2.0.3",
-    "pug": "^2.0.4",
-    "request": "^2.88.2",
-    "request-promise": "^4.2.5",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "underscore": "^1.10.2",
@@ -73,7 +59,7 @@
     "tslint": "~5.15.0",
     "typescript": "~3.4.3"
   },
-  "description": "DSPS Forms, Part 2",
+  "description": "DSPS Forms, Part 2, Ionic",
   "config": {
     "ionic_sass": "./sass.config.js"
   }

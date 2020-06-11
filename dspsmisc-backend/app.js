@@ -127,9 +127,12 @@ app.use("/api/form", formRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/ownform", ownFormRoutes);
 
+app.use("/print/*", (req, res, next) => {
+  res.sendFile(path.join(__dirname, "angular-print", "index.html"));
+});
 
 app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "angular", "index.html"));
+  res.sendFile(path.join(__dirname, "angular-ionic", "index.html"));
 });
 
 

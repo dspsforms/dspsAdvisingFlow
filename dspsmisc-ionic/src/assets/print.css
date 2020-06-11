@@ -141,13 +141,16 @@
 
     ion-content, .grid2Col, .child2, ion-list {
         height: 100%;
-        break-inside : unset !important;
-        break-after : unset !important;
-        break-before : unset !important;
         overflow-y: visible !important;
         max-height: unset !important;
         contain: none;
     }
+
+    /* ion-content, .grid2Col, .child2, ion-list, ion-tabs, ion-item {
+        break-inside : auto !important;
+        break-after : auto !important;
+        break-before : auto !important;
+    } */
  
 
     
