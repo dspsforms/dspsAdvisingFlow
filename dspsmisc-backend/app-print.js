@@ -8,7 +8,8 @@ const mongoose = require('mongoose');
 
 // load env variables.
 // const cwd = process.cwd();
-const envPath = './.env';
+// .env must be path relative to where the server starts
+const envPath = './.env'; 
 console.log("envPath=", envPath);
 require('dotenv').config({ path: envPath });
 const config = require('./config/config');
@@ -48,19 +49,7 @@ mongoose.connect(uri, {
     }
   );
 
-/*
-make a copy of misc/once.js, call it once.tmp.js, add first admin
-user, run it once, then delete once.tmp.js
-supply FIRST_TIME as an environment variable, but do it only once.
-if it's greater than 0, a new admin will be created if it doesn't already exist
-*/
 
-if (config.FIRST_TIME > 0) {
-  console.log("config.FIRST_TIME > 0, current time=", new Date());
-  const once = require('./misc/once.tmp');
-} else {
-  console.log("config.FIRST_TIME is <= 0, current time=", new Date());
-}
 
 const app = express();
 
@@ -68,8 +57,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use("/", express.static(path.join(__dirname, "angular-ionic")));
-
+app.use("/pdf", express.static(path.join(__dirname, "/pdf")));
+app.use("/", express.static(path.join(__dirname, "/angular-print")));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -127,24 +116,13 @@ app.use("/api/form", formRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/ownform", ownFormRoutes);
 
-// app.use('/print', (req, res, next) => {
+// app.use("/print", (req, res, next) => {
 //   res.sendFile(path.join(__dirname, "angular-print", "index.html"));
 // });
 
 app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "angular-ionic", "index.html"));
+  res.sendFile(path.join(__dirname, "angular-print", "index.html"));
 });
-
-
-// console.log("calling testEmail1");
-// const test = require('./testEmail1');
-// console.log("end testEmail1");
-
-// works
-// console.log("calling testEmail2 async mode");
-// const testSend = require('./testEmail2');
-// testSend().catch(console.error);
-// console.log("caller after testEmail2, but that stuff is running async");
 
 
 module.exports = app;

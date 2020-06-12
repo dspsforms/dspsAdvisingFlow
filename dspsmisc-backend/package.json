@@ -6,6 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "nodemon server.js",
+    "print": "nodemon server-print.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

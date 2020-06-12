@@ -1,3 +1,8 @@
 export const environment = {
-  production: true
+  production: true,
+
+  server: 'http://localhost:3001',  // prod build for local testing
+
+  enforceWvmEmail: false
+
 };
