@@ -5,9 +5,9 @@
     <ion-col size-sm="5">
 
       <ion-card *ngIf="signatures?.length > 0">
-        <ion-header>
-          Student Signature
-        </ion-header>
+        <ion-card-header>
+          <ion-card-title>Student Signature</ion-card-title>
+        </ion-card-header>
         <ion-card-content>
           <ion-list *ngFor="let sig of signatures; ">
               <ion-item class="signature">{{ sig.signature }}</ion-item>

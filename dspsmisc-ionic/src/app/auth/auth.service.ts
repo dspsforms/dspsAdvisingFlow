@@ -379,6 +379,13 @@ export class AuthService {
     return this.user._id;
   }
 
+  getUser() {
+    if (!this.dataInitialized) {
+      this.refreshAuthDataFromLocalStorage();
+    }
+    return this.user;
+  }
+
   clearAuth() {
     this.token = null;
     this.triggerAuthChangeEvent();

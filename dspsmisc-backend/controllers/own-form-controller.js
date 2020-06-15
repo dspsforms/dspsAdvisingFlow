@@ -37,9 +37,9 @@ exports.ownList = (req, res, next) => {
         const formNames = ['bluesheet', 'aap1', 'aap2'];
 
         // use email from decoded token in check-auth-loggedin.js
-        // const ownEmail = req.userData.email;
+        const ownEmail = req.userData.email;
 
-        const ownEmail = 'am@amarnathm.com'; // for testing
+        // const ownEmail = 'am@amarnathm.com'; // for testing
         // const ownEmail = 'c@test.com'; // for testing
 
         const studentSigStatus = sanitize(req.params.studentSigStatus);
@@ -128,9 +128,9 @@ exports.getAForm = (req, res, next) => {
         const formId = sanitize(req.params._id);
 
         // use email from decoded token in check-auth-loggedin.js
-        // const ownEmail = req.userData.email;
+        const ownEmail = req.userData.email;
 
-        const ownEmail = 'am@amarnathm.com'; // for testing
+        // const ownEmail = 'am@amarnathm.com'; // for testing
 
         const filter = {
             $and: [

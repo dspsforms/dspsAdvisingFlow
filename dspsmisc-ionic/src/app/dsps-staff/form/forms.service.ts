@@ -40,7 +40,11 @@ export class FormsService implements OnInit {
   
   private fullFormPatchStatus = new Subject<{ data: WrappedForm, message: string, err?: string }>();
   
-  private signatureSaveStatus = new Subject<SignatureStatus> ();
+  private signatureSaveStatus = new Subject<SignatureStatus>();
+  
+  private studentRecordsStatus = new Subject<{ listOfForms?: {}, message?: string, err?: string }>();
+  
+  private studentFormStatus = new Subject<{form?: WrappedForm, message?: string, err?: string }>();
 
   constructor(private http: HttpClient) {
     // initiaze formsUpdateMap. each entry is a key/value pair
@@ -96,6 +100,13 @@ export class FormsService implements OnInit {
     return this.signatureSaveStatus.asObservable();
   }
 
+  getStudentRecordsStatusListener() {
+    return this.studentRecordsStatus.asObservable();
+  }
+
+  getStudentFormStatusListener() {
+    return this.studentFormStatus.asObservable();
+  }
 
   // /api/form/:formName/:_id
   getFormData2(formName: string, _id: string) {
@@ -285,5 +296,51 @@ export class FormsService implements OnInit {
         console.log(err);
         this.signatureSaveStatus.next({ sigId: null, message: 'an error occured',  err: err });
     });
+  }
+
+  listFormsForStudent(sigStatus: string) {
+    let url = environment.server + '/api/ownform/list';
+    if (sigStatus) {
+      // sigStatus can be 'pending' or 'signed'
+      url += "/" + sigStatus;
+    }
+
+    console.log("fetching url=", url);
+    this.http.get<{ message?: string; listOfForms?: {}; err?: string}>(url).subscribe(msgData => {
+      console.log(msgData);
+
+      // let those listening on it know
+      this.studentRecordsStatus.next(msgData);
+
+    }) ;
+  }
+
+  // get "/api/ownform/getaform/:formName/:_id" 
+
+  getStudentForm(formName, formId) {
+
+    const url = environment.server + `/api/ownform/getaform/${formName}/${formId}`;
+    console.log("fetching url=", url);
+
+    /*
+    message: string, formData: WrappedForm, signatures: [Signature], err: string
+    */
+    this.http.get<{
+      message?: string;
+      formData?: WrappedForm;
+      signatures: [Signature];
+      err?: string
+    }>(url).subscribe(msgData => {
+      console.log(msgData);
+
+      if (msgData.formData && msgData.signatures) {
+        msgData.formData.signatures = msgData.signatures;
+      }
+
+      // let those listening on it know
+      this.studentFormStatus.next(msgData);
+
+    }) ;
+
   }
 }

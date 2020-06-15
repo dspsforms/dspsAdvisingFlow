@@ -3,10 +3,42 @@
     <ion-buttons slot="start">
       <ion-menu-button menu="m1"></ion-menu-button>
     </ion-buttons>
-    <ion-title> Student  </ion-title>
+    <ion-title> Hi {{ studentUser?.name }} </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <div *ngIf="keys">
+    <ion-row *ngFor="let key of keys;" >
+      <ion-col size-sm="6" offset-sm="3">
+
+        <ion-card >
+          <ion-card-header> 
+            <ion-card-title> {{ key }} </ion-card-title>
+            </ion-card-header>
+    
+          <ion-card-content>
+            <ion-item *ngIf="!listOfForms[key]"> There is no item to show</ion-item>
+    
+            <ion-item 
+              *ngFor="let form of listOfForms[key]; " 
+              (click)="showForm(form)"
+            >
+              <ion-text class="some-space">{{ form.formName }} </ion-text> 
+              <ion-text class="some-space">{{ form.lastMod | date }}</ion-text> 
+              <ion-text 
+                class="some-space" 
+                *ngIf="form.studentSigStatus === 'pending'"> Signature pending
+              </ion-text>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+    
+
+  </div>
 
 </ion-content>

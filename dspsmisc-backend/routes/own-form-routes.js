@@ -14,14 +14,14 @@ const OwnFormController = require('../controllers/own-form-controller');
 
 // "/api/ownform/list"  -- own forms, for student. must be logged in
 // add checkAuthLoggedIn
-router.get("/list", OwnFormController.ownList);
+router.get("/list", checkAuthLoggedIn, OwnFormController.ownList);
 
 // "/api/ownform/list/:studentSigStatus"  -- own forms, with a given signature status
-router.get("/list/:studentSigStatus",  OwnFormController.ownList);
+router.get("/list/:studentSigStatus",  checkAuthLoggedIn, OwnFormController.ownList);
 
 // /api/ownform/getaform/:formName/:_id
 // add checkAuthLoggedIn
-router.get("/getaform/:formName/:_id",  OwnFormController.getAForm);
+router.get("/getaform/:formName/:_id", checkAuthLoggedIn, OwnFormController.getAForm);
 
 // "/api/ownform/signform"  -- req.body.formName and req.body.formId
 // router.post("/signform", checkAuthLoggedIn, OwnFormController.signForm);
