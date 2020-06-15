@@ -13,6 +13,7 @@ const userSchema = mongoose.Schema({
   isFaculty: { type: Boolean, index: true },
   isInstructor: { type: Boolean, index: true },
   isStudent: { type: Boolean, index: true },
+  collegeId: { type: String },  // for performance reasons, helps to have this here
   created: { type: Date },
   lastMod: { type: Date },
   // history of changes to password etc.

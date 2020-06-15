@@ -460,6 +460,7 @@ createStudentUser = (student, req) => {
     isStaff: false,
     isFaculty: false,
     isInstructor: false,
+    collegeId: studentTmp.collegeId,
     created: student.created, 
     lastMod: student.lastMod,
     metaHistoryArr: [ 
@@ -553,7 +554,8 @@ exports.login = (req, res, next) => {
           isStaff: fetchedUser.isStaff,
           isFaculty: fetchedUser.isFaculty,
           isInstructor: fetchedUser.isInstructor,
-          isStudent: fetchedUser.isStudent
+          isStudent: fetchedUser.isStudent,
+          collegeId: fetchedUser.collegeId
         },
         config.JSON_WEB_TOKEN_SERVER_KEY,
         { expiresIn: "1d" }
@@ -566,13 +568,16 @@ exports.login = (req, res, next) => {
       res.status(200).json({
         token: token,
         expiresIn: 3600 * 24,
+        email: fetchedUser.email,
         userId: fetchedUser._id,
         role: fetchedUser.role,
+        name: fetchedUser.name,
         isAdmin: fetchedUser.isAdmin,
         isStaff: fetchedUser.isStaff,
         isFaculty: fetchedUser.isFaculty,
         isInstructor: fetchedUser.isInstructor,
-        isStudent: fetchedUser.isStudent
+        isStudent: fetchedUser.isStudent,
+        collegeId: fetchedUser.collegeId
       });
     })
     .catch(err => {

@@ -41,5 +41,15 @@ commonFormSchema.pre('save', function(next) {
     next();
 });
 
+// commonFormSchema.post('findById', function (next) {
+//     console.log("commonFormSchema.post findById", this);
+// });
+
+// commonFormSchema.post('findOne', function (next) {
+//     console.log("commonFormSchema.post findOne", this);
+// });
+
+
+
 module.exports = commonFormSchema;
 

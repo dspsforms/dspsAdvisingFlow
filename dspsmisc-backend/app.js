@@ -19,6 +19,7 @@ const config = require('./config/config');
 const formRoutes = require('./routes/form-routes');
 const userRoutes = require('./routes/user-routes');
 const ownFormRoutes = require('./routes/own-form-routes');
+const signatureRoutes = require('./routes/signature-routes');
 
 
 // Connection URL
@@ -39,7 +40,12 @@ mongoose.Promise = global.Promise;
 
 mongoose.connect(uri, {
   useFindAndModify: false,
-  autoIndex: false}).then(
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useCreateIndex: true
+  // autoIndex: false
+}
+).then(
     () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
       console.log("connected to database ");
     },
@@ -126,6 +132,7 @@ mongoose.connection.db.listCollections().toArray().then(collections => {
 app.use("/api/form", formRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/ownform", ownFormRoutes);
+app.use("/api/signform", signatureRoutes);
 
 // app.use('/print', (req, res, next) => {
 //   res.sendFile(path.join(__dirname, "angular-print", "index.html"));

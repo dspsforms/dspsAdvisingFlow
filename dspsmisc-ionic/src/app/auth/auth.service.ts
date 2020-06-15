@@ -13,12 +13,16 @@ import { StatusMessage } from '../model/status-message';
 })
 export class AuthService {
 
-  private role: Role;
+  // private role: Role;
+  // private userId: string;
 
+  private user: AuthData; // own Auth data
   private token: string;
   private tokenTimer: any;
-  private userId: string;
-  private authStatusListener = new Subject<Role>();
+  
+
+  
+  private authStatusListener = new Subject<AuthData>();
 
   private createStudentListener = new Subject<SubmitStatus>();
 
@@ -200,10 +204,18 @@ export class AuthService {
     console.log('sending post request to ', url);
     this.http
       .post<{
-        token: string; expiresIn: number, userId: string,
+        token: string;
+        expiresIn: number,
+        email: string,
+        userId: string,
         role: Role,
-        // isAdmin: boolean, isStaff: boolean, isFaculty: boolean,
-        // isStudent: boolean, isInstructor: boolean,
+        name: string,
+        isAdmin: boolean,
+        isStaff: boolean,
+        isFaculty: boolean,
+        isInstructor: boolean,
+        isStudent: boolean, 
+        collegeId: string
       }>(
         url,
         authData
@@ -217,9 +229,19 @@ export class AuthService {
           console.log("expiresInDuration=", expiresInDuration);
           this.setAuthTimer(expiresInDuration);
 
-          this.role = response.role;
+          const userTmp = new AuthData(
+            response.email,
+            null, // password
+            response.role,
+            response.name,
+            null, // created
+            null, // lastNod
+            null, // cellPhone 
+            response.collegeId,
+            response.userId
+          );
 
-          this.userId = response.userId;
+          this.user = userTmp;
 
           
           const now = new Date();
@@ -228,8 +250,7 @@ export class AuthService {
           this.saveAuthDataLocalStorage(
             token,
             expirationDate,
-            this.userId,
-            this.role,
+            this.user
           );
 
           this.dataInitialized = true;
@@ -249,10 +270,9 @@ export class AuthService {
   //   const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
   //   if (expiresIn > 0) {
   //     this.token = authInformation.token;
-  //     this.role = authInformation.role;
+  //     this.user = authInformation.user;
   //     // this.isAdminAuthenticated = authInformation.isAdminAuthenticated;
   //     // this.isStaffAuthenticated = authInformation.isStaffAuthenticated;
-  //     this.userId = authInformation.userId;
   //     this.setAuthTimer(expiresIn / 1000);
 
   //     this.triggerAuthChangeEvent();
@@ -261,7 +281,7 @@ export class AuthService {
 
   // send out an auth change event to those listening
   triggerAuthChangeEvent() {
-    this.authStatusListener.next(this.role);
+    this.authStatusListener.next(this.user);
   }
 
   // return current auth
@@ -269,7 +289,11 @@ export class AuthService {
   getRole() {
 
     this.refreshAuthDataFromLocalStorage();
-    return this.role;
+    if (!this.user || !this.user.role) {
+      return null;
+    } else {
+      return this.user.role;
+    };
   }
 
   getToken() {
@@ -283,33 +307,33 @@ export class AuthService {
     if (!this.dataInitialized) {
       this.refreshAuthDataFromLocalStorage();
     }
-    if (!this.role) {
+    if (!this.user || !this.user.role) {
       return false;
     }
     
-    return this.role.isAdmin;
+    return this.user.role.isAdmin;
   }
 
   getIsStaffAuth() {
     if (!this.dataInitialized) {
       this.refreshAuthDataFromLocalStorage();
     }
-    if (!this.role) {
+    if (!this.user || !this.user.role) {
       return false;
     }
 
-    return this.role.isStaff;
+    return this.user.role.isStaff;
   }
 
   getIsFacultyAuth() {
     if (!this.dataInitialized) {
       this.refreshAuthDataFromLocalStorage();
     }
-    if (!this.role) {
+    if (!this.user || !this.user.role) {
       return false;
     }
 
-    return this.role.isFaculty;
+    return this.user.role.isFaculty;
   }
 
   // staff, admin, faculty
@@ -318,10 +342,10 @@ export class AuthService {
     if (!this.dataInitialized) {
       this.refreshAuthDataFromLocalStorage();
     }
-    if (!this.role) {
+    if (!this.user || !this.user.role) {
       return false;
     }
-    return this.role.isAdmin || this.role.isStaff || this.role.isFaculty;
+    return this.user.role.isAdmin || this.user.role.isStaff || this.user.role.isFaculty;
   }
 
   getIsStudentAuth() {
@@ -329,11 +353,11 @@ export class AuthService {
       this.refreshAuthDataFromLocalStorage();
     }
 
-    if (!this.role) {
+    if (!this.user || !this.user.role) {
       return false;
     }
 
-    return this.role.isStudent;
+    return this.user.role.isStudent;
   }
 
   getIsInstructorAuth() {
@@ -341,25 +365,23 @@ export class AuthService {
       this.refreshAuthDataFromLocalStorage();
     }
 
-    if (!this.role) {
+    if (!this.user || !this.user.role) {
       return false;
     }
 
-    return this.role.isInstructor;
+    return this.user.role.isInstructor;
   }
 
   getUserId() {
     if (!this.dataInitialized) {
       this.refreshAuthDataFromLocalStorage();
     }
-    return this.userId;
+    return this.user._id;
   }
 
   clearAuth() {
     this.token = null;
-    this.role = null;
     this.triggerAuthChangeEvent();
-    this.userId = null;
     clearTimeout(this.tokenTimer);
     this.clearAuthDataLocalStorage();
   }
@@ -379,28 +401,24 @@ export class AuthService {
   private saveAuthDataLocalStorage(
     token: string,
     expirationDate: Date,
-    userId: string,
-    role: Role
+    user: AuthData
   ) {
     localStorage.setItem("token", token);
     localStorage.setItem("expiration", expirationDate.toISOString());
-    localStorage.setItem("userId", userId);
-    localStorage.setItem("role", JSON.stringify(role));
+    localStorage.setItem("user", JSON.stringify(user));
   }
 
   private clearAuthDataLocalStorage() {
     localStorage.removeItem("token");
     localStorage.removeItem("expiration");
-    localStorage.removeItem("userId");
-    localStorage.removeItem("role");
+    localStorage.removeItem("user");
   }
 
   private getAuthDataLocalStorage() {
     const token = localStorage.getItem("token");
     const expirationDate = localStorage.getItem("expiration");
-    const userId = localStorage.getItem("userId");
-    const roleStr = localStorage.getItem("role");
-    const role: Role = JSON.parse(roleStr);
+    const userStr = localStorage.getItem("user");
+    const user: AuthData = JSON.parse(userStr);
 
     if (!token || !expirationDate) {
       return;
@@ -408,8 +426,7 @@ export class AuthService {
     return {
       token: token,
       expirationDate: new Date(expirationDate),
-      userId: userId,
-      role: role
+      user: user
     };
   }
 
@@ -418,9 +435,8 @@ export class AuthService {
     // TODO use expirationDate
     const tmpAuth = this.getAuthDataLocalStorage();
     if (tmpAuth) {
-      this.role = tmpAuth.role;
       this.token = tmpAuth.token;
-      this.userId = tmpAuth.userId;
+      this.user = tmpAuth.user;
     }
 
     // else do nothing? or initialize to empty/false?

@@ -9,6 +9,8 @@ const Aap1Form = require('../models/aap1-form-model');
 const Aap2Form = require('../models/aap2-form-model');
 const GreensheetForm = require('../models/greensheet-form-model');
 
+const Signature = require('../models/signature-model');
+
 
 // for complaint forms, user must be an admin.
 const isAdminAuthorized = require('../middleware/check-auth-admin-boolean');
@@ -321,37 +323,51 @@ exports.getAForm = (req, res, next) => {
   const formName = sanitize(req.params.formName);
 
   // for complaints forms, user must have admin permission
-  if (formName === 'complaint' && !isAdminAuthorized(req, res)) {
-    console.log("user does not have admin permission to access complaints")
-    res.status(404).json({
-      message: "Permission Denied",
-      err: "You do not have permission to see this"
-    });
+  // if (formName === 'complaint' && !isAdminAuthorized(req, res)) {
+  //   console.log("user does not have admin permission to access complaints")
+  //   res.status(404).json({
+  //     message: "Permission Denied",
+  //     err: "You do not have permission to see this"
+  //   });
 
-    return;
-  }
+  //   return;
+  // }
 
 
   const form = getFormModel(formName);
 
   console.log("fetched data for _id=", req.params._id);
 
-    // TODO fetch only some select fields from db; also (limit, offeset)
   form.findById(sanitize(req.params._id)).then(
-      document => {
-      console.log("forms from db", document);
-      // test version
-      // let historyModel = form.getHistoryModel();
-      // historyModel.find({ parent: req.params._id }).then(historyDocs => {
-      //   console.log("history logs: ", historyDocs);
-      // });
-      
-      res.status(200).json({
-          message: "Form fetched successfully",
-          formData: document
+    document => {
+      if (!document) {
+        // none found
+        res.status(200).json({
+          err: "Form not found"
         });
-      }
-  )
+        return;
+      } // ! document
+
+      console.log("form from db", document);
+
+      // if the form is signed, fetch the signatures
+      if (document.studentSigStatus && document.studentSigStatus === 'signed') {
+        Signature.find({ formId: document._id }).then(signatures => {
+
+          // not sure why, but if we add signatures as a key to document, they aren't 
+          // showing up on the client
+          // document['signatures'] = signatures;
+          res.status(200).json({
+            message: "Form fetched successfully",
+            formData: document,
+            signatures: signatures
+          });
+        
+          
+        }) // signature.find then
+      }  // if signed
+      
+    })  // form.findById then
   .catch((err) => {
     console.log(err);
     res.status(404).json({

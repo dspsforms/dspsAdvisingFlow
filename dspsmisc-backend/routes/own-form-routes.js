@@ -21,7 +21,7 @@ router.get("/list/:studentSigStatus",  OwnFormController.ownList);
 
 // /api/ownform/getaform/:formName/:_id
 // add checkAuthLoggedIn
-router.get("/getaform/:formName/:_id", checkAuthLoggedIn, OwnFormController.getAForm);
+router.get("/getaform/:formName/:_id",  OwnFormController.getAForm);
 
 // "/api/ownform/signform"  -- req.body.formName and req.body.formId
 // router.post("/signform", checkAuthLoggedIn, OwnFormController.signForm);

@@ -9,6 +9,8 @@ const Aap1Form = require('../models/aap1-form-model');
 const Aap2Form = require('../models/aap2-form-model');
 const GreensheetForm = require('../models/greensheet-form-model');
 
+const Signature = require('../models/signature-model');
+
 // every path starts with /api/ownform -- which is already processed
 // by app.js before we get here
 
@@ -126,9 +128,9 @@ exports.getAForm = (req, res, next) => {
         const formId = sanitize(req.params._id);
 
         // use email from decoded token in check-auth-loggedin.js
-        const ownEmail = req.userData.email;
+        // const ownEmail = req.userData.email;
 
-        // const ownEmail = 'am@amarnathm.com'; // for testing
+        const ownEmail = 'am@amarnathm.com'; // for testing
 
         const filter = {
             $and: [
@@ -145,13 +147,30 @@ exports.getAForm = (req, res, next) => {
                     err: "No form found for student"
                 });
             } else {
-                res.status(200).json({
-                    message: "Form for student",
-                    formData: document
-                });
-            }
+               // if the form is signed, fetch the signatures
+                if (document.studentSigStatus && document.studentSigStatus === 'signed') {
+                    Signature.find({ formId: document._id }).then(signatures => {
+
+                        // document['signatures'] = signatures;
+                        res.status(200).json({
+                            message: "Form fetched successfully",
+                            formData: document,
+                            signatures: signatures
+                        });
+                        
+                        
+                    }) // signature.find then
+                }  // if signed
+                else {
+                    res.status(200).json({
+                        message: "Form fetched successfully",
+                        formData: document
+                    }); 
+                }
+                
+            } // else (there is a document)
             
-        })
+        }) // findOne then
         .catch(err => {
             console.log("error in query to db", err);
             res.status(200).json({

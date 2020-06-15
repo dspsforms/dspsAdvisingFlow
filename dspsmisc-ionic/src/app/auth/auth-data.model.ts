@@ -20,6 +20,7 @@ export class AuthData {
     public created?: Date, // tz format
     public lastMod?: Date,
     public cellPhone?: string,
+    public collegeId?: string, // if student. performance wise, helps to have this here 
     public _id?: string, // user Id
   ) {}
  

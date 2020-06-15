@@ -6,6 +6,8 @@ import { FormName, FormUtil } from '../../model/form.util';
 import { environment } from '../../../environments/environment';
 import { SavedForm } from '../../model/saved-form.model';
 import { EditedForm } from 'src/app/model/edited-form.model';
+import { Signature } from 'src/app/model/signature.model';
+import { SignatureStatus } from 'src/app/model/sig-status.model';
 
 
 
@@ -36,7 +38,9 @@ export class FormsService implements OnInit {
 
   private formPatchStatus = new Subject<{ data: WrappedForm, message: string, err?: string }>();
   
-  private fullFormPatchStatus = new Subject<{data: WrappedForm, message: string, err?: string }>();
+  private fullFormPatchStatus = new Subject<{ data: WrappedForm, message: string, err?: string }>();
+  
+  private signatureSaveStatus = new Subject<SignatureStatus> ();
 
   constructor(private http: HttpClient) {
     // initiaze formsUpdateMap. each entry is a key/value pair
@@ -86,6 +90,10 @@ export class FormsService implements OnInit {
 
   getFullFormPatchStatusListener() {
     return this.fullFormPatchStatus.asObservable();
+  }
+
+  getSignatureSaveStatusListener() {
+    return this.signatureSaveStatus.asObservable();
   }
 
 
@@ -253,5 +261,21 @@ export class FormsService implements OnInit {
         }
 
       });
+  }
+
+  signIt(signatureData: Signature) {
+ 
+    const url = environment.server + "/api/sig/";
+  
+    this.http
+      .post (url, signatureData)
+      .subscribe( response => {
+         console.log(response);
+         this.signatureSaveStatus.next(response as SignatureStatus);
+      },
+      err => {
+        console.log(err);
+        this.signatureSaveStatus.next({ sigId: null, message: 'an error occured',  err: err });
+    });
   }
 }

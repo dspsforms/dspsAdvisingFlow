@@ -1,4 +1,5 @@
 import { VersionDetail } from './saved-form.model';
+import { Signature } from './signature.model';
 
 export class WrappedForm {
 
@@ -15,6 +16,7 @@ export class WrappedForm {
   created: Object;
   lastMod?: Object;
   reCaptchaV3Token?: string;
+  signature: Signature;
   
   constructor(options: {
     formKey?: string,
@@ -28,8 +30,9 @@ export class WrappedForm {
     currentVersion?: number,
     edited?: boolean,
     created?: Object,
-    lastMod?: Object;
-    reCaptchaV3Token?: string;
+    lastMod?: Object,
+    reCaptchaV3Token?: string,
+    signature?: Signature
   })
   {
     this.formKey = options.formKey;
@@ -45,6 +48,7 @@ export class WrappedForm {
     this.created = options.created;
     this.lastMod = options.lastMod;
     this.reCaptchaV3Token = options.reCaptchaV3Token;
+    this.signature = options.signature;
 
   }
   

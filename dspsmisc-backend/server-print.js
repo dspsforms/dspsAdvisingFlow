@@ -5,7 +5,6 @@ const http = require("http");
 
 
 // check to make sure we have the env variables loaded
-// console.log("RECAPTCHA_SERVER_KEY=", process.env.RECAPTCHA_SERVER_KEY);
 console.log("JSON_WEB_TOKEN_SERVER_KEY=", process.env.JSON_WEB_TOKEN_SERVER_KEY);
 
 // https://stackoverflow.com/questions/5999373/how-do-i-prevent-node-js-from-crashing-try-catch-doesnt-work#
@@ -55,7 +54,6 @@ const onListening = () => {
   debug("Listening on " + bind);
 };
 
-console.log("RECAPTCHA_SERVER_KEY=", process.env.RECAPTCHA_SERVER_KEY);
 
 const port = normalizePort(process.env.PORT_PRINT || "3002");
 app.set("port", port);

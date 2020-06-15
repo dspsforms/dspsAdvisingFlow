@@ -32,4 +32,5 @@ npm-debug.log*
 /www
 
 startProdServer.sh
+**/.vscode
 
