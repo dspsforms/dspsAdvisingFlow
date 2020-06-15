@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-import { StudentSigCreateComponent } from './student-sig-create.component';
+import { SigCreateComponent } from './sig-create.component';
 
 
 @NgModule({
@@ -12,6 +12,7 @@ import { StudentSigCreateComponent } from './student-sig-create.component';
     ReactiveFormsModule,
     IonicModule
   ],
-  declarations: [StudentSigCreateComponent]
+  exports: [SigCreateComponent],
+  declarations: [SigCreateComponent]
 })
-export class StudentSigCreateModule {}
+export class SigCreateModule {}

@@ -22,6 +22,8 @@ import { VisualAidsComponent } from './visual-aids/visual-aids.component';
 import { ExtendedTimeWithSigComponent } from './tests/extended-time-with-sig/extended-time-with-sig.component';
 import { Aap1footerComponent } from './aap1footer/aap1footer.component';
 import { RequiredFieldPromptComponentModule } from '../required-field-prompt/required-field-prompt.module';
+import { SigViewModule } from '../sig-view/sig-view.module';
+import { SigCreateModule } from '../sig-create/sig-create.module';
 
 
 @NgModule({
@@ -31,6 +33,8 @@ import { RequiredFieldPromptComponentModule } from '../required-field-prompt/req
         ReactiveFormsModule,
         ElemWithSignComponentModule,
         RequiredFieldPromptComponentModule,
+        SigViewModule,
+        SigCreateModule,
         RouterModule
     ],
     exports: [

@@ -37,14 +37,14 @@
 
     <ion-row  *ngIf="mode !== 'create'">
       <ion-col size-sm="5">
-        <ion-item *ngIf="lastModifiedBy" lines="none">
+        <ion-item *ngIf="lastModifiedBy" >
           <ion-label >
             Last edited by  {{ lastModifiedBy }},  {{ lastModified | date }}.
           </ion-label>
         </ion-item>
       </ion-col>
       <ion-col size-sm="2">
-          <ion-item *ngIf="currentVersion" lines="none" >
+          <ion-item *ngIf="currentVersion" >
             <ion-label >
                Version:  {{ currentVersion }}
             </ion-label>

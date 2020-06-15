@@ -247,12 +247,20 @@ export class FormsService implements OnInit {
 
   private getFormData(url: string, isAgreement?: boolean) {
     console.log("fetching url=", url);
-    this.http.get<{ message: string; formData: WrappedForm }>(url)
+    this.http.get<{
+      message: string;
+      formData: WrappedForm;
+      signatures: [Signature]
+    }>(url)
       .subscribe(msgFormData => {
         console.log(msgFormData);
 
+        // signatures is coming as a separate field. merge it with formData
+        if (msgFormData.signatures && msgFormData.formData) {
+          msgFormData.formData.signatures = msgFormData.signatures;
+        }
         this.currentForm = msgFormData.formData;
-
+       
         // send out an event to those listening for change in currentForm
         if (!isAgreement) {
           this.currentFormUpdated.next(this.currentForm);

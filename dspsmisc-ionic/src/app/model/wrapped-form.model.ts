@@ -16,7 +16,8 @@ export class WrappedForm {
   created: Object;
   lastMod?: Object;
   reCaptchaV3Token?: string;
-  signature: Signature;
+  studentSigStatus?: string;
+  signatures: [Signature]; // there can be more than one signature
   
   constructor(options: {
     formKey?: string,
@@ -32,7 +33,8 @@ export class WrappedForm {
     created?: Object,
     lastMod?: Object,
     reCaptchaV3Token?: string,
-    signature?: Signature
+    studentSigStatus?: string,
+    signatures?: [Signature]
   })
   {
     this.formKey = options.formKey;
@@ -48,7 +50,8 @@ export class WrappedForm {
     this.created = options.created;
     this.lastMod = options.lastMod;
     this.reCaptchaV3Token = options.reCaptchaV3Token;
-    this.signature = options.signature;
+    this.studentSigStatus = options.studentSigStatus;
+    this.signatures = options.signatures;
 
   }
   

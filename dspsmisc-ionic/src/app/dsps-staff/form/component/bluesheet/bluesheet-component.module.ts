@@ -14,6 +14,8 @@ import { AltFormatComponent } from './alt-format/alt-format.component';
 import { GeneralComponent } from './general/general.component';
 import { BluesheetFooterComponent } from './bluesheet-footer/bluesheet-footer.component';
 import { RequiredFieldPromptComponentModule } from '../required-field-prompt/required-field-prompt.module';
+import { SigViewModule } from '../sig-view/sig-view.module';
+import { SigCreateModule } from '../sig-create/sig-create.module';
 
 
 
@@ -23,6 +25,8 @@ import { RequiredFieldPromptComponentModule } from '../required-field-prompt/req
     IonicModule,
     ReactiveFormsModule,
     RouterModule,
+    SigViewModule,
+    SigCreateModule,
     RequiredFieldPromptComponentModule
   ],
   exports: [

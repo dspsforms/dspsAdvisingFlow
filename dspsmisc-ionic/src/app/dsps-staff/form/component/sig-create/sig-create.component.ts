@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { StudentSigViewComponent } from '../student-sig-view/student-sig-view.component';
 import { AuthData } from 'src/app/auth/auth-data.model';
 import { FormsService } from '../../forms.service';
 import { Signature } from 'src/app/model/signature.model';
@@ -10,11 +9,11 @@ import { SubscriptionUtil } from 'src/app/util/subscription-util';
 import { SignatureStatus } from 'src/app/model/sig-status.model';
 
 @Component({
-  selector: 'app-student-sig-create',
-  templateUrl: './student-sig-create.component.html',
-  styleUrls: ['./student-sig-create.component.scss'],
+  selector: 'app-sig-create',
+  templateUrl: './sig-create.component.html',
+  styleUrls: ['./sig-create.component.scss'],
 })
-export class StudentSigCreateComponent implements OnInit, OnDestroy {
+export class SigCreateComponent implements OnInit, OnDestroy {
 
   sigForm: FormGroup;
 

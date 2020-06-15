@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { StudentSigViewComponent } from './student-sig-view.component';
+import { SigViewComponent } from './sig-view.component';
 
 describe('StudentSigViewComponent', () => {
-  let component: StudentSigViewComponent;
-  let fixture: ComponentFixture<StudentSigViewComponent>;
+  let component: SigViewComponent;
+  let fixture: ComponentFixture<SigViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StudentSigViewComponent ],
+      declarations: [ SigViewComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(StudentSigViewComponent);
+    fixture = TestBed.createComponent(SigViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

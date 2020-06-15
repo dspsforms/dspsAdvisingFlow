@@ -1,0 +1,32 @@
+
+<!-- if there are signatures, show it as an ion-card -->
+<ion-grid>
+  <ion-row>
+    <ion-col size-sm="5">
+
+      <ion-card *ngIf="signatures?.length > 0">
+        <ion-header>
+          Student Signature
+        </ion-header>
+        <ion-card-content>
+          <ion-list *ngFor="let sig of signatures; ">
+              <ion-item class="signature">{{ sig.signature }}</ion-item>
+              <ion-item class="smaller"> Date: {{ sig.signatureDate | date }}</ion-item>
+              <ion-item *ngIf="sig.formVersion" class="smaller">Version of form signed: {{ sig.formVersion}}</ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+      
+      <!-- if there are no signatures yet, just show the signature status -->
+      <ion-list *ngIf="!signatures || signatures.length == 0">
+        <ion-item *ngIf="sigStatus">
+          <ion-text>Student Signature: 
+            <span class="capitalize"> {{ sigStatus }} </span></ion-text>
+        </ion-item>
+      </ion-list>
+
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+

@@ -31,7 +31,6 @@
   <app-aap1footer [form]="form" [userList]="dspsUserListSmall" [mode]="mode"></app-aap1footer>
 
   <ion-grid>
-   
   <ion-row  *ngIf="mode !== 'view'">
 
     <ion-col size-sm="3" offset-sm="2">
@@ -53,14 +52,14 @@
 
   <ion-row  *ngIf="mode !== 'create'">
     <ion-col size-sm="4">
-      <ion-item *ngIf="lastModifiedBy" lines="none">
+      <ion-item *ngIf="lastModifiedBy" >
         <ion-label >
           Last edited by  {{ lastModifiedBy }},  {{ lastModified | date }}.
         </ion-label>
       </ion-item>
     </ion-col>
     <ion-col size-sm="2">
-        <ion-item *ngIf="currentVersion" lines="none" >
+        <ion-item *ngIf="currentVersion" >
           <ion-label >
              Version:  {{ currentVersion }}
           </ion-label>
@@ -70,5 +69,14 @@
   </ion-row>
 
 </ion-grid>
+
+  <!--- show the signature, if it exists, only in view mode -->
+  <app-sig-view 
+    *ngIf="mode === 'view'"  
+    [signatures]="wrappedForm.signatures"
+    [sigStatus]="wrappedForm.studentSigStatus" ></app-sig-view>
+
+  <!-- TODO student needs to see the app-sig-create component as well, in view mode -->
+
   
 </form>

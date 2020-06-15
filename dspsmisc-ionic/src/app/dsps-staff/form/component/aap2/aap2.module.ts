@@ -11,6 +11,8 @@ import { ProgressObjPart1Component } from './progress-obj-part1/progress-obj-par
 import { ProgressObjPart2Component } from './progress-obj-part2/progress-obj-part2.component';
 import { LabelYesNoComponentModule } from '../label-yes-no/label-yes-no.module';
 import { RequiredFieldPromptComponentModule } from '../required-field-prompt/required-field-prompt.module';
+import { SigCreateModule } from '../sig-create/sig-create.module';
+import { SigViewModule } from '../sig-view/sig-view.module';
 
 
 @NgModule({
@@ -20,6 +22,8 @@ import { RequiredFieldPromptComponentModule } from '../required-field-prompt/req
         ReactiveFormsModule,
         LabelYesNoComponentModule,
         RequiredFieldPromptComponentModule,
+        SigCreateModule,
+        SigViewModule,
         RouterModule
     ],
     exports: [

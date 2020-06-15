@@ -9,7 +9,7 @@ const signatureSchema = mongoose.Schema({
     collegeId: { type: String },
     name: { type: String },
     userId: { type: String }, // user._id of student
-    studentSignature: { type: String, required: true }, // whatever the student types in to sign
+    signature: { type: String, required: true }, // whatever the student types in to sign
     signatureDate: { type: Date },
     lastMod: { type: Date },
     ipAddr: { type: String } , // ip address from where this was signed

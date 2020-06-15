@@ -73,7 +73,7 @@ exports.signForm = (req, res, next) => {
                 collegeId: req.body.collegeId,
                 name: req.body.name,
                 userId: null, // req.userData.userId, // TODO
-                studentSignature: req.body.studentSignature,
+                signature: req.body.signature,
                 signatureDate: now,
                 lastMod: now,
                 ipAddr: req.ip,

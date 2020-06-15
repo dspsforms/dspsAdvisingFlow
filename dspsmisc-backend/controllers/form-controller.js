@@ -366,6 +366,13 @@ exports.getAForm = (req, res, next) => {
           
         }) // signature.find then
       }  // if signed
+      else {
+        // not yet signed
+        res.status(200).json({
+          message: "Form fetched successfully",
+          formData: document
+        });
+      }
       
     })  // form.findById then
   .catch((err) => {
