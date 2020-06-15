@@ -1,0 +1,59 @@
+<ion-header *ngIf="isOwnForm">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="m1"></ion-menu-button>
+    </ion-buttons>
+    <ion-title> {{ formInfo.formTitle }} : {{ studentName }} </ion-title>
+    <ion-buttons *ngIf="data.studentSigStatus === 'pending'" slot="primary">
+      <ion-button (click)="signIt()">
+        Sign It!
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="isOwnForm">
+
+  @Input() signer: AuthData; // signer is a student
+
+  @Input() formBeingSigned: WrappedForm;
+
+  <app-sig-create *ngIf="signItClicked"
+    [signer]="studentUser"
+    [formBeingSigned]="data"
+  ></app-sig-create>
+
+  <div *ngIf="formInfo.formName == 'bluesheet' && data && !busy ">
+    <app-bluesheet 
+      [formKey]="data._id"
+      [wrappedForm]="data" 
+      [mode]="'view'"
+      >
+    </app-bluesheet>
+
+   </div>
+
+   <div *ngIf="formInfo.formName == 'aap1' && data && !busy ">
+
+    <app-aap1 
+      [formKey]="data._id"
+      [wrappedForm]="data" 
+      [mode]="'view'"
+      >
+    </app-aap1>
+
+   </div>
+
+   <div *ngIf="formInfo.formName == 'aap2' && data && !busy ">
+
+    <app-aap2
+      [formKey]="data._id"
+      [wrappedForm]="data" 
+      [mode]="'view'"
+      >
+    </app-aap2>
+
+   </div>
+
+
+</ion-content>

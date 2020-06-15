@@ -17,6 +17,10 @@ export class WrappedForm {
   lastMod?: Object;
   reCaptchaV3Token?: string;
   studentSigStatus?: string;
+
+  // these two added because db has an index on them anyways
+  studentEmail: string; 
+  collegeId: string; 
   signatures: [Signature]; // there can be more than one signature
   
   constructor(options: {
@@ -34,6 +38,8 @@ export class WrappedForm {
     lastMod?: Object,
     reCaptchaV3Token?: string,
     studentSigStatus?: string,
+    studentEmail: string,
+    collegeId: string,
     signatures?: [Signature]
   })
   {
@@ -51,6 +57,8 @@ export class WrappedForm {
     this.lastMod = options.lastMod;
     this.reCaptchaV3Token = options.reCaptchaV3Token;
     this.studentSigStatus = options.studentSigStatus;
+    this.studentEmail = options.studentEmail;
+    this.collegeId = options.collegeId;
     this.signatures = options.signatures;
 
   }

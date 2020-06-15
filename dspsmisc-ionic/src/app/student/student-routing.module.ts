@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: StudentPage
+  },
+  {
+    path: 'student-view-form',
+    loadChildren: () => import('./student-view-form/student-view-form.module').then( m => m.StudentViewFormPageModule)
   }
 ];
 
