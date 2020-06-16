@@ -25,6 +25,7 @@ import { SigCreateModule } from 'src/app/dsps-staff/form/component/sig-create/si
     SigCreateModule,
     StudentViewFormPageRoutingModule
   ],
-  declarations: [StudentViewFormPage]
+  declarations: [StudentViewFormPage],
+  
 })
 export class StudentViewFormPageModule {}

@@ -1,33 +1,38 @@
-<ion-header *ngIf="isOwnForm">
+<ion-header *ngIf="data">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button menu="m1"></ion-menu-button>
     </ion-buttons>
     <ion-title> {{ formInfo.formTitle }} : {{ studentName }} </ion-title>
     <ion-buttons *ngIf="data.studentSigStatus === 'pending'" slot="primary">
-      <ion-button (click)="signIt()">
-        Sign It!
+      <ion-button color="primary"  fill="solid" (click)="openSignItModal()">
+        <!-- <ion-icon color="primary" slot="icon-only" name="thumbs-up-sharp"></ion-icon> fill="clear" -->
+      Sign It
       </ion-button>
     </ion-buttons>
+    
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="isOwnForm">
+<ion-content *ngIf="data">
 
-  @Input() signer: AuthData; // signer is a student
+  <ion-item class="info-message" color="tertiary" *ngIf="successMsg">
+    <ion-text  *ngIf="successMsg"> {{ successMsg }} </ion-text>
+  </ion-item>
+  <ion-item class="info-message" color="warning" *ngIf="errMsg">
+    <ion-text > {{ errMsg }} </ion-text>
+  </ion-item>
 
-  @Input() formBeingSigned: WrappedForm;
-
-  <app-sig-create *ngIf="signItClicked"
-    [signer]="studentUser"
-    [formBeingSigned]="data"
-  ></app-sig-create>
+  <!--  for testing focus change
+    <button type="button" (click)="toggleFocus()">Toggle Focus</button> 
+  -->
 
   <div *ngIf="formInfo.formName == 'bluesheet' && data && !busy ">
     <app-bluesheet 
       [formKey]="data._id"
       [wrappedForm]="data" 
       [mode]="'view'"
+      [focusOnSignature]="focusOnSignature"
       >
     </app-bluesheet>
 
@@ -39,6 +44,7 @@
       [formKey]="data._id"
       [wrappedForm]="data" 
       [mode]="'view'"
+      [focusOnSignature]="focusOnSignature"
       >
     </app-aap1>
 
@@ -50,6 +56,7 @@
       [formKey]="data._id"
       [wrappedForm]="data" 
       [mode]="'view'"
+      [focusOnSignature]="focusOnSignature"
       >
     </app-aap2>
 

@@ -13,7 +13,7 @@ const Aap2Form = require('../models/aap2-form-model');
 // no signature needed for Greensheet
 
 
-// /api/sig
+// /api/signform
 exports.signForm = (req, res, next) => {
 
     // duplicate signature is prevented by declaring a unique index on (formName, formId, formVersion, email)
@@ -27,9 +27,9 @@ exports.signForm = (req, res, next) => {
         // submitted in req.body.email
 
         // use email from decoded token in check-auth-loggedin.js
-        // const ownEmail = req.userData.email;
+        const ownEmail = req.userData.email;
 
-        const ownEmail = 'am@amarnathm.com'; // for testing
+        // const ownEmail = 'am@amarnathm.com'; // for testing
         // const ownEmail = 'c@test.com'; // for testing
     
         const filter =
@@ -127,13 +127,13 @@ updateFormSignatureStatus = (sigObj, req, res, next) => {
                 (err, result) => {
                     console.log(result);
                     if (err) return res.status(500).send({
-                            data: { _id: sigObj.formId },
+                            _id: sigObj.formId,
                             message: "form update error, post signature",
                             err: err
                     });
                     // else  -- no error
                     return res.status(200).json({
-                        data: { signature: sigObj },
+                        signature: sigObj,
                         message: "form signed"
                     });
                 } // findByIdAndUpdate callback

@@ -4,6 +4,7 @@ import { FormsService } from '../dsps-staff/form/forms.service';
 import { Subscription } from 'rxjs';
 import { SubscriptionUtil } from '../util/subscription-util';
 import { AuthData } from '../auth/auth-data.model';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-student',
@@ -23,7 +24,8 @@ export class StudentPage implements OnInit {
 
   constructor(
     public authService: AuthService,
-    public formService: FormsService) { }
+    public formService: FormsService,
+    public navCtrl: NavController) { }
 
   ngOnInit() {
   }
@@ -56,13 +58,15 @@ export class StudentPage implements OnInit {
   get keys() {
     if (this.listOfForms) {
       return Object.keys(this.listOfForms);
-    }
-    else {
+    } else {
       return null;
     }
   }
 
   showForm(form) {
-    console.log(form);
+    console.log("going to", form);
+    // /student/student-view-form/:formName/:formId
+    const url = '/student/student-view-form/' + form.formName + '/' + form._id;
+    this.navCtrl.navigateForward(url);
   }
 }

@@ -19,9 +19,9 @@ router.get("/list", checkAuthLoggedIn, OwnFormController.ownList);
 // "/api/ownform/list/:studentSigStatus"  -- own forms, with a given signature status
 router.get("/list/:studentSigStatus",  checkAuthLoggedIn, OwnFormController.ownList);
 
-// /api/ownform/getaform/:formName/:_id
+// /api/ownform/:formName/:_id
 // add checkAuthLoggedIn
-router.get("/getaform/:formName/:_id", checkAuthLoggedIn, OwnFormController.getAForm);
+router.get("/:formName/:_id", checkAuthLoggedIn, OwnFormController.getAForm);
 
 // "/api/ownform/signform"  -- req.body.formName and req.body.formId
 // router.post("/signform", checkAuthLoggedIn, OwnFormController.signForm);

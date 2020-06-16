@@ -23,6 +23,7 @@ export class Aap2Component extends AbstractFormSubmit implements OnInit, OnDestr
   @Input() wrappedForm: WrappedForm; // when form has data
   @Input() mode: 'create' | 'view' | 'edit';
 
+  @Input() focusOnSignature: boolean; // optional, if true, focus will be on signature
 
   constructor(
     public router: Router,

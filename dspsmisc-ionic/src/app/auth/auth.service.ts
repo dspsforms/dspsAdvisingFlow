@@ -391,6 +391,8 @@ export class AuthService {
     this.triggerAuthChangeEvent();
     clearTimeout(this.tokenTimer);
     this.clearAuthDataLocalStorage();
+    this.user = null;
+    this.dataInitialized = false;
   }
 
   logout() {

@@ -3,19 +3,19 @@
 <ion-grid>
   <ion-row>
     <ion-col size-sm="5">
-
-      <ion-card *ngIf="signatures?.length > 0">
-        <ion-card-header>
-          <ion-card-title>Student Signature</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-list *ngFor="let sig of signatures; ">
-              <ion-item class="signature">{{ sig.signature }}</ion-item>
-              <ion-item class="smaller"> Date: {{ sig.signatureDate | date }}</ion-item>
-              <ion-item *ngIf="sig.formVersion" class="smaller">Version of form signed: {{ sig.formVersion}}</ion-item>
-          </ion-list>
-        </ion-card-content>
-      </ion-card>
+        <ion-card *ngIf="signatures?.length > 0">
+          <ion-card-header>
+            <ion-card-title>Student Signature</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list *ngFor="let sig of signatures; ">
+                <ion-item class="signature">{{ sig.signature }}</ion-item>
+                <ion-item class="smaller"> Date: {{ sig.signatureDate | date }}</ion-item>
+                <ion-item *ngIf="sig.formVersion" class="smaller">Version of form signed: {{ sig.formVersion}}</ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+     
       
       <!-- if there are no signatures yet, just show the signature status -->
       <ion-list *ngIf="!signatures || signatures.length == 0">
@@ -25,6 +25,10 @@
         </ion-item>
       </ion-list>
 
+      <!-- tabindex needed for focus. it's very tiny
+      so not really visible -->
+      <div class="tiny" tabindex="1" #sigCards > </div>
+      
     </ion-col>
   </ion-row>
 </ion-grid>

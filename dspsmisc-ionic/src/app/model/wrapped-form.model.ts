@@ -38,8 +38,8 @@ export class WrappedForm {
     lastMod?: Object,
     reCaptchaV3Token?: string,
     studentSigStatus?: string,
-    studentEmail: string,
-    collegeId: string,
+    studentEmail?: string,
+    collegeId?: string,
     signatures?: [Signature]
   })
   {

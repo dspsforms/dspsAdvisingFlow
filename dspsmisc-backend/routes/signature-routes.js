@@ -10,6 +10,6 @@ const SignatureController = require('../controllers/signature-controller');
 
 // add checkAuthLoggedIn
 // add some sort of notification to corresponding faculty
-router.post("/", SignatureController.signForm);
+router.post("/", checkAuthLoggedIn, SignatureController.signForm);
 
 module.exports = router;

@@ -109,10 +109,17 @@ export class FormsService implements OnInit {
   }
 
   // /api/form/:formName/:_id
-  getFormData2(formName: string, _id: string) {
+  getFormData2(formName: string, _id: string, isStudentUser: boolean) {
 
     console.log("no cached form, fetching from server");
-    const url = environment.server + '/api/form/' + formName + "/" + _id;
+    let url;
+    
+    if (!isStudentUser) {
+      url = environment.server + '/api/form/' + formName + "/" + _id;
+    } else {
+      url = environment.server + '/api/ownform/' + formName + "/" + _id;
+    }
+    
     this.getFormData(url);
 
   }
@@ -284,7 +291,7 @@ export class FormsService implements OnInit {
 
   signIt(signatureData: Signature) {
  
-    const url = environment.server + "/api/sig/";
+    const url = environment.server + "/api/signform/";
   
     this.http
       .post (url, signatureData)
@@ -294,7 +301,7 @@ export class FormsService implements OnInit {
       },
       err => {
         console.log(err);
-        this.signatureSaveStatus.next({ sigId: null, message: 'an error occured',  err: err });
+        this.signatureSaveStatus.next({ signature: null, message: 'an error occured',  err: err });
     });
   }
 

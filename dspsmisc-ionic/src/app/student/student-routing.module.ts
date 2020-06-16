@@ -9,7 +9,7 @@ const routes: Routes = [
     component: StudentPage
   },
   {
-    path: 'student-view-form',
+    path: 'student-view-form/:formName/:formId',
     loadChildren: () => import('./student-view-form/student-view-form.module').then( m => m.StudentViewFormPageModule)
   }
 ];

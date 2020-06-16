@@ -1,3 +1,38 @@
-<div [formGroup]="sigForm">
-  
-</div>
+
+<ion-content class="ion-padding ion-text-center">
+
+    <!--  ".."  -->
+    <form [formGroup]="sigForm" (ngSubmit)="signIt()" (keydown.enter)="onEnterKeyDown($event)" >
+      
+        <ion-grid>
+        
+          <ion-row>
+            <ion-col size-sm="6" offset-sm="3">
+              <ion-list>
+                <ion-item class="bold" lines="none">
+                  Please type your name as your signature
+                </ion-item>
+                
+                <ion-item>
+                  <ion-label position="floating">Signature</ion-label>
+                  <ion-input type="text" formControlName="signature"> </ion-input>
+                </ion-item>
+      
+                <ion-item>
+                  <ion-button class="primary" expand="block"
+                    [disabled]="!sigForm.valid || !sigForm.dirty"
+                    type="submit" >Submit</ion-button>
+                </ion-item>
+      
+              </ion-list>
+            </ion-col>
+      
+          </ion-row>
+      
+          </ion-grid>
+      
+          </form>
+      
+</ion-content>
+      
+

@@ -1,5 +1,7 @@
+import { Signature } from './signature.model';
+
 export interface SignatureStatus {
-    sigId?: string ;
+    signature?: Signature ; // the new Signature
     message?: string;
     err?: string  | {}; 
   }

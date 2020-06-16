@@ -13,6 +13,7 @@ import { SigCreateComponent } from './sig-create.component';
     IonicModule
   ],
   exports: [SigCreateComponent],
-  declarations: [SigCreateComponent]
+  declarations: [SigCreateComponent],
+  entryComponents: [SigCreateComponent]
 })
 export class SigCreateModule {}

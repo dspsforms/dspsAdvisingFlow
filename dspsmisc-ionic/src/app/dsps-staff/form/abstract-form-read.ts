@@ -27,11 +27,15 @@ export class AbstractFormRead implements OnInit, OnDestroy {
 
     data: WrappedForm;
 
+    private isStudentUser = false; // set this to true for students viewing their own form
 
     constructor(
         public route: ActivatedRoute,
         public formService: FormsService) { }
 
+    setStudentUser(b: boolean) {
+        this.isStudentUser = b;
+    }
   
     ngOnInit() {
     }
@@ -67,7 +71,11 @@ export class AbstractFormRead implements OnInit, OnDestroy {
     
         this.data = new WrappedForm({});
         this.busy = true;
-        this.formService.getFormData2(this.formInfo.formName, this.formInfo._id);
+        this.formService.getFormData2(
+            this.formInfo.formName,
+            this.formInfo._id,
+            this.isStudentUser
+        );
 
     
     }

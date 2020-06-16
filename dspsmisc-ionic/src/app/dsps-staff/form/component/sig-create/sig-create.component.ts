@@ -7,6 +7,7 @@ import { WrappedForm } from 'src/app/model/wrapped-form.model';
 import { Subscription } from 'rxjs';
 import { SubscriptionUtil } from 'src/app/util/subscription-util';
 import { SignatureStatus } from 'src/app/model/sig-status.model';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-sig-create',
@@ -32,7 +33,12 @@ export class SigCreateComponent implements OnInit, OnDestroy {
 
   busy = false;
 
-  constructor(private formService: FormsService) { 
+  // prevent multiple submits
+  signatureSubmitted = false;
+
+  constructor(
+    public formService: FormsService,
+    public modalCtrl: ModalController) { 
 
     this.sigForm = new FormGroup({
 
@@ -46,18 +52,29 @@ export class SigCreateComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() { }
+
+  ionViewWillEnter() {
+    this.signatureSubmitted = false;
+  }
   
+ 
   signIt() {
 
     if (!this.sigForm.valid || !this.signer || !this.formBeingSigned) {
       return;
     }
 
+     // ngOnSubmit and onEnterKeyDown() can cause multiple submits. 
+    if (this.signatureSubmitted) {
+      return;
+    }
+
+    this.signatureSubmitted = true;
     
     const now = new Date();
     const signature = new Signature({
       formName: this.formBeingSigned.formName,
-      formId: this.formBeingSigned.formKey,
+      formId: this.formBeingSigned._id,
       formVersion: this.formBeingSigned.currentVersion || null,
       email: this.signer.email,
       collegeId: this.signer.collegeId,
@@ -77,12 +94,17 @@ export class SigCreateComponent implements OnInit, OnDestroy {
 
         this.busy = false;
         this.signatureStatus = res;
+
+         // dismiss modal
         if (res.err) {
           console.log(res.err);
+          this.modalCtrl.dismiss({ err: res.err}, 'confirmed');
         } else {
             // signature saved successfully
           console.log(res.message);
+          this.modalCtrl.dismiss({message: res.message, signature: res.signature}, 'confirmed');
         }
+       
       });
 
     // sign the form
