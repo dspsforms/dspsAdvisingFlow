@@ -22,7 +22,7 @@
      
       
       <!-- if there are no signatures yet, just show the signature status -->
-      <ion-list *ngIf="!signatures || signatures.length == 0">
+      <ion-list *ngIf="!signatures || signatures?.length === 0">
         <ion-item *ngIf="sigStatus">
           <ion-text>Student Signature: 
             <span class="capitalize"> {{ sigStatus }} </span></ion-text>
