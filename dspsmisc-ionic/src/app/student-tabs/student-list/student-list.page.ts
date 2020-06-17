@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
-import { FormsService } from '../dsps-staff/form/forms.service';
+import { SubscriptionUtil } from 'src/app/util/subscription-util';
+import { AuthData } from 'src/app/auth/auth-data.model';
 import { Subscription } from 'rxjs';
-import { SubscriptionUtil } from '../util/subscription-util';
-import { AuthData } from '../auth/auth-data.model';
+import { AuthService } from 'src/app/auth/auth.service';
+import { FormsService } from 'src/app/dsps-staff/form/forms.service';
 import { NavController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-student',
-  templateUrl: './student.page.html',
-  styleUrls: ['./student.page.scss'],
+  selector: 'app-student-list',
+  templateUrl: './student-list.page.html',
+  styleUrls: ['./student-list.page.scss'],
 })
-export class StudentPage implements OnInit {
+export class StudentListPage implements OnInit {
 
-  studentUser : AuthData;
+  studentUser: AuthData;
   studentRecordsSub: Subscription;
 
-  listOfForms : {};
+  listOfForms: {};
   err;
-  message : string;
+  message: string;
 
   busy = false;
 
@@ -69,4 +69,5 @@ export class StudentPage implements OnInit {
     const url = '/student/student-view-form/' + form.formName + '/' + form._id;
     this.navCtrl.navigateForward(url);
   }
+
 }

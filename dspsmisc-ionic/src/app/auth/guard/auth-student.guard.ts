@@ -17,7 +17,7 @@ export class AuthStudentGuard implements CanLoad {
       if (this.authService.getIsStudentAuth()) {
         return true;
       } else {
-        this.router.navigateByUrl('/auth');
+        this.router.navigateByUrl('/landing');
         return false;
       }
   }

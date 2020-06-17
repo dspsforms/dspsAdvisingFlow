@@ -63,7 +63,7 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
     // blue sheet header
     this.form = new FormGroup({
       instructor: new FormControl( null, {
-        updateOn: 'blur',
+        updateOn: 'change',
         validators: [Validators.required]
       }),
       semester: new FormControl(null, {
@@ -71,7 +71,7 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
         validators: [Validators.required]
       }),
       year: new FormControl( null , {
-        updateOn: 'blur',
+        updateOn: 'change',
         validators: [Validators.required, Validators.min(2020)]
       }),
       course: new FormControl( null, {
@@ -105,7 +105,7 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
         validators: [Validators.required, FormValidators.collegeIdFormat]
       }),
       studentEmail: new FormControl( null, {
-        updateOn: 'blur',
+        updateOn: 'change',
         validators: [Validators.required, Validators.email, FormValidators.validWvmEmail]
       }),
       examsWithAccommodations: new FormGroup({

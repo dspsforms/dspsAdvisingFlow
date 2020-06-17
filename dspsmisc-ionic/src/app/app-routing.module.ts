@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthDspsGuard } from './auth/guard/auth-dsps.guard';
+import { AuthStudentGuard } from './auth/guard/auth-student.guard';
 
 const routes: Routes = [
   {
@@ -30,7 +31,8 @@ const routes: Routes = [
   },
   {
     path: 'student',
-    loadChildren: () => import('./student/student.module').then( m => m.StudentPageModule)
+    loadChildren: () => import('./student-tabs/student-tabs.module').then( m => m.StudentTabsPageModule),
+    canLoad: [AuthStudentGuard]
   },
   {
     path: 'instructor',
@@ -45,7 +47,7 @@ const routes: Routes = [
     loadChildren: () => import('./print-view/print-view.module').then(m => m.PrintViewPageModule),
     // canLoad: [AuthFooGuard]  -- TODO create a new guard that will allow student to see their's
     // instructor to see what they have a right to see, and dsps to see everything
-  },
+  }
  
   
 ];

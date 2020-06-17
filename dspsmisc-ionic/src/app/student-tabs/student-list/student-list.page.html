@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="m1"></ion-menu-button>
+    </ion-buttons>
+    <ion-title> Hi {{ studentUser?.name }} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngIf="keys">
+    <ion-row *ngFor="let key of keys;" >
+      <ion-col size-sm="8" offset-sm="2">
+
+        <ion-card >
+          <ion-card-header> 
+            <ion-card-title class="capitalize"> {{ key }} </ion-card-title>
+            </ion-card-header>
+    
+          <ion-card-content>
+            <ion-item *ngIf="!listOfForms[key] || listOfForms[key].length == 0"> There is no item to show</ion-item>
+    
+            <ion-grid>
+              <ion-row *ngFor="let form of listOfForms[key]; " 
+                (click)="showForm(form)" >
+                <ion-col>
+                  <ion-item>
+                    <ion-text class="some-space">{{ form.formName }} </ion-text> 
+                  </ion-item>
+                </ion-col>
+                <ion-col>
+                  <ion-item>
+                    <ion-text class="some-space">{{ form.lastMod | date }}</ion-text>
+                  </ion-item>
+                </ion-col>
+                <ion-col>
+                  <ion-item *ngIf="form.studentSigStatus === 'pending'">
+                    <ion-text> needs signature </ion-text>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+    
+
+  </div>
+
+</ion-content>
+
