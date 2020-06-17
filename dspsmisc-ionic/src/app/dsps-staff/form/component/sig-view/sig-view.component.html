@@ -12,7 +12,11 @@
                 <ion-item class="signature">{{ sig.signature }}</ion-item>
                 <ion-item class="smaller"> Date: {{ sig.signatureDate | date }}</ion-item>
                 <ion-item *ngIf="sig.formVersion" class="smaller">Version of form signed: {{ sig.formVersion}}</ion-item>
-            </ion-list>
+              </ion-list>
+              <!-- <ion-item *ngIf="signatures">
+                (Student has acknowleged they have reviewed and agreed to DSPS Policies and Procedures
+                  on web page.)
+              </ion-item> -->
           </ion-card-content>
         </ion-card>
      

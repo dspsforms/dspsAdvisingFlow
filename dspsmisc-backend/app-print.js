@@ -57,8 +57,20 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use((req, res, next) => {
+  console.log("req.originalUrl=", req.originalUrl);
+  next();
+});
+
+app.use( (req, res, next) => {
+  console.log("2nd time req.originalUrl=", req.originalUrl);
+  next();
+});
+
 app.use("/pdf", express.static(path.join(__dirname, "/pdf")));
 app.use("/", express.static(path.join(__dirname, "/angular-print")));
+
+
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");

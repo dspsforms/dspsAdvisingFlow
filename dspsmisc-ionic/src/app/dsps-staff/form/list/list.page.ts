@@ -123,33 +123,38 @@ export class ListPage implements OnInit, OnDestroy {
   }
 
   getVal(item) {
+
+    // lastName_firstName_collegeId_course_semester_year -- 
+
+    let result = item.formWithLatestHistory.studentLastName.val + '_' +
+        item.formWithLatestHistory.studentFirstName.val + '_' +
+      item.formWithLatestHistory.collegeId.val;
+    
     if (this.formInfo.formName === FormName.BLUESHEET) {
-      return item.formWithLatestHistory.studentName.val + '  -  ' + item.formWithLatestHistory.course.val;
+      // these are all required fields in bluesheet
+      result  += '_' + item.formWithLatestHistory.course.val + '_' + 
+        item.formWithLatestHistory.semester.val + '_' + 
+        item.formWithLatestHistory.year.val;
+      
     } else if (this.formInfo.formName === FormName.AAP1) {
-      return item.formWithLatestHistory.studentName.val + '  -  ' + item.formWithLatestHistory.collegeId.val;
-    } else if (this.formInfo.formName === FormName.AAP2) {
-      return item.formWithLatestHistory.studentName.val + '  -  ' + item.formWithLatestHistory.collegeId.val;
-    } else if (this.formInfo.formName === FormName.GREENSHEET) {
-      return item.formWithLatestHistory.studentName.val + '  -  ' + item.formWithLatestHistory.collegeId.val;
+      // for AAP1, add semester if non empty
+      if (item.formWithLatestHistory.semester && item.formWithLatestHistory.semester.val) {
+        result += "_" + item.formWithLatestHistory.semester.val;
+      }
+
+    }
+    // else if (this.formInfo.formName === FormName.AAP2) {
+    //   // for AAP2, nothing to add.
+    // }
+    else if (this.formInfo.formName === FormName.GREENSHEET) {
+      // for greensheet, add semester if non empty 
+      // (same as AAP1, but keeping it a separate block, in case requirements change)
+      if (item.formWithLatestHistory.semester && item.formWithLatestHistory.semester.val) {
+        result += "_" + item.formWithLatestHistory.semester.val;
+      }
     }
 
-
-    // old site:
-
-    // if (item.formWithLatestHistory.fullName.val) {
-    //   return item.formWithLatestHistory.fullName.val;
-    // }
-
-    // // for complaint, it's firstName middle lastName
-    // else {
-    //   let c = item.formWithLatestHistory.firstName.val;
-    //   if (item.formWithLatestHistory.middle.val) {
-    //     c += " " + item.formWithLatestHistory.middle.val;
-    //   }
-    //   c += " " + item.formWithLatestHistory.lastName.val;
-
-    //   return c;
-    // }
+    return result;
 
   }
 

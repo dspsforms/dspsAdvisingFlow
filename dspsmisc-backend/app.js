@@ -22,6 +22,7 @@ const ownFormRoutes = require('./routes/own-form-routes');
 const signatureRoutes = require('./routes/signature-routes');
 
 
+
 // Connection URL
 // const uri = 'mongodb://localhost:27017/simpledsps';
 const uri = config.MONGO_URL;
@@ -73,6 +74,11 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// doesn't work
+// app.use("/print/", express.static(path.join(__dirname, "angular-print")));
+
+
 
 app.use("/", express.static(path.join(__dirname, "angular-ionic")));
 
@@ -134,9 +140,14 @@ app.use("/api/user", userRoutes);
 app.use("/api/ownform", ownFormRoutes);
 app.use("/api/signform", signatureRoutes);
 
-// app.use('/print', (req, res, next) => {
+// doesn't work
+// app.use("/print", (req, res, next) => {
 //   res.sendFile(path.join(__dirname, "angular-print", "index.html"));
 // });
+// app.use("/print\/*", (req, res, next) => {
+//   res.sendFile(path.join(__dirname, "angular-print", "index.html"));
+// });
+
 
 app.use((req, res, next) => {
   res.sendFile(path.join(__dirname, "angular-ionic", "index.html"));

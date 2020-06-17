@@ -92,13 +92,17 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
         asynchronous: new FormControl( false, { updateOn: 'change' }),
         hybrid: new FormControl( false, {  updateOn: 'change' }),
       }),
-      studentName: new FormControl(null, {
+      studentLastName: new FormControl(null, {
+        updateOn: 'change',
+        validators: [Validators.required]
+      }),
+      studentFirstName: new FormControl(null, {
         updateOn: 'change',
         validators: [Validators.required]
       }),
       collegeId: new FormControl( null, {
         updateOn: 'change',
-        validators: [Validators.required]
+        validators: [Validators.required, FormValidators.collegeIdFormat]
       }),
       studentEmail: new FormControl( null, {
         updateOn: 'blur',

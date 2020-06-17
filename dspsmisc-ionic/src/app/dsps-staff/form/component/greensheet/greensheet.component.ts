@@ -10,6 +10,7 @@ import { LastOperationStatusService } from '../../last-operation-status.service'
 import { UserService } from 'src/app/dsps-staff/user/user.service';
 import { FormName } from 'src/app/model/form.util';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormValidators } from '../../form-validators';
 
 @Component({
   selector: 'app-greensheet',
@@ -71,20 +72,24 @@ export class GreensheetComponent extends AbstractFormSubmit implements OnInit, O
 
       // where there are validators, updateOn blur. else, updateOn change
       semester: new FormControl(null, { updateOn: 'change' }),
-      studentName: new FormControl(null, {
-        updateOn: 'blur',
+      studentLastName: new FormControl(null, {
+        updateOn: 'change',
+        validators: [Validators.required]
+      }),
+      studentFirstName: new FormControl(null, {
+        updateOn: 'change',
         validators: [Validators.required]
       }),
       collegeId: new FormControl( null, {
         updateOn: 'blur',
-        validators: [Validators.required]
+        validators: [Validators.required, FormValidators.collegeIdFormat]
       }),
       studentEmail: new FormControl( null, {
         updateOn: 'blur',
         validators: [Validators.email]
       }),
       completedBySignature: new FormControl(null, {
-        updateOn: 'blur',
+        updateOn: 'change',
         validators: [Validators.required]
       }), // signature, shown to user
       // student sig also needed
@@ -150,7 +155,7 @@ Other
         learningDisabled: new FormControl(false, { updateOn: 'change' }),
         mentalHealthDisabilty: new FormControl(false, { updateOn: 'change' }),
         physicalDisability: new FormControl(false, { updateOn: 'change' }),
-        other: new FormControl(null, { updateOn: 'change' }),
+        other: new FormControl(false, { updateOn: 'change' }),
      
       }),
 
@@ -166,7 +171,7 @@ Other
         learningDisabled: new FormControl(false, { updateOn: 'change' }),
         mentalHealthDisabilty: new FormControl(false, { updateOn: 'change' }),
         physicalDisability: new FormControl(false, { updateOn: 'change' }),
-        other: new FormControl(null, { updateOn: 'change' }),
+        other: new FormControl(false, { updateOn: 'change' }),
       }),
 
     });
