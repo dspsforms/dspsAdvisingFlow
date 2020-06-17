@@ -24,7 +24,7 @@ const commonFormSchema = mongoose.Schema({
     captchaScore: { type: String },
     state: { type: String, index: true },
     studentSigStatus: { type: String, index: true }, // 'pending', 'signed', 'not-required'
-    studentSigId: { type: String, index: true, unique: true } // key in student-sig collection
+    studentSigId: { type: String, index: true } // key in signature collection. multiple signatures are possible, one for each version
 });
 
 commonFormSchema.pre('save', function(next) {
