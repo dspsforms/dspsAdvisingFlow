@@ -1,0 +1,54 @@
+
+<!-- if there are signatures, show it as an ion-card -->
+<div class="row">
+  <div class="col-sm-5">
+
+    <div *ngIf="signatures?.length > 0">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="panel-title inline">
+            Student Signature
+          </div>
+        </div> <!-- panel-heading -->
+        <div class="panel-body">
+
+        </div> <!-- panel body-->
+      </div> <!-- panel -->
+
+    </div> <!-- signatures not empty -->
+
+    <div *ngIf="signatures?.length > 0">
+
+          <div *ngFor="let sig of signatures; ">
+            <ul class="list-group">
+              <li class="list-group-item"> {{ sig.signature }} </li>
+              <li class="list-group-item smaller"> Date: {{ sig.signatureDate | date }} </li>
+              <li *ngIf="sig.formVersion" class="list-group-item smaller"> Version of form signed: {{ sig.formVersion}} </li>
+            </ul>
+          </div> <!-- ngFor -->
+
+    </div> <!-- signatures?.length > 0 -->
+
+
+    <!-- <div *ngIf="signatures">
+                (Student has acknowleged they have reviewed and agreed to DSPS Policies and Procedures
+                  on web page.)
+    </div> -->
+
+    <!-- if there are no signatures yet, just show the signature status -->
+    <ul *ngIf="!signatures || signatures?.length === 0" class="list-group">
+        <li  *ngIf="sigStatus" class="list-group-item">
+          Student Signature:
+            <span class="capitalize"> {{ sigStatus }} </span>
+          </li>
+    </ul>
+
+    <!-- tabindex needed for focus. it's very tiny
+      so not really visible -->
+    <div class="tiny" tabindex="1" #sigCards > </div>
+
+  </div> <!-- col -->
+</div> <!-- row -->
+
+

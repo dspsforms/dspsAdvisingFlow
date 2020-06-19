@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  server: "http://localhost:3002",
+
+  enforceWvmEmail: false,
+
+  // client side key for reCaptcha V3.
+  // the data here is NOT a valid key. supply your own
+  reCaptchaV3ClientKey: 'asdfghklzxcvbnmqwertyuiop'
 };
 
 /*

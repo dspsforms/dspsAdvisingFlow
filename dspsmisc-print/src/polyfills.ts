@@ -57,6 +57,9 @@
  */
 import 'zone.js/dist/zone';  // Included with Angular CLI.
 
+// https://stackoverflow.com/questions/50965794/angular-6-cant-resolve-all-parameters-for-appcomponent
+// import 'core-js/es7/reflect';
+
 
 /***************************************************************************************************
  * APPLICATION IMPORTS

@@ -1,0 +1,38 @@
+
+<!-- 3 col grid -->
+<div class="grid3col-aap1">
+
+    <!-- first child of inner grid -->
+    <div>
+      <div>  {{ label }}  </div>
+
+        <!--
+          if checkbox, make slot=start for ion-checkbox
+
+          if text, make position=floating for ion-label
+
+        -->
+        <div>
+        <div *ngIf="controlType === 'checkbox'">
+          TODO if checked, yes. otherwise blank
+        </div>
+        <div *ngIf="controlType !== 'checkbox'">
+          TODO print form value
+        </div>
+      </div>
+    </div> <!-- end, first child of inner grid-->
+
+    <!-- 2nd child of inner grid -->
+    <div>
+        <!-- if none available, this will be empty -->
+        {{ lastHistoricalUser}}
+    </div>
+
+    <!-- 3rd child of inner grid -->
+    <div>
+        <!-- if none available, this will be empty -->
+        {{ lastHistoricalDate | date}}
+    </div>
+
+  </div> <!-- end of 3 col grid -->
+

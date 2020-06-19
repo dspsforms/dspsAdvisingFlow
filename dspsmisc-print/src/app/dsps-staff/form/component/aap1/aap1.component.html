@@ -1,0 +1,114 @@
+
+<div class="container-fluid" *ngIf="wrappedForm" >
+
+  <!-- <h1>{{ formTitle }} </h1> -->
+
+  <h1>AAP Part 1</h1>
+
+  <div class="row">
+    <div class="col-sm-12">
+
+  <app-aap1header [wrappedForm]="wrappedForm" ></app-aap1header>
+
+  <!-- <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Educational Limitations</th>
+      <th>Accommodations, Auxiliary Aids and/or Instructions</th>
+      <th>DSPS Specialist Approval Signature</th>
+      <th>Date </th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+      <app-written-course-req [wrappedForm]="wrappedForm" [userList]="dspsUserListSmall"></app-written-course-req>
+
+    </tbody>
+  </table> -->
+
+  <!-- four column grid -->
+
+  <div class="grid2col-aap1">
+    <!-- first child -->
+    <div class="bold">Educational Limitations</div>
+
+    <!-- second child, itself a grid-->
+    <div class="grid3col-aap1">
+      <div class="bold">Accommodations, Auxiliary Aids and/or Instructions</div>
+      <div class="bold">DSPS Specialist Approval Signature</div>
+      <div class="bold">Date</div>
+    </div>
+  </div>
+
+  <app-written-course-req [wrappedForm]="wrappedForm" [userList]="dspsUserListSmall"></app-written-course-req>
+
+
+
+
+  <!-- <app-moving-around-campus [form]="form" [userList]="dspsUserListSmall"></app-moving-around-campus>
+
+  <app-visual-aids [form]="form" [userList]="dspsUserListSmall"></app-visual-aids>
+
+  <app-tests [form]="form" [userList]="dspsUserListSmall" ></app-tests>
+
+  <app-hear-lectures [form]="form" [userList]="dspsUserListSmall" ></app-hear-lectures>
+
+  <app-plan-classes [form]="form" [userList]="dspsUserListSmall" ></app-plan-classes>
+
+  <app-personal-issues [form]="form" [userList]="dspsUserListSmall"></app-personal-issues>
+
+  <app-facilities [form]="form" [userList]="dspsUserListSmall" ></app-facilities>
+
+  <app-career  [form]="form" [userList]="dspsUserListSmall" ></app-career>
+
+  <app-develop-skills  [form]="form" [userList]="dspsUserListSmall" ></app-develop-skills>
+
+  <app-health-related-support [form]="form" [userList]="dspsUserListSmall" ></app-health-related-support>
+
+  <app-other [form]="form" [userList]="dspsUserListSmall" ></app-other>
+
+  <app-aap1footer [form]="form" [userList]="dspsUserListSmall" [mode]="mode"></app-aap1footer> -->
+
+  </div> <!-- col -->
+</div>  <!-- row -->
+
+
+  <div class="row">
+    <div class="col" size-sm="4">
+      <div *ngIf="lastModifiedBy" >
+        <label >
+          Last edited by  {{ lastModifiedBy }},  {{ lastModified | date }}.
+        </label>
+      </div>
+    </div> <!-- col -->
+    <div class="col" size-sm="2">
+        <div *ngIf="currentVersion" >
+          <label >
+             Version:  {{ currentVersion }}
+          </label>
+        </div>
+      </div> <!-- col -->
+
+    </div> <!-- row -->
+
+  <div class="row">
+    <div class="col">
+
+
+
+  <!--- show the signature, if it exists, only in view mode -->
+
+  <!-- TODO -->
+  <!-- <app-sig-view
+    *ngIf="mode === 'view'"
+    [signatures]="wrappedForm.signatures"
+    [sigStatus]="wrappedForm.studentSigStatus"
+    [focusOnSignature]="focusOnSignature" ></app-sig-view> -->
+
+  <!-- TODO student needs to see the app-sig-create component as well, in view mode -->
+
+</div> <!-- col -->
+</div>  <!-- row -->
+
+</div> <!-- container -->

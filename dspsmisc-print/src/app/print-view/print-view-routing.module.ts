@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { GenericComponent } from './generic/generic.component';
-import { ViewFormComponent } from './view-form/view-form.component';
+
 
 // todo: create guards
 
@@ -17,7 +17,8 @@ const routes: Routes = [
   },
   {
     path: 'view/:formName/:formId',
-    component: ViewFormComponent,
+    loadChildren: () => import('./view-form/view-form.module').then( m => m.ViewFormComponentModule)
+    // component: ViewFormComponent,
     // canActivate: [SomeGuard]  // TODO
   },
 

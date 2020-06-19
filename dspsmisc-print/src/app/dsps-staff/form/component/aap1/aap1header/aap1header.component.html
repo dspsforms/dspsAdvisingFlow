@@ -1,0 +1,49 @@
+
+  <div class="panel panel-default">
+
+    <div class="panel-body">
+      <table class="table table-bordered">
+        <tr><td>Semester</td> <td> {{ wrappedForm.formWithLatestHistory['semester'].val }} </td></tr>
+        <tr><td>Name</td>
+          <td> {{ wrappedForm.formWithLatestHistory['studentLastName'].val }} ,
+            {{ wrappedForm.formWithLatestHistory['studentFirstName'].val }}</td></tr>
+        <tr><td>Student ID</td> <td> {{ wrappedForm.formWithLatestHistory['collegeId'].val }} </td></tr>
+        <tr><td>Student WVM Email</td> <td> {{ wrappedForm.formWithLatestHistory['studentEmail'].val }} </td></tr>
+      </table>
+
+      <div>
+        <h2>General Description</h2>
+        <p>
+         The services listed below may be provided to a student by DSPS only
+         if all of the following conditions have been met:</p>
+         <ol>
+          <li>
+            the approved accommodations do not duplicate services or instruction which
+           are otherwise available to all students;
+           </li>
+           <li>
+            the accommodations are directly related to the educational limitations of
+           the verified disabilities of the student to be served;
+           </li>
+           <li>
+            the accommodations are directly related to the student’s participation in
+           the educational process at this college; and
+           </li>
+           <li>
+            the accommodations are
+           intended to promote the maximum independence and integration of the student,
+           and aid in supporting the student’s participation in educational activities
+           consistent with the mission of the community colleges.
+           </li>
+         </ol>
+
+         <p>
+          In addition,
+          the college may decline to provide accommodations that would necessitate
+          fundamental alterations of academic requirements.
+         </p>
+
+
+      </div>
+    </div> <!-- panel-body -->
+  </div> <!-- panel, panel-default -->

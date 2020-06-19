@@ -13,6 +13,7 @@ import { AbstractFormRead } from '../abstract-form-read';
 })
 export class ViewPage extends AbstractFormRead implements OnInit, OnDestroy {
 
+
   constructor(
     public route: ActivatedRoute,
     public formService: FormsService,

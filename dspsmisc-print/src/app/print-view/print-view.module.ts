@@ -7,7 +7,7 @@ import { PrintViewRoutingModule } from './print-view-routing.module';
 
 import { PrintViewComponent } from './print-view.component';
 import { GenericComponent } from './generic/generic.component';
-import { ViewFormComponent } from './view-form/view-form.component';
+// import { ViewFormComponent } from './view-form/view-form.component';
 
 
 @NgModule({
@@ -20,7 +20,7 @@ import { ViewFormComponent } from './view-form/view-form.component';
   declarations: [
     PrintViewComponent,
     GenericComponent,
-    ViewFormComponent
+    // ViewFormComponent
   ]
 })
 export class PrintViewModule {}

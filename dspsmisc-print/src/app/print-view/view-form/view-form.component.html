@@ -1,1 +1,11 @@
-<p>view-form works!</p>
+<div *ngIf="formInfo.formName == 'aap1' && data && !busy ">
+
+  <app-aap1
+    [formKey]="data._id"
+    [wrappedForm]="data"
+    [mode]="'view'"
+    >
+
+  </app-aap1>
+
+ </div>

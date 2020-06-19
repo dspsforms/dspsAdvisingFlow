@@ -1,0 +1,71 @@
+
+    <div class="grid2col-aap1">
+      <!-- first child-->
+      <div>
+          Produce class notes, homework, course requirements, assignments
+          and other written course requirements
+      </div>
+
+    <!-- second child -->
+    <div>
+
+      <app-elem-with-sig [wrappedForm]="wrappedForm"
+        fGroupName="writtenCourseReq"
+        cName="adaptedComputer"
+        controlType="checkbox"
+        label="Adapted Computer / Equipment"
+        [userList]="userList"
+      > </app-elem-with-sig>
+
+
+      <app-elem-with-sig [wrappedForm]="wrappedForm"
+        fGroupName="writtenCourseReq"
+        cName="assistiveTech"
+        controlType="checkbox"
+        label="Assistive Technology"
+        [userList]="userList"
+      > </app-elem-with-sig>
+
+      <app-elem-with-sig [wrappedForm]="wrappedForm"
+        fGroupName="writtenCourseReq"
+        cName="digRecorder"
+        controlType="checkbox"
+        label="Digital Recorder / Smart Pen"
+        [userList]="userList"
+      > </app-elem-with-sig>
+
+      <app-elem-with-sig [wrappedForm]="wrappedForm"
+        fGroupName="writtenCourseReq"
+        cName="noteTaker"
+        controlType="checkbox"
+        label="Shared notes"
+        [userList]="userList"
+      > </app-elem-with-sig>
+
+    <app-elem-with-sig [wrappedForm]="wrappedForm"
+      fGroupName="writtenCourseReq"
+      cName="scribe"
+      controlType="checkbox"
+      label="Scribe / Voice to text application"
+      [userList]="userList"
+    > </app-elem-with-sig>
+
+    <app-elem-with-sig [wrappedForm]="wrappedForm"
+      fGroupName="writtenCourseReq"
+      cName="spellChecker"
+      controlType="checkbox"
+      label="Spell Checker"
+      [userList]="userList"
+    > </app-elem-with-sig>
+
+    <app-elem-with-sig [wrappedForm]="wrappedForm"
+      fGroupName="writtenCourseReq"
+      cName="other"
+      controlType="text"
+      label="Other"
+      [userList]="userList"
+    > </app-elem-with-sig>
+
+  </div> <!-- second col -->
+
+
