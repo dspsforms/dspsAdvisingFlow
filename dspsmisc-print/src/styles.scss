@@ -3,25 +3,28 @@
   display:grid;
   grid-template-columns: minmax(200px, 1fr) 3fr;
   grid-gap: 0px;
+
 }
 
 .grid3col-aap1 {
   display:grid;
-  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  grid-template-columns: minmax(200px, 2fr) repeat(2, minmax(180px, 1fr));
   grid-gap: 0px;
+
 }
 
 // each child of grid2col-aap1
 .grid2col-aap1 > div {
   margin: 0px;
-  padding: 7px;
-  border: 1px solid black;
+  // padding: 7px;
+  border: 1px solid rgb(220, 224, 230);
+
 }
 
 .grid3col-aap1 > div {
   margin: 0px;
-  padding-right: 7px;
-  border: 1px solid black;
+  padding-left: 7px;
+  border: 1px solid rgb(220, 224, 230);
 }
 
 .strong {

@@ -4,22 +4,27 @@
 
     <!-- first child of inner grid -->
     <div>
-      <div>  {{ label }}  </div>
 
-        <!--
-          if checkbox, make slot=start for ion-checkbox
+      <!-- if checkbox,  another 2-col grid -->
+      <div *ngIf="controlType === 'checkbox'" class="grid-checkbox-elem">
 
-          if text, make position=floating for ion-label
-
-        -->
+        <!-- first child -->
         <div>
-        <div *ngIf="controlType === 'checkbox'">
-          TODO if checked, yes. otherwise blank
+          <!-- if value, checked. else unchecked-->
+          <i *ngIf="value" class="glyphicon glyphicon-check mybtn-blue"></i>
+          <i *ngIf="!value" class="glyphicon glyphicon-unchecked mybtn-grey"></i>
         </div>
-        <div *ngIf="controlType !== 'checkbox'">
-          TODO print form value
-        </div>
+
+        <!-- second child -->
+        <div>  {{ label }}  </div>
+
+      </div> <!-- end checkbox -->
+
+      <!-- not a checkbox means a text field. radios are not handled by this component -->
+      <div *ngIf="controlType !== 'checkbox'">
+        <div>  {{ label }}:  <span class="highlight"> {{ value }} </span> </div>
       </div>
+
     </div> <!-- end, first child of inner grid-->
 
     <!-- 2nd child of inner grid -->
