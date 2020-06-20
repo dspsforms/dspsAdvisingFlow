@@ -1,13 +1,11 @@
-<div [formGroup]="form">
 
-
-  <ion-row>
-    <ion-col>
+  <div class="row vert-space-footer-1">
+    <div class="col-sm-10 col-sm-offset-1">
      <p class="strong">
-      I, the undersigned DSPS professional, agree that the 
-      accommodations approved above are reasonable for certain classes or 
-      educational settings at this college and may not apply to other institutions. 
-      If an agreement between faculty member, student, and myself cannot be reached, 
+      I, the undersigned DSPS professional, agree that the
+      accommodations approved above are reasonable for certain classes or
+      educational settings at this college and may not apply to other institutions.
+      If an agreement between faculty member, student, and myself cannot be reached,
       I will refer the student to the formal college grievance procedure.
      </p>
      <p class="strong">
@@ -15,29 +13,15 @@
       DSPS policies and procedures document</a> that is also posted on the
       <a href="https://missioncollege.edu/depts/disability-support-programs/forms.html" >DSPS website.</a>
      </p>
-    </ion-col>
-  </ion-row>
+    </div> <!-- col -->
+  </div> <!-- row -->
 
-  <ion-row>
-    <ion-col>
-      <ion-list>
-        <ion-item>
-          <ion-label  position="floating">DSPS Professional's Signature *</ion-label>
-          <ion-input 
-            type="text"
-            [class.required]="showRequired(mode)"
-            formControlName="completedBySignature"></ion-input>
-        </ion-item>
-        <ion-item *ngIf="form.get('completedBySignature').touched && !form.get('completedBySignature').valid">
-          <ion-label>Signature is needed.</ion-label>
-        </ion-item>
+  <div class="row vert-space-footer-2">
+    <div class="col-sm-10 col-sm-offset-1">
+      <p>
+      DSPS Professional's Signature: {{ completedBySignature }}
+      </p>
 
-        <!-- <ion-item>
-          <ion-label>(Date of signature will be the date you submit this form first.)</ion-label>
-        </ion-item> -->
-      </ion-list>  
-    </ion-col>
-  </ion-row>
+    </div> <!-- col -->
+  </div> <!-- row-->
 
-
-</div>

@@ -1,0 +1,46 @@
+
+<div class="grid2col-aap1">
+  <!-- first child-->
+  <div>
+    Moving around campus or classroom
+  </div>
+
+  <!-- second child -->
+  <div>
+
+
+  <app-elem-with-sig [wrappedForm]="wrappedForm"
+    fGroupName="movingAroundCampus"
+    cName="bypassLines"
+    controlType="checkbox"
+    label="By-pass Lines"
+    [userList]="userList"  >
+  </app-elem-with-sig>
+
+  <app-elem-with-sig [wrappedForm]="wrappedForm"
+    fGroupName="movingAroundCampus"
+    cName="mobilityOrientation"
+    controlType="checkbox"
+    label="Mobility Orientation"
+    [userList]="userList" >
+  </app-elem-with-sig>
+
+  <app-elem-with-sig [wrappedForm]="wrappedForm"
+    fGroupName="movingAroundCampus"
+    cName="serviceAnimal"
+    controlType="checkbox"
+    label="Service Animal"
+    [userList]="userList" >
+  </app-elem-with-sig>
+
+
+
+  <app-elem-with-sig [wrappedForm]="wrappedForm"
+    fGroupName="movingAroundCampus"
+    cName="other"
+    controlType="text"
+    label="Other"
+    [userList]="userList" >
+  </app-elem-with-sig>
+
+</div> <!-- second col -->

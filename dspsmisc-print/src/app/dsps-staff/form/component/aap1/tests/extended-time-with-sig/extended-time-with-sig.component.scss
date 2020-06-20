@@ -1,0 +1,15 @@
+.grid-extended-time-outer {
+    display:grid;
+    grid-template-columns: minmax(242px, 1fr); /* one column only */
+    grid-gap: 0px;
+    
+}
+.grid4-extended-time-inner {
+    display:grid;
+    grid-template-columns: repeat(4, minmax(75px, 1fr));
+    grid-gap: 5px;
+ }
+
+.bottom-border {
+    border-bottom: 1px dashed grey;
+}

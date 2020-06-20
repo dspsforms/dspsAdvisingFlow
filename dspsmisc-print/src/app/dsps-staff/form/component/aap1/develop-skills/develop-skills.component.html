@@ -1,0 +1,48 @@
+<div class="grid2col-aap1">
+  <!-- first child-->
+  <div>
+    Develop cognitive, communication
+    and basic skills to complete course requirements
+  </div>
+
+  <!-- second child -->
+  <div>
+
+
+
+  <app-elem-with-sig [wrappedForm]="wrappedForm"
+    fGroupName="developSkills"
+    cName="edAssistance"
+    controlType="checkbox"
+    label="Educational Assistance Classes"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [wrappedForm]="wrappedForm"
+    fGroupName="developSkills"
+    cName="ldAssessment"
+    controlType="checkbox"
+    label="LD Assessment"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [wrappedForm]="wrappedForm"
+  fGroupName="developSkills"
+  cName="tutoring"
+  controlType="checkbox"
+  label="Tutoring"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [wrappedForm]="wrappedForm"
+  fGroupName="developSkills"
+  cName="other"
+  controlType="text"
+  label="Other"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+
+</div> <!-- second col -->
+
+</div> <!-- grid2col-aap1 -->

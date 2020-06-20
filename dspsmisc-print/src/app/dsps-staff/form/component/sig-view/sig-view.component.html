@@ -1,7 +1,5 @@
 
-<!-- if there are signatures, show it as an ion-card -->
-<div class="row">
-  <div class="col-sm-5">
+<!-- if there are signatures, show it -->
 
     <div *ngIf="signatures?.length > 0">
 
@@ -12,24 +10,18 @@
           </div>
         </div> <!-- panel-heading -->
         <div class="panel-body">
-
-        </div> <!-- panel body-->
-      </div> <!-- panel -->
-
-    </div> <!-- signatures not empty -->
-
-    <div *ngIf="signatures?.length > 0">
-
           <div *ngFor="let sig of signatures; ">
             <ul class="list-group">
-              <li class="list-group-item"> {{ sig.signature }} </li>
+              <li class="list-group-item signature"> {{ sig.signature }} </li>
               <li class="list-group-item smaller"> Date: {{ sig.signatureDate | date }} </li>
               <li *ngIf="sig.formVersion" class="list-group-item smaller"> Version of form signed: {{ sig.formVersion}} </li>
             </ul>
           </div> <!-- ngFor -->
 
-    </div> <!-- signatures?.length > 0 -->
+        </div> <!-- panel body-->
+      </div> <!-- panel -->
 
+    </div> <!-- signatures not empty -->
 
     <!-- <div *ngIf="signatures">
                 (Student has acknowleged they have reviewed and agreed to DSPS Policies and Procedures
@@ -48,7 +40,5 @@
       so not really visible -->
     <div class="tiny" tabindex="1" #sigCards > </div>
 
-  </div> <!-- col -->
-</div> <!-- row -->
 
 

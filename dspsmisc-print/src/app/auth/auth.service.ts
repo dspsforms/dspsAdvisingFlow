@@ -375,7 +375,9 @@ export class AuthService {
     if (!this.dataInitialized) {
       this.refreshAuthDataFromLocalStorage();
     }
-    return this.user._id;
+
+    if (this.user) { return this.user._id; }
+    else { return null; }
   }
 
   getUser() {

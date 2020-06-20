@@ -1,0 +1,26 @@
+
+<!-- 3 col grid -->
+<div class="grid3col-aap1">
+
+  <!-- first child of inner grid -->
+  <div>
+    <div>Extended Time</div>
+
+      {{ txlatedValue }}
+
+  </div> <!-- end first child of grid3col-aap1 -->
+
+  <!-- 2nd child of inner grid -->
+  <div>
+      <!-- if none available, this will be empty -->
+      {{ lastHistoricalUser}}
+  </div>
+
+  <!-- 3rd child of inner grid -->
+  <div>
+      <!-- if none available, this will be empty -->
+      {{ lastHistoricalDate | date}}
+  </div>
+
+</div> <!-- end of 3 col grid -->
+

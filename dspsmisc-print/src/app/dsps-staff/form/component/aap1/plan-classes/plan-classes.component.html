@@ -1,0 +1,47 @@
+
+ <div class="grid2col-aap1">
+  <!-- first child-->
+  <div>
+    Plan appropriate class(es) complete registration process
+  </div>
+
+<!-- second child -->
+<div>
+
+
+  <app-elem-with-sig [wrappedForm]="wrappedForm"
+    fGroupName="planClasses"
+    cName="priorityReg"
+    controlType="checkbox"
+    label="Priority Registration"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [wrappedForm]="wrappedForm"
+    fGroupName="planClasses"
+    cName="regAssistance"
+    controlType="checkbox"
+    label="Registration Assistance"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [wrappedForm]="wrappedForm"
+  fGroupName="planClasses"
+  cName="schedMofification"
+  controlType="checkbox"
+  label="Schedule Modification"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [wrappedForm]="wrappedForm"
+  fGroupName="planClasses"
+  cName="other"
+  controlType="text"
+  label="Other"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+
+</div> <!-- second col -->
+
+</div> <!-- grid2col-aap1 -->

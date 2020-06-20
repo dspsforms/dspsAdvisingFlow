@@ -1,0 +1,47 @@
+<div class="grid2col-aap1">
+  <!-- first child-->
+  <div>
+    Establish appropriate career goals,
+    prepare for and find suitable employment
+  </div>
+
+<!-- second child -->
+<div>
+
+
+  <app-elem-with-sig [wrappedForm]="wrappedForm"
+    fGroupName="career"
+    cName="careerExploration"
+    controlType="checkbox"
+    label="Career Exploration"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [wrappedForm]="wrappedForm"
+    fGroupName="career"
+    cName="jobDev"
+    controlType="checkbox"
+    label="Job Development"
+    [userList]="userList"
+  > </app-elem-with-sig>
+
+  <app-elem-with-sig [wrappedForm]="wrappedForm"
+  fGroupName="career"
+  cName="vocationalCounseling"
+  controlType="checkbox"
+  label="Vocational Counseling"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+<app-elem-with-sig [wrappedForm]="wrappedForm"
+  fGroupName="career"
+  cName="other"
+  controlType="text"
+  label="Other"
+  [userList]="userList"
+> </app-elem-with-sig>
+
+
+</div> <!-- second col -->
+
+</div> <!-- grid2col-aap1 -->

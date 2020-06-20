@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { AuthData } from 'src/app/auth/auth-data.model';
 
 import { BaseComponent } from '../../base-component';
+import { WrappedForm } from 'src/app/model/wrapped-form.model';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { BaseComponent } from '../../base-component';
 })
 export class Aap1footerComponent extends BaseComponent  implements OnInit {
 
-  @Input() form: FormGroup;
+  @Input() wrappedForm: WrappedForm;
   @Input() userList: AuthData[];
 
   @Input() mode: 'create' | 'view' | 'edit';
@@ -21,6 +22,17 @@ export class Aap1footerComponent extends BaseComponent  implements OnInit {
     super();
    }
 
-  ngOnInit() {}
+  ngOnInit() { }
+
+  get completedBySignature() {
+    if (!this.wrappedForm) { return null; }
+
+    if (this.wrappedForm.formWithLatestHistory['completedBySignature']) {
+      return this.wrappedForm.formWithLatestHistory['completedBySignature'].val;
+    } else {
+      return null;
+    }
+
+  }
 
 }

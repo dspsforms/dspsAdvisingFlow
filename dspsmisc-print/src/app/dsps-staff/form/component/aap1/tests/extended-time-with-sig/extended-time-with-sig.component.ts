@@ -1,58 +1,53 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
-// import { FormGroup, FormControl } from '@angular/forms';
-// import { AuthService } from '../../../../auth/auth.service';
-import { AuthData } from 'src/app/auth/auth-data.model';
-import { WrappedForm } from 'src/app/model/wrapped-form.model';
+import { Component, OnInit, Input } from '@angular/core';
+import { AuthService } from '../../../../../../auth/auth.service';
+import { AuthData } from '../../../../../.../../../auth/auth-data.model';
+import { WrappedForm } from '../../../../../../model/wrapped-form.model';
+
 
 @Component({
-  selector: 'app-elem-with-sig',
-  templateUrl: './elem-with-sig.component.html',
-  styleUrls: ['./elem-with-sig.component.scss'],
+  selector: 'app-extended-time-with-sig',
+  templateUrl: './extended-time-with-sig.component.html',
+  styleUrls: ['./extended-time-with-sig.component.scss'],
 })
-export class ElemWithSigComponent implements OnInit {
+export class ExtendedTimeWithSigComponent implements OnInit {
 
   @Input() wrappedForm: WrappedForm;
 
-  // name of sub group within wrappedForm
+  // name of sub group within form
   @Input() fGroupName: string;
-
-  // name of the control, within fGroupName
-  @Input() cName: string;
-
-  @Input() controlType: 'checkbox' | 'text';
-
-  @Input() label: string;
 
   @Input() userList: AuthData[];
 
-  // @Input() mode: 'create' | 'view' | 'edit';
-
-  // @Input() refToData;  // a reference so data can be written to it.
-
   date2Use: Date;
 
-  // value;
-  isCheckbox;
 
+  controlName = 'extendedTime';
 
+  currentUserId: string;
 
-  constructor() { }
+  labels = {
+    na: "N/A",
+    oneAndHalfX: "1.5x",
+    twoX: "2x",
+    threeX: "3x"
+  };
+
+  constructor(
+    private authService: AuthService) { }
 
   ngOnInit() {
 
-    // was: on edit or view, this is an object {val: foo, version: number, userId: ..., date: ...}
-    // now, it's a scalar
-    // this.value = this.wrappedForm.formWithLatestHistory[this.fGroupName][this.cName].value;
-
-    this.isCheckbox = this.controlType === 'checkbox';
-
     this.date2Use = new Date();
 
-    // console.log("currentUserId from ElemWithSigComponent.ngOnInit()=", this.currentUserId);
+    this.currentUserId = this.authService.getUserId();
+
+    console.log("extendedTimeWIthSig currentUserId from ElemWithSigComponent.ngOnInit()=", this.currentUserId);
 
   }
 
-  get value() {
+
+
+  get origValue() {
 
     if (!this.wrappedForm) { return null; }
 
@@ -66,7 +61,12 @@ export class ElemWithSigComponent implements OnInit {
     //   console.log("breakpoint ", this.cName, this.fGroupName);
     // }
 
-    return this.wrappedForm.formWithLatestHistory[this.fGroupName][this.cName].val;
+    return this.wrappedForm.formWithLatestHistory[this.fGroupName]["extendedTime"].val;
+  }
+
+  get txlatedValue() {
+    if (this.origValue) { return this.labels[this.origValue]; }
+    else { return "N/A"; }
   }
 
   // try several times
@@ -80,10 +80,13 @@ export class ElemWithSigComponent implements OnInit {
     return userName;
   }
 
+  get currentUserName() {
+    return this.getUserNameWithDelay(this.currentUserId);
+  }
 
   getUserName(userId: string) : string {
     if (userId && this.userList && this.userList.length > 0) {
-      const user = this.userList.find(u => u._id === userId);
+      const user = this.userList.find(u => u && u._id && u._id === userId);
       if (user) {
         return user.name;
       }
@@ -92,17 +95,23 @@ export class ElemWithSigComponent implements OnInit {
     return null;
   }
 
+  get emptyValue() {
+    return !this.origValue;
+
+  }
 
   get latestValueHistory() {
     if (!this.wrappedForm) { return null; }
 
-    return this.wrappedForm.formWithLatestHistory[this.fGroupName][this.cName];
+    return this.wrappedForm.formWithLatestHistory[this.fGroupName]["extendedTime"];
 
   }
 
+
+
   get lastHistoricalUser() {
     // if there is no value, return nothing
-    if (!this.value) {
+    if (!this.origValue) {
       return null;
     }
 
@@ -123,7 +132,7 @@ export class ElemWithSigComponent implements OnInit {
 
   get lastHistoricalDate() {
     // if there is no value, return nothing
-    if (!this.value) {
+    if (!this.origValue) {
       return null;
     }
 
