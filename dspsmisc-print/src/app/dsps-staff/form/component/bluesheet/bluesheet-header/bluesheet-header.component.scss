@@ -1,0 +1,7 @@
+
+.grid-4col-bluesheet-header {
+  display:grid;
+  grid-template-columns: repeat(3, minmax(200px, 1fr)) 1.2fr;
+  grid-gap: 0px;
+
+}

@@ -3,7 +3,9 @@
     <ion-buttons slot="start">
       <ion-menu-button menu="m1"></ion-menu-button>
     </ion-buttons>
-    <ion-title> {{ formInfo.formTitle }} : {{ studentName }} </ion-title>
+    <ion-title> {{ formInfo.formTitle }} 
+      <span *ngIf="formLabel"> : {{ formLabel }} </span>
+    </ion-title>
     <ion-buttons *ngIf="data.studentSigStatus === 'pending'" slot="primary">
       <ion-button color="primary"  fill="solid" (click)="openSignItModal()">
         <!-- <ion-icon color="primary" slot="icon-only" name="thumbs-up-sharp"></ion-icon> fill="clear" -->

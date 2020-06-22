@@ -1,6 +1,13 @@
 
   <div class="panel panel-default">
 
+    <div class="panel-heading">
+      <div class="panel-title inline">
+        {{ formTitle }}
+        <span *ngIf="formLabel"> : {{ formLabel }} </span>
+      </div>
+    </div> <!-- panel-heading -->
+
     <div class="panel-body">
       <table class="table table-bordered">
         <tr><td>Semester</td> <td> {{ wrappedForm.formWithLatestHistory['semester'].val }} </td></tr>

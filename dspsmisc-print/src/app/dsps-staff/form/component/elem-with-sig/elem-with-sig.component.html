@@ -4,26 +4,23 @@
 
     <!-- first child of inner grid -->
     <div>
+      <app-label-value-print
+        [controlType]="controlType"
+        [value]="value"
+        [label]="label" >
+      </app-label-value-print>
 
       <!-- if checkbox,  another 2-col grid -->
-      <div *ngIf="controlType === 'checkbox'" class="grid-checkbox-elem">
-
-        <!-- first child -->
-        <div>
-          <!-- if value, checked. else unchecked-->
-          <i *ngIf="value" class="glyphicon glyphicon-check mybtn-blue"></i>
-          <i *ngIf="!value" class="glyphicon glyphicon-unchecked mybtn-grey"></i>
-        </div>
-
-        <!-- second child -->
-        <div>  {{ label }}  </div>
-
-      </div> <!-- end checkbox -->
+      <!-- <app-checkbox-grid
+          *ngIf="controlType === 'checkbox'"
+          [value]="value"
+          [label]="label" >
+      </app-checkbox-grid> -->
 
       <!-- not a checkbox means a text field. radios are not handled by this component -->
-      <div *ngIf="controlType !== 'checkbox'">
-        <div>  {{ label }}:  <span class="highlight"> {{ value }} </span> </div>
-      </div>
+      <!-- <div *ngIf="controlType !== 'checkbox'">
+        <div>  {{ label }}:  <span class="text-highlight"> {{ value }} </span> </div>
+      </div> -->
 
     </div> <!-- end, first child of inner grid-->
 

@@ -1,0 +1,113 @@
+
+    <!-- this is one-half of a two col grid -->
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+        <div class="panel-title inline">
+          Physical Access
+        </div>
+      </div> <!-- panel-heading -->
+
+      <div class="panel-body">
+
+        <ul class="list-group">
+
+           <!--
+              accessibleDesk,
+              accessibleChair
+            -->
+          <li class="list-group-item">
+
+            <div class="grid2-inner">
+
+              <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['physicalAccess']['accessibleDesk'].val"
+                [label]="'Accessible Desk'" >
+              </app-checkbox-grid>
+
+              <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['physicalAccess']['accessibleChair'].val"
+                [label]="'Accessible Chair'" >
+              </app-checkbox-grid>
+
+            </div>
+          </li>
+
+           <!--
+              preferentialSeating, bypassLines
+            -->
+          <li class="list-group-item">
+            <div class="grid2-inner">
+
+              <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['physicalAccess']['preferentialSeating'].val"
+                [label]="'Preferential Seating'" >
+              </app-checkbox-grid>
+
+              <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['physicalAccess']['bypassLines'].val"
+                [label]="'Bypass Lines'" >
+              </app-checkbox-grid>
+
+            </div>
+          </li>
+
+          <!--
+            breaks, twoMinPerHr, fiveMinPerHr, asNeeded
+          -->
+          <li class="list-group-item">
+            <div class="grid4-inner">
+
+              <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['physicalAccess']['breaks'].val"
+                [label]="'Breaks'" >
+              </app-checkbox-grid>
+
+              <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['physicalAccess']['twoMinPerHr'].val"
+                [label]="'2 min/hr'" >
+              </app-checkbox-grid>
+
+              <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['physicalAccess']['fiveMinPerHr'].val"
+                [label]="'5 min/hr'" >
+              </app-checkbox-grid>
+
+              <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['physicalAccess']['asNeeded'].val"
+                [label]="'As needed'" >
+              </app-checkbox-grid>
+
+
+            </div> <!-- breaks grid4 -->
+          </li>
+
+          <!-- changeClassLoc  -->
+          <li class="list-group-item">
+            <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['physicalAccess']['changeClassLoc'].val"
+              [label]="'Change in Class Location'" >
+            </app-checkbox-grid>
+          </li>
+
+          <!-- other -->
+          <li class="list-group-item">
+            <app-label-value-print
+              [value]="wrappedForm?.formWithLatestHistory['physicalAccess']['other'].val"
+              [label]="'Other (Describe)'"
+              [controlType]="'text'" >
+            </app-label-value-print>
+          </li>
+
+          <li class="list-group-item">
+            <app-label-value-print
+              [value]="wrappedForm?.formWithLatestHistory['physicalAccess']['envAdjustments'].val"
+              [label]="'Environmental Adjustments (Describe)'"
+              [controlType]="'text'" >
+            </app-label-value-print>
+          </li>
+
+        </ul>
+
+    </div> <!-- panel-body -->
+  </div> <!-- panel panel-default -->

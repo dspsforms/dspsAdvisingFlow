@@ -5,12 +5,14 @@ import { RouterModule } from '@angular/router';
 
 
 import { ElemWithSigComponent } from './elem-with-sig.component';
+import { LabelValuePrintModule } from '../label-value-print/label-value-print.module';
 
 
 @NgModule({
     imports: [
         CommonModule,
         ReactiveFormsModule,
+        LabelValuePrintModule,
         RouterModule
     ],
     exports: [

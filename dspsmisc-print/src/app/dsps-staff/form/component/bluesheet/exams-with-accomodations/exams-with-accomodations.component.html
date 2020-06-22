@@ -1,0 +1,210 @@
+
+    <!-- this is one-half of a two col grid -->
+
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+        <div class="panel-title inline">
+          Examinations with Accommodations
+        </div>
+      </div> <!-- panel-heading -->
+
+      <div class="panel-body">
+
+        <ul class="list-group">
+          <li class="list-group-item">
+
+            <div class="grid4-inner">
+
+              <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['extendedTime'].val"
+                [label]="'Extended Time'" >
+              </app-checkbox-grid>
+
+              <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['oneAndHalfX'].val"
+                [label]="'1.5x'" >
+              </app-checkbox-grid>
+
+              <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['twoX'].val"
+                [label]="'2x'" >
+              </app-checkbox-grid>
+
+              <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['threeX'].val"
+                [label]="'3x'" >
+              </app-checkbox-grid>
+
+            </div> <!--  extendedTime grid4 -->
+
+          </li>
+
+          <li class="list-group-item">
+
+            <div class="grid4-inner">
+
+              <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['breaks'].val"
+                [label]="'Breaks'" >
+              </app-checkbox-grid>
+
+              <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['twoMinPerHr'].val"
+                [label]="'2 min/hr'" >
+              </app-checkbox-grid>
+
+              <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['fiveMinPerHr'].val"
+                [label]="'5 min/hr'" >
+              </app-checkbox-grid>
+
+              <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['asNeeded'].val"
+                [label]="'As needed'" >
+              </app-checkbox-grid>
+
+            </div> <!-- breaks grid4 -->
+
+          </li>
+
+          <!--
+            reader
+            scribe
+            spellChecker
+          -->
+
+          <li class="list-group-item">
+            <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['reader'].val"
+                [label]="'Reader/Kurzweil Digital Reader'" >
+            </app-checkbox-grid>
+          </li>
+
+          <li class="list-group-item">
+            <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['scribe'].val"
+              [label]="'Scribe/Voice to text application'" >
+            </app-checkbox-grid>
+          </li>
+
+          <li class="list-group-item">
+            <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['spellChecker'].val"
+              [label]="'Spell Checker/Computer Spell Checking'" >
+            </app-checkbox-grid>
+          </li>
+
+          <!--
+          basicCalc
+          multTable
+          -->
+
+          <li class="list-group-item">
+            <div class="grid2-inner">
+
+              <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['basicCalc'].val"
+                [label]="'Basic Calculator for higher math'" >
+              </app-checkbox-grid>
+
+              <app-checkbox-grid
+                  [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['multTable'].val"
+                  [label]="'Multiplicaton table'" >
+              </app-checkbox-grid>
+
+            </div>
+
+          </li>
+
+           <!--
+            adaptedComputer
+            reducedDistractionEnv
+          -->
+
+          <li class="list-group-item">
+            <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['adaptedComputer'].val"
+              [label]="'Adapted Computer'" >
+            </app-checkbox-grid>
+          </li>
+
+          <li class="list-group-item">
+            <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['reducedDistractionEnv'].val"
+              [label]="'Distraction Reduced Testing Environment'" >
+            </app-checkbox-grid>
+          </li>
+
+          <!-- remoteProctoring -->
+
+          <li class="list-group-item">
+            <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['remoteProctoring'].val"
+              [label]="'Remote Proctoring without recording video/audio'" >
+            </app-checkbox-grid>
+          </li>
+
+           <!--
+            enlargedPrint
+            specifyFont
+          -->
+
+          <li class="list-group-item">
+            <div class="grid2-inner">
+
+              <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['enlargedPrint'].val"
+                [label]="'Enlarged Print'" >
+              </app-checkbox-grid>
+
+              <app-label-value-print
+                [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['specifyFont'].val"
+                [label]="'Specify font size'"
+                [controlType]="'text'" >
+              </app-label-value-print>
+
+            </div> <!-- enlargedPrint grid2-inner -->
+          </li>
+
+          <!-- magnification -->
+          <li class="list-group-item">
+            <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['magnification'].val"
+              [label]="'Magnification/CCTV'" >
+            </app-checkbox-grid>
+          </li>
+
+          <!--  braille  -->
+
+          <li class="list-group-item">
+            <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['braille'].val"
+              [label]="'Braille'" >
+            </app-checkbox-grid>
+          </li>
+
+           <!--  tactileGraphics -->
+
+          <li class="list-group-item">
+            <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['tactileGraphics'].val"
+              [label]="'Tactile Graphics'" >
+            </app-checkbox-grid>
+          </li>
+
+          <!--  other -->
+
+          <li class="list-group-item">
+            <app-label-value-print
+              [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['other'].val"
+              [label]="'Other'"
+              [controlType]="'text'" >
+            </app-label-value-print>
+          </li>
+
+        </ul>
+
+
+  </div> <!-- panel-body -->
+</div> <!-- panel panel-default -->

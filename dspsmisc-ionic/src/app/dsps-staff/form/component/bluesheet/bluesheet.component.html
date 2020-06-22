@@ -19,13 +19,13 @@
   </div> <!-- class == grid -->
 
   <!-- general notes spans both grids on the part of the page. -->
-  <div *ngIf="grid">
+  <div *ngIf="grid" class="nogrid">
     <app-general [form]="form" [grid]="grid"></app-general>
   </div>
 
 
   <!-- no 2 col grid -->
-  <div *ngIf="!grid">
+  <div *ngIf="!grid" class="nogrid">
 
       <app-exams-with-accomodations [form]="form" [grid]="grid"></app-exams-with-accomodations>
       <app-auxiliary-aids [form]="form" [grid]="grid" ></app-auxiliary-aids>

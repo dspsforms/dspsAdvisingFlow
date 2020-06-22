@@ -1,0 +1,16 @@
+<!-- if checkbox,  display it as a 2-col grid -->
+<app-checkbox-grid
+  *ngIf="controlType === 'checkbox'"
+  [value]="value"
+  [label]="label" >
+</app-checkbox-grid>
+
+<!-- text -->
+<div *ngIf="controlType === 'text'">
+  <div>  {{ label }}:  <span class="text-highlight"> {{ value }} </span> </div>
+</div>
+
+<!-- date. pass it through a date pipe -->
+<div *ngIf="controlType === 'date'">
+  <div>  {{ label }}:  <span class="text-highlight"> {{ value | date }} </span> </div>
+</div>

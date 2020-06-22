@@ -1,0 +1,89 @@
+<!-- this is one-half of a two col grid -->
+
+<div class="panel panel-default">
+
+  <div class="panel-heading">
+    <div class="panel-title inline">
+      Adaptive Technology / Assistive Device
+    </div>
+  </div> <!-- panel-heading -->
+
+  <div class="panel-body">
+
+    <ul class="list-group">
+
+       <!--
+        computer, calculator
+       -->
+      <li class="list-group-item">
+        <div class="grid2-inner">
+          <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['adaptiveTech']['computer'].val"
+              [label]="'Computer'" >
+          </app-checkbox-grid>
+
+          <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['adaptiveTech']['calculator'].val"
+              [label]="'Calculator'" >
+          </app-checkbox-grid>
+
+        </div>
+      </li>
+
+      <!-- cctvMagnifier, assistiveListeningDevice  -->
+      <li class="list-group-item">
+        <div class="grid2-inner">
+
+          <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['adaptiveTech']['cctvMagnifier'].val"
+              [label]="'CCTV/Magnifier'" >
+          </app-checkbox-grid>
+
+          <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['adaptiveTech']['assistiveListeningDevice'].val"
+              [label]="'Assistive Listening Device'" >
+          </app-checkbox-grid>
+
+        </div> <!-- grid2 inner -->
+      </li>
+
+
+      <!-- digitalRecorder,  liveScribeSmartPen -->
+      <li class="list-group-item">
+        <div class="grid2-inner">
+
+          <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['adaptiveTech']['digitalRecorder'].val"
+              [label]="'Digital Recorder'" >
+          </app-checkbox-grid>
+
+          <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['adaptiveTech']['liveScribeSmartPen'].val"
+              [label]="'Livescribe Smart Pen'" >
+          </app-checkbox-grid>
+        </div> <!-- grid2 inner -->
+      </li>
+
+       <!-- ipadAndroidTablet -->
+      <li class="list-group-item">
+        <app-checkbox-grid
+          [value]="wrappedForm?.formWithLatestHistory['adaptiveTech']['ipadAndroidTablet'].val"
+          [label]="'iPad/Android tablet'" >
+        </app-checkbox-grid>
+      </li>
+
+      <!--  other -->
+
+      <li class="list-group-item">
+        <app-label-value-print
+          [value]="wrappedForm?.formWithLatestHistory['adaptiveTech']['other'].val"
+          [label]="'Other'"
+          [controlType]="'text'" >
+        </app-label-value-print>
+      </li>
+
+    </ul>
+
+
+  </div> <!-- panel-body -->
+</div> <!-- panel panel-default -->

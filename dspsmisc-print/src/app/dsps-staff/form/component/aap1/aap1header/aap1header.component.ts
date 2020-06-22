@@ -13,6 +13,9 @@ import { WrappedForm } from 'src/app/model/wrapped-form.model';
 export class Aap1headerComponent extends BaseComponent implements OnInit {
 
   @Input() wrappedForm: WrappedForm;
+  @Input() formTitle;
+  @Input() formLabel; // lastname, firstname etc
+
   constructor() {
     super();
    }

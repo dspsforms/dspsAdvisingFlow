@@ -1,0 +1,71 @@
+
+<div class="container-fluid" *ngIf="wrappedForm" >
+
+  <h1>Recommendations for Academic Support and Accommodations</h1>
+
+  <app-bluesheet-header
+    [wrappedForm]="wrappedForm"
+    [formTitle]="formTitle"
+    [formLabel]="formLabel"
+    >
+  </app-bluesheet-header>
+
+  <!-- print is always in grid mode -->
+
+<div class="grid2Col">
+    <div class="child1">
+      <app-exams-with-accomodations [wrappedForm]="wrappedForm" ></app-exams-with-accomodations>
+      <app-physical-access [wrappedForm]="wrappedForm" ></app-physical-access>
+    </div>
+    <div class="child2">
+      <app-auxiliary-aids [wrappedForm]="wrappedForm" ></app-auxiliary-aids>
+      <app-adaptive-tech [wrappedForm]="wrappedForm" ></app-adaptive-tech>
+      <app-alt-format [wrappedForm]="wrappedForm"  ></app-alt-format>
+    </div>
+
+  </div>
+  <!-- class == grid -->
+
+  <!-- general notes spans both grids on the part of the page. -->
+  <div>
+    <app-general [wrappedForm]="wrappedForm" ></app-general>
+  </div>
+
+
+
+
+  <app-bluesheet-footer [wrappedForm]="wrappedForm" ></app-bluesheet-footer>
+
+
+     <div class="row vert-space-footer-1">
+      <div class="col-sm-4 col-sm-offset-1">
+        <div *ngIf="lastModifiedBy" >
+            Last edited by
+              <span class="text-highlight">
+                {{ lastModifiedBy }},  {{ lastModified | date }}.
+              </span>
+        </div>
+      </div> <!-- col -->
+      <div class="col-sm-4">
+          <div *ngIf="currentVersion" >
+               Version: <span class="text-highlight" > {{ currentVersion }} </span>
+          </div>
+      </div> <!-- col -->
+
+    </div> <!-- row -->
+
+    <div class="row vert-space-footer-1">
+      <div class="col-sm-5 col-sm-offset-1">
+
+        <app-sig-view
+          [signatures]="wrappedForm.signatures"
+          [sigStatus]="wrappedForm.studentSigStatus"
+          [focusOnSignature]="focusOnSignature" ></app-sig-view>
+
+    </div> <!-- col -->
+    </div>  <!-- row -->
+
+  </div> <!-- container fluid -->
+
+
+

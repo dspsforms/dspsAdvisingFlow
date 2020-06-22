@@ -1,0 +1,14 @@
+ <!-- checkbox and its label,  a 2-col grid -->
+ <div class="grid-checkbox-elem">
+
+  <!-- first child -->
+  <div>
+    <!-- if value, checked. else unchecked-->
+    <i *ngIf="value" class="glyphicon glyphicon-check mybtn-blue"></i>
+    <i *ngIf="!value" class="glyphicon glyphicon-unchecked mybtn-grey"></i>
+  </div>
+
+  <!-- second child -->
+  <div>  {{ label }}  </div>
+
+</div> <!-- end  checkbox-grid -->

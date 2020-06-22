@@ -8,26 +8,17 @@
   <div class="row">
     <div class="col-sm-12">
 
-  <app-aap1header [wrappedForm]="wrappedForm" ></app-aap1header>
+  <app-aap1header
+    [wrappedForm]="wrappedForm"
+    [formTitle]="formTitle"
+    [formLabel]="formLabel"
+  ></app-aap1header>
 
-  <!-- <table class="table table-bordered">
-    <thead>
-    <tr>
-      <th>Educational Limitations</th>
-      <th>Accommodations, Auxiliary Aids and/or Instructions</th>
-      <th>DSPS Specialist Approval Signature</th>
-      <th>Date </th>
-    </tr>
-    </thead>
 
-    <tbody>
-
-      <app-written-course-req [wrappedForm]="wrappedForm" [userList]="dspsUserListSmall"></app-written-course-req>
-
-    </tbody>
-  </table> -->
-
-  <!-- four column grid -->
+  <!-- four column grid
+    first a 2 col.
+    then the 2nd col is broken into three
+  -->
 
   <div class="grid2col-aap1">
     <!-- first child -->
@@ -92,20 +83,13 @@
   <div class="row vert-space-footer-1">
     <div class="col-sm-5 col-sm-offset-1">
 
+      <app-sig-view
+        *ngIf="mode === 'view'"
+        [signatures]="wrappedForm.signatures"
+        [sigStatus]="wrappedForm.studentSigStatus"
+        [focusOnSignature]="focusOnSignature" ></app-sig-view>
 
-
-  <!--- show the signature, if it exists, only in view mode -->
-
-  <!-- TODO -->
-  <app-sig-view
-    *ngIf="mode === 'view'"
-    [signatures]="wrappedForm.signatures"
-    [sigStatus]="wrappedForm.studentSigStatus"
-    [focusOnSignature]="focusOnSignature" ></app-sig-view>
-
-  <!-- TODO student needs to see the app-sig-create component as well, in view mode -->
-
-</div> <!-- col -->
-</div>  <!-- row -->
+  </div> <!-- col -->
+  </div>  <!-- row -->
 
 </div> <!-- container -->

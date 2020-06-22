@@ -271,7 +271,81 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
         return null;
     }
 
-}
+  }
+
+  // for print, this stuff is needed in bluesheet component, etc. not
+  // in common header area. so moved from ionic app's abstract-form-read
+  // to abstract-form-submit
+
+  get studentName() {
+
+    let result = null;
+
+    if (this.wrappedFormFromDb && this.wrappedFormFromDb.formWithLatestHistory) {
+
+        if (this.wrappedFormFromDb.formWithLatestHistory['studentLastName']) {
+            result = this.wrappedFormFromDb.formWithLatestHistory['studentLastName'].val;
+        }
+
+        if (this.wrappedFormFromDb.formWithLatestHistory['studentFirstName']) {
+            // add comma if there was a lastname found
+            if (result) { result += ", "; }
+
+            result += this.wrappedFormFromDb.formWithLatestHistory['studentFirstName'].val;
+        }
+
+
+    }
+
+    return result;
+
+  }
+
+  get formLabel() {
+
+    // this depends on type of form
+
+    let result = this.studentName;
+
+    // during create, there is no student info
+    if (!result) {
+        return null;
+    }
+
+    // there is a student name
+
+    if (this.wrappedFormFromDb.formName === FormName.BLUESHEET) {
+        // add course, semester, year
+
+        // if there is a student name, if (this.data.formWithLatestHistory
+        // is not empty
+        if (this.wrappedFormFromDb.formWithLatestHistory['course'] &&
+            this.wrappedFormFromDb.formWithLatestHistory['course'].val) {
+            result += " / " + this.wrappedFormFromDb.formWithLatestHistory['course'].val;
+        }
+
+
+        if (this.wrappedFormFromDb.formWithLatestHistory['semester'] &&
+            this.wrappedFormFromDb.formWithLatestHistory['semester'].val) {
+            result += " / " + this.wrappedFormFromDb.formWithLatestHistory['semester'].val;
+        }
+
+        if (this.wrappedFormFromDb.formWithLatestHistory['year'] &&
+            this.wrappedFormFromDb.formWithLatestHistory['year'].val) {
+            result += " / " + this.wrappedFormFromDb.formWithLatestHistory['year'].val;
+        }
+    }
+
+    return result;
+  }
+
+  get formTitle() {
+    if (this.wrappedFormFromDb && this.wrappedFormFromDb.formName) {
+      return FormUtil.formTitle(this.wrappedFormFromDb.formName);
+    } else {
+      return null;
+    }
+  }
 
   ngOnDestroy() {
     SubscriptionUtil.unsubscribe(this.formSaveStatusSub);

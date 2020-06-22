@@ -1,0 +1,67 @@
+
+     <!-- this is one-half of a two col grid -->
+     <div class="panel panel-default">
+
+      <div class="panel-heading">
+        <div class="panel-title inline">
+          Auxiliary Aides
+        </div>
+      </div> <!-- panel-heading -->
+
+      <div class="panel-body">
+
+        <ul class="list-group">
+          <li class="list-group-item">
+            <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['auxiliaryAids']['dspsTutoring'].val"
+                [label]="'DSPS Tutoring'" >
+            </app-checkbox-grid>
+          </li>
+
+          <li class="list-group-item">
+            <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['auxiliaryAids']['serviceAnimal'].val"
+                [label]="'Service Animal'" >
+            </app-checkbox-grid>
+          </li>
+
+          <li class="list-group-item">
+            <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['auxiliaryAids']['signLangInterpreting'].val"
+                [label]="'Sign Language Interpreting'" >
+            </app-checkbox-grid>
+          </li>
+
+          <li class="list-group-item">
+            <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['auxiliaryAids']['realTimeCaptioning'].val"
+                [label]="'Real Time Captioning'" >
+            </app-checkbox-grid>
+          </li>
+
+          <li class="list-group-item">
+            <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['auxiliaryAids']['sharedNotes'].val"
+              [label]="'Shared Notes'" >
+            </app-checkbox-grid>
+          </li>
+
+          <li class="list-group-item">
+            <app-checkbox-grid
+                [value]="wrappedForm?.formWithLatestHistory['auxiliaryAids']['audioRecordLectures'].val"
+                [label]="'Audio Record Lectures'" >
+            </app-checkbox-grid>
+          </li>
+
+          <!-- other -->
+          <li class="list-group-item">
+            <app-label-value-print
+                [value]="wrappedForm?.formWithLatestHistory['auxiliaryAids']['other'].val"
+                [label]="'Other (Describe)'"
+                [controlType]="'text'" >
+            </app-label-value-print>
+          </li>
+        </ul>
+
+  </div> <!-- panel-body -->
+</div> <!-- panel panel-default -->

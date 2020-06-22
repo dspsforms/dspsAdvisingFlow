@@ -3,7 +3,9 @@
     <ion-buttons slot="start">
       <ion-menu-button menu="m1"></ion-menu-button>
     </ion-buttons>
-    <ion-title> {{ formInfo.formTitle }} : {{ studentName }} </ion-title>
+    <ion-title> {{ formInfo.formTitle }} 
+      <span *ngIf="formLabel"> : {{ formLabel }} </span>
+    </ion-title>
     <ion-buttons slot="primary">
       <ion-button (click)="goToEditPage()">
         <ion-icon slot="icon-only" name="create"></ion-icon>

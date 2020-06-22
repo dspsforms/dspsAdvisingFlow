@@ -1,0 +1,92 @@
+
+<div class="panel panel-default">
+
+  <div class="panel-heading">
+    <div class="panel-title inline">
+      {{ formTitle }}
+      <span *ngIf="formLabel"> : {{ formLabel }} </span>
+    </div>
+  </div> <!-- panel-heading -->
+
+  <div class="panel-body">
+    <table class="table table-bordered">
+      <tr><td>Instructor</td> <td> {{ wrappedForm.formWithLatestHistory['instructor'].val }} </td></tr>
+      <tr><td>Semester</td> <td> {{ wrappedForm.formWithLatestHistory['semester'].val }} </td></tr>
+      <tr><td>Year</td> <td> {{ wrappedForm.formWithLatestHistory['year'].val }} </td></tr>
+      <tr><td>Course</td> <td> {{ wrappedForm.formWithLatestHistory['course'].val }} </td></tr>
+      <tr><td>Section</td> <td> {{ wrappedForm.formWithLatestHistory['section']?.val }} </td></tr>
+      <tr><td>Room (if applicable)</td> <td> {{ wrappedForm.formWithLatestHistory['room']?.val }} </td></tr>
+      <tr><td>Day/Time (as applicable)</td> <td> {{ wrappedForm.formWithLatestHistory['dayTime']?.val }} </td></tr>
+      <tr><td>Name</td>
+        <td> {{ wrappedForm.formWithLatestHistory['studentLastName'].val }} ,
+          {{ wrappedForm.formWithLatestHistory['studentFirstName'].val }}</td></tr>
+      <tr><td>Student ID</td> <td> {{ wrappedForm.formWithLatestHistory['collegeId'].val }} </td></tr>
+      <tr><td>Student WVM Email</td> <td> {{ wrappedForm.formWithLatestHistory['studentEmail'].val }} </td></tr>
+    </table>
+
+  </div> <!-- panel-body -->
+</div> <!-- panel panel-default -->
+
+    <!-- instructional mode -->
+
+<div class="panel panel-default">
+
+  <div class="panel-heading">
+    <div class="panel-title inline">
+      Instructional Mode (if known). Check all that apply.
+    </div>
+  </div> <!-- panel-heading -->
+
+  <div class="panel-body">
+
+
+      <div class="grid-4col-bluesheet-header">
+
+        <!-- first child. a checkbox,  also an internal 2-col grid -->
+        <app-checkbox-grid
+          [label]="'Online Canvas'"
+          [value]="onlineCanvas" >
+        </app-checkbox-grid>
+
+        <!-- 2nd child -->
+        <app-checkbox-grid
+          [label]="'Synchronous'"
+          [value]="synchronous" >
+        </app-checkbox-grid>
+
+         <!-- 3rd child -->
+         <app-checkbox-grid
+          [label]="'Asynchronous'"
+          [value]="synchronous" >
+        </app-checkbox-grid>
+
+        <!-- 2nd child -->
+        <app-checkbox-grid
+          [label]="'Hybrid (on campus meetings)'"
+          [value]="hybrid" >
+        </app-checkbox-grid>
+
+      </div> <!-- grid-4col-bluesheet-header -->
+
+  </div> <!-- panel-body -->
+
+</div> <!-- panel panel-default -->
+
+<div class="panel panel-default">
+  <div class="panel-body">
+
+    <p>
+      This is to verify that the above mentioned student
+      is eligible for disability-related accommodations.
+      These accommodations are directly related to the educational limitations
+      caused by the student’s specific disability, and were determined by the DSPS
+      faculty member. Both state and federal law permit these recommended accommodations.
+    </p>
+    <p>
+      The recommendations below pertain to accommodating the student in class and
+      during exams.
+      Information on the services provided below can be obtained from the DSPS Office.
+    </p>
+
+  </div> <!-- panel-body -->
+</div> <!-- panel panel-default -->

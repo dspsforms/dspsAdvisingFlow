@@ -1,0 +1,132 @@
+
+<!-- this is one-half of a two col grid -->
+
+<div class="panel panel-default">
+
+  <div class="panel-heading">
+    <div class="panel-title inline">
+      Course Materials / Media in Alternative Format
+    </div>
+  </div> <!-- panel-heading -->
+
+  <div class="panel-body">
+
+    <ul class="list-group">
+
+       <!-- braille -->
+      <li class="list-group-item">
+        <app-checkbox-grid
+          [value]="wrappedForm?.formWithLatestHistory['altMedia']['braille'].val"
+          [label]="'Braille'" >
+        </app-checkbox-grid>
+      </li>
+
+      <!--  tactileGraphics -->
+      <li class="list-group-item">
+        <app-checkbox-grid
+          [value]="wrappedForm?.formWithLatestHistory['altMedia']['tactileGraphics'].val"
+          [label]="'Tactile Graphics'" >
+        </app-checkbox-grid>
+      </li>
+
+      <!--
+        enlargedPrint, specifyFont
+      -->
+      <li class="list-group-item">
+        <div class="grid2-inner">
+
+          <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['altMedia']['enlargedPrint'].val"
+              [label]="'Enlarged Print'" >
+          </app-checkbox-grid>
+
+          <app-label-value-print
+              [value]="wrappedForm?.formWithLatestHistory['altMedia']['specifyFont'].val"
+              [label]="'Specify font size'"
+              [controlType]="'text'" >
+          </app-label-value-print>
+
+        </div> <!-- enlargedPrint grid2-inner -->
+      </li>
+
+       <!-- etext, kurzweil, pdf -->
+      <li class="list-group-item">
+
+        <div class="grid3-inner">
+
+          <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['altMedia']['etext'].val"
+              [label]="'Etext'" >
+          </app-checkbox-grid>
+
+          <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['altMedia']['kurzweil'].val"
+              [label]="'Kurzweil'" >
+          </app-checkbox-grid>
+
+          <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['altMedia']['pdf'].val"
+              [label]="'PDF'" >
+          </app-checkbox-grid>
+
+        </div>  <!-- etext, etc grid3-innner -->
+      </li>
+
+       <!-- audioRecorded, learningAlly, bookShare -->
+      <li class="list-group-item">
+
+        <div class="grid3-inner">
+
+          <app-checkbox-grid
+            [value]="wrappedForm?.formWithLatestHistory['altMedia']['audioRecorded'].val"
+            [label]="'Audio recorded'" >
+          </app-checkbox-grid>
+
+          <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['altMedia']['learningAlly'].val"
+              [label]="'Learning Ally'" >
+          </app-checkbox-grid>
+
+          <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['altMedia']['bookShare'].val"
+              [label]="'Bookshare'" >
+          </app-checkbox-grid>
+
+        </div>  <!-- audioRecorded, etc grid3-innner -->
+      </li>
+
+      <!-- closedCaption, audioDesc -->
+      <li class="list-group-item">
+
+        <div class="grid2-inner">
+
+          <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['altMedia']['closedCaption'].val"
+              [label]="'Closed Captioned Video'" >
+          </app-checkbox-grid>
+
+          <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['altMedia']['audioDesc'].val"
+              [label]="'Audio Descriptions'" >
+          </app-checkbox-grid>
+
+        </div>  <!-- closedCaption, etc grid2-innner -->
+      </li>
+
+       <!--  other -->
+      <li class="list-group-item">
+          <app-label-value-print
+            [value]="wrappedForm?.formWithLatestHistory['altMedia']['other'].val"
+            [label]="'Other'"
+            [controlType]="'text'" >
+          </app-label-value-print>
+      </li>
+
+    </ul>
+
+
+</div> <!-- panel-body -->
+</div> <!-- panel panel-default -->
+
+
+

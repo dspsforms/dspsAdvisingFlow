@@ -3,7 +3,7 @@ import { WrappedForm } from 'src/app/model/wrapped-form.model';
 import { ActivatedRoute } from '@angular/router';
 import { FormsService } from './forms.service';
 import { SubscriptionUtil } from 'src/app/util/subscription-util';
-import { FormUtil } from '../../model/form.util';
+import { FormUtil, FormName } from '../../model/form.util';
 import { Subscription } from 'rxjs';
 import { Config } from 'src/app/model/config';
 
@@ -14,8 +14,8 @@ export class AbstractFormRead implements OnInit, OnDestroy {
 
     // base class to read form data for view and edit
 
-    paramSubscription : Subscription;
-    dbSubscription : Subscription;
+    paramSubscription: Subscription;
+    dbSubscription: Subscription;
 
     busy = false;
     showJson = false;
@@ -81,18 +81,70 @@ export class AbstractFormRead implements OnInit, OnDestroy {
 
     }
 
-    get studentName() {
+  // for print, this stuff is needed in bluesheet component, etc. not
+  // in common header area. so moved to abstract-form-submit
 
-        if (this.data &&
-            this.data.formWithLatestHistory &&
-            this.data.formWithLatestHistory['studentName']
-        ) {
-            return this.data.formWithLatestHistory['studentName'].val;
-        } else {
-            return null;
-        }
+  //   get studentName() {
 
-    }
+  //     let result = null;
+
+  //     if (this.data && this.data.formWithLatestHistory) {
+
+  //         if (this.data.formWithLatestHistory['studentLastName']) {
+  //             result = this.data.formWithLatestHistory['studentLastName'].val;
+  //         }
+
+  //         if (this.data.formWithLatestHistory['studentFirstName']) {
+  //             // add comma if there was a lastname found
+  //             if (result) { result += ", "; }
+
+  //             result += this.data.formWithLatestHistory['studentFirstName'].val;
+  //         }
+
+
+  //     }
+
+  //     return result;
+
+  // }
+
+  // get formLabel() {
+
+  //     // this depends on type of form
+
+  //     let result = this.studentName;
+
+  //     // during create, there is no student info
+  //     if (!result) {
+  //         return null;
+  //     }
+
+  //     // there is a student name
+
+  //     if (this.formInfo.formName === FormName.BLUESHEET) {
+  //         // add course, semester, year
+
+  //         // if there is a student name, if (this.data.formWithLatestHistory
+  //         // is not empty
+  //         if (this.data.formWithLatestHistory['course'] &&
+  //             this.data.formWithLatestHistory['course'].val) {
+  //             result += " / " + this.data.formWithLatestHistory['course'].val;
+  //         }
+
+
+  //         if (this.data.formWithLatestHistory['semester'] &&
+  //             this.data.formWithLatestHistory['semester'].val) {
+  //             result += " / " + this.data.formWithLatestHistory['semester'].val;
+  //         }
+
+  //         if (this.data.formWithLatestHistory['year'] &&
+  //             this.data.formWithLatestHistory['year'].val) {
+  //             result += " / " + this.data.formWithLatestHistory['year'].val;
+  //         }
+  //     }
+
+  //     return result;
+  // }
 
 
 

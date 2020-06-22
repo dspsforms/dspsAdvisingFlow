@@ -8,7 +8,9 @@
       interface or class
       that's on purpose. It needs to support any form
     -->
-    <ion-title> Edit {{ formInfo.formTitle }} : {{ studentName }} </ion-title>
+    <ion-title> Edit {{ formInfo.formTitle }} 
+      <span *ngIf="formLabel"> : {{ formLabel }} </span>
+    </ion-title>
     
   </ion-toolbar>
 </ion-header>

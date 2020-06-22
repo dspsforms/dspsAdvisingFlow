@@ -7,6 +7,7 @@ import { SigViewModule } from '../../dsps-staff/form/component/sig-view/sig-view
 import { Aap1ComponentModule } from '../../dsps-staff/form/component/aap1/aap1.module';
 import { ViewFormComponent } from './view-form.component';
 import { ViewFormRoutingModule } from './view-form-routing.module';
+import { BluesheetComponentModule } from 'src/app/dsps-staff/form/component/bluesheet/bluesheet-component.module';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { ViewFormRoutingModule } from './view-form-routing.module';
         ElemWithSignComponentModule,
         SigViewModule,
         Aap1ComponentModule,
+        BluesheetComponentModule,
         ViewFormRoutingModule
     ],
     declarations: [
