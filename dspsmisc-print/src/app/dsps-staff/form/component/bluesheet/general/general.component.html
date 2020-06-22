@@ -8,7 +8,12 @@
 
   <div class="panel-body">
 
-    {{ generalNotes }}
+    <div *ngIf="!generalNotes">This space is empty.</div>
+
+    <div *ngIf="generalNotes" class="text-highlight">
+      {{ generalNotes }}
+    </div>
+
 
 
 </div> <!-- panel-body -->
