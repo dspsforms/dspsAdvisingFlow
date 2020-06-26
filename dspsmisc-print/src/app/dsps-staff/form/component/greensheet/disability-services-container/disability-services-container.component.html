@@ -1,0 +1,33 @@
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title inline">
+      Disability Services
+    </div>
+  </div> <!-- panel-heading -->
+
+  <div class="panel-body">
+
+
+<!-- for print, always a grid -->
+<div class="grid2Col" >
+
+  <app-disability-services
+    [wrappedForm]="wrappedForm"
+    controlName="disabilityServicesPrimary"
+    title="Primary"
+  ></app-disability-services>
+
+  <app-disability-services
+    [wrappedForm]="wrappedForm"
+    controlName="disabilityServicesSecondary"
+    title="Secondary"
+  ></app-disability-services>
+
+</div> <!-- grid2Col -->
+
+</div> <!-- panel-body -->
+
+</div> <!-- panel panel-default -->
+
+

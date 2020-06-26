@@ -1,49 +1,7 @@
-/**
- * Print Stylesheet fuer Deinewebsite.de
-* @version         1.0
-* @lastmodified    16.06.2016
-*/
+
 
 @media print {
  
-    /* Inhaltsbreite setzen, Floats und Margins aufheben */
-    /* Achtung: Die Klassen und IDs variieren von Theme zu Theme. Hier also eigene Klassen setzen */
-    .ion-page, ion-router-outlet {
-    width: 100%; 
-    height: 100% !important;
-    margin: 0; 
-    float: none;
-    overflow: unset !important;
-    overflow-y: visible !important;
-    
-
-    }
-
-    .ion-page, ion-router-outlet {
-        contain: none !important;
-        flex-direction: unset !important;
-        display: block !important;
-        left: unset !important;
-        right: unset !important;
-        top: unset !important;
-        bottom: unset !important;
-        position: relative !important;
-
-    }
-
-    ion-tab {
-        contain: none !important;
-    }
-
-    p {
-        page-break-before: always;
-    }
-        
-    /** Seitenränder einstellen */       
-    @page { margin: 2cm }
-    
-    /* Font auf 16px/13pt setzen, Background auf Weiß und Schrift auf Schwarz setzen.*/
-    /* Das spart Tinte */
     body {
     height: 100%;
     overflow-y: visible;
@@ -53,105 +11,59 @@
     color: #000;
     }
     
-    h1 {
-    font-size: 24pt;
-    }
-    
-    h2, h3, h4 {
-    font-size: 14pt;
-    margin-top: 25px;
-    }    
-     
-    /* a {
-        page-break-inside:avoid
-    }
-    blockquote {
-        page-break-inside: avoid;
-    }
-    h1, h2, h3, h4, h5, h6 { page-break-after:avoid; 
-         page-break-inside:avoid }
-    img { page-break-inside:avoid; 
-         page-break-after:avoid; }
-    table, pre { page-break-inside:avoid }
-    ul, ol, dl  { page-break-before:avoid } */
-        
-    /* Linkfarbe und Linkverhalten darstellen */
-    a:link, a:visited, a {
-    background: transparent;
-    color: #520;
-    font-weight: bold;
-    text-decoration: underline;
-    text-align: left;
-    }
-    
-    a {
-        page-break-inside:avoid
-    }
-    
-    a[href^=http]:after {
-          content:" <" attr(href) "> ";
-    }
-    
-    a:after > img {
-       content: "";
-    }
-    
-    article a[href^="#"]:after {
-       content: "";
-    }
-    
-    a:not(:local-link):after {
-       content:" <" attr(href) "> ";
-    }
-    
-    /* Wichtige Elemente definieren */    
-    p, address, li, dt, dd, blockquote {
-    font-size: 100%
-    }
-    
-    /* Zeichensatz fuer Code Beispiele */
-    code, pre { font-family: "Courier New", Courier, mono}
-    
-    /* ul, ol {
-    list-style: square; margin-left: 18pt;
-    margin-bottom: 20pt;    
-    }
-    
-    li {
-    line-height: 1.6em;
-    }     */
-
+ 
     /* own stuff */
-    ion-menu-toggle , ion-header,  ion-tab-bar, app-bluesheet-footer {
+    ion-menu-toggle , ion-header,  ion-tab-bar, ion-menu {
         display: none !important;
+    }
+
+    ion-tabs {
+        contain: none !important;
+        /* height: 100% !important; */
+        overflow-y: visible !important;
+    }
+
+    ion-tabs, .tabs-inner {
+        contain: none !important;
+        display: block !important;
+        height: 100% !important;
+        overflow-y: visible !important;
+        float: none !important;
+    }
+
+    .ion-page, ion-app {
+        display: block !important;
+        contain: none !important;
+        flex-direction: unset !important;
+        overflow: visible !important;
     }
 
     ion-content {
         /* height: auto; */
         display: block !important;
-        page-break-inside : auto;
-        overflow-y: visible;
+        page-break-inside : auto !important;
+       
+        contain: none !important;
+        height: 100% !important;
+        overflow-y: visible !important;
+        float: none !important;
     }
 
-    /* ion-col {
-        display: inline-block !important;
-        page-break-inside : auto;
-        overflow-y: visible;
+    /* ion-tabs, ion-tab {
+        contain: none !important;
+        height: 100% !important;
+        overflow-y: visible !important;
+        position: relative !important;
+
     } */
 
-    ion-content, .grid2Col, .child2, ion-list {
+    /* ion-content, .grid2Col, .child2, ion-list {
         height: 100%;
         overflow-y: visible !important;
         max-height: unset !important;
         contain: none;
-    }
-
-    /* ion-content, .grid2Col, .child2, ion-list, ion-tabs, ion-item {
-        break-inside : auto !important;
-        break-after : auto !important;
-        break-before : auto !important;
     } */
- 
+
 
     
         

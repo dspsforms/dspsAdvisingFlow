@@ -1,0 +1,62 @@
+<div class="panel panel-default">
+<div class="panel-body">
+<div class="list-group">
+
+  <button class="list-group-item list-group-item-action" disabled >
+
+    <!-- note: the secondary group name is still part2 -->
+    <app-label-yes-no
+        [value]="wrappedForm?.formWithLatestHistory['part2']['instructionalSetting'].val"
+        [label]="'Instructional Setting'"
+      > </app-label-yes-no>
+
+  </button>
+
+  <button class="list-group-item list-group-item-action" disabled >
+
+    <app-checkbox-grid
+      [value]="wrappedForm?.formWithLatestHistory['part2']['onCampusReg'].val"
+      [label]="'On Campus Regular (Enrolled in Mainstream Classes)'" >
+    </app-checkbox-grid>
+
+  </button>
+
+  <button class="list-group-item list-group-item-action" disabled >
+
+    <app-checkbox-grid
+      [value]="wrappedForm?.formWithLatestHistory['part2']['onCampusSpecial'].val"
+      [label]="'On Campus Special (Enrolled in Educational Assistance or Adaptive Kinesiology Classes)'" >
+    </app-checkbox-grid>
+
+  </button>
+
+  <button class="list-group-item list-group-item-action" disabled >
+
+    <div class="grid3-inner">
+
+      <!-- first child -->
+      <div>Service Contracts:</div>
+
+      <!-- second child -->
+      <app-checkbox-grid
+      [value]="wrappedForm?.formWithLatestHistory['serviceContracts']['primary'].val"
+      [label]="'Primary'" >
+      </app-checkbox-grid>
+
+      <!-- third child -->
+      <app-checkbox-grid
+      [value]="wrappedForm?.formWithLatestHistory['serviceContracts']['secondary'].val"
+      [label]="'Secondary'" >
+      </app-checkbox-grid>
+
+
+    </div>
+
+  </button>
+
+
+
+
+</div> <!-- list group -->
+</div> <!-- panel body -->
+</div> <!-- panel panel default -->

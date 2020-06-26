@@ -1,0 +1,54 @@
+
+<div class="panel panel-default">
+
+  <div class="panel-heading">
+    <div class="panel-title inline">
+      {{ formTitle }}
+      <span *ngIf="formLabel"> : {{ formLabel }} </span>
+    </div>
+  </div> <!-- panel-heading -->
+
+  <div class="panel-body">
+    <table class="table table-striped table-hover">
+      <tbody >
+        <!-- class="table-striped" -->
+
+
+      <tr><td>Semester</td> <td colspan="5"> {{ wrappedForm.formWithLatestHistory['semester'].val }} </td></tr>
+      <tr><td>Name</td>
+        <td  colspan="2"> {{ wrappedForm.formWithLatestHistory['studentLastName'].val }} ,
+          {{ wrappedForm.formWithLatestHistory['studentFirstName'].val }}</td>
+        <td>Student ID</td> <td  colspan="2"> {{ wrappedForm.formWithLatestHistory['collegeId'].val }} </td>
+      </tr>
+      <tr>
+        <td>Address</td> <td> {{ wrappedForm.formWithLatestHistory['addrLine']?.val || '-' }} </td>
+        <td>City</td> <td> {{ wrappedForm.formWithLatestHistory['city']?.val || '-' }} </td>
+        <td>Zip</td> <td> {{ wrappedForm.formWithLatestHistory['zip']?.val || '-' }} </td>
+      </tr>
+      <tr>
+        <td>Home Phone</td><td colspan="2"> {{ wrappedForm.formWithLatestHistory['address']['homePhone']?.val || '-' }}  </td>
+        <td>Cell Phone</td> <td colspan="2">{{ wrappedForm.formWithLatestHistory['address']['cellPhone']?.val || '-' }} </td>
+      </tr>
+      <tr>
+        <td>Email</td> <td  colspan="2"> {{ wrappedForm.formWithLatestHistory['studentEmail'].val || '-' }} </td>
+        <td>Major</td> <td  colspan="2"> {{ wrappedForm.formWithLatestHistory['major']?.val || '-'   }} </td>
+      </tr>
+
+    </tbody>
+    </table>
+
+  </div> <!-- pane-body -->
+</div> <!-- panel panel-default -->
+
+
+<!-- this goes to the end now -->
+    <!-- <ion-item>
+      <ion-label position="floating">Form completed and approved eligible by (DSPS Professional) *</ion-label>
+      <ion-input
+        [class.required]="showRequired(mode)"
+        formControlName="completedBySignature"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="form.get('completedBySignature').touched && !form.get('completedBySignature').valid">
+      <ion-label color="danger">DSPS Professional's signature is required.</ion-label>
+    </ion-item> -->
+

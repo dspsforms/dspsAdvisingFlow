@@ -1,0 +1,12 @@
+
+child forms within a parent form. 
+
+each child form has a signature
+
+
+add field isParentForm. set this to true for parent
+
+and also add field parentId. set this to id of parent in each child
+
+save sig of dsps pro with the form. 
+add student signature separately, as it's currently done.

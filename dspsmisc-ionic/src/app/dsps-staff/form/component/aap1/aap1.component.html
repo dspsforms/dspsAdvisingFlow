@@ -1,5 +1,7 @@
 <form *ngIf="form" [formGroup]="form" (ngSubmit)="createOrEditForm()" >
-  <h1 class="ion-padding">AAP Part 1</h1>
+
+  <!-- this is only during print, when the header isn't there -->
+  <!-- <h1 class="ion-padding">AAP Part 1</h1> -->
 
   <app-aap1header [form]="form" [userList]="dspsUserListSmall" [mode]="mode"></app-aap1header>
 
@@ -27,6 +29,8 @@
   <app-health-related-support [form]="form" [userList]="dspsUserListSmall" ></app-health-related-support>
 
   <app-other [form]="form" [userList]="dspsUserListSmall" ></app-other>
+
+  <app-long-term-ed-goal [form]="form" [grid]="grid"></app-long-term-ed-goal>
 
   <app-aap1footer [form]="form" [userList]="dspsUserListSmall" [mode]="mode"></app-aap1footer>
 

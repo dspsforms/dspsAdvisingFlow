@@ -1,0 +1,19 @@
+
+<!--
+  label yes/no is similar to checkbox.
+  values are yes/no. and layout is two td cells
+-->
+
+   <!-- checkbox and its label,  a 2-col grid -->
+ <div class="grid-checkbox-elem">
+
+  <!-- first child -->
+  <div>
+    <i *ngIf="value && value === 'yes'" class="glyphicon glyphicon-check mybtn-blue"></i>
+    <i *ngIf="!value || value === 'no'" class="glyphicon glyphicon-unchecked mybtn-grey"></i>
+  </div>
+
+  <!-- second child -->
+  <div>  {{ label }}  </div>
+
+</div> <!-- end  checkbox-grid -->

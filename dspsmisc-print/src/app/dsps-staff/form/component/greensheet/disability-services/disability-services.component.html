@@ -1,0 +1,29 @@
+<div class="panel panel-default">
+
+  <div class="panel-heading">
+    <div class="panel-title inline">
+      {{ title }}
+    </div>
+  </div> <!-- panel-heading -->
+
+  <div class="panel-body">
+    <div class="list-group">
+
+      <button *ngFor="let key of allKeys;"
+        class="list-group-item list-group-item-action"
+        disabled >
+
+        <app-checkbox-grid
+          [value]="wrappedForm?.formWithLatestHistory[controlName][key].val"
+          [label]="labels[key]" >
+        </app-checkbox-grid>
+
+      </button>
+
+
+
+    </div> <!-- list group -->
+
+  </div> <!-- panel body -->
+
+</div> <!-- panel -->

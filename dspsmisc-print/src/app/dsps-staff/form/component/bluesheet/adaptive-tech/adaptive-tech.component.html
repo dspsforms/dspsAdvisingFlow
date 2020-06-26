@@ -10,12 +10,12 @@
 
   <div class="panel-body">
 
-    <ul class="list-group">
+    <div class="list-group">
 
        <!--
         computer, calculator
        -->
-      <li class="list-group-item">
+      <button class="list-group-item list-group-item-action" disabled >
         <div class="grid2-inner">
           <app-checkbox-grid
               [value]="wrappedForm?.formWithLatestHistory['adaptiveTech']['computer'].val"
@@ -28,10 +28,10 @@
           </app-checkbox-grid>
 
         </div>
-      </li>
+      </button>
 
       <!-- cctvMagnifier, assistiveListeningDevice  -->
-      <li class="list-group-item">
+      <button class="list-group-item list-group-item-action" disabled >
         <div class="grid2-inner">
 
           <app-checkbox-grid
@@ -45,11 +45,11 @@
           </app-checkbox-grid>
 
         </div> <!-- grid2 inner -->
-      </li>
+      </button>
 
 
       <!-- digitalRecorder,  liveScribeSmartPen -->
-      <li class="list-group-item">
+      <button class="list-group-item list-group-item-action" disabled >
         <div class="grid2-inner">
 
           <app-checkbox-grid
@@ -62,27 +62,27 @@
               [label]="'Livescribe Smart Pen'" >
           </app-checkbox-grid>
         </div> <!-- grid2 inner -->
-      </li>
+      </button>
 
        <!-- ipadAndroidTablet -->
-      <li class="list-group-item">
+      <button class="list-group-item list-group-item-action" disabled >
         <app-checkbox-grid
           [value]="wrappedForm?.formWithLatestHistory['adaptiveTech']['ipadAndroidTablet'].val"
           [label]="'iPad/Android tablet'" >
         </app-checkbox-grid>
-      </li>
+      </button>
 
       <!--  other -->
 
-      <li class="list-group-item">
+      <button class="list-group-item list-group-item-action" disabled >
         <app-label-value-print
           [value]="wrappedForm?.formWithLatestHistory['adaptiveTech']['other'].val"
           [label]="'Other'"
           [controlType]="'text'" >
         </app-label-value-print>
-      </li>
+      </button>
 
-    </ul>
+    </div>
 
 
   </div> <!-- panel-body -->

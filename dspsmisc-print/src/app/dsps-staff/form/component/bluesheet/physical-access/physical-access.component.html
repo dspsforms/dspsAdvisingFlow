@@ -10,13 +10,13 @@
 
       <div class="panel-body">
 
-        <ul class="list-group">
+        <div class="list-group">
 
            <!--
               accessibleDesk,
               accessibleChair
             -->
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
 
             <div class="grid2-inner">
 
@@ -31,12 +31,12 @@
               </app-checkbox-grid>
 
             </div>
-          </li>
+          </button>
 
            <!--
               preferentialSeating, bypassLines
             -->
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
             <div class="grid2-inner">
 
               <app-checkbox-grid
@@ -50,12 +50,12 @@
               </app-checkbox-grid>
 
             </div>
-          </li>
+          </button>
 
           <!--
             breaks, twoMinPerHr, fiveMinPerHr, asNeeded
           -->
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
             <div class="grid4-inner">
 
               <app-checkbox-grid
@@ -80,34 +80,34 @@
 
 
             </div> <!-- breaks grid4 -->
-          </li>
+          </button>
 
           <!-- changeClassLoc  -->
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
             <app-checkbox-grid
               [value]="wrappedForm?.formWithLatestHistory['physicalAccess']['changeClassLoc'].val"
               [label]="'Change in Class Location'" >
             </app-checkbox-grid>
-          </li>
+          </button>
 
           <!-- other -->
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
             <app-label-value-print
               [value]="wrappedForm?.formWithLatestHistory['physicalAccess']['other'].val"
               [label]="'Other (Describe)'"
               [controlType]="'text'" >
             </app-label-value-print>
-          </li>
+          </button>
 
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
             <app-label-value-print
               [value]="wrappedForm?.formWithLatestHistory['physicalAccess']['envAdjustments'].val"
               [label]="'Environmental Adjustments (Describe)'"
               [controlType]="'text'" >
             </app-label-value-print>
-          </li>
+          </button>
 
-        </ul>
+        </div> <!-- list group -->
 
     </div> <!-- panel-body -->
   </div> <!-- panel panel-default -->

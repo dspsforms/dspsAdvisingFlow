@@ -1,0 +1,14 @@
+.grid-local-1 {
+    display:grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 10px;
+}
+.grid-local-2 {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+}
+.box-outline {
+    border-top: 1px solid  var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));
+    border-bottom: 1px solid  var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));;
+}

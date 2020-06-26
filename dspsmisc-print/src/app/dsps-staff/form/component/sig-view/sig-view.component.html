@@ -12,11 +12,11 @@
         <div class="panel-body">
           <div *ngFor="let sig of signatures; ">
             <ul class="list-group">
-              <li class="list-group-item signature text-highlight"> {{ sig.signature }} </li>
+              <li class="list-group-item signature"> {{ sig.signature }} </li>
               <li class="list-group-item smaller"> Date:
-                <span class="text-highlight"> {{ sig.signatureDate | date }}  </span></li>
+                 {{ sig.signatureDate | date }} </li>
               <li *ngIf="sig.formVersion" class="list-group-item smaller"> Version of form signed:
-                <span class="text-highlight"> {{ sig.formVersion}} </span> </li>
+                {{ sig.formVersion}}</li>
             </ul>
           </div> <!-- ngFor -->
 

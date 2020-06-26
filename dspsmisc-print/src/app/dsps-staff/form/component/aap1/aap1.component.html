@@ -78,13 +78,16 @@
         </div>
     </div> <!-- col -->
 
+    <!-- for debugging the presence or absence of signatures -->
+    <!-- <div class="col-sm-2">
+      <button type="button" (click)="showWrappedForm()">Show Wrapped Form</button>
+    </div> -->
   </div> <!-- row -->
 
   <div class="row vert-space-footer-1">
     <div class="col-sm-5 col-sm-offset-1">
 
       <app-sig-view
-        *ngIf="mode === 'view'"
         [signatures]="wrappedForm.signatures"
         [sigStatus]="wrappedForm.studentSigStatus"
         [focusOnSignature]="focusOnSignature" ></app-sig-view>

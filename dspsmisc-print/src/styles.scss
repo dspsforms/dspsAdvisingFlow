@@ -22,6 +22,11 @@ same as ionic version
 
 }
 
+.grid2col-aap1:hover {
+  background-color: rgba(255, 255, 0, 0.253);
+  cursor: pointer;
+}
+
 .grid3col-aap1 {
   display:grid;
   grid-template-columns: minmax(200px, 2fr) repeat(2, minmax(180px, 1fr));
@@ -90,5 +95,11 @@ same as ionic version
 .grid2-inner {
   display:grid;
   grid-template-columns: repeat(2, minmax(100px, 1fr));
+  grid-gap: 5px;
+}
+
+.grid3-inner {
+  display:grid;
+  grid-template-columns: repeat(3, minmax(80px, 1fr));
   grid-gap: 5px;
 }

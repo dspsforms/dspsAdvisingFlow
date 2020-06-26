@@ -1,0 +1,75 @@
+
+<div class="panel panel-default">
+<div class="panel-body">
+<div class="list-group">
+
+
+  <button class="list-group-item list-group-item-action" disabled >
+
+    <div class="grid-local-1">
+      <!-- first child -->
+      <app-label-yes-no
+        [value]="wrappedForm?.formWithLatestHistory['part2']['deptRehabClient'].val"
+        [label]="'Department of Rehabilitation Client'" >
+      > </app-label-yes-no>
+
+      <!-- 2nd child -->
+      <div>
+        End Date:
+        {{ wrappedForm?.formWithLatestHistory['part2']['deptRahabEndDate']?.val | date }}
+      </div>
+    </div>  <!-- end grid-local-1 -->
+
+  </button>
+
+  <button class="list-group-item list-group-item-action" disabled >
+
+    <div class="grid-local-1">
+      <!-- first child -->
+      <app-label-yes-no
+      [value]="wrappedForm?.formWithLatestHistory['part2']['fosterYouth'].val"
+      [label]="'Foster Youth, as defined in Education Code 66025.9(b)'">
+      > </app-label-yes-no>
+
+      <!-- empty 2nd child -->
+      <div></div>
+    </div> <!-- grid-local-1 -->
+  </button>
+
+  <button class="list-group-item list-group-item-action" disabled >
+
+    <div class="grid-local-1">
+      <!-- first child -->
+      <app-label-yes-no
+          [value]="wrappedForm?.formWithLatestHistory['part2']['veteran'].val"
+          [label]="'Veteran'"
+      > </app-label-yes-no>
+
+      <!-- empty 2nd child -->
+      <div></div>
+    </div> <!-- grid-local-1 -->
+  </button>
+
+
+
+  <button class="list-group-item list-group-item-action" disabled >
+
+    <div class="grid-local-1">
+      <!-- first child -->
+      <app-label-yes-no
+        [value]="wrappedForm?.formWithLatestHistory['part2']['homeless'].val"
+        [label]="'Homeless'"
+      > </app-label-yes-no>
+
+      <!-- empty 2nd child -->
+      <div></div>
+    </div> <!-- grid-local-1 -->
+  </button>
+
+
+</div> <!-- list group -->
+</div> <!-- panel body -->
+</div> <!-- panel panel default -->
+
+
+

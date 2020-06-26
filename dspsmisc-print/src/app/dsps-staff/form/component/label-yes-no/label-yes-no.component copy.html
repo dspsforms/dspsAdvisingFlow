@@ -1,0 +1,13 @@
+
+<!--
+  label yes/no is similar to checkbox.
+  values are yes/no. and layout is two td cells
+-->
+
+  <td>
+    <!-- if value, checked. else unchecked-->
+    <i *ngIf="value && value === 'yes'" class="glyphicon glyphicon-check mybtn-blue"></i>
+    <i *ngIf="!value || value === 'no'" class="glyphicon glyphicon-unchecked mybtn-grey"></i>
+  </td>
+
+  <td colspan="colSpan2Use">  {{ label }}  </td>

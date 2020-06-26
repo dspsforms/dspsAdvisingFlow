@@ -1,4 +1,12 @@
+
+<ion-grid>
+
+
 <form *ngIf="form" [formGroup]="form" (ngSubmit)="createOrEditForm()" >
+
+ 
+<ion-row>
+<ion-col class="size-sm-6, offset-sm-1">
 
   <h1 class="ion-padding">DSPS Student Data Collection Form</h1>
 
@@ -8,13 +16,21 @@
   <app-student-part2 [form]="form" [grid]="grid"></app-student-part2>
 
   <app-student-part3 [form]="form" [grid]="grid"></app-student-part3>
+
+</ion-col>
+</ion-row>
+
+
+<ion-row>
+<ion-col class="size-sm-8, offset-sm-1">
   
   <app-disability-services-container [form]="form" [grid]="grid" ></app-disability-services-container>
 
-  
+</ion-col>
+</ion-row>
 
-  <ion-grid >
-    <ion-row  *ngIf="mode !== 'view'">
+  
+<ion-row  *ngIf="mode !== 'view'">
 
       <!--  -->
       <ion-col size-sm="3" offset-sm="2">
@@ -33,9 +49,9 @@
           Cancel
         </ion-button>
       </ion-col>
-    </ion-row>  <!-- submit and cancel buttons -->
+</ion-row>  <!-- submit and cancel buttons -->
 
-    <ion-row  *ngIf="mode !== 'create'">
+<ion-row  *ngIf="mode !== 'create'">
       <ion-col size-sm="5">
         <ion-item *ngIf="lastModifiedBy" >
           <ion-label >
@@ -51,8 +67,11 @@
           </ion-item>
       </ion-col>
     
-    </ion-row>
+</ion-row>
     
-  </ion-grid>
+
 
 </form>
+
+</ion-grid>
+

@@ -3,6 +3,7 @@
   <app-aap1
     [formKey]="data._id"
     [wrappedForm]="data"
+    [mode]="'view'"
     >
 
   </app-aap1>
@@ -14,10 +15,25 @@
   <app-bluesheet
     [formKey]="data._id"
     [wrappedForm]="data"
+    [mode]="'view'"
     >
 
   </app-bluesheet>
 
  </div>
+
+ <div *ngIf="formInfo.formName == 'greensheet' && data && !busy ">
+
+  <app-greensheet
+    [formKey]="data._id"
+    [wrappedForm]="data"
+    [mode]="'view'"
+    >
+
+  </app-greensheet>
+
+ </div>
+
+
 
 

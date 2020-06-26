@@ -14,25 +14,25 @@
     <ul class="list-group">
 
        <!-- braille -->
-      <li class="list-group-item">
+      <button class="list-group-item list-group-item-action" disabled >
         <app-checkbox-grid
           [value]="wrappedForm?.formWithLatestHistory['altMedia']['braille'].val"
           [label]="'Braille'" >
         </app-checkbox-grid>
-      </li>
+      </button>
 
       <!--  tactileGraphics -->
-      <li class="list-group-item">
+      <button class="list-group-item list-group-item-action" disabled >
         <app-checkbox-grid
           [value]="wrappedForm?.formWithLatestHistory['altMedia']['tactileGraphics'].val"
           [label]="'Tactile Graphics'" >
         </app-checkbox-grid>
-      </li>
+      </button>
 
       <!--
         enlargedPrint, specifyFont
       -->
-      <li class="list-group-item">
+      <button class="list-group-item list-group-item-action" disabled >
         <div class="grid2-inner">
 
           <app-checkbox-grid
@@ -47,10 +47,10 @@
           </app-label-value-print>
 
         </div> <!-- enlargedPrint grid2-inner -->
-      </li>
+      </button>
 
        <!-- etext, kurzweil, pdf -->
-      <li class="list-group-item">
+      <button class="list-group-item list-group-item-action" disabled >
 
         <div class="grid3-inner">
 
@@ -70,10 +70,10 @@
           </app-checkbox-grid>
 
         </div>  <!-- etext, etc grid3-innner -->
-      </li>
+      </button>
 
        <!-- audioRecorded, learningAlly, bookShare -->
-      <li class="list-group-item">
+      <button class="list-group-item list-group-item-action" disabled >
 
         <div class="grid3-inner">
 
@@ -93,10 +93,10 @@
           </app-checkbox-grid>
 
         </div>  <!-- audioRecorded, etc grid3-innner -->
-      </li>
+      </button>
 
       <!-- closedCaption, audioDesc -->
-      <li class="list-group-item">
+      <button class="list-group-item list-group-item-action" disabled >
 
         <div class="grid2-inner">
 
@@ -111,16 +111,16 @@
           </app-checkbox-grid>
 
         </div>  <!-- closedCaption, etc grid2-innner -->
-      </li>
+      </button>
 
        <!--  other -->
-      <li class="list-group-item">
+      <button class="list-group-item list-group-item-action" disabled >
           <app-label-value-print
             [value]="wrappedForm?.formWithLatestHistory['altMedia']['other'].val"
             [label]="'Other'"
             [controlType]="'text'" >
           </app-label-value-print>
-      </li>
+      </button>
 
     </ul>
 

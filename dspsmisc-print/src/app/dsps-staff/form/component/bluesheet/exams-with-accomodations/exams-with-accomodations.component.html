@@ -11,8 +11,8 @@
 
       <div class="panel-body">
 
-        <ul class="list-group">
-          <li class="list-group-item">
+        <div class="list-group">
+          <button class="list-group-item list-group-item-action" disabled >
 
             <div class="grid4-inner">
 
@@ -38,9 +38,9 @@
 
             </div> <!--  extendedTime grid4 -->
 
-          </li>
+          </button>
 
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
 
             <div class="grid4-inner">
 
@@ -66,7 +66,7 @@
 
             </div> <!-- breaks grid4 -->
 
-          </li>
+          </button>
 
           <!--
             reader
@@ -74,33 +74,33 @@
             spellChecker
           -->
 
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
             <app-checkbox-grid
                 [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['reader'].val"
                 [label]="'Reader/Kurzweil Digital Reader'" >
             </app-checkbox-grid>
-          </li>
+          </button>
 
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
             <app-checkbox-grid
               [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['scribe'].val"
               [label]="'Scribe/Voice to text application'" >
             </app-checkbox-grid>
-          </li>
+          </button>
 
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
             <app-checkbox-grid
               [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['spellChecker'].val"
               [label]="'Spell Checker/Computer Spell Checking'" >
             </app-checkbox-grid>
-          </li>
+          </button>
 
           <!--
           basicCalc
           multTable
           -->
 
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
             <div class="grid2-inner">
 
               <app-checkbox-grid
@@ -115,42 +115,42 @@
 
             </div>
 
-          </li>
+          </button>
 
            <!--
             adaptedComputer
             reducedDistractionEnv
           -->
 
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
             <app-checkbox-grid
               [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['adaptedComputer'].val"
               [label]="'Adapted Computer'" >
             </app-checkbox-grid>
-          </li>
+          </button>
 
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
             <app-checkbox-grid
               [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['reducedDistractionEnv'].val"
               [label]="'Distraction Reduced Testing Environment'" >
             </app-checkbox-grid>
-          </li>
+          </button>
 
           <!-- remoteProctoring -->
 
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
             <app-checkbox-grid
               [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['remoteProctoring'].val"
               [label]="'Remote Proctoring without recording video/audio'" >
             </app-checkbox-grid>
-          </li>
+          </button>
 
            <!--
             enlargedPrint
             specifyFont
           -->
 
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
             <div class="grid2-inner">
 
               <app-checkbox-grid
@@ -165,45 +165,45 @@
               </app-label-value-print>
 
             </div> <!-- enlargedPrint grid2-inner -->
-          </li>
+          </button>
 
           <!-- magnification -->
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
             <app-checkbox-grid
               [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['magnification'].val"
               [label]="'Magnification/CCTV'" >
             </app-checkbox-grid>
-          </li>
+          </button>
 
           <!--  braille  -->
 
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
             <app-checkbox-grid
               [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['braille'].val"
               [label]="'Braille'" >
             </app-checkbox-grid>
-          </li>
+          </button>
 
            <!--  tactileGraphics -->
 
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
             <app-checkbox-grid
               [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['tactileGraphics'].val"
               [label]="'Tactile Graphics'" >
             </app-checkbox-grid>
-          </li>
+          </button>
 
           <!--  other -->
 
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
             <app-label-value-print
               [value]="wrappedForm?.formWithLatestHistory['examsWithAccommodations']['other'].val"
               [label]="'Other'"
               [controlType]="'text'" >
             </app-label-value-print>
-          </li>
+          </button>
 
-        </ul>
+        </div> <!-- list-group -->
 
 
   </div> <!-- panel-body -->

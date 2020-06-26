@@ -234,6 +234,49 @@ export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestr
       }),
      // also needed: studentSig and studentSigDate
       
+      /*
+
+      this stuff used to be page 3.
+      but page 3 will have many instances for a student. 
+      while this stuff will have only one instance.
+      so moved here. 
+
+        ❑ Transfer to 4-yr college w/out Associate Degree
+        ❑ Transfer to 4-yr college w/Associate Degree
+        ❑ Associate Degree, Vocational (non-transfer)
+        ❑ Associate Degree, Vocational (non-transfer)
+        ❑ Associate Degree, General Ed. (non-transfer)
+        ❑ Certificate in Vocational Program
+        ❑ Complete credits for High School Diploma or G.E.D.
+
+        ❑ Discover/Formulate Career Interests, Plans, Goals 
+        ❑ Improve Basic skills in English, Reading, Math
+        ❑ Undecided on Educational Goal
+        ❑ Acquire Job Skills Only
+        ❑ Update Job Skills Only
+        ❑ Maintain Certificate or License
+        ❑ Personal Educational Development
+
+      */
+     longTermEdGoal: new FormGroup({
+      // Long-term Educational Goal
+    
+      txferWithoutDeg: new FormControl(false, { updateOn: 'change' }),
+      txferWithDeg: new FormControl(false, { updateOn: 'change' }),
+      degVocationalNonTxfer: new FormControl(false, { updateOn: 'change' }),
+      degGenNonTxfer: new FormControl(false, { updateOn: 'change' }),
+      certVocational: new FormControl(false, { updateOn: 'change' }),
+      completeCreditsHighSchoolGed: new FormControl(false, { updateOn: 'change' }),
+
+      discover: new FormControl(false, { updateOn: 'change' }),
+      improve: new FormControl(false, { updateOn: 'change' }),
+      undecided: new FormControl(false, { updateOn: 'change' }),
+      acquire: new FormControl(false, { updateOn: 'change' }),
+      update: new FormControl(false, { updateOn: 'change' }),
+      maintain: new FormControl(false, { updateOn: 'change' }),
+      personalDev: new FormControl(false, { updateOn: 'change' }),
+    }),
+      
     });
 
     if (this.mode === 'view' || this.mode === 'edit') {

@@ -10,58 +10,58 @@
 
       <div class="panel-body">
 
-        <ul class="list-group">
-          <li class="list-group-item">
+        <div class="list-group">
+          <button type="button" class="list-group-item list-group-item-action" disabled>
             <app-checkbox-grid
                 [value]="wrappedForm?.formWithLatestHistory['auxiliaryAids']['dspsTutoring'].val"
                 [label]="'DSPS Tutoring'" >
             </app-checkbox-grid>
-          </li>
+          </button>
 
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
             <app-checkbox-grid
                 [value]="wrappedForm?.formWithLatestHistory['auxiliaryAids']['serviceAnimal'].val"
                 [label]="'Service Animal'" >
             </app-checkbox-grid>
-          </li>
+          </button>
 
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled>
             <app-checkbox-grid
                 [value]="wrappedForm?.formWithLatestHistory['auxiliaryAids']['signLangInterpreting'].val"
                 [label]="'Sign Language Interpreting'" >
             </app-checkbox-grid>
-          </li>
+          </button>
 
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled >
             <app-checkbox-grid
                 [value]="wrappedForm?.formWithLatestHistory['auxiliaryAids']['realTimeCaptioning'].val"
                 [label]="'Real Time Captioning'" >
             </app-checkbox-grid>
-          </li>
+          </button>
 
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled>
             <app-checkbox-grid
               [value]="wrappedForm?.formWithLatestHistory['auxiliaryAids']['sharedNotes'].val"
               [label]="'Shared Notes'" >
             </app-checkbox-grid>
-          </li>
+          </button>
 
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled>
             <app-checkbox-grid
                 [value]="wrappedForm?.formWithLatestHistory['auxiliaryAids']['audioRecordLectures'].val"
                 [label]="'Audio Record Lectures'" >
             </app-checkbox-grid>
-          </li>
+          </button>
 
           <!-- other -->
-          <li class="list-group-item">
+          <button class="list-group-item list-group-item-action" disabled>
             <app-label-value-print
                 [value]="wrappedForm?.formWithLatestHistory['auxiliaryAids']['other'].val"
                 [label]="'Other (Describe)'"
                 [controlType]="'text'" >
             </app-label-value-print>
-          </li>
-        </ul>
+          </button>
+        </div>
 
   </div> <!-- panel-body -->
 </div> <!-- panel panel-default -->

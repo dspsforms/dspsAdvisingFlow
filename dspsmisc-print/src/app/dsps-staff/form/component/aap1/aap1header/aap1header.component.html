@@ -9,13 +9,17 @@
     </div> <!-- panel-heading -->
 
     <div class="panel-body">
-      <table class="table table-bordered">
+      <table class="table table-bordered table-striped table-hover">
+        <tbody>
+
+
         <tr><td>Semester</td> <td> {{ wrappedForm.formWithLatestHistory['semester'].val }} </td></tr>
         <tr><td>Name</td>
           <td> {{ wrappedForm.formWithLatestHistory['studentLastName'].val }} ,
             {{ wrappedForm.formWithLatestHistory['studentFirstName'].val }}</td></tr>
         <tr><td>Student ID</td> <td> {{ wrappedForm.formWithLatestHistory['collegeId'].val }} </td></tr>
         <tr><td>Student WVM Email</td> <td> {{ wrappedForm.formWithLatestHistory['studentEmail'].val }} </td></tr>
+      </tbody>
       </table>
 
       <div>

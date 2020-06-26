@@ -24,6 +24,7 @@ import { Aap1footerComponent } from './aap1footer/aap1footer.component';
 import { RequiredFieldPromptComponentModule } from '../required-field-prompt/required-field-prompt.module';
 import { SigViewModule } from '../sig-view/sig-view.module';
 import { SigCreateModule } from '../sig-create/sig-create.module';
+import { LongTermEdGoalComponent } from './long-term-ed-goal/long-term-ed-goal.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { SigCreateModule } from '../sig-create/sig-create.module';
         VisualAidsComponent,
         WrittenCourseReqComponent,
         ExtendedTimeWithSigComponent,
+        LongTermEdGoalComponent
     ],
     declarations: [
         Aap1Component,
@@ -72,6 +74,7 @@ import { SigCreateModule } from '../sig-create/sig-create.module';
         VisualAidsComponent,
         WrittenCourseReqComponent,
         ExtendedTimeWithSigComponent,
+        LongTermEdGoalComponent
     ]
 })
 export class Aap1ComponentModule {}

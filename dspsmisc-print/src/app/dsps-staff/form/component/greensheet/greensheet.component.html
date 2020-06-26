@@ -1,0 +1,45 @@
+<div class="container-fluid" *ngIf="wrappedForm" >
+
+
+
+  <h1>DSPS Student Data Collection Form</h1>
+
+  <div class="row">
+    <div class="col-sm-12">
+
+
+  <app-student-personal-info
+    [wrappedForm]="wrappedForm"
+    [formTitle]="formTitle"
+    [formLabel]="formLabel" >
+  </app-student-personal-info>
+
+
+  <app-student-part2 [wrappedForm]="wrappedForm" ></app-student-part2>
+
+  <app-student-part3 [wrappedForm]="wrappedForm" ></app-student-part3>
+
+  <app-disability-services-container [wrappedForm]="wrappedForm" ></app-disability-services-container>
+
+
+
+  <div class="row vert-space-footer-1">
+    <div class="col-sm-4 col-sm-offset-1">
+      <div *ngIf="lastModifiedBy" >
+          Last edited by  {{ lastModifiedBy }},  {{ lastModified | date }}.
+      </div>
+    </div> <!-- col -->
+    <div class="col-sm-4">
+        <div *ngIf="currentVersion" >
+             Version:  {{ currentVersion }}
+        </div>
+    </div> <!-- col -->
+
+  </div> <!-- row -->
+
+  <!-- greensheet has no student signature -->
+
+</div> <!-- col-sm-12 -->
+</div> <!-- row -->
+
+</div> <!-- container fluid -->

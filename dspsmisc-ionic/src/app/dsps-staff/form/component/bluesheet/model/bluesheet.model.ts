@@ -29,7 +29,7 @@ export class BlueSheetForm extends BaseForm {
         public physicalAccess: BluesheetPhysicalAccess,
         public altMedia: BluesheetAltMedia,
         public general: BluesheetGeneral,
-        public completedBy: string,
+        public completedBySignature: string,
         public completedByDate: string,
         public dateCreated: Date,
         public lastMod: Date) {

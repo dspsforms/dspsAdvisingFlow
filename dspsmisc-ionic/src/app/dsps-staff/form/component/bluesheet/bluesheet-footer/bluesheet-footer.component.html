@@ -3,7 +3,7 @@
 <ion-grid>
 
   <!-- 
-    completedBy, completedByDate
+    completedBySignature, completedByDate
   -->
   <ion-row>
     <ion-col size-sm="4">
@@ -12,11 +12,11 @@
         <ion-input 
           type="text" 
           [class.required]="showRequired(mode)"
-          formControlName="completedBy"></ion-input>
+          formControlName="completedBySignature"></ion-input>
       </ion-item>
       <p 
-      *ngIf="form.get('completedBy').touched && !form.get('completedBy').valid">
-      <ion-label color="danger">Completed by (DSPS faculty) is required.</ion-label>
+      *ngIf="form.get('completedBySignature').touched && !form.get('completedBySignature').valid">
+      <ion-label color="danger">DSPS Professional's signature is required.</ion-label>
     </p>
     </ion-col>
 

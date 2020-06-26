@@ -61,6 +61,10 @@ export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestr
 
   }
 
+  showWrappedForm() {
+    console.log(this.wrappedForm);
+  }
+
 
 
 }

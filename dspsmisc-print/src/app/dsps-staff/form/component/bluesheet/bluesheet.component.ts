@@ -21,6 +21,7 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
 
   @Input() formKey; // for view and edit
   @Input() wrappedForm: WrappedForm; // when form has data
+  @Input() mode: 'create' | 'view' | 'edit';
 
   @Input() focusOnSignature: boolean; // optional, if true, focus will be on signature
 

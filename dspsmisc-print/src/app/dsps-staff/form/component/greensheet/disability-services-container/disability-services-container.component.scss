@@ -1,0 +1,12 @@
+.gap-top {
+    margin-top: 10px;
+    padding-top: 10px;
+}
+h1 {
+    font-size: 2vw;
+}
+.left-border {
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));
+}

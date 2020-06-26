@@ -38,6 +38,7 @@ export class DisabilityServicesComponent implements OnInit {
     this.labels['learningDisabled'] = 'Learning Disabled';
     this.labels['mentalHealthDisabilty'] = 'Mental Health Disability';
     this.labels['physicalDisability'] = 'Physical Disability';
+    this.labels['other'] = 'Other';
 
     // this.labels['other'] = 'Other';
 

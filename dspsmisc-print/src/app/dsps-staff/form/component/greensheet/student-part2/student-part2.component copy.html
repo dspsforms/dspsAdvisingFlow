@@ -1,0 +1,52 @@
+
+ <!-- this is one-half of a two col grid -->
+ <div class="panel panel-default">
+
+  <table class="table table-bordered table-striped table-hover">
+    <tbody>
+
+      <tr>
+        <!-- two tds -->
+        <app-label-yes-no
+          [value]="wrappedForm?.formWithLatestHistory['part2']['deptRehabClient'].val"
+          [label]="'Department of Rehabilitation Client'" >
+        > </app-label-yes-no>
+
+        <td>End Date</td>
+        <td> {{ wrappedForm?.formWithLatestHistory['part2']['deptRahabEndDate']?.val }} </td>
+
+      </tr>
+
+      <tr>
+        <app-label-yes-no
+        [value]="wrappedForm?.formWithLatestHistory['part2']['fosterYouth'].val"
+        [label]="'Foster Youth, as defined in Education Code 66025.9(b)'"
+        [colSpan]="'3'">
+        > </app-label-yes-no>
+      </tr>
+
+      <tr>
+        <app-label-yes-no
+          [value]="wrappedForm?.formWithLatestHistory['part2']['veteran'].val"
+          [label]="'Veteran'"
+          [colSpan]="'3'"
+      > </app-label-yes-no>
+
+      </tr>
+
+      <tr>
+        <app-label-yes-no
+        [value]="wrappedForm?.formWithLatestHistory['part2']['homeless'].val"
+        [label]="'Homeless'"
+        [colSpan]="'3'"
+      > </app-label-yes-no>
+
+      </tr>
+
+    </tbody>
+  </table>
+
+  </div> <!-- panel panel default -->
+
+
+

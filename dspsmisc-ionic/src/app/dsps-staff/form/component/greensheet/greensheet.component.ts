@@ -112,7 +112,13 @@ export class GreensheetComponent extends AbstractFormSubmit implements OnInit, O
         onCampusReg: new FormControl(false, { updateOn: 'change' }), 
         onCampusSpecial: new FormControl(false, { updateOn: 'change' }), 
 
-        serviceContracts: new FormControl(false, { updateOn: 'change' }),  // primary/secondary 
+        // serviceContracts: new FormControl(false, { updateOn: 'change' }),  // primary/secondary 
+      }),
+
+      serviceContracts: new FormGroup({
+        primary: new FormControl(false, { updateOn: 'change' }), // checkbox
+        secondary: new FormControl(false, { updateOn: 'change' }), // checkbox
+
       }),
       
       /*

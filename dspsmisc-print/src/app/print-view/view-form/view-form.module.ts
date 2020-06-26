@@ -8,6 +8,7 @@ import { Aap1ComponentModule } from '../../dsps-staff/form/component/aap1/aap1.m
 import { ViewFormComponent } from './view-form.component';
 import { ViewFormRoutingModule } from './view-form-routing.module';
 import { BluesheetComponentModule } from 'src/app/dsps-staff/form/component/bluesheet/bluesheet-component.module';
+import { GreesheetComponentModule } from 'src/app/dsps-staff/form/component/greensheet/greensheet.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { BluesheetComponentModule } from 'src/app/dsps-staff/form/component/blue
         SigViewModule,
         Aap1ComponentModule,
         BluesheetComponentModule,
+        GreesheetComponentModule,
         ViewFormRoutingModule
     ],
     declarations: [

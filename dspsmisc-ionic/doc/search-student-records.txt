@@ -1,0 +1,6 @@
+
+to search records for a student, also allow search by full name
+
+so add fullName field to top level of form schema.
+fill it before save or update
+

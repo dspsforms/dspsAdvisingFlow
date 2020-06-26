@@ -22,5 +22,30 @@
       </ion-label>
       <ion-checkbox slot="start" formControlName="onCampusSpecial"></ion-checkbox>
     </ion-item>
-</div>
-</div>
+  </div> <!-- part2--> 
+
+  <div formGroupName="serviceContracts" class="grid3-inner box-outline-bottom">
+
+    <!-- first child -->
+    <ion-item>
+      <ion-text>Service Contracts: </ion-text>
+    </ion-item>
+    <!-- second child -->
+    <ion-item>
+      <ion-label>
+        Primary
+      </ion-label>
+      <ion-checkbox slot="start" formControlName="primary"></ion-checkbox>
+    </ion-item>
+
+    <!-- third child -->
+    <ion-item>
+      <ion-label>
+        Secondary
+      </ion-label>
+      <ion-checkbox slot="start" formControlName="secondary"></ion-checkbox>
+    </ion-item>
+
+  </div> <!-- formGroupName serviceContracts, also grid3-local -->
+
+</div> <!-- formGroup -->
