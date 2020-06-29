@@ -388,11 +388,11 @@ export class AuthService {
 
   clearAuth() {
     this.token = null;
-    this.triggerAuthChangeEvent();
     clearTimeout(this.tokenTimer);
     this.clearAuthDataLocalStorage();
     this.user = null;
     this.dataInitialized = false;
+    this.triggerAuthChangeEvent();
   }
 
   logout() {
@@ -437,6 +437,13 @@ export class AuthService {
       expirationDate: new Date(expirationDate),
       user: user
     };
+  }
+
+  public getAuthPublicLocalStorage() {
+    const tmp = this.getAuthDataLocalStorage();
+    if (!tmp) { return tmp; }
+
+    return { ...tmp };
   }
 
   refreshAuthDataFromLocalStorage() {

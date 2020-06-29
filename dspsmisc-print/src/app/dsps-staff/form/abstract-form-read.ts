@@ -6,6 +6,7 @@ import { SubscriptionUtil } from 'src/app/util/subscription-util';
 import { FormUtil, FormName } from '../../model/form.util';
 import { Subscription } from 'rxjs';
 import { Config } from 'src/app/model/config';
+import { AuthPrintService } from 'src/app/auth/auth-print.service';
 
 
 
@@ -29,8 +30,9 @@ export class AbstractFormRead implements OnInit, OnDestroy {
     private isStudentUser = false; // set this to true for students viewing their own form
 
     constructor(
-        public route: ActivatedRoute,
-        public formService: FormsService) { }
+      public route: ActivatedRoute,
+      public formService: FormsService,
+      public authPrintService: AuthPrintService) { }
 
     setStudentUser(b: boolean) {
         this.isStudentUser = b;
@@ -38,36 +40,57 @@ export class AbstractFormRead implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-        this.data = new WrappedForm({});
+      this.data = new WrappedForm({});
 
-        this.paramSubscription = this.route.params.subscribe(
-            params => {
-              console.log("params", params);
+      this.dbSubscription  = this.formService.getCurrentFormUpdatedListener().subscribe(formData => {
+        this.data = formData;
+        this.busy = false;
+      });
 
-              this.formInfo.formName = params['formName'];
-              this.formInfo.formTitle = FormUtil.formTitle(this.formInfo.formName);
-              this.formInfo._id = params['formId'];
+      this.paramSubscription = this.route.params.subscribe(
+        params => {
+          console.log("params", params);
 
-              this.data.formKey = params['formId'];
-              console.log("formInfo", this.formInfo);
+          this.formInfo.formName = params['formName'];
+          this.formInfo.formTitle = FormUtil.formTitle(this.formInfo.formName);
+          this.formInfo._id = params['formId'];
 
-            });
+          this.data.formKey = params['formId'];
+          console.log("formInfo", this.formInfo);
 
-        this.busy = true;
+          this.data = new WrappedForm({});
+          this.busy = true;
 
-        this.dbSubscription  = this.formService.getCurrentFormUpdatedListener().subscribe(formData => {
-              this.data = formData;
-              this.busy = false;
+          // wait for login to finish
+          let count = 0;
+          setInterval(() => {
+
+            if (this.authPrintService.getToken()) {
+              // user is logged in
+              clearInterval();
+            }
+            if (count++ > 60) {
+              console.log("taking too long, aborting");
+              clearInterval();
+            }
+          }, 1000);
+
+          console.log("user token is available, sending form request to server");
+
+          this.formService.getFormData2(
+              this.formInfo.formName,
+              this.formInfo._id,
+              this.isStudentUser
+          );
+
         });
 
 
-        this.data = new WrappedForm({});
-        this.busy = true;
-        this.formService.getFormData2(
-            this.formInfo.formName,
-            this.formInfo._id,
-            this.isStudentUser
-        );
+
+
+
+
+
 
 
     }

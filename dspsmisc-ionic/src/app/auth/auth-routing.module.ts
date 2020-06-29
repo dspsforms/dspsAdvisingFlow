@@ -44,6 +44,10 @@ const routes: Routes = [
   {
     path: 'reset-password/:randomKey',
     loadChildren: () => import('./reset-password-step2/reset-password-step2.module').then( m => m.ResetPasswordStep2PageModule)
+  },
+  {
+    path: 'single-sign-on',
+    loadChildren: () => import('./single-sign-on/single-sign-on.module').then( m => m.SingleSignOnPageModule)
   }
 
 ];

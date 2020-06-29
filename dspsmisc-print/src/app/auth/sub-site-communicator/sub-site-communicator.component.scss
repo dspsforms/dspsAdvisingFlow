@@ -1,0 +1,14 @@
+.debugIframe {
+  overflow: visible;
+  width: 900px;
+  height: 1000px;
+
+  border: 1px solid black;
+}
+
+.noDebugIframe {
+  width: 1px;
+  height: 1px;
+  border: none;
+  visibility: hidden;
+}

@@ -1,0 +1,7 @@
+<h2>Main Site Communicator.</h2>
+
+<ul *ngIf="messages">
+  <li *ngFor="let m of messages;">
+    <pre> {{ m | json }} </pre>
+  </li>
+</ul>

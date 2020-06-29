@@ -7,6 +7,8 @@ export const environment = {
 
   server: "http://localhost:3001",
 
+  authServer: "http://localhost:8100",
+
   enforceWvmEmail: false,
 
   // client side key for reCaptcha V3.
