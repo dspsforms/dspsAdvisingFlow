@@ -5,6 +5,8 @@ export const environment = {
   // change this to your production server
   server: "https://www.dspsmisc.com",
 
+  printServer: "http://localhost:4200",
+
   // during testing, this can be false, so personal emails can be used to test accounts
   enforceWvmEmail: true,
 

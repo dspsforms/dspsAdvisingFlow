@@ -51,7 +51,10 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
    }
 
   initFormObj() {
-      super.wrappedFormFromDb = this.wrappedForm;
+    super.setWrappedFormFromDb(this.wrappedForm);
+
+    // prod build fails. only public and protected methods accessible
+    // super.wrappedFormFromDb = this.wrappedForm;
   }
 
 

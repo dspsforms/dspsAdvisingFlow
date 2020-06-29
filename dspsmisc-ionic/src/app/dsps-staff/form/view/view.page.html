@@ -7,6 +7,9 @@
       <span *ngIf="formLabel"> : {{ formLabel }} </span>
     </ion-title>
     <ion-buttons slot="primary">
+      <ion-button (click)="goToPrintPage()">
+        <ion-icon slot="icon-only" name="print"></ion-icon>
+      </ion-button>
       <ion-button (click)="goToEditPage()">
         <ion-icon slot="icon-only" name="create"></ion-icon>
       </ion-button>

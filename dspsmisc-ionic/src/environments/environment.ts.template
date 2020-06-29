@@ -6,6 +6,8 @@ export const environment = {
   production: false,
 
   server: "http://localhost:3001",
+  
+  printServer: "http://localhost:4200",
 
   enforceWvmEmail: false,
 

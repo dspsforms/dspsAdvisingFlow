@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AuthData } from './auth-data.model';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 //  a smaller version of authService. doesn't actually do login, or createUser. simply
 // holds auth info and manages localstorage
@@ -18,7 +20,7 @@ export class AuthPrintService {
 
   private authStatusListener = new Subject<AuthData>();
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
@@ -44,7 +46,7 @@ export class AuthPrintService {
       return;
     }
 
-    if (!d.authInfo) {
+    if (!d.authInfo || d.loggedIn === 'no') {
       // user has logged out
       this.clearAuth();
       return;
@@ -216,6 +218,23 @@ export class AuthPrintService {
     this.clearAuthDataLocalStorage();
     this.user = null;
     this.dataInitialized = false;
+  }
+
+  // clear own local storage.
+  // go to main site
+  logout() {
+    this.clearAuth();
+
+    try {
+       // going to main site, but should we log out there as well?
+      // this.router.navigateByUrl(environment.authServer);
+
+      window.location.href = environment.authServer;
+    } catch (err) {
+      console.error(err);
+    }
+
+
   }
 
   // send out an auth change event to those listening

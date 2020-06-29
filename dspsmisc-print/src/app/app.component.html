@@ -1,7 +1,20 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<section id="signout">
+  <!-- <div class="page-header"> -->
+    <div class="pull-right some-space">
+      <div class="btn-group">
+          <button class="btn btn-tertiary" (click)="onLogout()">
+              Sign Out
+          </button>
+      </div> <!-- btn-group -->
+    </div> <!-- pull-right -->
+  <!-- </div>  -->
+  <!-- page header -->
+  <app-sub-site-communicator></app-sub-site-communicator>
+</section>
 
-<app-sub-site-communicator></app-sub-site-communicator>
-</div>
+
+
+
 
 <router-outlet></router-outlet>

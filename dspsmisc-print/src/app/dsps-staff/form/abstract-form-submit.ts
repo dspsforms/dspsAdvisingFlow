@@ -354,6 +354,10 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
     SubscriptionUtil.unsubscribe(this.dspsUserListSmallSub);
   }
 
+  // only public and protected methods are accessible by subclass
+  setWrappedFormFromDb(w: WrappedForm) {
+    this.wrappedFormFromDb = w;
+  }
 
 
 }

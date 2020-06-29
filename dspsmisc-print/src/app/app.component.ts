@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthPrintService } from './auth/auth-print.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'dspsmisc-print';
+
+  constructor(private authPrintService: AuthPrintService) {
+
+  }
+
+  onLogout() {
+    this.authPrintService.logout();
+  }
+
 }
+
+

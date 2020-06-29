@@ -103,3 +103,11 @@ same as ionic version
   grid-template-columns: repeat(3, minmax(80px, 1fr));
   grid-gap: 5px;
 }
+
+@media print {
+
+  // hide the sign out button
+  #signout {
+    display: none;
+  }
+}

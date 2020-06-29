@@ -8,22 +8,29 @@ import { ErrorInterceptor } from './util/error-interceptor';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { SubSiteCommunicatorComponent } from './auth/sub-site-communicator/sub-site-communicator.component';
 import { SafePipe } from './util/safe.pipe';
+import { ErrorComponent } from './error/error.component';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material';
 
 @NgModule({
   declarations: [
     AppComponent,
     SubSiteCommunicatorComponent,
-    SafePipe
+    SafePipe,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    MatDialogModule,
     AppRoutingModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ErrorComponent ]
 })
 export class AppModule { }

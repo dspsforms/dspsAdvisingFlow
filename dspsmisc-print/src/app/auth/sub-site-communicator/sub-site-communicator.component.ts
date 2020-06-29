@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { SafePipe } from 'src/app/util/safe.pipe';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AuthPrintService } from '../auth-print.service';
+import { UrlConfigPrintServer } from 'src/app/model/url-config';
 
 
 
@@ -17,7 +18,7 @@ export class SubSiteCommunicatorComponent implements OnInit {
 
   debug = false;
 
-  sanitizedAuthServer;
+  sanitizedAuthServerUrl;
 
   // safePipe: SafePipe;
 
@@ -28,7 +29,8 @@ export class SubSiteCommunicatorComponent implements OnInit {
 
   ngOnInit() {
     // this.authServer = environment.authServer;
-    this.sanitizedAuthServer = this.sanitizer.bypassSecurityTrustResourceUrl(environment.authServer);
+    this.sanitizedAuthServerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      environment.authServer + UrlConfigPrintServer.MAIN_SITE_LOGIN); // '/auth/single-sign-on');
   }
 
   @HostListener('window:message', ['$event'])

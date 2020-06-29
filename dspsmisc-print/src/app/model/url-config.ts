@@ -24,7 +24,7 @@ export class UrlConfig {
 
   static LIST_COLLECTIONS_ABSOLUTE: '/api/forms';
 
- 
+
 
 
   // static SHOW_USERS = 'showUsers';
@@ -44,7 +44,7 @@ export class UrlConfig {
 
   static LIST_FORMS_PRE_ABSOLUTE = '/dsps-staff/form/list/'; // append formName
 
-  static CREATE_FORM_PRE_ABSOLUTE = '/dsps-staff/form/create/'; // append formName 
+  static CREATE_FORM_PRE_ABSOLUTE = '/dsps-staff/form/create/'; // append formName
 
   static VERIFY_EMAIL_MSG = '/auth/verify-email-msg';
   // static AGREEMENT_CREATE_EDIT = 'agreementCreateEdit';
@@ -59,4 +59,11 @@ export class UrlConfig {
   static LOGOUT = '/auth/logout';
 
 
+}
+
+export class UrlConfigPrintServer {
+
+  static MAIN_SITE_LOGIN = '/auth/single-sign-on';
+
+  // static PRINT_SITE_LOGOUT = '/auth/logout';
 }

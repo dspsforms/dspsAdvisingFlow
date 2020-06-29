@@ -12,7 +12,7 @@
 
 <!-- <iframe [src]="authServer | safe : 'resourceUrl'" width="95%" ></iframe> -->
 
-<iframe class="debugIframe" [src]="sanitizedAuthServer"  ></iframe>
+<iframe class="debugIframe" [src]="sanitizedAuthServerUrl"  ></iframe>
 
 <div *ngIf="messages">
   <div *ngFor="let m of messages;">
@@ -24,7 +24,7 @@
 
 <div *ngIf="!debug">
 
-  <iframe class="noDebugIframe" [src]="sanitizedAuthServer"  ></iframe>
+  <iframe class="noDebugIframe" [src]="sanitizedAuthServerUrl"  ></iframe>
 
 
 </div>

@@ -57,7 +57,10 @@ export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestr
 
   initFormObj() {
 
-    super.wrappedFormFromDb = this.wrappedForm;
+    super.setWrappedFormFromDb(this.wrappedForm);
+
+    // prod build fails
+    // super.wrappedFormFromDb = this.wrappedForm;
 
   }
 

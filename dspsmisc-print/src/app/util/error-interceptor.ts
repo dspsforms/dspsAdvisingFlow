@@ -9,7 +9,8 @@ import { throwError } from "rxjs";
 import { Injectable } from "@angular/core";
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
-// import { MatDialog } from "@angular/material";
+import { MatDialog } from "@angular/material";
+import { ErrorComponent } from '../error/error.component';
 
 // import { ErrorComponent } from "./error/error.component";
 // import { ErrorService } from "./error/error.service";
@@ -22,7 +23,9 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   constructor(
     private router: Router,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private dialog: MatDialog
+  ) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
@@ -36,7 +39,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         } else if (error.message) {
           errorMessage = error.message;
         }
-        // this.dialog.open(ErrorComponent, {data: {message: errorMessage}});
+        this.dialog.open(ErrorComponent, {data: {message: errorMessage}});
         // this.errorService.throwError(errorMessage);
         console.log(error);
 
@@ -48,7 +51,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         // } else {
         //   this.showOtherError(errorMessage);
         // }
-        console.log(error);
+        // console.log(error);
         return throwError(error);
       })
     );

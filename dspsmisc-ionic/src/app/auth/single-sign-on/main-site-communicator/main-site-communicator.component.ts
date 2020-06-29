@@ -19,11 +19,20 @@ export class MainSiteCommunicatorComponent implements OnInit {
   ngOnInit() {
     this.authSub = this.authService.getAuthStatusListener()
       .subscribe(user => {
+        
         if (!user) {
+          console.log("main-site-communicator, user logging out");
           // user has logged outs
           // if we have a parent, i.e., we are an iframe, notify them
           // that we are logged out
           if (parent) {
+            console.log("main-site-communicator, parent is available");
+            this.sendToSubSite();
+          }
+        } else {
+          console.log("main-site-communicator, user logged in");
+          if (parent) {
+            console.log("main-site-communicator, parent is available");
             this.sendToSubSite();
           }
         }
@@ -68,11 +77,11 @@ export class MainSiteCommunicatorComponent implements OnInit {
 
     // send to parent from iframe
 
-    console.log("replying with", authInfo);
+    console.log("main-site-communicator: sending", authInfo);
     // parent.postMessage(JSON.stringify({key: 'storage', method: 'set', data: obj}), '*');
     parent.postMessage({ key: 'storage', method: 'set', data: data2Send }, '*');
 
-    console.log("done");
+    console.log("main-site-communicator: done");
 
     this.num++;
   }

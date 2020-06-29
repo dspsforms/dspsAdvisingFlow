@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormsService } from '../forms.service';
 
 import { AbstractFormRead } from '../abstract-form-read';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -28,5 +29,13 @@ export class ViewPage extends AbstractFormRead implements OnInit, OnDestroy {
     /*
     routerLink="'/dsps-staff/form/edit/' + formInfo.formName + '/' + formInfo._id"
     */
+  }
+
+  goToPrintPage() {
+
+    let url = `${environment.printServer}/print/view/${this.formInfo.formName}/${this.formInfo._id}`;
+    // window.location.href = url;
+    window.open(url, "_blank");
+
   }
 }
