@@ -186,7 +186,7 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
         // nemeth: new FormControl(false, { updateOn: 'change' }),
         tactileGraphics: new FormControl(false, { updateOn: 'change' }),
         enlargedPrint: new FormControl(false, { updateOn: 'change' }),
-        specifyFont: new FormControl(false, { updateOn: 'change' }),
+        specifyFont: new FormControl(null, { updateOn: 'change' }),
         etext: new FormControl(false, { updateOn: 'change' }),
         kurzweil: new FormControl(false, { updateOn: 'change' }),
         pdf: new FormControl(false, { updateOn: 'change' }),
