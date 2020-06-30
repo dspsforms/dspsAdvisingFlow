@@ -19,6 +19,8 @@ export class SubSiteCommunicatorComponent implements OnInit, OnDestroy {
 
   heartBeatSub: Subscription;
 
+  authServerResponse; // null if ok, error if not
+
   constructor(
     private sanitizer: DomSanitizer,
     private comService: SubSiteCommunicatorService) { }
@@ -29,7 +31,7 @@ export class SubSiteCommunicatorComponent implements OnInit, OnDestroy {
       environment.authServer + UrlConfigPrintServer.MAIN_SITE_LOGIN); // '/auth/single-sign-on');
 
     // talk to the authServer for auth token if user is signed in
-    this.comService.callAuthServer();
+    this.authServerResponse = this.comService.callAuthServer();
 
     // schedule a heartbeat
   }

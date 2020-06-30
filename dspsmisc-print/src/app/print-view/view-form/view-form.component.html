@@ -1,3 +1,25 @@
+ <!-- error, spinner etc *ngIf="noLoginInfo" -->
+ <div *ngIf="noLoginInfo" class="row">
+   <div class="col-sm-5 col-sm-offset-1">
+    <div class="uploader-status vert-space">
+      <mat-spinner [diameter]="spinnerDiameter"></mat-spinner>
+    </div>
+    <p>Verifying login...</p>
+    <!-- <div class="panel panel-default">
+      <div class="panel-heading">Verifying login... </div>
+    </div> -->
+   </div> <!-- col-->
+ </div> <!-- row -->
+
+ <!-- *ngIf="loginError"  -->
+ <div *ngIf="loginError"  class="row">
+   <div class="col-sm-6 col-sm-offset-1">
+     <div class="panel panel-warning">
+      <div class="panel-heading">Verifying login failed. If this happens, please let DSPS know</div>
+     </div>
+   </div>
+ </div>
+
 <div *ngIf="formInfo.formName == 'aap1' && data && !busy ">
 
   <app-aap1
@@ -33,6 +55,8 @@
   </app-greensheet>
 
  </div>
+
+
 
 
 

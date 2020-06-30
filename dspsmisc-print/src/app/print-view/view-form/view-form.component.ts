@@ -11,6 +11,7 @@ import { AuthPrintService } from 'src/app/auth/auth-print.service';
 })
 export class ViewFormComponent extends AbstractFormRead implements OnInit, OnDestroy {
 
+  spinnerDiameter = 50;
   constructor(
     public route: ActivatedRoute,
     public formService: FormsService,

@@ -130,22 +130,26 @@ export class SubSiteCommunicatorService {
 
     }
 
+    let status = null;
     if (!this.found) {
-      const errorMessage =
+      status =
         "We did not receive your sign-in info from the main server. Please report this to your DSPS admin so we can troubleshoot.";
       console.error("askReceive: did not get auth info from auth-server");
-      this.dialog.open(ErrorComponent,
-        {
-          data: {
-            message: errorMessage
-          }
-        });
+      // this.dialog.open(ErrorComponent,
+      //   {
+      //     data: {
+      //       message: errorMessage
+      //     }
+      //   });
+
     }
+
+    return status; // null means success
 
   }
 
   callAuthServer() {
-    this.askReceieve();
+    return this.askReceieve();
   }
 
 

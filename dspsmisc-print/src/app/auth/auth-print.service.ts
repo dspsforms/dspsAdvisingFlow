@@ -18,7 +18,7 @@ export class AuthPrintService {
 
   private dataInitialized = false;
 
-  private authStatusListener = new Subject<AuthData>();
+  private authStatusListener = new Subject<{ user: AuthData; token: string } >();
 
   constructor(private router: Router) { }
 
@@ -60,6 +60,7 @@ export class AuthPrintService {
     this.saveAuthDataLocalStorage(this.token, this.expirationDate, this.user);
 
     this.dataInitialized = true;
+    this.triggerAuthChangeEvent(); // let those listening know
   }
 
   private saveAuthDataLocalStorage(
@@ -239,6 +240,6 @@ export class AuthPrintService {
 
   // send out an auth change event to those listening
   triggerAuthChangeEvent() {
-    this.authStatusListener.next(this.user);
+    this.authStatusListener.next({ user: this.user, token: this.token });
   }
 }

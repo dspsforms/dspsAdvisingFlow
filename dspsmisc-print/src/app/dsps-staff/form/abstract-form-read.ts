@@ -15,8 +15,9 @@ export class AbstractFormRead implements OnInit, OnDestroy {
 
     // base class to read form data for view and edit
 
-    paramSubscription: Subscription;
-    dbSubscription: Subscription;
+  paramSubscription: Subscription;
+  dbSubscription: Subscription;
+  authSub: Subscription;
 
     busy = false;
     showJson = false;
@@ -26,6 +27,9 @@ export class AbstractFormRead implements OnInit, OnDestroy {
     formInfo = { formName: '', formTitle: '', _id: ''};
 
     data: WrappedForm;
+
+  noLoginInfo = true;
+  loginError = false;;
 
     // wait for login to finish
     timedFunction;
@@ -70,50 +74,36 @@ export class AbstractFormRead implements OnInit, OnDestroy {
 
           this.token = this.authPrintService.getToken();
 
-          while (this.count++ < 60 && !this.token)
-          {
-            setTimeout(() => {
-
-              this.token = this.authPrintService.getToken();
-              // this.count++;
-              console.log("token inside timeout", this.token);
-
-            }, 100);
-          }
-
-          // this.timedFunction = setInterval(() => {
-
-          //     // if (!this.authPrintService) {
-          //     //   this.token = null;
-          //     //   clearInterval(this.timedFunction);
-          //     // }
-          //     this.token = this.authPrintService.getToken();
-          //     if (this.token) {
-          //         // user is logged in
-          //         clearInterval(this.timedFunction);
-          //     }
-
-          //     if (this.count++ > 60) {
-          //         console.log("taking too long, aborting");
-          //         clearInterval(this.timedFunction);
-          //     }
-          // }, 100);
-
-          if (!this.token) {
-            console.log("no token, user likely not logged in");
-            return;
-          }
-          console.error("user is logged on, sending form request to server");
-
-          this.formService.getFormData2(
+          if (this.token) {
+            console.log("token found without subscription, sending form request");
+            this.noLoginInfo = false;
+            this.formService.getFormData2(
               this.formInfo.formName,
               this.formInfo._id,
               this.isStudentUser
-          );
+            );
+          } else {
+            // subscribe to token
+            this.authSub = this.authPrintService.getAuthStatusListener().subscribe(data => {
+              if (data && data.token) {
+                this.noLoginInfo = false;
+                console.log("token found with subscription, sending form request");
+                this.formService.getFormData2(
+                  this.formInfo.formName,
+                  this.formInfo._id,
+                  this.isStudentUser
+                );
+              } else {
+                this.loginError = true;
+                console.log("no token found in auth data subscription");
+              }
+            });
+          }
+
 
         });
 
-    }
+    } // ngOnInit
 
   // checkLogin() {
   //   if (!this.authPrintService) {
@@ -134,10 +124,62 @@ export class AbstractFormRead implements OnInit, OnDestroy {
 
   // }
 
+  junk() {
+
+     /*
+          if token is available, send a form request.
+          else subcribe to token, and when available, send form request
+          */
+
+         while (this.count++ < 60 && !this.token)
+         {
+           setTimeout(() => {
+
+             this.token = this.authPrintService.getToken();
+             // this.count++;
+             console.log("token inside timeout", this.token);
+
+           }, 100);
+         }
+
+         // this.timedFunction = setInterval(() => {
+
+         //     // if (!this.authPrintService) {
+         //     //   this.token = null;
+         //     //   clearInterval(this.timedFunction);
+         //     // }
+         //     this.token = this.authPrintService.getToken();
+         //     if (this.token) {
+         //         // user is logged in
+         //         clearInterval(this.timedFunction);
+         //     }
+
+         //     if (this.count++ > 60) {
+         //         console.log("taking too long, aborting");
+         //         clearInterval(this.timedFunction);
+         //     }
+         // }, 100);
+
+         if (!this.token) {
+           console.log("no token, user likely not logged in");
+           return;
+         }
+         console.error("user is logged on, sending form request to server");
+
+         this.formService.getFormData2(
+             this.formInfo.formName,
+             this.formInfo._id,
+             this.isStudentUser
+         );
+
+
+  }
+
     ngOnDestroy() {
 
-        SubscriptionUtil.unsubscribe(this.paramSubscription);
-        SubscriptionUtil.unsubscribe(this.dbSubscription);
+      SubscriptionUtil.unsubscribe(this.paramSubscription);
+      SubscriptionUtil.unsubscribe(this.dbSubscription);
+      SubscriptionUtil.unsubscribe(this.authSub);
     }
 
   // for print, this stuff is needed in bluesheet component, etc. not

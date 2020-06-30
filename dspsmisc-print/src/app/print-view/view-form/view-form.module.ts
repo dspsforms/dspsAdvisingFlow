@@ -9,12 +9,14 @@ import { ViewFormComponent } from './view-form.component';
 import { ViewFormRoutingModule } from './view-form-routing.module';
 import { BluesheetComponentModule } from 'src/app/dsps-staff/form/component/bluesheet/bluesheet-component.module';
 import { GreesheetComponentModule } from 'src/app/dsps-staff/form/component/greensheet/greensheet.module';
+import { MatProgressSpinnerModule } from '@angular/material';
 
 
 @NgModule({
     imports: [
         CommonModule,
         ReactiveFormsModule,
+        MatProgressSpinnerModule,
         ElemWithSignComponentModule,
         SigViewModule,
         Aap1ComponentModule,

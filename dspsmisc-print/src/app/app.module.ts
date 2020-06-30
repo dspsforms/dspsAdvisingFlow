@@ -9,7 +9,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 import { SubSiteCommunicatorComponent } from './auth/sub-site-communicator/sub-site-communicator.component';
 import { SafePipe } from './util/safe.pipe';
 import { ErrorComponent } from './error/error.component';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule, MatProgressSpinnerModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -22,6 +22,7 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/materia
     BrowserModule,
     HttpClientModule,
     MatDialogModule,
+    // MatProgressSpinnerModule,
     AppRoutingModule
   ],
   providers: [
