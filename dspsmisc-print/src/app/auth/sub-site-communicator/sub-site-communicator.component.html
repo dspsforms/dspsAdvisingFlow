@@ -1,30 +1,4 @@
-<div *ngIf="debug">
-
-<h2>Sub Site</h2>
 
 <div>
-  <button type="button" (click)="onButtonClick()">Talk to iFrame</button>
-</div>
-
-
-
-<!-- <div>Count = {{ count }} </div> -->
-
-<!-- <iframe [src]="authServer | safe : 'resourceUrl'" width="95%" ></iframe> -->
-
-<iframe class="debugIframe" [src]="sanitizedAuthServerUrl"  ></iframe>
-
-<div *ngIf="messages">
-  <div *ngFor="let m of messages;">
-    <pre> {{ m | json }} </pre>
-  </div>
-</div>
-
-</div> <!-- debug -->
-
-<div *ngIf="!debug">
-
   <iframe class="noDebugIframe" [src]="sanitizedAuthServerUrl"  ></iframe>
-
-
 </div>
