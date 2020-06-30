@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"simpledsps.users"},{"v":2,"unique":true,"key":{"email":1},"name":"email_1","ns":"simpledsps.users","background":true}],"uuid":"1c4bbc694b164b85b995443bd829634e"}
