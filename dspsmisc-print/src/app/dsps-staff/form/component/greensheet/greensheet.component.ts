@@ -9,6 +9,7 @@ import { FormName } from 'src/app/model/form.util';
 import { DataTransformService } from '../../data-transform/data-transform.service';
 import { AppGlobalsService } from '../../app-globals/app-globals.service';
 import { LastOperationStatusService } from '../../last-operation-status/last-operation-status.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-greensheet',
@@ -29,6 +30,7 @@ export class GreensheetComponent extends AbstractFormSubmit implements OnInit, O
     public appGlobalsService: AppGlobalsService,
     public userService: UserService,
     public lastOpStatusService: LastOperationStatusService,
+    public titleService: Title
     ) {
     super(FormName.GREENSHEET,
       router,
@@ -37,7 +39,9 @@ export class GreensheetComponent extends AbstractFormSubmit implements OnInit, O
       dataTxformService,
       appGlobalsService,
       userService,
-      lastOpStatusService);
+      lastOpStatusService,
+      titleService
+      );
 
   }
 

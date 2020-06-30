@@ -14,6 +14,7 @@ import { UserService } from '../../../user/user.service';
 import { DataTransformService } from '../../data-transform/data-transform.service';
 import { AppGlobalsService } from '../../app-globals/app-globals.service';
 import { LastOperationStatusService } from '../../last-operation-status/last-operation-status.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-aap1',
@@ -37,6 +38,7 @@ export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestr
     appGlobalsService: AppGlobalsService,
     userService: UserService,
     lastOpStatusService: LastOperationStatusService,
+    public titleService: Title
     ) {
     super(
       FormName.AAP1,
@@ -46,7 +48,8 @@ export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestr
       dataTxformService,
       appGlobalsService,
       userService,
-      lastOpStatusService);
+      lastOpStatusService,
+      titleService );
 
     }
 

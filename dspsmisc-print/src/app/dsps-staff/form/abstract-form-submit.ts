@@ -6,7 +6,7 @@ import { Router } from "@angular/router";
 import { FormsService } from "./forms.service";
 // import { LastOperationStatusService } from "./last-operation-status.service";
 
-import { OnInit, OnDestroy, Inject } from "@angular/core";
+import { OnInit, OnDestroy, Inject, OnChanges, SimpleChanges } from "@angular/core";
 import { SubscriptionUtil } from "../../util/subscription-util";
 import { StatusMessage } from "../../model/status-message";
 // import { AppGlobalsService } from './app-globals.service';
@@ -20,9 +20,11 @@ import { AuthData } from 'src/app/auth/auth-data.model';
 import { DataTransformService } from './data-transform/data-transform.service';
 import { AppGlobalsService } from './app-globals/app-globals.service';
 import { LastOperationStatusService } from './last-operation-status/last-operation-status.service';
+import { Title } from '@angular/platform-browser';
 
 // base class for form submits
 
+// OnChanges
 export class AbstractFormSubmit implements OnInit, OnDestroy {
 
   public title: string;
@@ -48,6 +50,7 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
   // this list is need for completedBy fields
   public dspsUserListSmall: AuthData[];
 
+  private prevPageTitle = null;
 
   constructor(
     public formName: string,
@@ -57,10 +60,21 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
     public dataTxformService: DataTransformService,
     public appGlobalsService: AppGlobalsService,
     public userService: UserService,
-    public lastOpStatusService: LastOperationStatusService)
+    public lastOpStatusService: LastOperationStatusService,
+    public titleService: Title)
   {
 
   }
+  // ngOnChanges(changes: SimpleChanges): void {
+
+  //   const tmpPageTitle = this.pageTitle;
+  //   if (!tmpPageTitle) { return; }
+
+  //   if (!this.prevPageTitle || this.prevPageTitle !== tmpPageTitle ) {
+  //     this.prevPageTitle = tmpPageTitle;
+  //     this.titleService.setTitle(this.prevPageTitle);
+  //   }
+  // }
 
   // setFormName(formName: string) {
   //   this.formName = formName;
@@ -347,6 +361,21 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
     }
   }
 
+  get pageTitle() {
+
+    /*
+    formInfo.formTitle
+  <span *ngIf="formLabel"> : {{ formLabel }
+    */
+    let result = this.formTitle;
+    if (this.formLabel) {
+        result += " : " + this.formLabel;
+    };
+    return result;
+  }
+
+
+
   ngOnDestroy() {
     SubscriptionUtil.unsubscribe(this.formSaveStatusSub);
     SubscriptionUtil.unsubscribe(this.editSaveStatusSub);
@@ -357,6 +386,10 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
   // only public and protected methods are accessible by subclass
   setWrappedFormFromDb(w: WrappedForm) {
     this.wrappedFormFromDb = w;
+
+    // kludge: update page title
+    this.titleService.setTitle(this.pageTitle);
+
   }
 
 

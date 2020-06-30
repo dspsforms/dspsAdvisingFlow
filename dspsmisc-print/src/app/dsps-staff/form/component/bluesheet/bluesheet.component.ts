@@ -9,6 +9,7 @@ import { UserService } from 'src/app/dsps-staff/user/user.service';
 import { DataTransformService } from '../../data-transform/data-transform.service';
 import { AppGlobalsService } from '../../app-globals/app-globals.service';
 import { LastOperationStatusService } from '../../last-operation-status/last-operation-status.service';
+import { Title } from '@angular/platform-browser';
 
 
 
@@ -34,6 +35,7 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
     public appGlobalsService: AppGlobalsService,
     public userService: UserService,
     public lastOpStatusService: LastOperationStatusService,
+    public titleService: Title
     ) {
     super(FormName.BLUESHEET,
       router,
@@ -42,7 +44,8 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
       dataTxformService,
       appGlobalsService,
       userService,
-      lastOpStatusService);
+      lastOpStatusService,
+      titleService );
     }
 
   ngOnInit() {
