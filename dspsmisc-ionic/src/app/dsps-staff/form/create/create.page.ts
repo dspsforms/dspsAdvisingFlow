@@ -5,6 +5,7 @@ import { FormsService } from '../forms.service';
 import { SubscriptionUtil } from 'src/app/util/subscription-util';
 import { UrlConfig } from 'src/app/model/url-config';
 import { FormName, FormUtil } from 'src/app/model/form.util';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-create',
@@ -21,7 +22,8 @@ export class CreatePage implements OnInit , OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private formsService: FormsService) { }
+    private formsService: FormsService,
+    private titleService: Title) { }
 
   ngOnInit() {
     this.paramSub = this.route.paramMap.subscribe(paramMap => {
@@ -33,6 +35,8 @@ export class CreatePage implements OnInit , OnDestroy {
 
       this.formName = paramMap.get('formName');
       this.formDisplayName = FormUtil.formTitle(this.formName);
+
+      this.titleService.setTitle(this.formDisplayName);
 
     });
   }

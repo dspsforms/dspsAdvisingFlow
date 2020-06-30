@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { SubscriptionUtil } from 'src/app/util/subscription-util';
 import { SubmitStatus, MongoErr } from '../auth-data.model';
 import { AlertController } from '@ionic/angular';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-student-signup',
@@ -32,7 +33,8 @@ export class StudentSignupPage implements OnInit , OnDestroy {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private authService: AuthService,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    private titleService: Title) {
     
     this.signUpForm = fb.group({
       studentName: new FormControl(null, {
@@ -80,6 +82,8 @@ export class StudentSignupPage implements OnInit , OnDestroy {
   }
 
   ngOnInit() {
+
+    this.titleService.setTitle("Student Sign Up");
 
     this.submitSub = this.authService.getCreateStudentListener().subscribe(
       statusData => {

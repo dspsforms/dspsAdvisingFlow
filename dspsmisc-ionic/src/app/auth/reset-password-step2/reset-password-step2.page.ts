@@ -7,6 +7,7 @@ import { AuthService } from '../auth.service';
 import { ActionSheetController, AlertController } from '@ionic/angular';
 import { SubscriptionUtil } from 'src/app/util/subscription-util';
 import { UrlConfig } from 'src/app/model/url-config';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-reset-password-step2',
@@ -34,7 +35,8 @@ export class ResetPasswordStep2Page implements OnInit, OnDestroy {
     private router: Router,
     private authService: AuthService,
     private actionSheetCtrl: ActionSheetController,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    private titleService: Title) {
     this.initForm();
   }
   
@@ -64,6 +66,7 @@ export class ResetPasswordStep2Page implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.titleService.setTitle("Reset Password");
 
     // create this subscription before anything else
     this.retrieveUserSub = this.authService.getRetrieveUserFromRandomKeyListener().subscribe(

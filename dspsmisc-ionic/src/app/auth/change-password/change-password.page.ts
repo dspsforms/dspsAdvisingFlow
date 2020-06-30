@@ -7,6 +7,7 @@ import { UrlConfig } from 'src/app/model/url-config';
 import { Router } from '@angular/router';
 import { SubscriptionUtil } from 'src/app/util/subscription-util';
 import { AlertController, ActionSheetController } from '@ionic/angular';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-change-password',
@@ -27,7 +28,8 @@ export class ChangePasswordPage implements OnInit, OnDestroy {
     public authService: AuthService,
     public router: Router,
     public actionSheetCtrl: ActionSheetController,
-    public alertCtrl: AlertController) { }
+    public alertCtrl: AlertController,
+    public titleService: Title) { }
   
   initForm() {
 
@@ -53,6 +55,7 @@ export class ChangePasswordPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.titleService.setTitle("Change Password");
     this.submitSub = this.authService.getChangePasswordListener().subscribe(
       statusData => {
         // remove spinner

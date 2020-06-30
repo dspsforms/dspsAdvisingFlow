@@ -6,6 +6,7 @@ import { NavController, ModalController, AlertController } from '@ionic/angular'
 import { AuthData } from 'src/app/auth/auth-data.model';
 import { AuthService } from 'src/app/auth/auth.service';
 import { SigCreateComponent } from 'src/app/dsps-staff/form/component/sig-create/sig-create.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-student-view-form',
@@ -29,8 +30,9 @@ export class StudentViewFormPage extends AbstractFormRead implements OnInit, OnD
     public formService: FormsService,
     public navCtrl: NavController,
     public authService: AuthService,
-    public modalCtrl: ModalController) { 
-    super(route, formService);
+    public modalCtrl: ModalController,
+    public titleService: Title) { 
+    super(route, formService, titleService);
 
     // this way, the backend api url will be modified to return 
     // student's own data. the backend api will perform additional

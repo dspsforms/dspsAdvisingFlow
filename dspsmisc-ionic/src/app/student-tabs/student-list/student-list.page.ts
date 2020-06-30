@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { FormsService } from 'src/app/dsps-staff/form/forms.service';
 import { NavController } from '@ionic/angular';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-student-list',
@@ -25,13 +26,19 @@ export class StudentListPage implements OnInit {
   constructor(
     public authService: AuthService,
     public formService: FormsService,
-    public navCtrl: NavController) { }
+    public navCtrl: NavController,
+    private titleService: Title) { }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
     this.studentUser = this.authService.getUser();
+    if (this.studentUser) {
+      // {{ studentUser?.name }}
+      this.titleService.setTitle(this.studentUser.name);
+
+    }
     
     // get list of student records for this student
     this.studentRecordsSub = this.formService.getStudentRecordsStatusListener()
@@ -42,6 +49,8 @@ export class StudentListPage implements OnInit {
 
         this.message = data.message || null;
         this.listOfForms = data.listOfForms || null;
+
+        
 
       });
     

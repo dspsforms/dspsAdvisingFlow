@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { SubscriptionUtil } from 'src/app/util/subscription-util';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-verify-email-msg',
@@ -14,10 +15,13 @@ export class VerifyEmailMsgPage implements OnInit, OnDestroy {
 
   expirationTime = 0;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private titleService: Title) { }
 
   ngOnInit() {
 
+    this.titleService.setTitle("Verify Your Email");
     this.paramSub = this.route.paramMap.subscribe(paramMap => {
       if (!paramMap.has('expirationTime')) {
         return;

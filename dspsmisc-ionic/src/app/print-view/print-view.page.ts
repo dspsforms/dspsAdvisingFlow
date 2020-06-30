@@ -3,6 +3,7 @@ import { AbstractFormRead } from '../dsps-staff/form/abstract-form-read';
 import { ActivatedRoute } from '@angular/router';
 import { FormsService } from '../dsps-staff/form/forms.service';
 import { NavController } from '@ionic/angular';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-print-view',
@@ -17,8 +18,9 @@ export class PrintViewPage extends AbstractFormRead implements OnInit, OnDestroy
     public route: ActivatedRoute,
     public formService: FormsService,
     public navCtrl: NavController,
+    public titleService: Title
   ) { 
-    super(route, formService);
+    super(route, formService, titleService);
   }
 
   // this too prints only the first page

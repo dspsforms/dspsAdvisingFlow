@@ -5,6 +5,7 @@ import { UserService } from '../user.service';
 import { AuthData } from '../../../auth/auth-data.model';
 import { Router } from '@angular/router';
 import { UrlConfig } from 'src/app/model/url-config';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-list-users',
@@ -28,7 +29,8 @@ export class ListUsersPage implements OnInit {
   constructor(
     private userService: UserService,
     private authService: AuthService,
-    private router: Router) { }
+    private router: Router,
+    private titleService: Title) { }
 
   ngOnInit() {
 
@@ -42,6 +44,7 @@ export class ListUsersPage implements OnInit {
 
     this.dspsUserListSub = this.userService.getDspsUserListListener().subscribe(res => {
       this.dspsUsers = res;
+      this.titleService.setTitle("Users");
     });
 
     

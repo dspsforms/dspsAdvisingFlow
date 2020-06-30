@@ -6,6 +6,7 @@ import { AuthService } from '../auth.service';
 import { SubmitStatus, MongoErr } from '../auth-data.model';
 import { UrlConfig } from 'src/app/model/url-config';
 import { AlertController } from '@ionic/angular';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-validate-signup',
@@ -31,9 +32,11 @@ export class ValidateSignupPage implements OnInit , OnDestroy{
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private alertCtrl: AlertController) { }
+    private alertCtrl: AlertController,
+    private titleService: Title) { }
 
   ngOnInit() {
+    this.titleService.setTitle(this.titleMsg);
 
     // create this subscription before anything else
     this.verifyEmailSub = this.authService.getVerifyEmailListener().subscribe(

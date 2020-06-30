@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormsService } from '../forms.service';
 import { UrlConfig } from 'src/app/model/url-config';
 import { UserService } from '../../user/user.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit',
@@ -15,8 +16,9 @@ export class EditPage extends AbstractFormRead implements OnInit, OnDestroy {
   // defaultBackButtonHref: string;
   constructor(
     public route: ActivatedRoute,
-    public formService: FormsService) { 
-    super(route, formService);
+    public formService: FormsService,
+    public titleService: Title) { 
+    super(route, formService, titleService);
 
     
   }

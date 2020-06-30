@@ -5,6 +5,7 @@ import { FormsService } from '../forms.service';
 
 import { AbstractFormRead } from '../abstract-form-read';
 import { environment } from 'src/environments/environment';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -18,8 +19,9 @@ export class ViewPage extends AbstractFormRead implements OnInit, OnDestroy {
   constructor(
     public route: ActivatedRoute,
     public formService: FormsService,
+    public titleService: Title,
     public navCtrl: NavController) { 
-    super(route, formService);
+    super(route, formService, titleService);
   }
 
   goToEditPage() {

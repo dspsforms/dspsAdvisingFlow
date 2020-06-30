@@ -8,6 +8,7 @@ import { FormUtil, FormName } from '../../model/form.util';
 import { Subscription } from 'rxjs';
 import { UserService } from '../user/user.service';
 import { AuthData } from 'src/app/auth/auth-data.model';
+import { Title } from '@angular/platform-browser';
 
 
 
@@ -31,7 +32,8 @@ export class AbstractFormRead implements OnInit, OnDestroy {
 
     constructor(
         public route: ActivatedRoute,
-        public formService: FormsService) { }
+        public formService: FormsService,
+        public titleService: Title) { }
 
     setStudentUser(b: boolean) {
         this.isStudentUser = b;
@@ -64,8 +66,9 @@ export class AbstractFormRead implements OnInit, OnDestroy {
         this.busy = true;
           
         this.dbSubscription  = this.formService.getCurrentFormUpdatedListener().subscribe(formData => {
-              this.data = formData;
-              this.busy = false;
+            this.data = formData;
+            this.busy = false;
+            this.titleService.setTitle(this.title);
         });   
 
     
@@ -161,6 +164,19 @@ export class AbstractFormRead implements OnInit, OnDestroy {
             }
         }
 
+        return result;
+    }
+
+    get title() {
+
+        /*
+        formInfo.formTitle
+      <span *ngIf="formLabel"> : {{ formLabel }
+        */
+        let result = this.formInfo.formTitle;
+        if (this.formLabel) {
+            result += " : " + this.formLabel;
+        };
         return result;
     }
 

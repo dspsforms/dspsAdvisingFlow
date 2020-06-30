@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ModalController } from '@ionic/angular';
 import { AuthService } from '../auth.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-reset-password-step1',
@@ -21,7 +22,8 @@ export class ResetPasswordStep1Component implements OnInit, OnDestroy {
 
   constructor(
     public modalCtrl: ModalController,
-    public authService: AuthService) { 
+    public authService: AuthService,
+    public titleService: Title) { 
     this.form = new FormGroup({
       email: new FormControl(null, {
         updateOn: 'change',
@@ -31,6 +33,7 @@ export class ResetPasswordStep1Component implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.titleService.setTitle("Reset Password");
     this.resetPasswordStep1Sub = this.authService.getResetPasswordStep1Listener()
       .subscribe(submitStatus => {
       

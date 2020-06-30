@@ -4,10 +4,14 @@
       <ion-back-button defaultHref="{{ defaultHref }}"></ion-back-button>
     </ion-buttons>
 
-    <ion-title>Add New User (faculty, staff, instructor, or admin)</ion-title>
+    <ion-title>Add New User (faculty, staff)</ion-title>
+    <ion-item lines="none">
+      <ion-text>(Do not add students from this page.)</ion-text>
+    </ion-item>
+    
 
     <ion-buttons slot="primary">
-      <ion-button *ngIf="isAdminAuth" routerLink="/list-users"> 
+      <ion-button *ngIf="isAdminAuth" routerLink="/dsps-staff/users/list-dsps-users"> 
         <ion-icon name="list"></ion-icon>
       </ion-button>
     </ion-buttons>

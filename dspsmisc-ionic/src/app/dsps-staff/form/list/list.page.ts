@@ -8,6 +8,7 @@ import { PaginationService } from '../component/pagination/pagination.service';
 import { FormUtil, FormName } from 'src/app/model/form.util';
 import { SubscriptionUtil } from 'src/app/util/subscription-util';
 import { NavController } from '@ionic/angular';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-list',
@@ -46,7 +47,8 @@ export class ListPage implements OnInit, OnDestroy {
     private formService: FormsService,
     private paginationService: PaginationService,
     private _route: ActivatedRoute,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private titleService: Title
   ) { }
 
   ngOnInit() { }
@@ -74,6 +76,12 @@ export class ListPage implements OnInit, OnDestroy {
               this.list = formsData.items;
               this.maxItems = formsData.maxItems;
               this.busy = false;
+              // Submitted Forms: {{ formInfo.formTitle }} 
+              let titleStr = "Submitted Forms";
+              if (this.formInfo && this.formInfo.formTitle) {
+                titleStr += ": " + this.formInfo.formTitle;
+              }
+              this.titleService.setTitle(titleStr);
             });
 
       if (!this.pageSize || !this.currentPage) {

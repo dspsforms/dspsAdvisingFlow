@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { SubscriptionUtil } from 'src/app/util/subscription-util';
 import { ModalController } from '@ionic/angular';
 import { ResetPasswordStep1Component } from '../reset-password-step1/reset-password-step1.component';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -34,7 +35,8 @@ export class LoginPage implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public fb: FormBuilder,
     public modalCtrl: ModalController,
-    private authService: AuthService)
+    private authService: AuthService,
+    private titleService: Title)
   {
     this.signInForm = fb.group({
       email: new FormControl(null, {
@@ -86,6 +88,8 @@ export class LoginPage implements OnInit, OnDestroy {
       this.router.navigateByUrl('/student'); // TBD
     } else if (this.authService.getIsInstructorAuth()) {
       this.router.navigateByUrl('/instructor'); // TBD
+    } else {
+      this.titleService.setTitle("Sign In");
     }
   }
 

@@ -9,6 +9,7 @@ import { SubscriptionUtil } from 'src/app/util/subscription-util';
 import { Role } from '../auth-data.model';
 import { NavController } from '@ionic/angular';
 import { UrlConfig } from 'src/app/model/url-config';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-add-new-staff',
@@ -40,7 +41,8 @@ export class AddNewStaffPage implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     public fb: FormBuilder,
-    private authService: AuthService)
+    private authService: AuthService,
+    private titleService: Title)
   {
     
     this.signUpForm = fb.group({
@@ -83,6 +85,8 @@ export class AddNewStaffPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    this.titleService.setTitle("Add DSPS Staff and Faculty");
 
     this.isAdminAuth = this.authService.getIsAdminAuth();
     if (!this.isAdminAuth) {
