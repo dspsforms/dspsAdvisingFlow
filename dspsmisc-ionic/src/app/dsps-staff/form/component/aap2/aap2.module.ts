@@ -12,6 +12,7 @@ import { LabelYesNoComponentModule } from '../label-yes-no/label-yes-no.module';
 import { RequiredFieldPromptComponentModule } from '../required-field-prompt/required-field-prompt.module';
 import { SigCreateModule } from '../sig-create/sig-create.module';
 import { SigViewModule } from '../sig-view/sig-view.module';
+import { FindMyEmailComponentModule } from '../find-my-email/find-my-email.module';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { SigViewModule } from '../sig-view/sig-view.module';
         RequiredFieldPromptComponentModule,
         SigCreateModule,
         SigViewModule,
+        FindMyEmailComponentModule,
         RouterModule
     ],
     exports: [

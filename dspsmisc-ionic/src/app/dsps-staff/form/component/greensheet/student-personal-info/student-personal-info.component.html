@@ -64,6 +64,8 @@
       <ion-label color="danger">Please provide a valid email</ion-label>
     </ion-item>
 
+    <app-find-my-email *ngIf="mode === 'create'"></app-find-my-email>
+
     <div formGroupName="address">
  
       <ion-item>

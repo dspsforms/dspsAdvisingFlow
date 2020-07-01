@@ -153,7 +153,6 @@
         type="text"
         [class.required]="showRequired(mode)"
         formControlName="studentFirstName"></ion-input>
-        <app-find-my-email></app-find-my-email>
     </ion-item>
     <p 
       *ngIf="form.get('studentFirstName').touched && !form.get('studentFirstName').valid">
@@ -195,7 +194,8 @@
         <ion-label color="danger"> This must be a valid wvm.edu email </ion-label>
       </p>
     </div>
-
+ 
+    <app-find-my-email *ngIf="mode === 'create'"></app-find-my-email>
    
   </ion-col>
 
