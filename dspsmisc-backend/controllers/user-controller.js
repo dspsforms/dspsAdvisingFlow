@@ -460,7 +460,7 @@ createStudentUser = (student, req) => {
     isStaff: false,
     isFaculty: false,
     isInstructor: false,
-    collegeId: studentTmp.collegeId,
+    collegeId: student.collegeId,
     created: student.created, 
     lastMod: student.lastMod,
     metaHistoryArr: [ 
