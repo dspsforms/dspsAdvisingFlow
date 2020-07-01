@@ -7,6 +7,7 @@ import { AuthData, Role, StudentData, SubmitStatus, UserFromRandomKey } from "./
 import { environment } from "../../environments/environment";
 import { UrlConfig } from "../model/url-config";
 import { StatusMessage } from '../model/status-message';
+import { UserService } from '../dsps-staff/user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,10 @@ export class AuthService {
   private resetPasswordStep2Listener = new Subject<SubmitStatus>();
 
   private dataInitialized = false;
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private userService: UserService) { }
 
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
@@ -82,9 +86,14 @@ export class AuthService {
     };
     const url = environment.server + '/api/user/addstaff';
     this.http
-      .post(url, authData)
+      .post<{ message: string; err?: any }>(url, authData)
       .subscribe(response => {
         console.log(response);
+        // // { message: ..., err: null or some value}
+        // if (!response.err) {
+        //   // success. refresh list of dspsUsers
+        //   this.userService.listDspsUsers(); 
+        // }
         this.router.navigate([nextUrl || UrlConfig.LIST_DSPS_USERS_ABSOLUTE]);
       });
   }

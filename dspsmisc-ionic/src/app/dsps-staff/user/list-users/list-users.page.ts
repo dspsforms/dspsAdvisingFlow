@@ -1,23 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../auth/auth.service';
 import { UserService } from '../user.service';
 import { AuthData } from '../../../auth/auth-data.model';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { UrlConfig } from 'src/app/model/url-config';
 import { Title } from '@angular/platform-browser';
+import { SubscriptionUtil } from 'src/app/util/subscription-util';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list-users',
   templateUrl: './list-users.page.html',
   styleUrls: ['./list-users.page.scss'],
 })
-export class ListUsersPage implements OnInit {
+export class ListUsersPage implements OnInit , OnDestroy{
 
   dspsUsers: AuthData[];
 
 
   dspsUserListSub: Subscription;
+
+  routeSub: Subscription;
 
   // only admins can see isAdmin isStaff and isFaculty columns
   isAdminAuth: boolean;
@@ -30,7 +34,9 @@ export class ListUsersPage implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private router: Router,
-    private titleService: Title) { }
+    private titleService: Title) { 
+      this.onViewEnter();
+    }
 
   ngOnInit() {
 
@@ -50,7 +56,36 @@ export class ListUsersPage implements OnInit {
     
   }
 
-  ionViewWillEnter() {
+  /*
+  Ionic seems to have a bug. ionViewWillEnter is not firing a 2nd time.
+  https://github.com/ionic-team/ionic/issues/16152
+  */
+
+  // ionViewWillEnter() {
+  //   this.doViewInit();
+  // }
+
+  
+
+  ngOnDestroy() {
+    SubscriptionUtil.unsubscribe(this.dspsUserListSub);
+    SubscriptionUtil.unsubscribe(this.routeSub);
+  }
+
+  onViewEnter() {
+
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        filter((event: NavigationEnd) => event.urlAfterRedirects === UrlConfig.LIST_DSPS_USERS_ABSOLUTE)
+      )
+      .subscribe(p => {
+        // console.log('events',p);
+        this.doViewInit();
+      });
+  }
+
+  doViewInit() {
 
     if (!this.isDspsAuth) {
       this.router.navigateByUrl('/auth/login');

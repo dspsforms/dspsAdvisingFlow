@@ -8,10 +8,11 @@
     <ion-item lines="none">
       <ion-text>(Do not add students from this page.)</ion-text>
     </ion-item>
-    
 
+    <!-- "/dsps-staff/users/list-dsps-users" -->
     <ion-buttons slot="primary">
-      <ion-button *ngIf="isAdminAuth" routerLink="/dsps-staff/users/list-dsps-users"> 
+      <ion-button *ngIf="isAdminAuth" 
+        routerLink="UrlConfig.LIST_DSPS_USERS_ABSOLUTE">  
         <ion-icon name="list"></ion-icon>
       </ion-button>
     </ion-buttons>
