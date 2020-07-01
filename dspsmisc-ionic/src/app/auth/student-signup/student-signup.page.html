@@ -40,6 +40,7 @@
         <ion-item>
           <ion-label position="floating" >Your wvm.edu email address * </ion-label>
           <ion-input type="email" formControlName="email"> </ion-input>
+          <app-find-my-email></app-find-my-email>
         </ion-item>
 
         <div *ngIf="email.touched && !email.valid">

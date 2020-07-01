@@ -20,31 +20,47 @@
             <ion-label>DSPS Forms (external)</ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle>
+        <ion-menu-toggle *ngIf="isLoggedIn()">
           <ion-item lines="none" routerLink="/auth/change-password">
             <ion-icon name="apps" slot="start"></ion-icon>
             <ion-label>Change Password</ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle>
+        <ion-menu-toggle *ngIf="isStudentAuth()">
           <ion-item lines="none" routerLink="/student">
-            <ion-icon name="layers" slot="start"></ion-icon>
-            <ion-label>Forms for a Student</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        
-        <!-- the button attribute adds animation -->
-        <ion-menu-toggle>
-          <ion-item lines="none" (click)="onLogout()" button>
-            <ion-icon name="exit" slot="start"></ion-icon>
-            <ion-label>Logout</ion-label>
+            <ion-icon name="trending-up-outline" slot="start"></ion-icon>
+            <ion-label>My Forms</ion-label>
           </ion-item>
         </ion-menu-toggle>
 
-        <ion-menu-toggle>
+        <!-- TODO -->
+        <!-- <ion-menu-toggle *ngIf="isDspsAuth()">
+          <ion-item lines="none" routerLink="/todo">
+            <ion-icon name="trail-sign-outline" slot="start"></ion-icon>
+            <ion-label>Forms for a student</ion-label>
+          </ion-item>
+        </ion-menu-toggle> -->
+
+        <!-- feedback -->
+        <ion-menu-toggle *ngIf="isLoggedIn()">
+          <ion-item lines="none" (click)="onFeedback()" button>
+            <ion-icon name="git-pull-request" slot="start"></ion-icon>
+            <ion-label>Feature Requests, Issues</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle *ngIf="isLoggedIn()">
           <ion-item lines="none" (click)="toggleGrid()" button>
             <ion-icon name="exit" slot="start"></ion-icon>
             <ion-label>Toggle Grid</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+         <!-- the button attribute adds animation -->
+         <ion-menu-toggle>
+          <ion-item lines="none" (click)="onLogout()" button>
+            <ion-icon name="exit" slot="start"></ion-icon>
+            <ion-label>Logout</ion-label>
           </ion-item>
         </ion-menu-toggle>
         

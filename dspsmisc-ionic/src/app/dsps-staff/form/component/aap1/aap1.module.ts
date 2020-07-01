@@ -25,6 +25,7 @@ import { RequiredFieldPromptComponentModule } from '../required-field-prompt/req
 import { SigViewModule } from '../sig-view/sig-view.module';
 import { SigCreateModule } from '../sig-create/sig-create.module';
 import { LongTermEdGoalComponent } from './long-term-ed-goal/long-term-ed-goal.component';
+import { FindMyEmailComponentModule } from '../find-my-email/find-my-email.module';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { LongTermEdGoalComponent } from './long-term-ed-goal/long-term-ed-goal.c
         RequiredFieldPromptComponentModule,
         SigViewModule,
         SigCreateModule,
+        FindMyEmailComponentModule,
         RouterModule
     ],
     exports: [

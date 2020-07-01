@@ -16,6 +16,7 @@ import { BluesheetFooterComponent } from './bluesheet-footer/bluesheet-footer.co
 import { RequiredFieldPromptComponentModule } from '../required-field-prompt/required-field-prompt.module';
 import { SigViewModule } from '../sig-view/sig-view.module';
 import { SigCreateModule } from '../sig-create/sig-create.module';
+import { FindMyEmailComponentModule } from '../find-my-email/find-my-email.module';
 
 
 
@@ -27,6 +28,7 @@ import { SigCreateModule } from '../sig-create/sig-create.module';
     RouterModule,
     SigViewModule,
     SigCreateModule,
+    FindMyEmailComponentModule,
     RequiredFieldPromptComponentModule
   ],
   exports: [

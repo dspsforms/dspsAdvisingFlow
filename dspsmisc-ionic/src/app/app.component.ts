@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -7,15 +7,21 @@ import { AuthService } from './auth/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AppGlobalsService } from './dsps-staff/form/app-globals.service';
+import { SubscriptionUtil } from './util/subscription-util';
+
+import { AuthData , Role } from './auth/auth-data.model';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
 
   isAdminAuth: boolean;
+  user: AuthData = null;
+
+  authSub: Subscription;
 
   constructor(
     private platform: Platform,
@@ -33,8 +39,24 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.authService.getIsAdminAuth();
+      this.isAdminAuth = this.authService.getIsAdminAuth();
     });
+  }
+
+  ngOnInit() {
+
+    this.user = this.authService.getUser();
+    
+    // this.loggedIn = this.authService.getUser() != null;
+    this.authSub = this.authService.getAuthStatusListener().subscribe(
+      auth => {
+        // auth is a user or null
+        this.user = auth;
+      });
+  }
+
+  ngOnDestroy() {
+    SubscriptionUtil.unsubscribe(this.authSub);
   }
 
   onLogout() {
@@ -45,5 +67,35 @@ export class AppComponent {
   toggleGrid() {
     this.appGlobalsService.toggleGrid();
   }
+
+  onFeedback() {
+    window.open("https://github.com/logsense/dsps-forms-issues", "_blank");
+  }
+
+  isDspsAuth() {
+
+    if (!this.user) { return false; }
+
+    const role = this.user.role;
+    if (!role) { return false; }
+
+    return (role.isAdmin || role.isFaculty || role.isStaff);
+  }
+
+  isStudentAuth() {
+
+    if (!this.user) { return false; }
+
+    const role = this.user.role;
+    if (!role) { return false; }
+
+    return (role.isStudent);
+  }
+
+  isLoggedIn() {
+    return this.user != null; 
+  }
+
+  
 
 }

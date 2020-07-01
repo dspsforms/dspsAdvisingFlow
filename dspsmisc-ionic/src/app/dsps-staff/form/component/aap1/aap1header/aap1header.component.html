@@ -71,6 +71,7 @@
           type="text"
           [class.required]="showRequired(mode)"
           formControlName="studentEmail"></ion-input>
+          <app-find-my-email></app-find-my-email>
       </ion-item>
       <div  *ngIf="studentEmail.touched" >
         <p *ngIf="studentEmail.errors?.required"  >

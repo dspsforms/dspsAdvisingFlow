@@ -153,6 +153,7 @@
         type="text"
         [class.required]="showRequired(mode)"
         formControlName="studentFirstName"></ion-input>
+        <app-find-my-email></app-find-my-email>
     </ion-item>
     <p 
       *ngIf="form.get('studentFirstName').touched && !form.get('studentFirstName').valid">

@@ -9,7 +9,7 @@ const studentTmpSchema = mongoose.Schema({
     //  after student is verified, keep password only in user collection
     password: { type: String }, 
     name: { type: String, required: true },
-    collegeId: { type: String, required: true , unique: true},
+    collegeId: { type: String, required: true },
     cellPhone: { type: String },
     creatorIP: { type: String, required: true},  // save the IP address of the student
     
