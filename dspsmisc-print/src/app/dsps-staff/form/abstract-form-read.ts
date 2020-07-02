@@ -7,6 +7,7 @@ import { FormUtil, FormName } from '../../model/form.util';
 import { Subscription } from 'rxjs';
 import { Config } from 'src/app/model/config';
 import { AuthPrintService } from 'src/app/auth/auth-print.service';
+import { AuthData } from 'src/app/auth/auth-data.model';
 
 
 
@@ -43,10 +44,6 @@ export class AbstractFormRead implements OnInit, OnDestroy {
       public formService: FormsService,
       public authPrintService: AuthPrintService) { }
 
-    setStudentUser(b: boolean) {
-        this.isStudentUser = b;
-    }
-
     ngOnInit() {
 
       this.data = new WrappedForm({});
@@ -77,6 +74,7 @@ export class AbstractFormRead implements OnInit, OnDestroy {
           if (this.token) {
             console.log("token found without subscription, sending form request");
             this.noLoginInfo = false;
+            this.setStudentUser(this.authPrintService.getUser()); // will set isStudentUser to true/false
             this.formService.getFormData2(
               this.formInfo.formName,
               this.formInfo._id,
@@ -86,6 +84,7 @@ export class AbstractFormRead implements OnInit, OnDestroy {
             // subscribe to token
             this.authSub = this.authPrintService.getAuthStatusListener().subscribe(data => {
               if (data && data.token) {
+                this.setStudentUser(data.user);
                 this.noLoginInfo = false;
                 console.log("token found with subscription, sending form request");
                 this.formService.getFormData2(
@@ -173,6 +172,14 @@ export class AbstractFormRead implements OnInit, OnDestroy {
          );
 
 
+  }
+
+  setStudentUser(user: AuthData) {
+    console.log("in setStudentUser");
+    if (!user || ! user.role ) { return; }
+
+    this.isStudentUser = user.role.isStudent;
+    console.log("this.isStudentUser=", this.isStudentUser);
   }
 
     ngOnDestroy() {

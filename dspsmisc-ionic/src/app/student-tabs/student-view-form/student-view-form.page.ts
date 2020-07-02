@@ -7,6 +7,7 @@ import { AuthData } from 'src/app/auth/auth-data.model';
 import { AuthService } from 'src/app/auth/auth.service';
 import { SigCreateComponent } from 'src/app/dsps-staff/form/component/sig-create/sig-create.component';
 import { Title } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-student-view-form',
@@ -112,5 +113,12 @@ export class StudentViewFormPage extends AbstractFormRead implements OnInit, OnD
   //   console.log("focusOnSignature after toggle=", this.focusOnSignature);
   // }
 
+  goToPrintPage() {
+
+    const url = `${environment.printServer}/print/view/${this.formInfo.formName}/${this.formInfo._id}`;
+    // window.location.href = url;
+    window.open(url, "_blank");
+
+  }
   
 }

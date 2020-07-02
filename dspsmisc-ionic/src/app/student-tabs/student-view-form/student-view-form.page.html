@@ -6,8 +6,12 @@
     <ion-title> {{ formInfo.formTitle }} 
       <span *ngIf="formLabel"> : {{ formLabel }} </span>
     </ion-title>
-    <ion-buttons *ngIf="data.studentSigStatus === 'pending'" slot="primary">
-      <ion-button color="primary"  fill="solid" (click)="openSignItModal()">
+
+    <ion-buttons slot="primary">
+      <ion-button (click)="goToPrintPage()">
+        <ion-icon slot="icon-only" name="print"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="data.studentSigStatus === 'pending'"  color="primary"  fill="solid" (click)="openSignItModal()">
         <!-- <ion-icon color="primary" slot="icon-only" name="thumbs-up-sharp"></ion-icon> fill="clear" -->
       Sign It
       </ion-button>

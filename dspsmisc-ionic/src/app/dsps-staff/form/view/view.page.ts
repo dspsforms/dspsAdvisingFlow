@@ -35,7 +35,7 @@ export class ViewPage extends AbstractFormRead implements OnInit, OnDestroy {
 
   goToPrintPage() {
 
-    let url = `${environment.printServer}/print/view/${this.formInfo.formName}/${this.formInfo._id}`;
+    const url = `${environment.printServer}/print/view/${this.formInfo.formName}/${this.formInfo._id}`;
     // window.location.href = url;
     window.open(url, "_blank");
 
