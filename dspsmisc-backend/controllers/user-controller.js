@@ -282,6 +282,12 @@ exports.verifyEmail = (req, res, next) => {
 
             next(); // call randomKeyUpdateStatus
 
+          }).catch(err => {
+            console.log(err);
+            res.status(200).json({
+              err: err,
+              message: "Student verification failed"
+            });
           }); // user.save()
 
         }); // student.save()
@@ -830,6 +836,38 @@ exports.listDspsUsersSmall = (req, res, next) => {
     console.log(err);
     return res.status(401).json({
       message: "List failed " + err
+    });
+  });
+
+}
+
+// check if user.email is same as req.body.email
+exports.accountExists = (req, res, next) => {
+  console.log("in accountExists");
+
+  const sanitizedEmail = sanitize(req.body.email);
+
+  const filter = { email: sanitizedEmail };
+  User.find(filter).then(users => {
+    console.log(users);
+    if (!users) {
+      // no match, which is the desired result
+      next();
+      return false;
+    } else {
+
+      res.status(200).json({
+        message: "Account exists for " + sanitizedEmail,
+        err: "Account exists for " + sanitizedEmail
+  
+      });
+      return true;
+    }
+
+  }).catch(err => {
+    console.log(err);
+    return res.status(401).json({
+      message: "checking if account exists failed " + err
     });
   });
 

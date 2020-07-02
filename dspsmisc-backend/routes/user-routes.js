@@ -46,11 +46,11 @@ router.post("/addstaff", checkAuthAdmin, UserController.addStaff);
 
 
 // post /api/user/addstudentstep1 -- student user signup. no auth permission reqd
-router.post("/addstudentstep1", UserController.addStudentStep1, emailVerifyEmail);
+router.post("/addstudentstep1", UserController.accountExists, UserController.addStudentStep1, emailVerifyEmail);
 
 // post /api/user/verifyemail -- student user signup. no auth permission reqd
 // TODO send a welcome email
-router.post("/verifyemail", UserController.verifyEmail, randomKeyUpdateStatus);
+router.post("/verifyemail", UserController.accountExists, UserController.verifyEmail, randomKeyUpdateStatus);
 
 // post /api/user/checkandupdatepassword -- check and update password
 // extractUserId will extract userId and email from web token, and put it in req.userData
