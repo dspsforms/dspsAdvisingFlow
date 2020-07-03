@@ -78,7 +78,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // doesn't work
 // app.use("/print/", express.static(path.join(__dirname, "angular-print")));
 
+app.use((req, res, next) => {
+  console.log("req.originalUrl=", req.originalUrl);
+  next();
+});
 
+app.use("/foo", express.static(path.join(__dirname, "angular-print")));
 
 app.use("/", express.static(path.join(__dirname, "angular-ionic")));
 
@@ -135,6 +140,7 @@ mongoose.connection.db.listCollections().toArray().then(collections => {
 
 
 
+
 app.use("/api/form", formRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/ownform", ownFormRoutes);
@@ -149,7 +155,17 @@ app.use("/api/signform", signatureRoutes);
 // });
 
 
+// print angular app, served form the same server. 
+// there is only one url match for the print app
+// e.g., print/view/bluesheet/5efd6cc5779b154c708c68d3
+app.use("/print/view/:formName/:formId", (req, res, next) => {
+  console.log("serving print app");
+  res.sendFile(path.join(__dirname, "angular-print", "index.html"));
+})
+
+// default angular app
 app.use((req, res, next) => {
+  console.log("serving main app");
   res.sendFile(path.join(__dirname, "angular-ionic", "index.html"));
 });
 

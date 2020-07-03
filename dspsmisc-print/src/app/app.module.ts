@@ -10,13 +10,15 @@ import { SubSiteCommunicatorComponent } from './auth/sub-site-communicator/sub-s
 import { SafePipe } from './util/safe.pipe';
 import { ErrorComponent } from './error/error.component';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule, MatProgressSpinnerModule } from '@angular/material';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SubSiteCommunicatorComponent,
     SafePipe,
-    ErrorComponent
+    ErrorComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

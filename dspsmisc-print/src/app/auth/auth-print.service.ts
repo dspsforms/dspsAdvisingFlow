@@ -85,6 +85,7 @@ export class AuthPrintService {
 
     // TODO use expirationDate
     const tmpAuth = this.getAuthDataLocalStorage();
+    console.log("refreshAuthDataFromLocalStorage", tmpAuth);
     if (tmpAuth) {
       this.token = tmpAuth.token;
       this.user = tmpAuth.user;
@@ -124,9 +125,10 @@ export class AuthPrintService {
   }
 
   getToken() {
-    if (!this.dataInitialized) {
-      this.refreshAuthDataFromLocalStorage();
-    }
+    // if (!this.dataInitialized) {
+    //   this.refreshAuthDataFromLocalStorage();
+    // }
+    this.refreshAuthDataFromLocalStorage();
     return this.token;
   }
 
@@ -207,9 +209,10 @@ export class AuthPrintService {
   }
 
   getUser() {
-    if (!this.dataInitialized) {
-      this.refreshAuthDataFromLocalStorage();
-    }
+    // if (!this.dataInitialized) {
+    //   this.refreshAuthDataFromLocalStorage();
+    // }
+    this.refreshAuthDataFromLocalStorage();
     return this.user;
   }
 

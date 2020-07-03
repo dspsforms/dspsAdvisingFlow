@@ -10,7 +10,9 @@
     </div> <!-- pull-right -->
   <!-- </div>  -->
   <!-- page header -->
-  <app-sub-site-communicator></app-sub-site-communicator>
+
+  <!-- the iframe is added only if sameSite is false -->
+  <app-sub-site-communicator *ngIf="!sameSite"></app-sub-site-communicator>
 </section>
 
 

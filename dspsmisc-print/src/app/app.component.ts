@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthPrintService } from './auth/auth-print.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +10,13 @@ import { AuthPrintService } from './auth/auth-print.service';
 export class AppComponent {
   title = 'dspsmisc-print';
 
+
   constructor(private authPrintService: AuthPrintService) {
 
+  }
+
+  get sameSite() {
+    return environment.sameSite;
   }
 
   onLogout() {
