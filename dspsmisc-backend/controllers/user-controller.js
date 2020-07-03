@@ -862,7 +862,7 @@ exports.accountExists = (req, res, next) => {
   const filter = { email: sanitizedEmail };
   User.find(filter).then(users => {
     console.log(users);
-    if (!users) {
+    if (!users || users.length == 0) {
       // no match, which is the desired result
       next();
       return false;
