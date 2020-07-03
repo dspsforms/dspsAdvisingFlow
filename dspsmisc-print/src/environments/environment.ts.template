@@ -7,7 +7,13 @@ export const environment = {
 
   server: "http://localhost:3001",
 
-  authServer: "http://localhost:8100",
+  // if sameSite is true, ignore authServer below. use server instead
+  sameSite: true,
+
+  // authServer: "http://localhost:8100/auth/single-sign-on",
+  authServer: "http://localhost:3001",
+
+  // authServer: "http://localhost:8100",
 
   enforceWvmEmail: false,
 

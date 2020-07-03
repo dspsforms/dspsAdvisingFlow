@@ -7,7 +7,9 @@ export const environment = {
 
   server: "http://localhost:3001",
   
-  printServer: "http://localhost:4200",
+  // testing printServer when it's same as server
+  printServer: "http://localhost:3001",
+  // printServer: "http://localhost:4200",
 
   enforceWvmEmail: false,
 
