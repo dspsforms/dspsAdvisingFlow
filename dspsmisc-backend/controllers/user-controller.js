@@ -64,7 +64,11 @@ exports.addStaff = (req, res, next) => {
       created: currentTime,
       lastMod: currentTime,
       metaHistoryArr: [ 
-        { ip: req.ip, date: currentTime, type: 'newUser' }
+        {
+          ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress, 
+          date: currentTime,
+          type: 'newUser'
+        }
       ]
     });
     console.log("user to be added=", user);
@@ -140,7 +144,7 @@ exports.addStudentStep1 = (req, res, next) => {
         key: randomStr,
         email: sanitizedEmail,
         // tmpId: studentResult._id,
-        creatorIP: req.ip,
+        creatorIP: req.headers['x-forwarded-for'] || req.connection.remoteAddress, 
         created: currentTime,
         expiresAt: expiresAt,
         status: 'pending',
@@ -157,7 +161,7 @@ exports.addStudentStep1 = (req, res, next) => {
           password: hash,
           collegeId: sanitizedCollegeId,
           cellPhone: sanitizedCellPhone,
-          creatorIP: req.ip, // this is part of express, see https://expressjs.com/en/api.html#req.ip
+          creatorIP: req.headers['x-forwarded-for'] || req.connection.remoteAddress, 
           created: currentTime,
           lastMod: currentTime,
           status: 'pending'
@@ -263,7 +267,7 @@ exports.verifyEmail = (req, res, next) => {
           lastMod: currentTime,
           status: 'active',
           emailVerificatonDate: currentTime,
-          emailVerificatonIP: req.ip, // this is part of express, see https://expressjs.com/en/api.html#req.ip
+          emailVerificatonIP: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
           // cellPhoneVerificationDate: { type: Date },
         });
 
@@ -419,7 +423,7 @@ exports.resetPasswordStep1 = (req, res, next) => {
     const randomKey = new RandomKey({
       key: randomStr,
       email: sanitizedEmail,
-      creatorIP: req.ip,
+      creatorIP: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       created: currentTime,
       expiresAt: expiresAt,
       status: 'pending',
@@ -470,7 +474,11 @@ createStudentUser = (student, req) => {
     created: student.created, 
     lastMod: student.lastMod,
     metaHistoryArr: [ 
-      { ip: req.ip, date: student.lastMod, type: 'newUser' }
+      {
+        ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+        date: student.lastMod,
+        type: 'newUser'
+      }
     ]
   }); 
   return user; // don't save user yet. we need to do it in the main loop
@@ -730,7 +738,11 @@ exports.updatePasswordBasedOnEmail = (req, res, next) => {
           lastMod: new Date()
         },
         "$push" : {
-          metaHistoryArr: { ip: req.ip, date: new Date(), type: 'password' }
+          metaHistoryArr: {
+            ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+            date: new Date(),
+            type: 'password'
+          }
         }
         
       };

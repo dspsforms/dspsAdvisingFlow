@@ -78,10 +78,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // doesn't work
 // app.use("/print/", express.static(path.join(__dirname, "angular-print")));
 
-app.use((req, res, next) => {
-  console.log("req.originalUrl=", req.originalUrl);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log("req.originalUrl=", req.originalUrl);
+//   // const remoteIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  
+//   console.log("x-forwarded-for", req.headers['x-forwarded-for']);
+//   console.log("req.connection.remoteAddress", req.connection.remoteAddress);
+//   next();
+// });
 
 app.use("/foo", express.static(path.join(__dirname, "angular-print")));
 

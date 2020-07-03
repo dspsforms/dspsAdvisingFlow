@@ -76,7 +76,7 @@ exports.signForm = (req, res, next) => {
                 signature: req.body.signature,
                 signatureDate: now,
                 lastMod: now,
-                ipAddr: req.ip,
+                ipAddr: req.headers['x-forwarded-for'] || req.connection.remoteAddress, 
                 loginSessionId: null // TODO
             
             });

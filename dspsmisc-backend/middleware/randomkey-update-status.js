@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
         const filter = { key: randomStr };
         const update = {
             status: status,
-            usedIP: req.ip,
+            usedIP: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
             useDate: new Date()
         };
 
@@ -24,11 +24,11 @@ module.exports = (req, res, next) => {
         RandomKey.findOneAndUpdate(filter, update).then(randomKey => {
             console.log("randomKey updated to:", randomKey);
         }).catch(err => {
-            console.log("findOneAndUpdate error", err);
+            console.log("RandomKey findOneAndUpdate error", err);
         });
     
     } catch (err) {
-        console.log("outer error", err);
+        console.log("RandomKey outer error", err);
     }
     
     // next();

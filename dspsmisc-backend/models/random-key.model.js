@@ -10,8 +10,12 @@ const randomKeySchema = mongoose.Schema({
     // for the case when user has forgotten password
     email: {type: String },
 
-    creatorIP: { type: String},
+    creatorIP: { type: String },
     created: { type: Date },
+
+    // the IP address that was used to consume this random key
+    usedIP: { type: String}, 
+    useDate: { type: Date },
 
     expiresAt: {type: Date},
 
