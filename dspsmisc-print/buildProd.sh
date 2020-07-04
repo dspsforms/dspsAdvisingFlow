@@ -3,7 +3,12 @@
 
 # ng build --prod
 # ng build --prod --deploy-url=/printAssets
-ng build --prod --deployUrl=/foo/
+# ng build --prod --baseHref=/foo
 # ng build --prod --baseHref=/foo --deployUrl=/foo/
-# ng build --prod --baseHref=/foo 
+
+ng build --prod --deployUrl=/foo/
+
+perl addDeploy.pl
+
+
 
