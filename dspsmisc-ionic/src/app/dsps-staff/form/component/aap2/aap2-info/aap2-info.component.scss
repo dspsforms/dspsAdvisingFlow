@@ -33,18 +33,18 @@ ion-radio {
 .grid2-local > div {
     margin: 0px;
     padding: 7px;
-    border: 1px solid black;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));
 }
 
 .grid3-local > div {
     margin: 0px;
     padding: 7px;
-    border: 1px solid black;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));
 }
 ul > li {
     list-style-type: none;
-}
-
-.extra-padding {
-    padding: 10px 20px;
 }

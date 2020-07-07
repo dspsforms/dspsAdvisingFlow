@@ -1,0 +1,80 @@
+
+
+<div class="app2-child-wrapper" >
+
+
+<form *ngIf="form" [formGroup]="form" (ngSubmit)="createOrEditForm()" >
+
+
+ 
+ <!-- show user color of background for required fields -->
+ <app-required-field-prompt [showRequired]="showRequired(mode)"></app-required-field-prompt>
+
+ <app-progress-obj
+    [form]="form" 
+    [grid]="grid" 
+></app-progress-obj>
+
+<app-progress-obj-part2 
+    [form]="form" 
+    [grid]="grid" >
+</app-progress-obj-part2> 
+
+<div class="extra-padding">
+  <ion-item>
+    <ion-label position="floating">Form completed and approved eligible by (DSPS Professional) *</ion-label>
+    <ion-input 
+      [class.required]="showRequired(mode)"
+      formControlName="completedBySignature"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="form.get('completedBySignature').touched && !form.get('completedBySignature').valid">
+    <ion-label color="danger">DSPS Professional's signature is required.</ion-label>
+  </ion-item>
+
+</div>
+
+
+<ion-grid>
+   
+    <ion-row  *ngIf="mode !== 'view'">
+  
+      <ion-col size-sm="3" offset-sm="2">
+        <ion-button 
+          type="submit"  
+          [disabled]="!form.valid" >Save</ion-button>
+      </ion-col>
+  
+      <ion-col size-sm="3">
+        <ion-button 
+          type="button"  
+          fill="outline" 
+          color="tertiary"
+          (click)="onCancel()">
+          Cancel
+        </ion-button>
+      </ion-col>
+    </ion-row>  <!-- submit and cancel buttons -->
+  
+    <ion-row  *ngIf="mode !== 'create'">
+      <ion-col size-sm="5">
+        <ion-item *ngIf="lastModifiedBy"  >
+          <ion-label >
+            Last edited by  {{ lastModifiedBy }},  {{ lastModified | date }}.
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col size-sm="2">
+          <ion-item *ngIf="currentVersion"  >
+            <ion-label >
+               Version:  {{ currentVersion }}
+            </ion-label>
+          </ion-item>
+      </ion-col>
+    
+    </ion-row>
+
+</ion-grid>
+
+</form>
+
+</div> <!-- app2-child-wrapper -->

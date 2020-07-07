@@ -268,7 +268,8 @@ export class FormsService implements OnInit {
     this.http.get<{
       message: string;
       formData: WrappedForm;
-      signatures: [Signature]
+      signatures?: [Signature];
+      children?: [WrappedForm]
     }>(url)
       .subscribe(msgFormData => {
         console.log(msgFormData);
@@ -277,6 +278,11 @@ export class FormsService implements OnInit {
         if (msgFormData.signatures && msgFormData.formData) {
           msgFormData.formData.signatures = msgFormData.signatures;
         }
+        // children are also coming as a separate field
+        if (msgFormData.children && msgFormData.formData) {
+          msgFormData.formData.children = msgFormData.children;
+        }
+
         this.currentForm = msgFormData.formData;
        
         // send out an event to those listening for change in currentForm
@@ -335,13 +341,18 @@ export class FormsService implements OnInit {
     this.http.get<{
       message?: string;
       formData?: WrappedForm;
-      signatures: [Signature];
+      signatures?: [Signature];
+      children?: [WrappedForm]
       err?: string
     }>(url).subscribe(msgData => {
       console.log(msgData);
 
       if (msgData.formData && msgData.signatures) {
         msgData.formData.signatures = msgData.signatures;
+      }
+
+      if (msgData.formData && msgData.children) {
+        msgData.formData.children = msgData.children;
       }
 
       // let those listening on it know

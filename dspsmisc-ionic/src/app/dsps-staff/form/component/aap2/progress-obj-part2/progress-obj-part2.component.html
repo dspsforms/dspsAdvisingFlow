@@ -1,34 +1,61 @@
 <div [formGroup]="form" >
   <div formGroupName="progressObj">
 
-    <ion-list>
+    <div class="grid2-local  extra-padding">
 
-      <ion-item>
-        <ion-label position="floating">Educational or Other Goal</ion-label>
-        <ion-textarea rows="3" formControlName="edOrOtherGoal"></ion-textarea>
-      </ion-item>
+      <!-- first child -->
+      <div>
+        <ion-item>
+          <ion-label position="floating">Educational or Other Goal</ion-label>
+          <ion-textarea rows="3" formControlName="edOrOtherGoal"></ion-textarea>
+        </ion-item>
+      </div>
+      
 
-      <app-label-yes-no
+      <!-- second child -->
+      <div>
+        <app-label-yes-no
         [form]="form"
         secondaryGroup="progressObj"
         controlName="edAssistanceThisSem"
         label="Educational Assistance Courses this Semester"></app-label-yes-no>
 
-      <ion-item>
-        <ion-label position="floating">Course Name(s)</ion-label>
-        <ion-textarea rows="2" formControlName="courseNames"></ion-textarea>
-      </ion-item>
+      </div>
+     
 
-      <ion-item>
-        <ion-label position="floating">Progress in EAC</ion-label>
-        <ion-textarea rows="2" formControlName="progressEAC"></ion-textarea>
-      </ion-item>
+    </div>
 
-      <ion-item>
-        <ion-label position="floating">General Progress</ion-label>
-        <ion-textarea rows="3" formControlName="genProgress"></ion-textarea>
-      </ion-item>
-    </ion-list>
+    <div class="grid3-local  extra-padding">
 
+      <!-- first child -->
+      <div>
+        <ion-item>
+          <ion-label position="floating">Course Name(s)</ion-label>
+          <ion-textarea rows="2" formControlName="courseNames"></ion-textarea>
+        </ion-item>
+      </div>
+
+      <!-- second child -->
+      <div>
+        <ion-item>
+          <ion-label position="floating">Progress in EAC</ion-label>
+          <ion-textarea rows="2" formControlName="progressEAC"></ion-textarea>
+        </ion-item>
+
+      </div>
+      
+
+      <!-- third child -->
+      <div>
+        <ion-item>
+          <ion-label position="floating">General Progress</ion-label>
+          <ion-textarea rows="3" formControlName="genProgress"></ion-textarea>
+        </ion-item>
+
+      </div>
+     
+
+    </div>
+    
   </div> <!-- formGroupName -->
 </div> <!-- formGroup -->

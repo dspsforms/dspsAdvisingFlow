@@ -20,6 +20,9 @@ export class SavedForm {
   created?: Object;
   lastMod?: Object;
   reCaptchaV3Token?: string;
+  isParent?: boolean; // for aap2 top level
+  parentId: string; // if this is a child
+  childFormName?: string;
   
       constructor(options: {
         formName?: string,
@@ -32,7 +35,10 @@ export class SavedForm {
         edited?: boolean, 
         created?: Object,
         lastMod?: Object;
-        reCaptchaV3Token?: string;
+        reCaptchaV3Token?: string,
+        isParent?: boolean,
+        parentId?: string,
+        childFormName?: string
       }) {
         this.formName = options.formName;
         this.user = options.user;
@@ -45,6 +51,9 @@ export class SavedForm {
         this.created = options.created;
         this.lastMod = options.lastMod;
         this.reCaptchaV3Token = options.reCaptchaV3Token;
+        this.isParent = options.isParent;
+        this.parentId = options.parentId;
+        this.childFormName = options.childFormName;
       }
   
   }

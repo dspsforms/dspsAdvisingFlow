@@ -6,6 +6,7 @@ export class FormName {
   static AAP1 = 'aap1';
   
   static AAP2 = 'aap2';
+  static AAP2_CHILD = 'aap2child';
 
   static GREENSHEET = 'greensheet';
 
@@ -13,6 +14,7 @@ export class FormName {
       FormName.BLUESHEET,
       FormName.AAP1,
       FormName.AAP2,
+      FormName.AAP2_CHILD,
       FormName.GREENSHEET
     ];
 
@@ -34,12 +36,14 @@ export class FormUtil {
   
             FormUtil.formMap[FormName.AAP1] = "Academic Accommodations Plan - Part 1";
             FormUtil.formMap[FormName.AAP2] = "Academic Accommodations Plan - Part 2";
+            FormUtil.formMap[FormName.AAP2_CHILD] = "AAP - Progress";
             FormUtil.formMap[FormName.GREENSHEET] = "Greensheet";
   
             // mongo collections are named intakeforms, etc.
             FormUtil.mongo2FormNameMap["bluesheets"] = FormName.BLUESHEET;
             FormUtil.mongo2FormNameMap["aap1s"] = FormName.AAP1;
             FormUtil.mongo2FormNameMap["aap2s"] = FormName.AAP2;
+            FormUtil.mongo2FormNameMap["aap2childs"] = FormName.AAP2_CHILD;
             FormUtil.mongo2FormNameMap["greensheets"] = FormName.GREENSHEET;
         
   

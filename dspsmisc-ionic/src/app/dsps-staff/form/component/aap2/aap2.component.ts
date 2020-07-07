@@ -25,6 +25,8 @@ export class Aap2Component extends AbstractFormSubmit implements OnInit, OnDestr
 
   @Input() focusOnSignature: boolean; // optional, if true, focus will be on signature
 
+  showNewProgressReport = false;
+
   constructor(
     public router: Router,
     public formsService: FormsService,
@@ -42,6 +44,8 @@ export class Aap2Component extends AbstractFormSubmit implements OnInit, OnDestr
       appGlobalsService,
       userService,
       lastOpStatusService);
+    
+    super.isParent = true;
     
   }
 
@@ -75,39 +79,93 @@ export class Aap2Component extends AbstractFormSubmit implements OnInit, OnDestr
 
       // where there are validators, updateOn blur. else, updateOn change
       studentLastName: new FormControl(null, {
-        updateOn: 'blur',
+        updateOn: 'change',
         validators: [Validators.required]
       }),
       studentFirstName: new FormControl(null, {
-        updateOn: 'blur',
+        updateOn: 'change',
         validators: [Validators.required]
       }),
       collegeId: new FormControl( null, {
-        updateOn: 'blur',
+        updateOn: 'change',
         validators: [Validators.required, FormValidators.collegeIdFormat]
       }),
       studentEmail: new FormControl( null, {
-        updateOn: 'blur',
+        updateOn: 'change',
         validators: [Validators.email]
       }),
       completedBySignature: new FormControl(null, {
-        updateOn: 'blur',
+        updateOn: 'change',
         validators: [Validators.required]
       }), // signature, shown to user
       // student sig also needed
 
-      progressObj: new FormGroup({
-        // Progress Objectives
-        semYear: new FormControl(null, { updateOn: 'change' }),
-        studentType: new FormControl(false, { updateOn: 'change' }), // radio new student/returning student
-        edOrOtherGoal: new FormControl(null, { updateOn: 'change' }),
-        edAssistanceThisSem: new FormControl(false, { updateOn: 'change' }), // radio Yes/No
-        courseNames: new FormControl(null, { updateOn: 'change' }),
-        progressEAC: new FormControl(null, { updateOn: 'change' }),
-        genProgress: new FormControl(null, { updateOn: 'change' }),
+      /*
+
+      this stuff used to be page 3.
+      but page 3 will have many instances for a student. 
+      while this stuff will have only one instance.
+      so moved here. 
+
+        ❑ Transfer to 4-yr college w/out Associate Degree
+        ❑ Transfer to 4-yr college w/Associate Degree
+        ❑ Associate Degree, Vocational (non-transfer)
+        ❑ Associate Degree, Vocational (non-transfer)
+        ❑ Associate Degree, General Ed. (non-transfer)
+        ❑ Certificate in Vocational Program
+        ❑ Complete credits for High School Diploma or G.E.D.
+
+        ❑ Discover/Formulate Career Interests, Plans, Goals 
+        ❑ Improve Basic skills in English, Reading, Math
+        ❑ Undecided on Educational Goal
+        ❑ Acquire Job Skills Only
+        ❑ Update Job Skills Only
+        ❑ Maintain Certificate or License
+        ❑ Personal Educational Development
+
+      */
+      
+      longTermEdGoal: new FormGroup({
+        // Long-term Educational Goal
+      
+        txferWithoutDeg: new FormControl(false, { updateOn: 'change' }),
+        txferWithDeg: new FormControl(false, { updateOn: 'change' }),
+        degVocationalNonTxfer: new FormControl(false, { updateOn: 'change' }),
+        degGenNonTxfer: new FormControl(false, { updateOn: 'change' }),
+        certVocational: new FormControl(false, { updateOn: 'change' }),
+        completeCreditsHighSchoolGed: new FormControl(false, { updateOn: 'change' }),
+  
+        discover: new FormControl(false, { updateOn: 'change' }),
+        improve: new FormControl(false, { updateOn: 'change' }),
+        undecided: new FormControl(false, { updateOn: 'change' }),
+        acquire: new FormControl(false, { updateOn: 'change' }),
+        update: new FormControl(false, { updateOn: 'change' }),
+        maintain: new FormControl(false, { updateOn: 'change' }),
+        personalDev: new FormControl(false, { updateOn: 'change' }),
       }),
 
+      // progressObj: new FormGroup({
+      //   // Progress Objectives
+      //   semYear: new FormControl(null, { updateOn: 'change' }),
+      //   studentType: new FormControl(false, { updateOn: 'change' }), // radio new student/returning student
+      //   edOrOtherGoal: new FormControl(null, { updateOn: 'change' }),
+      //   edAssistanceThisSem: new FormControl(false, { updateOn: 'change' }), // radio Yes/No
+      //   courseNames: new FormControl(null, { updateOn: 'change' }),
+      //   progressEAC: new FormControl(null, { updateOn: 'change' }),
+      //   genProgress: new FormControl(null, { updateOn: 'change' }),
+      // }),
+
     });
+
+    if (this.mode === 'create') {
+      // TODO
+    } else {
+      // TODO
+      // for view or edit,  a children[] array holds the progress objectives
+    }
+
+    // first element is as below.
+    // todo intialize each child form
 
     if (this.mode === 'view' || this.mode === 'edit') {
       this.initVal(
@@ -121,6 +179,7 @@ export class Aap2Component extends AbstractFormSubmit implements OnInit, OnDestr
 
     if (this.mode === 'view') {
       this.disableForm(this.form);
+      // this.showNewProgressReport = true;
     }
   } 
 
@@ -133,10 +192,16 @@ export class Aap2Component extends AbstractFormSubmit implements OnInit, OnDestr
     }
 
     if (this.mode === 'create') {
-      super.createForm();
+      super.isParent = true;
+      super.childFormName = FormName.AAP2_CHILD;
+      super.createForm(true); // true == stay on page -- will return in view mode
     } else if (this.mode === 'edit') {
       super.editForm(this.formKey);
     }
+  }
+
+  toggleNewProgressReport() {
+    this.showNewProgressReport = !this.showNewProgressReport;
   }
 
 }

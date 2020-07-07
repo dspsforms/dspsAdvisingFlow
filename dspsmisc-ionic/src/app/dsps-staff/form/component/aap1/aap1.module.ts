@@ -24,7 +24,7 @@ import { Aap1footerComponent } from './aap1footer/aap1footer.component';
 import { RequiredFieldPromptComponentModule } from '../required-field-prompt/required-field-prompt.module';
 import { SigViewModule } from '../sig-view/sig-view.module';
 import { SigCreateModule } from '../sig-create/sig-create.module';
-import { LongTermEdGoalComponent } from './long-term-ed-goal/long-term-ed-goal.component';
+// import { LongTermEdGoalComponent } from './long-term-ed-goal/long-term-ed-goal.component';
 import { FindMyEmailComponentModule } from '../find-my-email/find-my-email.module';
 
 
@@ -57,7 +57,7 @@ import { FindMyEmailComponentModule } from '../find-my-email/find-my-email.modul
         VisualAidsComponent,
         WrittenCourseReqComponent,
         ExtendedTimeWithSigComponent,
-        LongTermEdGoalComponent
+        // LongTermEdGoalComponent
     ],
     declarations: [
         Aap1Component,
@@ -76,7 +76,7 @@ import { FindMyEmailComponentModule } from '../find-my-email/find-my-email.modul
         VisualAidsComponent,
         WrittenCourseReqComponent,
         ExtendedTimeWithSigComponent,
-        LongTermEdGoalComponent
+        // LongTermEdGoalComponent
     ]
 })
 export class Aap1ComponentModule {}

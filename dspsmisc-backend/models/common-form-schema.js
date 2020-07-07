@@ -24,7 +24,10 @@ const commonFormSchema = mongoose.Schema({
     captchaScore: { type: String },
     state: { type: String, index: true },
     studentSigStatus: { type: String, index: true }, // 'pending', 'signed', 'not-required'
-    studentSigId: { type: String, index: true } // key in signature collection. multiple signatures are possible, one for each version
+    studentSigId: { type: String, index: true }, // key in signature collection. multiple signatures are possible, one for each version
+    isParent: { type: Boolean, index: true }, // if this is a child form
+    parentId: { type: String, index: true }, // if this is a child form
+    childFormName: { type: String, index: true }  // aap2child etc
 });
 
 commonFormSchema.pre('save', function(next) {

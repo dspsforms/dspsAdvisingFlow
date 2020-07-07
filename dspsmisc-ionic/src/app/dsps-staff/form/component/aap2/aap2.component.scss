@@ -1,3 +1,15 @@
-h1 {
+
+.add-line-delimiter {
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-top-color: black;
+    // border-top-color: var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));
+}
+
+.gap-top {
+    margin-top: 10px;
+    padding-top: 10px;
+}
+h1, h2 {
     font-size: 2vw;
 }

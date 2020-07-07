@@ -1,10 +1,14 @@
+.gap-top {
+    margin-top: 10px;
+    padding-top: 10px;
+}
 h1, h2 {
     font-size: 2vw;
 }
 
 .grid2-local {
     display:grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: minmax(150px, 1fr) 4fr;
     grid-gap: 0px;
     // border: 1px solid black;
  }
@@ -15,26 +19,23 @@ h1, h2 {
     grid-gap: 0px;
     // border: 1px solid black;
  }
- .header {
-     font-weight: bold;
-     background: black;
-     color: white;
- }
+ 
 
 ion-radio {
     margin: 5px;
 }
 
 // each child of grid2-local
-.grid2-local > div {
+.grid2-local > div , .grid2-local > ion-list {
     margin: 0px;
     padding: 7px;
+    border: 1px solid black;
     border-width: 1px;
     border-style: solid;
     border-color: var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));
 }
 
-.grid3-local > div {
+.grid3-local > div , .grid3-local > ion-list{
     margin: 0px;
     padding: 7px;
     border-width: 1px;
@@ -44,4 +45,3 @@ ion-radio {
 ul > li {
     list-style-type: none;
 }
-

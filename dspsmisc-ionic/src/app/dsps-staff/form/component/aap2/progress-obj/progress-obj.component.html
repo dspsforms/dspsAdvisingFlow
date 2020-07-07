@@ -1,0 +1,61 @@
+<div [formGroup]="form" >
+  <div formGroupName="progressObj">
+    <div class="grid3-local extra-padding">
+      <!-- 1st col -->
+      <div>
+        <ion-item>
+          <ion-label position="floating">Semester/Year</ion-label>
+          <ion-input formControlName="semYear"></ion-input>
+        </ion-item>
+
+      </div>
+
+      <!-- second col -->
+      <div>
+
+        <ion-item>
+          <ion-label>Returning Student</ion-label>
+          <ion-checkbox slot="start" formControlName="returningStudent"></ion-checkbox>
+        </ion-item>
+
+        <app-label-yes-no 
+          *ngIf="isReturningStudent"
+          [form]="form"
+          secondaryGroup="progressObj"
+          controlName="progress"
+          label="Progress"
+        > </app-label-yes-no>
+
+
+      </div>
+
+      <!-- third col -->
+      <div>
+
+        <ion-label>Refer To</ion-label>
+
+        <div *ngIf="! isReturningStudent">Not Applicable</div>
+
+        <div *ngIf="isReturningStudent">
+
+          <ion-item>
+            <ion-label>College Transcripts</ion-label>
+            <ion-checkbox slot="start" formControlName="refer2Transcripts"></ion-checkbox>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Grades</ion-label>
+            <ion-checkbox slot="start" formControlName="refer2Grades"></ion-checkbox>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Other</ion-label>
+            <ion-input formControlName="refer2Other"></ion-input>
+          </ion-item>
+
+        </div> <!-- isReturningStudent -->
+      </div> <!-- 3rd child-->
+
+    </div> <!-- grid3-local -->
+  </div> <!-- formGroupName -->
+</div> <!-- formGroup -->

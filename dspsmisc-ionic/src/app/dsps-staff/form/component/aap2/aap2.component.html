@@ -4,10 +4,9 @@
 
   <app-aap2header [form]="form" [grid]="grid" [mode]="mode"></app-aap2header>
 
-  <app-progress-obj-part1 [form]="form" [grid]="grid" ></app-progress-obj-part1>
-
-  <app-progress-obj-part2 [form]="form" [grid]="grid" ></app-progress-obj-part2>
-
+  <app-long-term-ed-goal [form]="form" [grid]="grid"></app-long-term-ed-goal>
+  
+  
   
 
   <ion-grid>
@@ -48,15 +47,67 @@
       </ion-col>
     
     </ion-row>
+
+   
   
   </ion-grid>
 
+  <!-- aap2 info. exclude if create. also exclude if edit unless children > 0 -->
+  <app-aap2-info *ngIf="mode === 'view' || wrappedForm?.children?.length > 0 ">
+  </app-aap2-info>
+
+  <!-- children -->
+  <div *ngIf="mode === 'view'  && wrappedForm?.children?.length > 0">
+
+    <app-aap2-child 
+      *ngFor="let child of wrappedForm.children;" 
+      [mode]="'view'"  
+      [wrappedForm]="child"
+      [parentFormData]="wrappedForm"></app-aap2-child>
+
+  </div>
+
+  <div *ngIf="mode === 'view'">
+
+    <ion-grid>
+      <ion-row  *ngIf="mode === 'view'">
+        <ion-col size-sm="3" offset-sm="9">
+          <ion-button 
+            type="button"
+            fill="clear"
+            expand="block"
+            color="primary"
+            (click)="toggleNewProgressReport()" >
+            {{ showNewProgressReport? 'Hide' : 'Add'}} New Progress Report
+          </ion-button>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+    <div *ngIf="showNewProgressReport" class="add-line-delimiter">
+
+      <h2 class="ion-text-center gap-top">New Progress Objective </h2>
+
+      <app-aap2-child 
+        [mode]="'create'"  
+        [parentFormData]="wrappedForm || form"></app-aap2-child>
+  
+    </div>
+
+  </div>
+
+    
+
+  
+  
+
     <!--- show the signature, if it exists, only in view mode -->
-    <app-sig-view 
+    <!-- <app-sig-view 
     *ngIf="mode === 'view'"  
     [signatures]="wrappedForm.signatures"
     [sigStatus]="wrappedForm.studentSigStatus" 
-    [focusOnSignature]="focusOnSignature" ></app-sig-view>
+    [focusOnSignature]="focusOnSignature" ></app-sig-view> -->
 
 
 </form>

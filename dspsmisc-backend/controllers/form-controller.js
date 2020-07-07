@@ -7,6 +7,7 @@ const debug = require('../constants/debug');
 const BluesheetForm = require('../models/bluesheet-form-model');
 const Aap1Form = require('../models/aap1-form-model');
 const Aap2Form = require('../models/aap2-form-model');
+const Aap2childForm = require('../models/aap2child-form-model');
 const GreensheetForm = require('../models/greensheet-form-model');
 
 const Signature = require('../models/signature-model');
@@ -322,18 +323,6 @@ exports.getAForm = (req, res, next) => {
 
   const formName = sanitize(req.params.formName);
 
-  // for complaints forms, user must have admin permission
-  // if (formName === 'complaint' && !isAdminAuthorized(req, res)) {
-  //   console.log("user does not have admin permission to access complaints")
-  //   res.status(404).json({
-  //     message: "Permission Denied",
-  //     err: "You do not have permission to see this"
-  //   });
-
-  //   return;
-  // }
-
-
   const form = getFormModel(formName);
 
   console.log("fetched data for _id=", req.params._id);
@@ -350,29 +339,89 @@ exports.getAForm = (req, res, next) => {
 
       console.log("form from db", document);
 
-      // if the form is signed, fetch the signatures
-      if (document.studentSigStatus && document.studentSigStatus === 'signed') {
-        Signature.find({ formId: document._id }).then(signatures => {
+      var hasSig, isParent = false;
+      var signatures = null;
+      var children = null;
 
-          // not sure why, but if we add signatures as a key to document, they aren't 
-          // showing up on the client
-          // document['signatures'] = signatures;
+      // create an array of Promises, and execute Promise.all
+      const actions = [];
+      if (document.studentSigStatus && document.studentSigStatus === 'signed') {
+        actions.push(Signature.find({ formId: document._id }).exec() );
+        hasSig = true;
+      }
+
+      if (document.isParent) {
+        const testId = document._id.toString();
+        console.log(testId);
+        const formModel = mongoose.model(document.childFormName); 
+        const filter = { parentId: document._id.toString() } 
+        actions.push( formModel.find(filter).sort({ lastMod: -1 }).exec() ); 
+        isParent = true;
+      }
+
+      if (actions.length > 0) {
+        var results = Promise.all(actions);
+        results.then(data => {
+          console.log(data);
+          if (hasSig && isParent) {
+            // 1,1
+            signatures = data[0];
+            children = data[1];
+          } else if (!hasSig && !isParent) {
+            // 0,0 no-op
+          } else if (hasSig) {
+            // 1,0
+            signatures = data[0];
+          } else {
+            // 0,1 
+            children = data[0];
+          }
+
           res.status(200).json({
             message: "Form fetched successfully",
             formData: document,
-            signatures: signatures
+            signatures: signatures,
+            children: children
           });
+        }).catch( (err) => {
+          console.log(err);
+        });
+
         
-          
-        }) // signature.find then
-      }  // if signed
+      } // actions.length > 0
+
       else {
-        // not yet signed
         res.status(200).json({
           message: "Form fetched successfully",
           formData: document
         });
       }
+
+      
+
+      // if the form is signed, fetch the signatures
+      // if (document.studentSigStatus && document.studentSigStatus === 'signed') {
+      //   Signature.find({ formId: document._id }).then(signatures => {
+
+      //     // not sure why, but if we add signatures as a key to document, they aren't 
+      //     // showing up on the client
+      //     // document['signatures'] = signatures;
+      //     res.status(200).json({
+      //       message: "Form fetched successfully",
+      //       formData: document,
+      //       signatures: signatures
+      //     });
+        
+          
+      //   }) // signature.find then
+      // }  // if signed
+      // else {
+      //   // not yet signed
+      //   res.status(200).json({
+      //     message: "Form fetched successfully",
+      //     formData: document
+      //   });
+      // }
       
     })  // form.findById then
   .catch((err) => {
@@ -385,36 +434,6 @@ exports.getAForm = (req, res, next) => {
 
 }
 
-// legacy
-
-// // get "/api/form/agreement/:formName"  -- no permission required to get this
-// exports.getFormAgreement = (req, res, next) => {
-
-//   const formName = sanitize(req.params.formName);
-
-
-//   const form = FormAgreement;
-
-//   console.log("fetching agreement for =", formName);
-
-//   form.findOne({ formName: formName }).sort({ field: 'asc', _id: -1 }).limit(1).then(
-//       document => {
-//         console.log("forms from db", document);
-//         res.status(200).json({
-//           message: "Form fetched successfully",
-//           formData: document
-//         });
-//       }
-//   )
-//   .catch((err) => {
-//     console.log(err);
-//     res.status(404).json({
-//       message: "Fetching form agreement failed",
-//       err: err
-//     });
-//   });
-
-// }
 
 // delete "/api/form/:formName/:id"  -- with this pattern, need staff level perm
 exports.deleteAForm = (req, res, next) => {
@@ -469,18 +488,10 @@ getFormModel = formName => {
     form = Aap2Form;
   } else if (formName === 'greensheet') {
     form = GreensheetForm;
+  } else if (formName === 'aap2child') {
+    form = Aap2childForm;
   }
-  // else if (formName === 'applicationForServices') {
-  //   form = ApplicationForServices;
-  // } else if (formName === 'emergencyEvacInfo') {
-  //   form = EmergencyEvacInfo;
-  // } else if (formName === 'feedback') {
-  //   form = Feedback;
-  // } else if (formName === 'complaint') {
-  //   form = Complaint;
-  // } else if (formName === 'historyOfDisability') {
-  //   form = HistoryOfDisabilty;
-  // }
+
 
   return form;
 }
@@ -504,132 +515,14 @@ createForm = (req) => {
     edited: false,
     created: currentTime,
     lastMod: currentTime,
-    state: sanitize(req.body.state || 'current')
+    state: sanitize(req.body.state || 'current'),
+    isParent: req.body.isParent || null,
+    parentId: sanitize(req.body.parentId) || null,
+    childFormName: sanitize(req.body.childFormName) || null
   });
 
   return modelInstancePromise;
 }
 
-createFormOld = (req) => {
-
-  // the parameter isAgreement is optional
-
-  // const captchaFree = removeCaptcha(req.body);
-
-  let form;
-  const currentTime = new Date();
-
-  const formName = sanitize(req.params.formName);
-
-  // legacy
-  // const captchaScore = req.body.captchaScore;
-
-  // if (isAgreement) {
-  //   form = new FormAgreement({
-  //     formName: formName,
-  //     user: sanitize(req.body.user),
-  //     form: sanitize(captchaFree.form), // "tmp form string",
-  //     edited: false,
-  //     created: currentTime,
-  //     lastMod: currentTime,
-  //     captchaScore: captchaScore
-  //   });
-
-  //   return form;
-
-  // }
-
-  // else. not user agreement
-
-
-  if (formName === 'bluesheet') {
-    form = new BluesheetForm({
-      formName: formName,
-      user: sanitize(req.body.user),
-      formWithLatestHistory: sanitize(req.body.formWithLatestHistory), 
-      formHistoryArr: sanitize(req.body.formHistoryArr), 
-      versionDetails: sanitize(req.body.versionDetails), 
-      currentVersion: sanitize(req.body.currentVersion),
-      edited: false,
-      created: currentTime,
-      lastMod: currentTime,
-      state: sanitize(req.body.state || 'current'),
-      // captchaScore: captchaScore
-    });
-  } else if (req.params.formName === 'aap1') {
-    form = new Aap1Form({
-      formName: formName,
-      user: sanitize(req.body.user),
-      formWithLatestHistory: sanitize(req.body.formWithLatestHistory), 
-      formHistoryArr: sanitize(req.body.formHistoryArr), 
-      versionDetails: sanitize(req.body.versionDetails), 
-      currentVersion: sanitize(req.body.currentVersion),
-      edited: false,
-      created: currentTime,
-      lastMod: currentTime,
-      state: sanitize(req.body.state || 'current' ),
-      // captchaScore: captchaScore
-    });
-  }  else if (req.params.formName === 'aap2') {
-    form = new Aap2Form({
-      formName: formName,
-      user: sanitize(req.body.user),
-      formWithLatestHistory: sanitize(req.body.formWithLatestHistory), 
-      formHistoryArr: sanitize(req.body.formHistoryArr), 
-      versionDetails: sanitize(req.body.versionDetails), 
-      currentVersion: sanitize(req.body.currentVersion),
-      edited: false,
-      created: currentTime,
-      lastMod: currentTime,
-      state: sanitize(req.body.state || 'current'),
-      // captchaScore: captchaScore
-    });
-  } else if (req.params.formName === 'greensheet') {
-    form = new GreensheetForm({
-      formName: formName,
-      user: sanitize(req.body.user),
-      formWithLatestHistory: sanitize(req.body.formWithLatestHistory), 
-      formHistoryArr: sanitize(req.body.formHistoryArr), 
-      versionDetails: sanitize(req.body.versionDetails), 
-      currentVersion: sanitize(req.body.currentVersion),
-      edited: false,
-      created: currentTime,
-      lastMod: currentTime,
-      state: sanitize(req.body.state || 'current'),
-      // captchaScore: captchaScore
-    });
-  }
-
-  // console.log("req.params=", req.params);
-  // console.log("req.body=", req.body);
-
-  //  console.log("req.body.form=", req.body.form);
-
-  if (debug.CREATE_FORM) {
-    console.log("createForm: before save", form);
-  }
-
-
-  return form;
-
-}
-
-// legacy
-// removeCaptcha = form => {
-//   // remove the reCaptchaV3Token field. also sanitize
-
-//   if (debug.CREATE_FORM) {
-//     console.log("removeCaptcha: form with captcha", form);
-//   }
-
-//   const form2Save = form;
-//   delete form2Save.reCaptchaV3Token;
-
-//   if (debug.CREATE_FORM) {
-//     console.log("removeCaptcha: form2Save with captcha removed", form2Save);
-//   }
-
-//   return form2Save;
-// }
 
 

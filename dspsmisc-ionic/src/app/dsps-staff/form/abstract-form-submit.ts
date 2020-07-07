@@ -45,6 +45,12 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
   // this list is need for completedBy fields
   public dspsUserListSmall: AuthData[];
 
+  // for child forms
+  // using a different name parentFormDataCopy because parentFormData is used an Input() in sub class
+  public parentFormDataCopy: any; 
+  public isParent: boolean;
+  public childFormName: string;
+
   constructor(
     public formName: string,
     public router: Router,
@@ -124,7 +130,7 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
     
   // }
 
-  createForm() {
+  createForm(stayOnPage?: boolean) {
     console.log("create ", this.formName, "  ", this.form.value);
     
     const completedByUserId = this.getUserId();
@@ -166,12 +172,28 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
       versionDetails: [versionDetail] , // array of VersionDetail
       currentVersion: 1,
       edited: false,
-      state: 'current'
+      state: 'current', 
           // reCaptchaV3Token: tokenData.token
           // created: curTime,
           // lastMod: curTime,
+      
+      isParent: this.isParent,
+      childFormName: this.childFormName
 
-      });
+    });
+
+    // if this is a parent in a hierarchical form
+    // if (this.isParent) {
+    //   this.newForm.isParent = true;
+    // }
+    // if (this.childFormName) {
+    //   this.newForm.childFormName = this.childFormName;
+    // }
+    
+    // if this is a child
+    if (this.parentFormDataCopy) {
+      this.newForm.parentId = this.parentFormDataCopy._id || this.parentFormDataCopy.formKey;
+    }
 
       // first subscribe to the form save status listener. then, ask formService to save the form
     this.formSaveStatusSub = this.formService.getFormSaveStatusListener().subscribe(
@@ -188,7 +210,11 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
               this.lastOpStatusService.setStatus(StatusMessage.FORM_SUBMIT_SUCCESS);
 
               // goto /dsps-staff/form/list/:formName
-              this.router.navigate(['/dsps-staff', 'form', 'list', this.formName]);
+              if (!stayOnPage) {
+                this.router.navigate(['/dsps-staff', 'form', 'list', this.formName]);
+              } else {
+                this.router.navigate(['/dsps-staff', 'form', 'view', this.formName, res.formId])
+              }
             }
         });
 

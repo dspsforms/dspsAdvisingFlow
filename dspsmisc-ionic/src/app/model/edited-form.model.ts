@@ -14,6 +14,8 @@ export class EditedForm {
   created?: Object;
   lastMod?: Object;
   reCaptchaV3Token?: string;
+  isParent?: boolean;
+  childFormName?: string;
 
  
   
@@ -28,8 +30,10 @@ export class EditedForm {
       state?: string,
       edited?: boolean, 
       created?: Object,
-      lastMod?: Object;
-      reCaptchaV3Token?: string;
+      lastMod?: Object,
+      reCaptchaV3Token?: string,
+      isParent?: boolean,
+      childFormName?: string
         
     }) {
       this._id = options._id;
@@ -44,6 +48,8 @@ export class EditedForm {
       this.created = options.created;
       this.lastMod = options.lastMod;
       this.reCaptchaV3Token = options.reCaptchaV3Token;
+      this.isParent = options.isParent;
+      this.childFormName = options.childFormName;
     }
   
   }

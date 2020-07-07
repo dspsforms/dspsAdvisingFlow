@@ -258,24 +258,24 @@ export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestr
         ❑ Personal Educational Development
 
       */
-     longTermEdGoal: new FormGroup({
-      // Long-term Educational Goal
+    //  longTermEdGoal: new FormGroup({
+    //   // Long-term Educational Goal
     
-      txferWithoutDeg: new FormControl(false, { updateOn: 'change' }),
-      txferWithDeg: new FormControl(false, { updateOn: 'change' }),
-      degVocationalNonTxfer: new FormControl(false, { updateOn: 'change' }),
-      degGenNonTxfer: new FormControl(false, { updateOn: 'change' }),
-      certVocational: new FormControl(false, { updateOn: 'change' }),
-      completeCreditsHighSchoolGed: new FormControl(false, { updateOn: 'change' }),
+    //   txferWithoutDeg: new FormControl(false, { updateOn: 'change' }),
+    //   txferWithDeg: new FormControl(false, { updateOn: 'change' }),
+    //   degVocationalNonTxfer: new FormControl(false, { updateOn: 'change' }),
+    //   degGenNonTxfer: new FormControl(false, { updateOn: 'change' }),
+    //   certVocational: new FormControl(false, { updateOn: 'change' }),
+    //   completeCreditsHighSchoolGed: new FormControl(false, { updateOn: 'change' }),
 
-      discover: new FormControl(false, { updateOn: 'change' }),
-      improve: new FormControl(false, { updateOn: 'change' }),
-      undecided: new FormControl(false, { updateOn: 'change' }),
-      acquire: new FormControl(false, { updateOn: 'change' }),
-      update: new FormControl(false, { updateOn: 'change' }),
-      maintain: new FormControl(false, { updateOn: 'change' }),
-      personalDev: new FormControl(false, { updateOn: 'change' }),
-    }),
+    //   discover: new FormControl(false, { updateOn: 'change' }),
+    //   improve: new FormControl(false, { updateOn: 'change' }),
+    //   undecided: new FormControl(false, { updateOn: 'change' }),
+    //   acquire: new FormControl(false, { updateOn: 'change' }),
+    //   update: new FormControl(false, { updateOn: 'change' }),
+    //   maintain: new FormControl(false, { updateOn: 'change' }),
+    //   personalDev: new FormControl(false, { updateOn: 'change' }),
+    // }),
       
     });
 
