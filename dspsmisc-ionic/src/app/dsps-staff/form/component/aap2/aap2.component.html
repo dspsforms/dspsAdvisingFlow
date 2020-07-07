@@ -56,6 +56,8 @@
   <app-aap2-info *ngIf="mode === 'view' || wrappedForm?.children?.length > 0 ">
   </app-aap2-info>
 
+  <div class="tiny" tabindex="1" #aap2ChildStart > </div>
+
   <!-- children -->
   <div *ngIf="mode === 'view'  && wrappedForm?.children?.length > 0">
 
@@ -92,6 +94,8 @@
       <app-aap2-child 
         [mode]="'create'"  
         [parentFormData]="wrappedForm || form"></app-aap2-child>
+
+      <div class="tiny" tabindex="1" #newProgress > </div>
   
     </div>
 

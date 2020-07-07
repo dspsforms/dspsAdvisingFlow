@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { AbstractFormSubmit } from '../../abstract-form-submit';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { FormsService } from '../../forms.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { DataTransformService } from '../../data-transform.service';
@@ -11,13 +11,17 @@ import { WrappedForm } from 'src/app/model/wrapped-form.model';
 import { UserService } from 'src/app/dsps-staff/user/user.service';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { FormValidators } from '../../form-validators';
+import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { SubscriptionUtil } from 'src/app/util/subscription-util';
 
 @Component({
   selector: 'app-aap2',
   templateUrl: './aap2.component.html',
   styleUrls: ['./aap2.component.scss'],
 })
-export class Aap2Component extends AbstractFormSubmit implements OnInit, OnDestroy {
+export class Aap2Component extends AbstractFormSubmit
+  implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() formKey; // for view and edit
   @Input() wrappedForm: WrappedForm; // when form has data
@@ -25,7 +29,12 @@ export class Aap2Component extends AbstractFormSubmit implements OnInit, OnDestr
 
   @Input() focusOnSignature: boolean; // optional, if true, focus will be on signature
 
+  @ViewChild('aap2ChildStart', { static: true }) aap2ChildStart: ElementRef;
+
   showNewProgressReport = false;
+
+  routeSub: Subscription;
+  paramSub: Subscription;
 
   constructor(
     public router: Router,
@@ -35,6 +44,7 @@ export class Aap2Component extends AbstractFormSubmit implements OnInit, OnDestr
     public appGlobalsService: AppGlobalsService,
     public userService: UserService,
     public lastOpStatusService: LastOperationStatusService,
+    public route : ActivatedRoute
     ) { 
     super(FormName.AAP2,
       router,
@@ -46,10 +56,41 @@ export class Aap2Component extends AbstractFormSubmit implements OnInit, OnDestr
       lastOpStatusService);
     
     super.isParent = true;
+
+    this.onViewEnter();
     
   }
 
+  onViewEnter() {
+
+
+    this.routeSub = 
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        filter((event: NavigationEnd) => event.urlAfterRedirects.startsWith('/dsps-staff/form/view/'))
+      )
+      .subscribe(p => {
+        // console.log('events',p);
+        this.doViewInit();
+      });
+  }
+
+  doViewInit() {
+    this.initFormObj();
+  }
+
   ngOnInit() {
+    this.paramSub = 
+    this.route.paramMap.subscribe(paramMap => {
+      if (paramMap.has('junk')) {
+        console.log(paramMap.get('junk'));
+
+        const formName = paramMap.get('formName');
+        const formId = paramMap.get('formId');
+        this.router.navigate(['/dsps-staff', 'form', 'view', formName, formId]);
+      }
+    })
     super.ngOnInit();
     this.initFormObj();
    }
@@ -58,6 +99,29 @@ export class Aap2Component extends AbstractFormSubmit implements OnInit, OnDestr
     super.ionViewWillEnter();
     this.initFormObj();
   }
+
+  ngAfterViewInit() {
+    // if (this.semYear && this.semYear.nativeElement) {
+    //   console.log("setting focus on newProgress");
+    //   this.semYear.nativeElement.focus();
+    // }
+    console.log("in aap2-ngAfterViewInit");
+    
+    setTimeout(() => {
+        if (this.mode === 'view' &&
+          this.wrappedForm &&
+          this.wrappedForm.children &&
+          this.wrappedForm.children.length > 0) {
+              
+          if (this.aap2ChildStart && this.aap2ChildStart.nativeElement) {
+            console.log("setting focus on aap2ChildStart");
+            this.aap2ChildStart.nativeElement.focus();
+          }
+        }
+    }, 600);
+  }
+
+  
 
   // TODO
   initFormObj() {
@@ -202,6 +266,11 @@ export class Aap2Component extends AbstractFormSubmit implements OnInit, OnDestr
 
   toggleNewProgressReport() {
     this.showNewProgressReport = !this.showNewProgressReport;
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
+    SubscriptionUtil.unsubscribe(this.routeSub);
   }
 
 }

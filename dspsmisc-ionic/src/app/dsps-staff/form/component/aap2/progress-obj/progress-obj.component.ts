@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -6,14 +6,45 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './progress-obj.component.html',
   styleUrls: ['./progress-obj.component.scss'],
 })
-export class ProgressObjComponent implements OnInit {
+export class ProgressObjComponent implements OnInit, AfterViewInit  {
 
   @Input() form: FormGroup;
   @Input() grid: boolean;
+  @Input() mode: 'create' | 'view' | 'edit'
+
+  @ViewChild('semYear', { static: true }) semYear: ElementRef;
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    console.log("in progress-obj-ngOnInit");
+    // if (this.semYear && this.semYear.nativeElement) {
+    //   console.log("setting focus on semYear");
+    //   this.semYear.nativeElement.focus();
+    // }
+  }
+
+  ngAfterViewInit() {
+      // if (this.semYear && this.semYear.nativeElement) {
+      //   console.log("setting focus on newProgress");
+      //   this.semYear.nativeElement.focus();
+      // }
+    console.log("in progress-obj-ngAfterViewInit");
+    if (this.mode === 'create') { 
+      setTimeout(() => {
+          if (this.semYear && this.semYear.nativeElement) {
+            console.log("setting focus on semYear");
+            this.semYear.nativeElement.focus();
+          }
+      }, 400);
+    }
+  
+  }
+
+  ionViewWillEnter() {
+    
+  }
 
   get isReturningStudent() {
     return this.form.get(['progressObj', 'returningStudent']).value;

@@ -12,6 +12,7 @@ export class SigViewComponent implements OnInit , OnChanges{
   @Input() sigStatus: string;
 
   @Input() focusOnSignature: boolean;
+  
 
   @ViewChild('sigCards', { static: true }) sigCards: ElementRef;
   

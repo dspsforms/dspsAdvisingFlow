@@ -72,6 +72,13 @@ const routes: Routes = [
             canLoad: [AuthDspsGuard]
           },
           {
+            // hack add a dummy param to force reload
+            // a student may have more than one form. e.g., if a previous one was deleted
+            path: 'view/:formName/:formId/:junk',
+            loadChildren: () => import('./form/view/view.module').then(m => m.ViewPageModule),
+            canLoad: [AuthDspsGuard]
+          },
+          {
             // illegal
             path: 'edit',
             redirectTo: '/dsps-staff',
