@@ -1,6 +1,6 @@
 import { FormGroup, FormControl } from "@angular/forms";
 import { SavedForm, VersionDetail } from "../../model/saved-form.model";
-import { Subscription } from "rxjs";
+import { Subscription, Observable, of } from "rxjs";
 import { FormUtil } from "../../model/form.util";
 import { Router } from "@angular/router";
 import { FormsService } from "./forms.service";
@@ -17,6 +17,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { DataTransformService } from './data-transform.service';
 import { WrappedForm } from 'src/app/model/wrapped-form.model';
 import { AuthData } from 'src/app/auth/auth-data.model';
+import { switchMap } from 'rxjs/operators';
 
 // base class for form submits
 
@@ -130,7 +131,14 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
     
   // }
 
-  createForm(stayOnPage?: boolean) {
+  /*
+
+  nextPage: 
+    not specified: got to list view
+    stayOnPage: stay here
+    gotoParent: for child pages, go to parent page
+  */
+  createForm(nextPage?: 'stayOnPage' | 'gotoParent' | null ) {
     console.log("create ", this.formName, "  ", this.form.value);
     
     const completedByUserId = this.getUserId();
@@ -210,10 +218,51 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
               this.lastOpStatusService.setStatus(StatusMessage.FORM_SUBMIT_SUCCESS);
 
               // goto /dsps-staff/form/list/:formName
-              if (!stayOnPage) {
+              if (!nextPage) {
                 this.router.navigate(['/dsps-staff', 'form', 'list', this.formName]);
+              } else if (nextPage === 'stayOnPage') {
+                this.router.navigate(['/dsps-staff', 'form', 'view', this.formName, res.formId]);
               } else {
-                this.router.navigate(['/dsps-staff', 'form', 'view', this.formName, res.formId])
+                // go to parent
+                if (!this.parentFormDataCopy) {
+                  console.error(' no parentFormDataCopy, going to list view');
+                  this.router.navigate(['/dsps-staff', 'form', 'list', this.formName]);
+                }
+
+                console.log([this.parentFormDataCopy]);
+
+                // does not work
+                //  https://stackoverflow.com/questions/52389376/angular-6-how-to-reload-current-page/57157316#57157316
+                // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+                // this.router.onSameUrlNavigation = 'reload';
+                
+                // this.router.navigate([
+                //   '/dsps-staff', 'form', 'view',
+                //   this.parentFormDataCopy.formName,
+                //   this.parentFormDataCopy._id
+                // ]);
+                // this.router.navigateByUrl(
+                //   '/dsps-staff/form/view/' + 
+                //   this.parentFormDataCopy.formName + '/' + 
+                //   this.parentFormDataCopy._id
+                // );
+
+                // same page load isn't working as it should. so reload
+                window.location.href =  '/dsps-staff/form/view/' + 
+                    this.parentFormDataCopy.formName + '/' + 
+                    this.parentFormDataCopy._id ;
+
+                // does not work
+                // const arr = [1];
+                // of(arr).pipe(
+                //   switchMap(() => this.router.navigate(['/landing'])),
+                //   switchMap(() =>
+                //     this.router.navigate([
+                //       '/dsps-staff', 'form', 'view',
+                //       this.parentFormDataCopy.formName,
+                //       this.parentFormDataCopy._id
+                //     ])));
+
               }
             }
         });

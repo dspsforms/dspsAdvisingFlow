@@ -194,7 +194,7 @@ export class Aap2Component extends AbstractFormSubmit implements OnInit, OnDestr
     if (this.mode === 'create') {
       super.isParent = true;
       super.childFormName = FormName.AAP2_CHILD;
-      super.createForm(true); // true == stay on page -- will return in view mode
+      super.createForm('stayOnPage'); // stay on page -- will return in view mode
     } else if (this.mode === 'edit') {
       super.editForm(this.formKey);
     }

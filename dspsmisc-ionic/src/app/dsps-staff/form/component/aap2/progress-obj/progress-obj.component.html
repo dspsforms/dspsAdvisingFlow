@@ -32,9 +32,14 @@
       <!-- third col -->
       <div>
 
-        <ion-label>Refer To</ion-label>
-
-        <div *ngIf="! isReturningStudent">Not Applicable</div>
+        <ion-item>
+          <ion-label>Refer To</ion-label>
+        </ion-item>
+        
+        <ion-item  *ngIf="! isReturningStudent">
+          <ion-label>Not Applicable</ion-label>
+        </ion-item>
+        
 
         <div *ngIf="isReturningStudent">
 

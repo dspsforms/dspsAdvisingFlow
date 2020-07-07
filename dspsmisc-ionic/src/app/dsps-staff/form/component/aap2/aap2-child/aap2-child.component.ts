@@ -158,7 +158,7 @@ export class Aap2ChildComponent extends AbstractFormSubmit implements OnInit, On
     }
 
     if (this.mode === 'create') {
-      super.createForm(); // will not stay on page
+      super.createForm('gotoParent'); // go to parent page, which means the whole thing will refresh
     } else if (this.mode === 'edit') {
       super.editForm(this.formKey);
     }

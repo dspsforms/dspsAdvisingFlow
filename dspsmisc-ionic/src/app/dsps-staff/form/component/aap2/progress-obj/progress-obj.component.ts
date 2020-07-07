@@ -16,6 +16,6 @@ export class ProgressObjComponent implements OnInit {
   ngOnInit() {}
 
   get isReturningStudent() {
-    return true; // TODO
+    return this.form.get(['progressObj', 'returningStudent']).value;
   }
 }
