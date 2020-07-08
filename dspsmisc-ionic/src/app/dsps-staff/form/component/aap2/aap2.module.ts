@@ -17,6 +17,7 @@ import { LongTermEdGoalComponent } from './long-term-ed-goal/long-term-ed-goal.c
 import { Aap2ChildComponent } from './aap2-child/aap2-child.component';
 import { Aap2InfoComponent } from './aap2-info/aap2-info.component';
 import { ProgressObjComponent } from './progress-obj/progress-obj.component';
+import { SignItModule } from '../sign-it/sign-it.module';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { ProgressObjComponent } from './progress-obj/progress-obj.component';
         RequiredFieldPromptComponentModule,
         SigCreateModule,
         SigViewModule,
+        SignItModule,
         FindMyEmailComponentModule,
         RouterModule
     ],

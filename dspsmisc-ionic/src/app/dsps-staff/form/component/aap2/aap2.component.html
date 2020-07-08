@@ -45,8 +45,26 @@
             </ion-label>
           </ion-item>
       </ion-col>
+
+      <!-- if studentUser, mode is definitely view -->
+      <ion-col 
+          *ngIf="studentUser && wrappedForm.studentSigStatus === 'pending'" 
+          size-sm="2" offset-sm="3">
+        <app-sign-it 
+          [wrappedForm]="wrappedForm"
+          [studentUser]="studentUser"
+          (signed)="onSigned($event)"
+        ></app-sign-it>
+      </ion-col>
     
     </ion-row>
+
+    <!--- show the signature, if it exists, only in view mode -->
+    <app-sig-view 
+    *ngIf="mode === 'view'"  
+    [signatures]="wrappedForm.signatures"
+    [sigStatus]="wrappedForm.studentSigStatus" 
+    [focusOnSignature]="focusOnSignature" ></app-sig-view>
 
    
   
@@ -56,7 +74,7 @@
   <app-aap2-info *ngIf="mode === 'view' || wrappedForm?.children?.length > 0 ">
   </app-aap2-info>
 
-  <div class="tiny" tabindex="1" #aap2ChildStart > </div>
+  <div class="tiny" tabindex="-1" #aap2ChildStart > </div>
 
   <!-- children -->
   <div *ngIf="mode === 'view'  && wrappedForm?.children?.length > 0">

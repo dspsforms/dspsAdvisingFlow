@@ -16,8 +16,7 @@ const Signature = require('../models/signature-model');
 // for complaint forms, user must be an admin.
 const isAdminAuthorized = require('../middleware/check-auth-admin-boolean');
 
-
-
+const CommonFormController = require('./common-form-controller');
 
 exports.postForm = (req, res, next) => {
 
@@ -337,86 +336,68 @@ exports.getAForm = (req, res, next) => {
         return;
       } // ! document
 
-      console.log("form from db", document);
+      CommonFormController.getFormDetails(document, req, res); // will handle response
 
-      var hasSig, isParent = false;
-      var signatures = null;
-      var children = null;
+      // the stuff below is handled now in  CommonFormController.getFormDetails(...)
 
-      // create an array of Promises, and execute Promise.all
-      const actions = [];
-      if (document.studentSigStatus && document.studentSigStatus === 'signed') {
-        actions.push(Signature.find({ formId: document._id }).exec() );
-        hasSig = true;
-      }
+      // console.log("form from db", document);
 
-      if (document.isParent) {
-        const testId = document._id.toString();
-        console.log(testId);
-        const formModel = mongoose.model(document.childFormName); 
-        const filter = { parentId: document._id.toString() } 
-        actions.push( formModel.find(filter).sort({ lastMod: -1 }).exec() ); 
-        isParent = true;
-      }
-
-      if (actions.length > 0) {
-        var results = Promise.all(actions);
-        results.then(data => {
-          console.log(data);
-          if (hasSig && isParent) {
-            // 1,1
-            signatures = data[0];
-            children = data[1];
-          } else if (!hasSig && !isParent) {
-            // 0,0 no-op
-          } else if (hasSig) {
-            // 1,0
-            signatures = data[0];
-          } else {
-            // 0,1 
-            children = data[0];
-          }
-
-          res.status(200).json({
-            message: "Form fetched successfully",
-            formData: document,
-            signatures: signatures,
-            children: children
-          });
-        }).catch( (err) => {
-          console.log(err);
-        });
-
-        
-      } // actions.length > 0
-
-      else {
-        res.status(200).json({
-          message: "Form fetched successfully",
-          formData: document
-        });
-      }
-
+      // var hasSig, isParent = false;
+      // var signatures = null;
+      // var children = null;
       
+      // // fetch signature of parent doc here. 
+      // // client fetches sigs of child docs in a separate call
 
-      // if the form is signed, fetch the signatures
+      // // create an array of Promises, and execute Promise.all
+      // const actions = [];
       // if (document.studentSigStatus && document.studentSigStatus === 'signed') {
-      //   Signature.find({ formId: document._id }).then(signatures => {
+      //   actions.push(Signature.find({ formId: document._id }).exec() );
+      //   hasSig = true;
+      // }
 
-      //     // not sure why, but if we add signatures as a key to document, they aren't 
-      //     // showing up on the client
-      //     // document['signatures'] = signatures;
+      // if (document.isParent) {
+      //   const testId = document._id.toString();
+      //   console.log(testId);
+      //   const formModel = mongoose.model(document.childFormName); 
+      //   const filter = { parentId: document._id.toString() } 
+      //   actions.push( formModel.find(filter).sort({ lastMod: -1 }).exec() ); 
+      //   isParent = true;
+      // }
+
+      // if (actions.length > 0) {
+      //   var results = Promise.all(actions);
+      //   results.then(data => {
+      //     console.log(data);
+      //     if (hasSig && isParent) {
+      //       // 1,1
+      //       signatures = data[0];
+      //       children = data[1];
+      //     } else if (!hasSig && !isParent) {
+      //       // 0,0 no-op
+      //     } else if (hasSig) {
+      //       // 1,0
+      //       signatures = data[0];
+      //     } else {
+      //       // 0,1 
+      //       children = data[0];
+
+      //     }
+
       //     res.status(200).json({
       //       message: "Form fetched successfully",
       //       formData: document,
-      //       signatures: signatures
+      //       signatures: signatures,
+      //       children: children
       //     });
+      //   }).catch( (err) => {
+      //     console.log(err);
+      //   });
+
         
-          
-      //   }) // signature.find then
-      // }  // if signed
+      // } // actions.length > 0
+
       // else {
-      //   // not yet signed
       //   res.status(200).json({
       //     message: "Form fetched successfully",
       //     formData: document

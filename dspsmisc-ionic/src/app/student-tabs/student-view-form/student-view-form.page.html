@@ -11,7 +11,14 @@
       <ion-button (click)="goToPrintPage()">
         <ion-icon slot="icon-only" name="print"></ion-icon>
       </ion-button>
-      <ion-button *ngIf="data.studentSigStatus === 'pending'"  color="primary"  fill="solid" (click)="openSignItModal()">
+      <!-- 
+        show this button if sig is pending. however,
+        for a parent/child form, don't show this button here, but with the 
+        parent-form
+       -->
+      <ion-button 
+        *ngIf="data.studentSigStatus === 'pending' && !data.isParent"  
+        color="primary"  fill="solid" (click)="openSignItModal()">
         <!-- <ion-icon color="primary" slot="icon-only" name="thumbs-up-sharp"></ion-icon> fill="clear" -->
       Sign It
       </ion-button>
@@ -62,6 +69,7 @@
       [formKey]="data._id"
       [wrappedForm]="data" 
       [mode]="'view'"
+      [studentUser]="studentUser"
       [focusOnSignature]="focusOnSignature"
       >
     </app-aap2>

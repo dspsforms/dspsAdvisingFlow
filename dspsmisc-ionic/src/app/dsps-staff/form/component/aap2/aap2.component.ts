@@ -14,6 +14,7 @@ import { FormValidators } from '../../form-validators';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { SubscriptionUtil } from 'src/app/util/subscription-util';
+import { AuthData } from 'src/app/auth/auth-data.model';
 
 @Component({
   selector: 'app-aap2',
@@ -26,6 +27,10 @@ export class Aap2Component extends AbstractFormSubmit
   @Input() formKey; // for view and edit
   @Input() wrappedForm: WrappedForm; // when form has data
   @Input() mode: 'create' | 'view' | 'edit';
+
+  // if student is viewing the form, and a signature is pending
+  // provide a sign-it button and handle the sign-in
+  @Input() studentUser: AuthData;
 
   @Input() focusOnSignature: boolean; // optional, if true, focus will be on signature
 
@@ -271,6 +276,10 @@ export class Aap2Component extends AbstractFormSubmit
   ngOnDestroy() {
     super.ngOnDestroy();
     SubscriptionUtil.unsubscribe(this.routeSub);
+  }
+
+  onSigned(event) {
+    console.log("onSigned:", event);
   }
 
 }

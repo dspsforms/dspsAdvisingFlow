@@ -11,6 +11,8 @@ const GreensheetForm = require('../models/greensheet-form-model');
 
 const Signature = require('../models/signature-model');
 
+const CommonFormController = require('./common-form-controller');
+
 // every path starts with /api/ownform -- which is already processed
 // by app.js before we get here
 
@@ -146,29 +148,35 @@ exports.getAForm = (req, res, next) => {
                     message: "No form found for student",
                     err: "No form found for student"
                 });
-            } else {
-               // if the form is signed, fetch the signatures
-                if (document.studentSigStatus && document.studentSigStatus === 'signed') {
-                    Signature.find({ formId: document._id }).then(signatures => {
+                return;
+            }
+         
+            // else (document is not empty)
 
-                        // document['signatures'] = signatures;
-                        res.status(200).json({
-                            message: "Form fetched successfully",
-                            formData: document,
-                            signatures: signatures
-                        });
+            CommonFormController.getFormDetails(document, req, res); // will handle response
+
+            //    // if the form is signed, fetch the signatures
+            //     if (document.studentSigStatus && document.studentSigStatus === 'signed') {
+            //         Signature.find({ formId: document._id }).then(signatures => {
+
+            //             // document['signatures'] = signatures;
+            //             res.status(200).json({
+            //                 message: "Form fetched successfully",
+            //                 formData: document,
+            //                 signatures: signatures
+            //             });
                         
                         
-                    }) // signature.find then
-                }  // if signed
-                else {
-                    res.status(200).json({
-                        message: "Form fetched successfully",
-                        formData: document
-                    }); 
-                }
+            //         }) // signature.find then
+            //     }  // if signed
+            //     else {
+            //         res.status(200).json({
+            //             message: "Form fetched successfully",
+            //             formData: document
+            //         }); 
+            //     }
                 
-            } // else (there is a document)
+           
             
         }) // findOne then
         .catch(err => {
