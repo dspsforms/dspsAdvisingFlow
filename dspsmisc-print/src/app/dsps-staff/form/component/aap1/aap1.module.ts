@@ -22,6 +22,7 @@ import { ExtendedTimeWithSigComponent } from './tests/extended-time-with-sig/ext
 import { Aap1footerComponent } from './aap1footer/aap1footer.component';
 import { SigViewModule } from '../sig-view/sig-view.module';
 import { LastModifiedModule } from '../last-modified/last-modified.module';
+import { CompletedByModule } from '../completed-by/completed-by.module';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { LastModifiedModule } from '../last-modified/last-modified.module';
         ElemWithSignComponentModule,
         SigViewModule,
         LastModifiedModule,
+        CompletedByModule,
         RouterModule
     ],
     exports: [

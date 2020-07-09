@@ -1,0 +1,49 @@
+<div class="gap-top"> &nbsp;</div>
+
+<div class="panel panel-default">
+
+  <div class="panel-heading">
+    <div class="panel-title inline">
+      Long-Term Educational Goal
+    </div>
+  </div> <!-- panel-heading -->
+
+  <div class="panel-body">
+
+    <!--  grid -->
+    <div class="grid2Col" >
+
+      <!-- left col -->
+      <div class="list-group">
+        <button *ngFor="let key of allKeysLeftCol;"
+          class="list-group-item list-group-item-action" disabled >
+
+          <app-checkbox-grid
+            [value]="wrappedForm?.formWithLatestHistory['longTermEdGoal'][key].val"
+            [label]="labelsLeftCol[key]" >
+          </app-checkbox-grid>
+
+        </button>
+      </div> <!-- list group -->
+
+      <!-- right col -->
+      <div class="list-group">
+        <button *ngFor="let key of allKeysRightCol;"
+          class="list-group-item list-group-item-action" disabled >
+
+          <app-checkbox-grid
+            [value]="wrappedForm?.formWithLatestHistory['longTermEdGoal'][key].val"
+            [label]="labelsRightCol[key]" >
+          </app-checkbox-grid>
+
+        </button>
+      </div> <!-- list group -->
+
+    </div> <!-- grid2Col -->
+
+  </div> <!-- panel-body -->
+
+</div> <!-- panel panel default -->
+
+
+

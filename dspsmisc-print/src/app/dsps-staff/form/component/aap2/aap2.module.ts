@@ -8,12 +8,11 @@ import { Aap2headerComponent } from './aap2header/aap2header.component';
 import { LastModifiedModule } from '../last-modified/last-modified.module';
 // import { ProgressObjPart2Component } from './progress-obj-part2/progress-obj-part2.component';
 // import { LabelYesNoComponentModule } from '../label-yes-no/label-yes-no.module';
-// import { RequiredFieldPromptComponentModule } from '../required-field-prompt/required-field-prompt.module';
 // import { SigCreateModule } from '../sig-create/sig-create.module';
 import { SigViewModule } from '../sig-view/sig-view.module';
 import { Aap2InfoComponent } from './aap2-info/aap2-info.component';
-// import { FindMyEmailComponentModule } from '../find-my-email/find-my-email.module';
-// import { LongTermEdGoalComponent } from './long-term-ed-goal/long-term-ed-goal.component';
+import { LongTermEdGoalComponent } from './long-term-ed-goal/long-term-ed-goal.component';
+import { CompletedByModule } from '../completed-by/completed-by.module';
 // import { Aap2ChildComponent } from './aap2-child/aap2-child.component';
 // import { ProgressObjComponent } from './progress-obj/progress-obj.component';
 // import { SignItModule } from '../sign-it/sign-it.module';
@@ -24,6 +23,7 @@ import { Aap2InfoComponent } from './aap2-info/aap2-info.component';
         CommonModule,
         ReactiveFormsModule,
         LastModifiedModule,
+        CompletedByModule,
         // LabelYesNoComponentModule,
         // RequiredFieldPromptComponentModule,
         // SigCreateModule,
@@ -35,7 +35,7 @@ import { Aap2InfoComponent } from './aap2-info/aap2-info.component';
     exports: [
         Aap2Component,
         Aap2headerComponent,
-        // LongTermEdGoalComponent,
+        LongTermEdGoalComponent,
         // ProgressObjPart2Component,
         // Aap2ChildComponent,
         Aap2InfoComponent,
@@ -44,7 +44,7 @@ import { Aap2InfoComponent } from './aap2-info/aap2-info.component';
     declarations: [
         Aap2Component,
         Aap2headerComponent,
-        // LongTermEdGoalComponent,
+        LongTermEdGoalComponent,
         // ProgressObjPart2Component,
         // Aap2ChildComponent,
         Aap2InfoComponent,

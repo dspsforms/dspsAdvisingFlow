@@ -1,65 +1,36 @@
-<div [formGroup]="form">
+<div class="panel panel-default">
 
-  <!-- show user color of background for required fields -->
-  <app-required-field-prompt [showRequired]="showRequired(mode)"></app-required-field-prompt>
+  <div class="panel-heading">
+    <div class="panel-title inline">
+      {{ formTitle }}
+      <span *ngIf="formLabel"> : {{ formLabel }} </span>
+    </div>
+  </div> <!-- panel-heading -->
 
-  <ion-item>
+  <div class="panel-body">
+    <table class="table table-bordered table-striped table-hover">
+      <tbody>
+        <tr><td>Name</td>
+          <td> {{ wrappedForm.formWithLatestHistory['studentLastName'].val }} ,
+            {{ wrappedForm.formWithLatestHistory['studentFirstName'].val }}</td></tr>
+        <tr><td>Student ID</td> <td> {{ wrappedForm.formWithLatestHistory['collegeId'].val }} </td></tr>
+        <tr><td>Student WVM Email</td> <td> {{ wrappedForm.formWithLatestHistory['studentEmail'].val }} </td></tr>
+      </tbody>
+    </table>
+  </div> <!-- panel-body -->
+</div> <!-- panel panel-default -->
+
+<!-- put completedBy at the end -->
+
+  <!-- <ion-item>
     <ion-label position="floating">Form completed and approved eligible by (DSPS Professional) *</ion-label>
-    <ion-input 
+    <ion-input
       [class.required]="showRequired(mode)"
       formControlName="completedBySignature"></ion-input>
   </ion-item>
   <ion-item *ngIf="form.get('completedBySignature').touched && !form.get('completedBySignature').valid">
     <ion-label color="danger">DSPS Professional's signature is required.</ion-label>
-  </ion-item>
+  </ion-item> -->
 
-  <ion-item>
-    <ion-label position="floating">Student Last Name *</ion-label>
-    <ion-input 
-      [class.required]="showRequired(mode)"
-      formControlName="studentLastName"></ion-input>
-  </ion-item>
-  <ion-item *ngIf="form.get('studentLastName').touched && !form.get('studentLastName').valid">
-    <ion-label color="danger">Student last name is required.</ion-label>
-  </ion-item>
 
-  <ion-item>
-    <ion-label position="floating">Student First Name *</ion-label>
-    <ion-input 
-      [class.required]="showRequired(mode)"
-      formControlName="studentFirstName"></ion-input>
-  </ion-item>
-  <ion-item *ngIf="form.get('studentFirstName').touched && !form.get('studentFirstName').valid">
-    <ion-label color="danger">Student first name is required.</ion-label>
-  </ion-item>
 
-  <ion-item>
-    <ion-label position="floating">Student ID *</ion-label>
-    <ion-input 
-      [class.required]="showRequired(mode)"
-      formControlName="collegeId"></ion-input>
-  </ion-item>
-  <ion-item *ngIf="form.get('collegeId').touched && !form.get('collegeId').valid">
-    <ion-text *ngIf="form.get('collegeId').errors?.required"
-        color="danger">Need Student ID
-      </ion-text>
-      <ion-text *ngIf="form.get('collegeId').errors?.collegeIdFormat"
-        color="danger"> Student ID format is incorrect
-      </ion-text>
-  </ion-item>
-
-  <ion-item >
-    <ion-label position="floating"> Student WVM Email * </ion-label>
-    <ion-input  
-      [class.required]="showRequired(mode)"
-      formControlName="studentEmail"></ion-input>
-  </ion-item>
-  <ion-item  *ngIf="studentEmail.touched" >
-      <p *ngIf="studentEmail.errors?.email"  >
-        <ion-label color="danger">Please specify a valid email </ion-label>
-      </p>
-  </ion-item>
-
-  <app-find-my-email *ngIf="mode === 'create'"></app-find-my-email>
- 
-</div>  <!-- form -->
