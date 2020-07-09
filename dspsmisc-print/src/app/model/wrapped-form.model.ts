@@ -18,11 +18,15 @@ export class WrappedForm {
   reCaptchaV3Token?: string;
   studentSigStatus?: string;
 
+  isParent?: boolean;
+  childFormName?: string;
+
   // these two added because db has an index on them anyways
-  studentEmail: string; 
-  collegeId: string; 
+  studentEmail: string;
+  collegeId: string;
   signatures: [Signature]; // there can be more than one signature
-  
+  children: [WrappedForm];
+
   constructor(options: {
     formKey?: string,
     _id?: string,
@@ -38,9 +42,12 @@ export class WrappedForm {
     lastMod?: Object,
     reCaptchaV3Token?: string,
     studentSigStatus?: string,
+    isParent?: boolean,
+    childFormName?: string,
     studentEmail?: string,
     collegeId?: string,
-    signatures?: [Signature]
+    signatures?: [Signature],
+    children?: [WrappedForm]
   })
   {
     this.formKey = options.formKey;
@@ -57,10 +64,13 @@ export class WrappedForm {
     this.lastMod = options.lastMod;
     this.reCaptchaV3Token = options.reCaptchaV3Token;
     this.studentSigStatus = options.studentSigStatus;
+    this.isParent = options.isParent;
+    this.childFormName = options.childFormName;
     this.studentEmail = options.studentEmail;
     this.collegeId = options.collegeId;
     this.signatures = options.signatures;
+    this.children = options.children;
 
   }
-  
+
 }

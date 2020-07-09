@@ -21,6 +21,7 @@ import { VisualAidsComponent } from './visual-aids/visual-aids.component';
 import { ExtendedTimeWithSigComponent } from './tests/extended-time-with-sig/extended-time-with-sig.component';
 import { Aap1footerComponent } from './aap1footer/aap1footer.component';
 import { SigViewModule } from '../sig-view/sig-view.module';
+import { LastModifiedModule } from '../last-modified/last-modified.module';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { SigViewModule } from '../sig-view/sig-view.module';
         ReactiveFormsModule,
         ElemWithSignComponentModule,
         SigViewModule,
+        LastModifiedModule,
         RouterModule
     ],
     exports: [

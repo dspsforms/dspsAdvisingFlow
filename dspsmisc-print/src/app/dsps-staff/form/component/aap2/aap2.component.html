@@ -1,0 +1,65 @@
+
+<div class="container-fluid" *ngIf="wrappedForm" >
+  <div class="row">
+
+    <app-aap2header
+      [wrappedForm]="wrappedForm"
+      [formTitle]="formTitle"
+      [formLabel]="formLabel"
+    ></app-aap2header>
+
+
+
+
+
+  <!-- <app-long-term-ed-goal [form]="form" [grid]="grid"></app-long-term-ed-goal> -->
+
+
+
+  <app-last-modified
+  [lastModified]="lastModified"
+  [lastModifiedBy]="lastModifiedBy"
+  [currentVersion]="currentVersion" > </app-last-modified>
+
+
+    <!--- show the signature, if it exists -->
+    <div class="row vert-space-footer-1">
+      <div class="col-sm-5 col-sm-offset-1">
+
+        <app-sig-view
+          [signatures]="wrappedForm.signatures"
+          [sigStatus]="wrappedForm.studentSigStatus"
+          [focusOnSignature]="focusOnSignature" ></app-sig-view>
+
+    </div> <!-- col -->
+    </div>  <!-- row -->
+
+
+
+
+  <!-- aap2 info. exclude if create. also exclude if edit unless children > 0 -->
+  <app-aap2-info  wrappedForm?.children?.length > 0 ">
+  </app-aap2-info>
+
+  <div class="tiny" tabindex="-1" #aap2ChildStart > </div>
+
+  <!-- children -->
+  <!-- <div *ngIf="mode === 'view'  && wrappedForm?.children?.length > 0">
+
+    <app-aap2-child
+      *ngFor="let child of wrappedForm.children;"
+      [mode]="'view'"
+      [wrappedForm]="child"
+      [parentFormData]="wrappedForm"
+      [studentUser]="studentUser"
+      >
+    </app-aap2-child>
+
+  </div> -->
+
+
+    <div class="col-sm-12">
+    </div> <!-- col-sm-12 -->
+  </div> <!-- row -->
+
+</div> <!-- container fluid -->

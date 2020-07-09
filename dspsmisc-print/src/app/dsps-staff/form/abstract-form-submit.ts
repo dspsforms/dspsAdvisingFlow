@@ -50,6 +50,12 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
   // this list is need for completedBy fields
   public dspsUserListSmall: AuthData[];
 
+    // for child forms
+  // using a different name parentFormDataCopy because parentFormData is used an Input() in sub class
+  public parentFormDataCopy: any;
+  public isParent: boolean;
+  public childFormName: string;
+
   private prevPageTitle = null;
 
   constructor(

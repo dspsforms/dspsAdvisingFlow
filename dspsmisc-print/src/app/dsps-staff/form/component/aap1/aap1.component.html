@@ -65,24 +65,12 @@
  </div> <!-- col-sm-12 -->
 </div>  <!-- row -->
 
+<app-last-modified
+  [lastModified]="lastModified"
+  [lastModifiedBy]="lastModifiedBy"
+  [currentVersion]="currentVersion"
+> </app-last-modified>
 
-  <div class="row vert-space-footer-1">
-    <div class="col-sm-4 col-sm-offset-1">
-      <div *ngIf="lastModifiedBy" >
-          Last edited by  {{ lastModifiedBy }},  {{ lastModified | date }}.
-      </div>
-    </div> <!-- col -->
-    <div class="col-sm-4">
-        <div *ngIf="currentVersion" >
-             Version:  {{ currentVersion }}
-        </div>
-    </div> <!-- col -->
-
-    <!-- for debugging the presence or absence of signatures -->
-    <!-- <div class="col-sm-2">
-      <button type="button" (click)="showWrappedForm()">Show Wrapped Form</button>
-    </div> -->
-  </div> <!-- row -->
 
   <div class="row vert-space-footer-1">
     <div class="col-sm-5 col-sm-offset-1">
