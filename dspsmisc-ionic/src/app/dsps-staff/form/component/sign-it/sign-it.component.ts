@@ -19,9 +19,13 @@ export class SignItComponent implements OnInit {
   signed: EventEmitter<{ errMsg: string; successMsg: string; focusOnSignature: boolean; }>
     = new EventEmitter<{ errMsg: string; successMsg: string; focusOnSignature: boolean; }>();
 
-  constructor(private modalCtrl: ModalController) { }
+  constructor(private modalCtrl: ModalController) { 
+    console.log("SignItComponent constructor");
+  }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    console.log("SignItComponent ngOnInit");
+  }
   
   openSignItModal() {
 

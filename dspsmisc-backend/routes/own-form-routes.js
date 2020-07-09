@@ -11,6 +11,7 @@ const router = express.Router();
 
 const OwnFormController = require('../controllers/own-form-controller');
 
+router.post("/signatures", checkAuthLoggedIn, OwnFormController.signatures);
 
 // "/api/ownform/list"  -- own forms, for student. must be logged in
 // add checkAuthLoggedIn

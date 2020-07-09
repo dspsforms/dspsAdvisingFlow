@@ -83,7 +83,10 @@
       *ngFor="let child of wrappedForm.children;" 
       [mode]="'view'"  
       [wrappedForm]="child"
-      [parentFormData]="wrappedForm"></app-aap2-child>
+      [parentFormData]="wrappedForm"
+      [studentUser]="studentUser"
+      >
+    </app-aap2-child>
 
   </div>
 

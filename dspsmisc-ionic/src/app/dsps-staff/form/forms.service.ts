@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
 import { SavedForm } from '../../model/saved-form.model';
 import { EditedForm } from 'src/app/model/edited-form.model';
 import { Signature } from 'src/app/model/signature.model';
-import { SignatureStatus } from 'src/app/model/sig-status.model';
+import { SignatureStatus, SignatureArrayStatus } from 'src/app/model/sig-status.model';
 
 
 
@@ -44,7 +44,9 @@ export class FormsService implements OnInit {
   
   private studentRecordsStatus = new Subject<{ listOfForms?: {}, message?: string, err?: string }>();
   
-  private studentFormStatus = new Subject<{form?: WrappedForm, message?: string, err?: string }>();
+  private studentFormStatus = new Subject<{ form?: WrappedForm, message?: string, err?: string }>();
+  
+  private childSignatureFetchStatus = new Subject<SignatureArrayStatus>();
 
   constructor(private http: HttpClient) {
     // initiaze formsUpdateMap. each entry is a key/value pair
@@ -108,6 +110,10 @@ export class FormsService implements OnInit {
     return this.studentFormStatus.asObservable();
   }
 
+  getChildSignatureFetchStatusListener() {
+    return this.childSignatureFetchStatus.asObservable();
+  }
+
   // /api/form/:formName/:_id
   getFormData2(formName: string, _id: string, isStudentUser: boolean) {
 
@@ -121,6 +127,38 @@ export class FormsService implements OnInit {
     }
     
     this.getFormData(url);
+
+  }
+
+  getSignatures(children: [WrappedForm], isStudentUser: boolean) {
+    let url;
+    
+    if (!isStudentUser) {
+      url = environment.server + '/api/form/signatures';
+    } else {
+      url = environment.server + '/api/ownform/signatures';
+    }
+    
+    // use a post instead of a get
+    const idArr = children.filter(child => {
+      return (child.studentSigStatus !== 'pending');
+    }).map(child => child._id);
+    console.log("idArr of children whose signature is NOT pending", idArr);
+
+    if (idArr && idArr.length > 0) {
+      this.http
+        .post<{ message: string, signatures?: [Signature], err?: string }>(url, { idArr: idArr } )
+        .subscribe( response => {
+          console.log(response);
+          this.childSignatureFetchStatus.next({ message: response.message, signatures: response.signatures });
+        },
+        err => {
+          console.log(err);
+          this.childSignatureFetchStatus.next({ message: 'an error occured',  err: err });
+      });
+
+    }
+   
 
   }
 

@@ -10,6 +10,7 @@ import { UserService } from 'src/app/dsps-staff/user/user.service';
 import { LastOperationStatusService } from '../../../last-operation-status.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { WrappedForm } from 'src/app/model/wrapped-form.model';
+import { AuthData } from 'src/app/auth/auth-data.model';
 
 @Component({
   selector: 'app-aap2-child',
@@ -24,6 +25,8 @@ export class Aap2ChildComponent extends AbstractFormSubmit implements OnInit, On
 
   // parentFormData has values for lastName, firstName, etc.
   @Input() parentFormData: any; // WrappedForm | FormGroup;
+
+  @Input() studentUser: AuthData;
 
   @Input() focusOnSignature: boolean; // optional, if true, focus will be on signature
 
@@ -171,5 +174,9 @@ export class Aap2ChildComponent extends AbstractFormSubmit implements OnInit, On
     } else {
       return false;
     }
-}
+  }
+
+  onSigned(event) {
+    console.log("app2-child: onSigned:", event);
+  }
 }

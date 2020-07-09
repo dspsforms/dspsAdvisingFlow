@@ -22,17 +22,44 @@
 </app-progress-obj-part2> 
 
 <div class="extra-padding">
-  <ion-item>
-    <ion-label position="floating">Form completed and approved eligible by (DSPS Professional) *</ion-label>
-    <ion-input 
-      [class.required]="showRequired(mode)"
-      formControlName="completedBySignature"></ion-input>
-  </ion-item>
-  <ion-item *ngIf="form.get('completedBySignature').touched && !form.get('completedBySignature').valid">
-    <ion-label color="danger">DSPS Professional's signature is required.</ion-label>
-  </ion-item>
 
+  <ion-grid>
+    <ion-row>
+      <ion-col size-sm="5">
+
+        <!-- DSPS Signature -->
+        <ion-item>
+          <ion-label position="floating">Form completed and approved eligible by (DSPS Professional) *</ion-label>
+          <ion-input 
+            [class.required]="showRequired(mode)"
+            formControlName="completedBySignature"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="form.get('completedBySignature').touched && !form.get('completedBySignature').valid">
+          <ion-label color="danger">DSPS Professional's signature is required.</ion-label>
+        </ion-item>
+      </ion-col>
+
+         <!-- if studentUser, mode is definitely view -->
+      <ion-col 
+          *ngIf="studentUser && wrappedForm.studentSigStatus === 'pending'" 
+          size-sm="2" offset-sm="5">
+            <app-sign-it 
+              [wrappedForm]="wrappedForm"
+              [studentUser]="studentUser"
+              (signed)="onSigned($event)"
+            ></app-sign-it>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
 </div>
+
+ <!--- show the signature, if it exists, only in view mode -->
+ <app-sig-view 
+ *ngIf="mode === 'view'"  
+ [signatures]="wrappedForm.signatures"
+ [sigStatus]="wrappedForm.studentSigStatus" 
+ [focusOnSignature]="focusOnSignature" ></app-sig-view>
 
 
 <ion-grid>

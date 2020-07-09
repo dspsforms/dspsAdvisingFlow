@@ -22,12 +22,13 @@ const router = express.Router();
 
 const FormController = require('../controllers/form-controller');
 
+router.post("/signatures", checkAuthDsps, FormController.signatures);
 
 // post  "/api/form/:formName" verify captcha v3
 // router.post("/:formName", verifyCaptchaV3, FormController.postForm, emailNotify);
 // emailNotifyDsps is not required. because faculty just filled out the form
 // they don't need a notification -- until student signs
-router.post("/:formName", FormController.postForm, emailNotifyStudentNewForm);
+router.post("/:formName", checkAuthDsps, FormController.postForm, emailNotifyStudentNewForm);
 
 // // post  "/api/form/agreement/:formName"  // add checkAuthStaff or checkAuthAdmin
 // router.post("/agreement/:formName", checkAuthAdmin, FormController.postFormAgreement);

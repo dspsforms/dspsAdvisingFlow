@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { UserService } from '../user/user.service';
 import { AuthData } from 'src/app/auth/auth-data.model';
 import { Title } from '@angular/platform-browser';
+import { chdir } from 'process';
 
 
 
@@ -17,7 +18,9 @@ export class AbstractFormRead implements OnInit, OnDestroy {
     // base class to read form data for view and edit
 
     paramSubscription : Subscription;
-    dbSubscription : Subscription;
+    dbSubscription: Subscription;
+    
+    chilSignatureSubscription: Subscription;
 
     busy = false;
     showJson = false;
@@ -64,12 +67,43 @@ export class AbstractFormRead implements OnInit, OnDestroy {
             });
         
         this.busy = true;
+
+        this.chilSignatureSubscription = this.formService.getChildSignatureFetchStatusListener()
+            .subscribe(childSigStatus => {
+                if (!childSigStatus) { 
+                    // no op 
+                }  else if (childSigStatus.err) {
+                    // TODO handle error
+                } else if (childSigStatus.signatures && childSigStatus.signatures.length > 0) {
+                    // TODO handle signatures
+                    // match the data.children's ids with ids in signatures
+                    console.log("retriedved child sigs", childSigStatus.signatures);
+
+                    childSigStatus.signatures.forEach(sig => {
+                        // find the child form with matching sig.formId
+                        const child = this.data.children.find(child => child._id === sig.formId);
+                        if (child) {
+                            child.signatures ? child.signatures.push(sig) : child.signatures = [sig];
+                            console.log(child);
+                        } else {
+                            console.error("child not found for sig=", sig);
+                        }
+                    })
+                }
+                
+            });
           
         this.dbSubscription  = this.formService.getCurrentFormUpdatedListener().subscribe(formData => {
             this.data = formData;
             this.busy = false;
             this.titleService.setTitle(this.title);
-        });   
+
+            // schedule fetch of child form signatures
+            if (this.data && this.data.children && this.data.children.length > 0) {
+                this.formService.getSignatures(this.data.children, this.isStudentUser);
+            }
+            
+        }); 
 
     
         this.data = new WrappedForm({});
@@ -79,6 +113,8 @@ export class AbstractFormRead implements OnInit, OnDestroy {
             this.formInfo._id,
             this.isStudentUser
         );
+
+        
 
     
     }
@@ -100,7 +136,7 @@ export class AbstractFormRead implements OnInit, OnDestroy {
       
         SubscriptionUtil.unsubscribe(this.paramSubscription);
         SubscriptionUtil.unsubscribe(this.dbSubscription);
-        
+        SubscriptionUtil.unsubscribe(this.chilSignatureSubscription);
      
       
     }

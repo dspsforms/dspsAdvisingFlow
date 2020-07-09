@@ -506,4 +506,33 @@ createForm = (req) => {
 }
 
 
+exports.signatures = (req, res, next) => {
+    
+  const idArrStr = req.body.idArr;
+  console.log("idArrStr=", idArrStr);
+
+  const idArr = JSON.parse(idArrStr);
+  console.log("idArr", idArr);
+
+  const filter = {
+    'formId': { $in: idArr }
+  };
+
+  Signature.find(filter).then(sigs => {
+
+    res.status(200).json({
+      message: "Signatures fetched successfully",
+      signatures: sigs,
+    });
+    return;
+
+  }).catch((err) => {
+    
+    res.status(200).json({
+      message: "Signature fetch failed",
+      err: err,
+    });
+
+  });
+}
 

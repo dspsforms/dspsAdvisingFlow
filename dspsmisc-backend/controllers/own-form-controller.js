@@ -196,3 +196,45 @@ exports.getAForm = (req, res, next) => {
         });
     }
 }  // getAForm
+
+
+// for student, need to verify it's theirs
+exports.signatures = (req, res, next) => {
+    
+    const idArr = req.body.idArr;
+    // console.log("idArrStr=", idArrStr);
+
+    // const idArr = JSON.parse(idArrStr);
+    console.log("idArr", idArr);
+
+    // use email from decoded token in check-auth-loggedin.js
+    const ownEmail = req.userData.email;
+
+    //  const ownEmail = 'am@amarnathm.com'; // for testing
+  
+    const filter = {
+        $and: [ 
+            { email: ownEmail },
+            { 'formId': { $in : idArr } }
+        ]
+    };
+  
+    const formModel = mongoose.model('signature');
+
+    formModel.find(filter).then(sigs => {
+        console.log("sigs", sigs);
+      res.status(200).json({
+        message: "Signatures fetched successfully",
+        signatures: sigs,
+      });
+      return;
+  
+    }).catch((err) => {
+      
+      res.status(200).json({
+        message: "Signature fetch failed",
+        err: err,
+      });
+  
+    });
+  }
