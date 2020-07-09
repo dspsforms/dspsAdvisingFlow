@@ -10,6 +10,7 @@ import { ViewFormRoutingModule } from './view-form-routing.module';
 import { BluesheetComponentModule } from 'src/app/dsps-staff/form/component/bluesheet/bluesheet-component.module';
 import { GreesheetComponentModule } from 'src/app/dsps-staff/form/component/greensheet/greensheet.module';
 import { MatProgressSpinnerModule } from '@angular/material';
+import { Aap2ComponentModule } from 'src/app/dsps-staff/form/component/aap2/aap2.module';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { MatProgressSpinnerModule } from '@angular/material';
         ElemWithSignComponentModule,
         SigViewModule,
         Aap1ComponentModule,
+        Aap2ComponentModule,
         BluesheetComponentModule,
         GreesheetComponentModule,
         ViewFormRoutingModule

@@ -11,8 +11,6 @@ import { SafePipe } from './util/safe.pipe';
 import { ErrorComponent } from './error/error.component';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule, MatProgressSpinnerModule } from '@angular/material';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { LastModifiedComponent } from './dsps-staff/form/component/last-modified/last-modified.component';
-import { CompletedByComponent } from './dsps-staff/form/component/completed-by/completed-by.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +19,6 @@ import { CompletedByComponent } from './dsps-staff/form/component/completed-by/c
     SafePipe,
     ErrorComponent,
     NotFoundComponent,
-    LastModifiedComponent,
-    CompletedByComponent
   ],
   imports: [
     BrowserModule,

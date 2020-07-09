@@ -32,6 +32,18 @@
 
  </div>
 
+ <div *ngIf="formInfo.formName == 'aap2' && data && !busy ">
+
+  <app-aap2
+    [formKey]="data._id"
+    [wrappedForm]="data"
+    [mode]="'view'"
+    >
+
+  </app-aap2>
+
+ </div>
+
  <div *ngIf="formInfo.formName == 'bluesheet' && data && !busy ">
 
   <app-bluesheet

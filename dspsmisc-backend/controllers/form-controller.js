@@ -508,11 +508,12 @@ createForm = (req) => {
 
 exports.signatures = (req, res, next) => {
     
-  const idArrStr = req.body.idArr;
-  console.log("idArrStr=", idArrStr);
 
-  const idArr = JSON.parse(idArrStr);
-  console.log("idArr", idArr);
+  const idArr = req.body.idArr;
+    // console.log("idArrStr=", idArrStr);
+
+    // const idArr = JSON.parse(idArrStr);
+    console.log("idArr", idArr);
 
   const filter = {
     'formId': { $in: idArr }

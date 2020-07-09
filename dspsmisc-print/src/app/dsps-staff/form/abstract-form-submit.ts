@@ -398,5 +398,10 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
 
   }
 
+  // only public and protected methods are accessible by subclass
+  setIsParent(b) {
+    this.isParent = b;
+  }
+
 
 }

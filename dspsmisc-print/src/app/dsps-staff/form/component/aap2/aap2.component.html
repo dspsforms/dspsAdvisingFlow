@@ -1,6 +1,7 @@
 
 <div class="container-fluid" *ngIf="wrappedForm" >
   <div class="row">
+    <div class="col-sm-12">
 
     <app-aap2header
       [wrappedForm]="wrappedForm"
@@ -37,10 +38,10 @@
 
 
   <!-- aap2 info. exclude if create. also exclude if edit unless children > 0 -->
-  <app-aap2-info  wrappedForm?.children?.length > 0 ">
+  <app-aap2-info  *ngIf="wrappedForm?.children?.length > 0 ">
   </app-aap2-info>
 
-  <div class="tiny" tabindex="-1" #aap2ChildStart > </div>
+  <!-- <div class="tiny" tabindex="-1" #aap2ChildStart > </div> -->
 
   <!-- children -->
   <!-- <div *ngIf="mode === 'view'  && wrappedForm?.children?.length > 0">
@@ -57,7 +58,7 @@
   </div> -->
 
 
-    <div class="col-sm-12">
+
     </div> <!-- col-sm-12 -->
   </div> <!-- row -->
 

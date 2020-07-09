@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
 import { SavedForm } from '../../model/saved-form.model';
 import { EditedForm } from 'src/app/model/edited-form.model';
 import { Signature } from 'src/app/model/signature.model';
-import { SignatureStatus } from 'src/app/model/sig-status.model';
+import { SignatureStatus, SignatureArrayStatus } from 'src/app/model/sig-status.model';
 
 
 
@@ -37,14 +37,16 @@ export class FormsService implements OnInit {
   private formSaveStatus = new Subject<{ formId: string, message: string, err?: string } > ();
 
   private formPatchStatus = new Subject<{ data: WrappedForm, message: string, err?: string }>();
-  
+
   private fullFormPatchStatus = new Subject<{ data: WrappedForm, message: string, err?: string }>();
-  
+
   private signatureSaveStatus = new Subject<SignatureStatus>();
-  
+
   private studentRecordsStatus = new Subject<{ listOfForms?: {}, message?: string, err?: string }>();
-  
-  private studentFormStatus = new Subject<{form?: WrappedForm, message?: string, err?: string }>();
+
+  private studentFormStatus = new Subject<{ form?: WrappedForm, message?: string, err?: string }>();
+
+  private childSignatureFetchStatus = new Subject<SignatureArrayStatus>();
 
   constructor(private http: HttpClient) {
     // initiaze formsUpdateMap. each entry is a key/value pair
@@ -108,21 +110,58 @@ export class FormsService implements OnInit {
     return this.studentFormStatus.asObservable();
   }
 
+  getChildSignatureFetchStatusListener() {
+    return this.childSignatureFetchStatus.asObservable();
+  }
+
   // /api/form/:formName/:_id
   getFormData2(formName: string, _id: string, isStudentUser: boolean) {
 
     console.log("no cached form, fetching from server");
     let url;
-    
+
     if (!isStudentUser) {
       url = environment.server + '/api/form/' + formName + "/" + _id;
     } else {
       url = environment.server + '/api/ownform/' + formName + "/" + _id;
     }
-    
+
     this.getFormData(url);
 
   }
+
+  getSignatures(children: [WrappedForm], isStudentUser: boolean) {
+    let url;
+
+    if (!isStudentUser) {
+      url = environment.server + '/api/form/signatures';
+    } else {
+      url = environment.server + '/api/ownform/signatures';
+    }
+
+    // use a post instead of a get
+    const idArr = children.filter(child => {
+      return (child.studentSigStatus !== 'pending');
+    }).map(child => child._id);
+    console.log("idArr of children whose signature is NOT pending", idArr);
+
+    if (idArr && idArr.length > 0) {
+      this.http
+        .post<{ message: string, signatures?: [Signature], err?: string }>(url, { idArr: idArr } )
+        .subscribe( response => {
+          console.log(response);
+          this.childSignatureFetchStatus.next({ message: response.message, signatures: response.signatures });
+        },
+        err => {
+          console.log(err);
+          this.childSignatureFetchStatus.next({ message: 'an error occured',  err: err });
+      });
+
+    }
+
+
+  }
+
 
   listFormTypes() {
     const url = environment.server + '/api/form/list';
@@ -268,7 +307,8 @@ export class FormsService implements OnInit {
     this.http.get<{
       message: string;
       formData: WrappedForm;
-      signatures: [Signature]
+      signatures: [Signature],
+      children?: [WrappedForm]
     }>(url)
       .subscribe(msgFormData => {
         console.log(msgFormData);
@@ -277,8 +317,13 @@ export class FormsService implements OnInit {
         if (msgFormData.signatures && msgFormData.formData) {
           msgFormData.formData.signatures = msgFormData.signatures;
         }
+        // children are also coming as a separate field
+        if (msgFormData.children && msgFormData.formData) {
+          msgFormData.formData.children = msgFormData.children;
+        }
+
         this.currentForm = msgFormData.formData;
-       
+
         // send out an event to those listening for change in currentForm
         if (!isAgreement) {
           this.currentFormUpdated.next(this.currentForm);
@@ -290,9 +335,9 @@ export class FormsService implements OnInit {
   }
 
   signIt(signatureData: Signature) {
- 
+
     const url = environment.server + "/api/signform/";
-  
+
     this.http
       .post (url, signatureData)
       .subscribe( response => {
@@ -322,7 +367,7 @@ export class FormsService implements OnInit {
     }) ;
   }
 
-  // get "/api/ownform/getaform/:formName/:_id" 
+  // get "/api/ownform/getaform/:formName/:_id"
 
   getStudentForm(formName, formId) {
 

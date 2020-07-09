@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { ElemWithSigComponent } from './elem-with-sig.component';
 import { LabelValuePrintModule } from '../label-value-print/label-value-print.module';
+import { CheckboxGridModule } from '../checkbox-grid/checkbox-grid.module';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { LabelValuePrintModule } from '../label-value-print/label-value-print.mo
         CommonModule,
         ReactiveFormsModule,
         LabelValuePrintModule,
+        CheckboxGridModule,
         RouterModule
     ],
     exports: [

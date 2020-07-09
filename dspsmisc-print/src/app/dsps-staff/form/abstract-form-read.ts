@@ -20,6 +20,7 @@ export class AbstractFormRead implements OnInit, OnDestroy {
   paramSubscription: Subscription;
   dbSubscription: Subscription;
   authSub: Subscription;
+  chilSignatureSubscription: Subscription;
 
   busy = false;
   showJson = false;
@@ -49,9 +50,40 @@ export class AbstractFormRead implements OnInit, OnDestroy {
 
     this.data = new WrappedForm({});
 
+    this.chilSignatureSubscription = this.formService.getChildSignatureFetchStatusListener()
+            .subscribe(childSigStatus => {
+                if (!childSigStatus) {
+                    // no op
+                }  else if (childSigStatus.err) {
+                    // TODO handle error
+                } else if (childSigStatus.signatures && childSigStatus.signatures.length > 0) {
+                    // TODO handle signatures
+                    // match the data.children's ids with ids in signatures
+                    console.log("retriedved child sigs", childSigStatus.signatures);
+
+                    childSigStatus.signatures.forEach(sig => {
+                        // find the child form with matching sig.formId
+                        const child = this.data.children.find(childTmp => childTmp._id === sig.formId);
+                        if (child) {
+                            child.signatures ? child.signatures.push(sig) : child.signatures = [sig];
+                            console.log(child);
+                        } else {
+                            console.error("child not found for sig=", sig);
+                        }
+                    })
+                }
+
+            });
+
     this.dbSubscription  = this.formService.getCurrentFormUpdatedListener().subscribe(formData => {
       this.data = formData;
       this.busy = false;
+
+      // schedule fetch of child form signatures
+      if (this.data && this.data.children && this.data.children.length > 0) {
+        this.formService.getSignatures(this.data.children, this.isStudentUser);
+      }
+
     });
 
     this.paramSubscription = this.route.params.subscribe(
@@ -145,6 +177,8 @@ export class AbstractFormRead implements OnInit, OnDestroy {
     SubscriptionUtil.unsubscribe(this.paramSubscription);
     SubscriptionUtil.unsubscribe(this.dbSubscription);
     SubscriptionUtil.unsubscribe(this.authSub);
+    SubscriptionUtil.unsubscribe(this.chilSignatureSubscription);
+
   }
 
 }

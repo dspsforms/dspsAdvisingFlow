@@ -14,15 +14,18 @@ import { BluesheetFooterComponent } from './bluesheet-footer/bluesheet-footer.co
 import { SigViewModule } from '../sig-view/sig-view.module';
 import { BluesheetHeaderComponent } from './bluesheet-header/bluesheet-header.component';
 import { LabelValuePrintModule } from '../label-value-print/label-value-print.module';
+import { CheckboxGridModule } from '../checkbox-grid/checkbox-grid.module';
 
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule,
     SigViewModule,
-    LabelValuePrintModule
+    LabelValuePrintModule,
+    CheckboxGridModule,
+    RouterModule,
+
   ],
   exports: [
     BluesheetComponent,

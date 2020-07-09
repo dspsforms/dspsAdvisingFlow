@@ -62,7 +62,7 @@ export class Aap2Component extends AbstractFormSubmit
       lastOpStatusService,
       titleService);
 
-    super.isParent = true;
+    super.setIsParent(true);
 
 
   }

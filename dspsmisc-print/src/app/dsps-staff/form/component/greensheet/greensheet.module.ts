@@ -11,6 +11,7 @@ import { LabelYesNoComponentModule } from '../label-yes-no/label-yes-no.module';
 import { StudentPersonalInfoComponent } from './student-personal-info/student-personal-info.component';
 import { StudentPart2Component } from './student-part2/student-part2.component';
 import { LabelValuePrintModule } from '../label-value-print/label-value-print.module';
+import { CheckboxGridModule } from '../checkbox-grid/checkbox-grid.module';
 
 
 
@@ -20,6 +21,7 @@ import { LabelValuePrintModule } from '../label-value-print/label-value-print.mo
         ReactiveFormsModule,
         LabelYesNoComponentModule,
         LabelValuePrintModule, // for app-checkbox-grid
+        CheckboxGridModule,
         // RequiredFieldPromptComponentModule,
         RouterModule
     ],
