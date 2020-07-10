@@ -1,12 +1,18 @@
 
 
 <div class="app2-child-wrapper" >
-
-
+<ion-card>
+  <ion-card-header *ngIf="mode !== 'create'">
+    <ion-card-title class="ion-text-center">Progress: {{ wrappedForm?.formWithLatestHistory['progressObj']['semYear'].val }}
+    </ion-card-title>
+  </ion-card-header>
+  
+<ion-card-content>
+    
 <form *ngIf="form" [formGroup]="form" (ngSubmit)="createOrEditForm()" >
 
 
- 
+
  <!-- show user color of background for required fields -->
  <app-required-field-prompt [showRequired]="showRequired(mode)"></app-required-field-prompt>
 
@@ -54,12 +60,19 @@
   
 </div>
 
+ <!-- sigStatus is legacy  -->
+ <app-joint-sig-view   *ngIf="mode !== 'create'"
+ [wrappedForm]="wrappedForm"
+ [signatures]="wrappedForm.signatures"
+ [sigStatus]="wrappedForm.studentSigStatus" > 
+</app-joint-sig-view>
+
  <!--- show the signature, if it exists, only in view mode -->
- <app-sig-view 
+ <!-- <app-sig-view 
  *ngIf="mode === 'view'"  
  [signatures]="wrappedForm.signatures"
  [sigStatus]="wrappedForm.studentSigStatus" 
- [focusOnSignature]="focusOnSignature" ></app-sig-view>
+ [focusOnSignature]="focusOnSignature" ></app-sig-view> -->
 
 
 <ion-grid>
@@ -83,7 +96,7 @@
       </ion-col>
     </ion-row>  <!-- submit and cancel buttons -->
   
-    <ion-row  *ngIf="mode !== 'create'">
+    <!-- <ion-row  *ngIf="mode !== 'create'">
       <ion-col size-sm="5">
         <ion-item *ngIf="lastModifiedBy"  >
           <ion-label >
@@ -99,10 +112,13 @@
           </ion-item>
       </ion-col>
     
-    </ion-row>
+    </ion-row> -->
 
 </ion-grid>
 
 </form>
+
+</ion-card-content>
+</ion-card>
 
 </div> <!-- app2-child-wrapper -->

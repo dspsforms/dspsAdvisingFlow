@@ -1,0 +1,32 @@
+.signature {
+    font-family: "Monotype Corsiva", Times, Serif;
+    font-size: 2vw;
+  }
+.smaller {
+   font-size: 1.2vw;
+}
+.capitalize {
+    text-transform: capitalize;;
+}
+h2 {
+    font-size: 1.4vw;
+}
+ion-card-title {
+    font-size: 1.6vw;
+}
+
+.grid2-local {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0px;
+    // border: 1px solid black;
+ }
+
+ // each child of grid2-local
+.grid2-local > div {
+    margin: 0px;
+    padding: 7px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));
+}

@@ -1,0 +1,57 @@
+<!-- if there are signatures, show it as an ion-card -->
+<ion-grid>
+  <ion-row>
+    <ion-col size-sm="7" offset-sm="2">
+        <ion-card *ngIf="signatures?.length > 0">
+          <ion-card-header>
+            <ion-card-title class="ion-text-center">Signatures</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="grid2-local">
+               
+              <!-- first child-->
+              <div>
+                <h2>DSPS Professional's Signature</h2>
+
+                <ion-list>
+                  <ion-item *ngIf="completedBySignature" class="signature">
+                    {{ completedBySignature }}
+                  </ion-item>
+                  <ion-item *ngIf="completedByDate" class="smaller">
+                    {{ completedByDate | date }}
+                  </ion-item>
+                </ion-list>
+                
+
+              </div>
+
+              <!-- second child -->
+              <div>
+                <h2>Student Signature</h2>
+
+                <ion-list *ngIf="signatures?.length > 0">
+                  <ion-item  class="signature">
+                    {{ signatures[0].signature }}
+                  </ion-item>
+                  <ion-item class="smaller">
+                    {{ signatures[0].signatureDate | date }}
+                  </ion-item>
+                </ion-list> <!-- there is a signature -->
+
+                <!-- if there are no signatures yet, just show the signature status -->
+                <ion-list *ngIf="!signatures || signatures?.length === 0">
+                  <ion-item *ngIf="sigStatus">
+                    <ion-text> 
+                      <span class="capitalize"> {{ sigStatus }} </span></ion-text>
+                  </ion-item>
+                </ion-list>
+
+              </div> <!-- end second child -->
+            </div>
+            
+          </ion-card-content>
+        </ion-card>
+    
+    </ion-col>
+  </ion-row>
+</ion-grid>

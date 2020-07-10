@@ -6,13 +6,34 @@
 
   <app-long-term-ed-goal [form]="form" [grid]="grid"></app-long-term-ed-goal>
   
-  
-  
-
   <ion-grid>
+    <ion-row>
+      <ion-col size-sm="5">
+        <ion-item>
+          <ion-label position="floating">Form completed and approved eligible by (DSPS Professional) *</ion-label>
+          <ion-input 
+            [class.required]="showRequired(mode)"
+            formControlName="completedBySignature"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="form.get('completedBySignature').touched && !form.get('completedBySignature').valid">
+          <ion-label color="danger">DSPS Professional's signature is required.</ion-label>
+        </ion-item>
+
+      </ion-col>
+
+      <!-- this is for student user, so mode is not create or edit -->
+      <ion-col 
+          *ngIf="studentUser && wrappedForm.studentSigStatus === 'pending'" 
+          size-sm="2" offset-sm="5">
+        <app-sign-it 
+          [wrappedForm]="wrappedForm"
+          [studentUser]="studentUser"
+          (signed)="onSigned($event)"
+        ></app-sign-it>
+      </ion-col>
+    </ion-row>
    
     <ion-row  *ngIf="mode !== 'view'">
-  
       <ion-col size-sm="3" offset-sm="2">
         <ion-button 
           type="submit"  
@@ -30,7 +51,7 @@
       </ion-col>
     </ion-row>  <!-- submit and cancel buttons -->
   
-    <ion-row  *ngIf="mode !== 'create'">
+    <!-- <ion-row  *ngIf="mode !== 'create'">
       <ion-col size-sm="5">
         <ion-item *ngIf="lastModifiedBy"  >
           <ion-label >
@@ -46,7 +67,6 @@
           </ion-item>
       </ion-col>
 
-      <!-- if studentUser, mode is definitely view -->
       <ion-col 
           *ngIf="studentUser && wrappedForm.studentSigStatus === 'pending'" 
           size-sm="2" offset-sm="3">
@@ -57,16 +77,21 @@
         ></app-sign-it>
       </ion-col>
     
-    </ion-row>
+    </ion-row> -->
 
     <!--- show the signature, if it exists, only in view mode -->
-    <app-sig-view 
+    <!-- <app-sig-view 
     *ngIf="mode === 'view'"  
     [signatures]="wrappedForm.signatures"
     [sigStatus]="wrappedForm.studentSigStatus" 
-    [focusOnSignature]="focusOnSignature" ></app-sig-view>
+    [focusOnSignature]="focusOnSignature" ></app-sig-view> -->
 
-   
+   <!-- sigStatus is legacy  -->
+  <app-joint-sig-view
+    [wrappedForm]="wrappedForm"
+    [signatures]="wrappedForm.signatures"
+    [sigStatus]="wrappedForm.studentSigStatus" > 
+  </app-joint-sig-view>
   
   </ion-grid>
 

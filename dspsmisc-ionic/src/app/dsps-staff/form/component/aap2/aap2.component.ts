@@ -282,4 +282,11 @@ export class Aap2Component extends AbstractFormSubmit
     console.log("onSigned:", event);
   }
 
+  showRequired(mode: 'create' | 'view' | 'edit') {
+    if (mode && mode === 'create' || mode === 'edit') {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

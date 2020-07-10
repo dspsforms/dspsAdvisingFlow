@@ -18,6 +18,7 @@ import { Aap2ChildComponent } from './aap2-child/aap2-child.component';
 import { Aap2InfoComponent } from './aap2-info/aap2-info.component';
 import { ProgressObjComponent } from './progress-obj/progress-obj.component';
 import { SignItModule } from '../sign-it/sign-it.module';
+import { JointSigViewModule } from '../joint-sig-view/joint-sig-view.module';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { SignItModule } from '../sign-it/sign-it.module';
         SigViewModule,
         SignItModule,
         FindMyEmailComponentModule,
+        JointSigViewModule,
         RouterModule
     ],
     exports: [
