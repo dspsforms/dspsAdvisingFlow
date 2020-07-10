@@ -1,0 +1,81 @@
+
+  <!-- <div formGroupName="progressObj"> -->
+    <div *ngIf="wrappedForm" class="grid3-local extra-padding">
+
+      <!-- 1st col -->
+      <div class="list-group">
+        <!-- this is to give it a hover effect -->
+        <button  class="list-group-item list-group-item-action" disabled >
+          <app-label-value-print
+              [value]="wrappedForm?.formWithLatestHistory['progressObj']['semYear'].val"
+              [label]="'Semester/Year'"
+              [controlType]="'text'" >
+          </app-label-value-print>
+        </button>
+
+        <div class="tiny" tabindex="1" #semYear > </div>
+
+      </div> <!-- list-group -->
+
+      <!-- second col -->
+      <div class="list-group">
+
+        <button  class="list-group-item list-group-item-action" disabled >
+
+          <app-checkbox-grid
+            [value]="wrappedForm?.formWithLatestHistory['progressObj']['returningStudent'].val"
+            [label]="'Returning Student'" >
+          </app-checkbox-grid>
+
+        </button>
+
+        <button *ngIf="isReturningStudent"  class="list-group-item list-group-item-action" disabled >
+          <app-label-yes-no
+            [value]="wrappedForm?.formWithLatestHistory['progressObj']['progress'].val"
+            [label]="'Progress'" >
+           </app-label-yes-no>
+        </button>
+
+
+      </div>
+
+      <!-- third col -->
+      <div  class="list-group">
+
+        <button  class="list-group-item list-group-item-action" disabled >
+          Refer To
+        </button>
+
+        <button  *ngIf="! isReturningStudent" class="list-group-item list-group-item-action" disabled >
+          Not Applicable
+        </button>
+
+        <div *ngIf="isReturningStudent">
+          <button   class="list-group-item list-group-item-action" disabled >
+            <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['progressObj']['refer2Transcripts'].val"
+              [label]="'College Transcripts'" >
+            </app-checkbox-grid>
+          </button>
+
+          <button   class="list-group-item list-group-item-action" disabled >
+            <app-checkbox-grid
+              [value]="wrappedForm?.formWithLatestHistory['progressObj']['refer2Grades'].val"
+              [label]="'Grades'" >
+            </app-checkbox-grid>
+          </button>
+
+          <button   class="list-group-item list-group-item-action" disabled >
+            <app-label-value-print
+              [value]="wrappedForm?.formWithLatestHistory['progressObj']['refer2Other'].val"
+              [label]="'Other'"
+              [controlType]="'text'" >
+            </app-label-value-print>
+          </button>
+
+        </div> <!-- if isReturningStudent -->
+
+
+      </div> <!-- 3rd child-->
+
+    </div> <!-- grid3-local -->

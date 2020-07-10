@@ -1,0 +1,73 @@
+
+  <!-- <div formGroupName="progressObj"> -->
+
+    <div class="grid2-local  extra-padding">
+
+      <!-- first child -->
+      <div  class="list-group">
+        <button  class="list-group-item list-group-item-action" disabled >
+          <app-label-value-print
+              [value]="wrappedForm?.formWithLatestHistory['progressObj']['edOrOtherGoal'].val"
+              [label]="'Educational or Other Goal'"
+              [controlType]="'text'" >
+          </app-label-value-print>
+        </button>
+      </div>
+
+
+      <!-- second child -->
+      <div class="list-group">
+        <button  class="list-group-item list-group-item-action" disabled >
+          <app-label-yes-no
+            [value]="wrappedForm?.formWithLatestHistory['progressObj']['edAssistanceThisSem'].val"
+            [label]="'Educational Assistance Courses this Semester'" >
+           </app-label-yes-no>
+        </button>
+
+      </div>
+
+
+    </div> <!-- grid2-local -->
+
+    <div class="grid3-local  extra-padding">
+
+      <!-- first child -->
+      <div class="list-group">
+        <button  class="list-group-item list-group-item-action" disabled >
+          <app-label-value-print
+              [value]="wrappedForm?.formWithLatestHistory['progressObj']['courseNames'].val"
+              [label]="'Course Name(s)'"
+              [controlType]="'text'" >
+          </app-label-value-print>
+        </button>
+
+      </div>
+
+      <!-- second child -->
+      <div class="list-group">
+        <button  class="list-group-item list-group-item-action" disabled >
+          <app-label-value-print
+              [value]="wrappedForm?.formWithLatestHistory['progressObj']['progressEAC'].val"
+              [label]="'Progress in EAC'"
+              [controlType]="'text'" >
+          </app-label-value-print>
+        </button>
+
+      </div>
+
+
+      <!-- third child -->
+      <div class="list-group">
+        <button  class="list-group-item list-group-item-action" disabled >
+          <app-label-value-print
+              [value]="wrappedForm?.formWithLatestHistory['progressObj']['genProgress'].val"
+              [label]="'General Progress'"
+              [controlType]="'text'" >
+          </app-label-value-print>
+        </button>
+
+      </div>
+
+
+    </div> <!-- grid3-local -->
+

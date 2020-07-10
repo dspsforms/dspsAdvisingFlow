@@ -12,18 +12,27 @@
 
   <app-long-term-ed-goal [wrappedForm]="wrappedForm" ></app-long-term-ed-goal>
 
-  <app-completed-by [wrappedForm]="wrappedForm"></app-completed-by>
+  <!-- <app-completed-by [wrappedForm]="wrappedForm"></app-completed-by> -->
+
+   <!-- sigStatus and focusOnSignature not used in print view  -->
+   <app-joint-sig-view
+   [wrappedForm]="wrappedForm"
+   [signatures]="wrappedForm.signatures"
+   [sigStatus]="wrappedForm.studentSigStatus"
+   [focusOnSignature]="focusOnSignature" >
+
+ </app-joint-sig-view>
 
 
 
-  <app-last-modified
+  <!-- <app-last-modified
   [lastModified]="lastModified"
   [lastModifiedBy]="lastModifiedBy"
-  [currentVersion]="currentVersion" > </app-last-modified>
+  [currentVersion]="currentVersion" > </app-last-modified> -->
 
 
     <!--- show the signature, if it exists -->
-    <div class="row vert-space-footer-1">
+    <!-- <div class="row vert-space-footer-1">
       <div class="col-sm-5 col-sm-offset-1">
 
         <app-sig-view
@@ -31,8 +40,8 @@
           [sigStatus]="wrappedForm.studentSigStatus"
           [focusOnSignature]="focusOnSignature" ></app-sig-view>
 
-    </div> <!-- col -->
-    </div>  <!-- row -->
+    </div>
+    </div>   -->
 
 
 
@@ -44,7 +53,7 @@
   <!-- <div class="tiny" tabindex="-1" #aap2ChildStart > </div> -->
 
   <!-- children -->
-  <!-- <div *ngIf="mode === 'view'  && wrappedForm?.children?.length > 0">
+  <div *ngIf="wrappedForm?.children?.length > 0">
 
     <app-aap2-child
       *ngFor="let child of wrappedForm.children;"
@@ -55,7 +64,7 @@
       >
     </app-aap2-child>
 
-  </div> -->
+  </div>
 
 
 

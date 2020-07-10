@@ -1,0 +1,43 @@
+
+<div class="panel panel-body gap-top">
+
+
+<div class="row extra-padding">
+  <div class="col-sm-4">
+    <h2>DSPS Professional's Signature</h2>
+  </div>
+  <div class="col-sm-4">
+    <h2>Student Signature</h2>
+  </div>
+</div>
+
+<div class="row extra-padding">
+  <div class="col-sm-4">
+    <div *ngIf="completedBySignature" class="signature">
+      {{ completedBySignature }}
+    </div>
+    <div *ngIf="completedByDate" class="smaller">
+      {{ completedByDate | date }}
+    </div>
+  </div> <!-- col-sm-4 -->
+
+  <div class="col-sm-4">
+    <!-- showing only one signature, at index 0 because chances are there
+      will be at most one student sig per aap2-child
+      if additional signatures are possible, we will need to redo this
+    -->
+    <div *ngIf="signatures?.length > 0">
+      <div  class="signature">
+        {{ signatures[0].signature }}
+      </div>
+      <div class="smaller">
+        {{ signatures[0].signatureDate | date }}
+      </div>
+    </div>
+
+  </div> <!-- col-sm-4 -->
+
+</div> <!-- row -->
+
+</div> <!-- panel panel body -->
+

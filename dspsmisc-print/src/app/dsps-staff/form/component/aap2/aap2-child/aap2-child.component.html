@@ -1,0 +1,54 @@
+
+
+<div class="app2-child-wrapper" *ngIf="wrappedForm">
+
+<div class="panel panel-default" >
+  <div class="panel-heading">
+    <div class="panel-title inline">
+       Progress Report:
+       <span>
+       {{ wrappedForm?.formWithLatestHistory['progressObj']['semYear'].val }}
+       </span>
+    </div>
+  </div> <!-- panel-heading -->
+
+<div class="panel-body">
+
+  <app-progress-obj [wrappedForm]="wrappedForm"></app-progress-obj>
+
+  <app-progress-obj-part2  [wrappedForm]="wrappedForm" > </app-progress-obj-part2>
+
+  <div class="extra-padding">
+
+  <!-- <app-completed-by [wrappedForm]="wrappedForm"></app-completed-by> -->
+
+
+  <!-- sigStatus and focusOnSignature not used in print view  -->
+  <app-joint-sig-view
+    [wrappedForm]="wrappedForm"
+    [signatures]="wrappedForm.signatures"
+    [sigStatus]="wrappedForm.studentSigStatus"
+    [focusOnSignature]="focusOnSignature" >
+
+  </app-joint-sig-view>
+
+
+  </div>
+
+  <!--- show the signature, if it exists, only in view mode -->
+  <!-- <app-sig-view
+  *ngIf="mode === 'view'"
+  [signatures]="wrappedForm.signatures"
+  [sigStatus]="wrappedForm.studentSigStatus"
+  [focusOnSignature]="focusOnSignature" ></app-sig-view> -->
+
+
+  <!-- <app-last-modified
+  [lastModified]="lastModified"
+  [lastModifiedBy]="lastModifiedBy"
+  [currentVersion]="currentVersion" > </app-last-modified> -->
+
+</div> <!-- panel body -->
+</div> <!-- panel panel-default -->
+
+</div> <!-- app2-child-wrapper -->

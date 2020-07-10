@@ -43,7 +43,7 @@ export class FormUtil {
             FormUtil.mongo2FormNameMap["bluesheets"] = FormName.BLUESHEET;
             FormUtil.mongo2FormNameMap["aap1s"] = FormName.AAP1;
             FormUtil.mongo2FormNameMap["aap2s"] = FormName.AAP2;
-            FormUtil.mongo2FormNameMap["aap2childs"] = FormName.AAP2_CHILD;
+            FormUtil.mongo2FormNameMap["aap2children"] = FormName.AAP2_CHILD;
             FormUtil.mongo2FormNameMap["greensheets"] = FormName.GREENSHEET;
         
   
