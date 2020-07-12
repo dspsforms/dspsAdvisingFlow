@@ -16,7 +16,7 @@ export class UrlConfig {
   static ADD_NEW_DSPS_USER = '/auth/add-new-staff';
 
   // for back buttons, if in doubt, go here
-  static DEFAULT_BACK_BUTTON_HREF = '/dsps-staff/form';
+  static DEFAULT_BACK_BUTTON_HREF = '/dsps-staff/dsps-intro';
 
   static DEFAULT_BACK_BUTTON_HREF_LIST_USERS = '/dsps-staff/users/list-dsps-users';
 

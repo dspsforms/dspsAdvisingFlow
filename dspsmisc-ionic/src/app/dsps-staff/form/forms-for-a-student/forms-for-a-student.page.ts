@@ -171,4 +171,8 @@ export class FormsForAStudentPage implements OnInit, OnDestroy {
     }
   }
 
+  get defaultHref() {
+    return UrlConfig.DEFAULT_BACK_BUTTON_HREF;
+  }
+
 }
