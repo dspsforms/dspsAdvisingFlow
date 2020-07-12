@@ -40,7 +40,7 @@ export class UrlConfig {
   static LIST_INSTRUCTORS_ABSOLUTE = '/dsps-staff/users/instructors';
 
   static LIST_STUDENTS = 'dsps-staff/users/students';
-  static LIST_STUDENTS_ABSOLUTE = '/dsps-staff/users/students';
+  static LIST_STUDENTS_ABSOLUTE = '/dsps-staff/users/list-students'; // '/dsps-staff/users/students';
 
   static LIST_FORMS_PRE_ABSOLUTE = '/dsps-staff/form/list/'; // append formName
 

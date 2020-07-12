@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { AuthData } from "../../auth/auth-data.model";
 import { environment } from "../../../environments/environment";
+import { Student } from 'src/app/model/student.model';
 
 
 @Injectable({
@@ -14,8 +15,12 @@ export class UserService {
   private dspsUserList: AuthData[];
   private dspsUserListSmall: AuthData[]; // same as dspsUserList but with smaller data
 
+  private students: Student[];
+
   private dspsUserListListener = new Subject<AuthData[]>();
   private dspsUserListSmallListener = new Subject<AuthData[]>();
+
+  private studentsListener = new Subject<Student[]>();
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -30,6 +35,23 @@ export class UserService {
 
         this.dspsUserList = res.dspsUsers;
         this.dspsUserListListener.next([...this.dspsUserList]);
+
+      },
+      err => {
+        console.log("err", err);
+    });
+  }
+
+  // this will list only those students who have registered on our system
+  listStudents() {
+
+    const url = environment.server + '/api/user/liststudents' ;
+    this.http.get<{ message: string, students: Student[] }>(url)
+      .subscribe(res => {
+        console.log("listStudents()", res);
+
+        this.students = res.students;
+        this.studentsListener.next([...this.students]);
 
       },
       err => {
@@ -60,6 +82,10 @@ export class UserService {
   getDspsUserListSmallListener() {
     return this.dspsUserListSmallListener.asObservable();
   }
+  // studentsListener
+  getStudentsListener() {
+    return this.studentsListener.asObservable();
+  }
 
   getDspsUserList() {
     return [...this.dspsUserList];
@@ -68,9 +94,12 @@ export class UserService {
   getDspsUserListSmall() {
     if (this.dspsUserListSmall) {
       return [...this.dspsUserListSmall];
-    }
-    else return null;
+    } else { return null; }
     
+  }
+
+  getStudents() {
+    return [...this.students];
   }
 
 }

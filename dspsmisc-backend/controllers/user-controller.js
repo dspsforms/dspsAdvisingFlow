@@ -853,6 +853,49 @@ exports.listDspsUsersSmall = (req, res, next) => {
 
 }
 
+// listStudents
+exports.listStudents = (req, res, next) => {
+  console.log("in list students");
+
+  // const filter = { }; // return all students. TODO add paging
+  Student.find({}).then(students => {
+    console.log(students);
+    if (!students) {
+      return res.status(401).json({
+        message: "No students could be returned"
+      });
+    }
+    const cleanStudentList = students.map(stu => {
+      // deleting the property should work, no? need to debug.
+      // for now, we are recreating the rest of the fields (except _v0)
+      // delete user.password;
+      // return user;
+      return {
+        _id: stu._id,
+        email: stu.email,
+        name: stu.name,
+        collegeId: stu.collegeId,
+        cellPhone: stu.cellPhone,
+        status: stu.status,
+        lastMod: stu.lastMod || null
+      };
+    });
+    console.log("cleanStudentList", cleanStudentList);
+    return res.status(200).json({
+      message: "Student List",
+      students: cleanStudentList
+
+    });
+
+  }).catch(err => {
+    console.log(err);
+    return res.status(401).json({
+      message: "List students failed " + err
+    });
+  });
+
+}
+
 // check if user.email is same as req.body.email
 exports.accountExists = (req, res, next) => {
   console.log("in accountExists");

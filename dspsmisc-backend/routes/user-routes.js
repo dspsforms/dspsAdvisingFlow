@@ -73,12 +73,14 @@ router.post("/resetpasswordstep2",  UserController.updatePasswordBasedOnEmail);
 // post /api/user/login -- requester is not logged in, no auth needed
 router.post("/login", UserController.login);
 
-// /api/user/listdsps -- requester be dsps user
+// /api/user/listdsps -- requester must be dsps user
 router.get("/listdsps", checkAuthDsps, UserController.listDspsUsers);
 
 // /api/user/listdspssmall -- requester must be logged in
 router.get("/listdspssmall", checkAuthLoggedIn, UserController.listDspsUsersSmall);
 
+// /api/user/liststudents -- requester must be dsps user
+router.get("/liststudents", checkAuthDsps, UserController.listStudents);
 
 
 // // instructors and students can be listed by dsps staff or faculty + admin

@@ -17,8 +17,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { DataTransformService } from './data-transform.service';
 import { WrappedForm } from 'src/app/model/wrapped-form.model';
 import { AuthData } from 'src/app/auth/auth-data.model';
-import { switchMap } from 'rxjs/operators';
-import { RouteInfo } from 'src/app/intermediate/route-info';
+
 
 // base class for form submits
 
@@ -256,22 +255,7 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
                             this.parentFormDataCopy._id + '/' + junk;
                 
                 this.router.navigateByUrl(url);
-                // route to a different page, and then back. but this too doesnt work
-                // RouteInfo.nextPage = url;
-                // this.router.navigateByUrl('/intermediate');
-                // window.location.href = url ;
-
-                // does not work
-                // const arr = [1];
-                // of(arr).pipe(
-                //   switchMap(() => this.router.navigate(['/landing'])),
-                //   switchMap(() =>
-                //     this.router.navigate([
-                //       '/dsps-staff', 'form', 'view',
-                //       this.parentFormDataCopy.formName,
-                //       this.parentFormDataCopy._id
-                //     ])));
-
+                
               }
             }
         });

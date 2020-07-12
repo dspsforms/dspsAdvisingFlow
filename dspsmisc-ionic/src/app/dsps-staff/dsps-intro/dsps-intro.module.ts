@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { DspsIntroPageRoutingModule } from './dsps-intro-routing.module';
 
 import { DspsIntroPage } from './dsps-intro.page';
-import { SpacedIconComponent } from './spaced-icon/spaced-icon.component';
 
 @NgModule({
   imports: [
@@ -16,6 +15,6 @@ import { SpacedIconComponent } from './spaced-icon/spaced-icon.component';
     IonicModule,
     DspsIntroPageRoutingModule
   ],
-  declarations: [DspsIntroPage, SpacedIconComponent]
+  declarations: [DspsIntroPage]
 })
 export class DspsIntroPageModule {}

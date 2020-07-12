@@ -1,9 +1,40 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>list-students</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="m1"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Students</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+ 
+  <table class="table table-bordered">
+    <thead>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Cell Phone</th>
+        <th>Student Id</th>
+        <th>Status</th>
+        <th>Last Modified</th>
+    </thead>
+
+    <tr *ngFor="let student of students; let i=index" >
+
+      <td> {{ student.name }} </td>
+      <td> {{ student.email}}  </td>
+      <td> {{ student.cellPhone }} </td>
+      <td> {{ student.collegeId}}  </td>
+      <td> {{ student.status}}  </td>
+      <td> {{ student.lastMod | date }} </td>
+    </tr>
+  </table>
+
+  
+</div> <!-- panel-body -->
+</div> <!-- panel, panel-default -->
 
 </ion-content>

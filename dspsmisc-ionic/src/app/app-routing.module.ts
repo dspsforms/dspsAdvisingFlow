@@ -14,20 +14,11 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
   },
-  // {
-  //   path: 'forms',
-  //   loadChildren: () => import('./forms/forms.module').then(m => m.FormsPageModule),
-  //   canLoad: [AuthDspsGuard]
-  // },
   {
     path: 'dsps-staff',
     loadChildren: () => import('./dsps-staff/dsps-staff.module').then(m => m.DspsStaffPageModule),
     canLoad: [AuthDspsGuard]
   
-  },
-  {
-    path: 'test',
-    loadChildren: () => import('./test/test.module').then( m => m.TestPageModule)
   },
   {
     path: 'student',
@@ -48,10 +39,6 @@ const routes: Routes = [
     // canLoad: [AuthFooGuard]  -- TODO create a new guard that will allow student to see their's
     // instructor to see what they have a right to see, and dsps to see everything
   },
-  {
-    path: 'intermediate',
-    loadChildren: () => import('./intermediate/intermediate.module').then( m => m.IntermediatePageModule)
-  }
  
   
 ];
