@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-dsps-staff',
@@ -12,4 +13,7 @@ export class DspsStaffPage implements OnInit {
   ngOnInit() {
   }
 
+  gotoFeedback() {
+    window.open(environment.feedbackUrl, "_blank");
+  }
 }

@@ -42,10 +42,17 @@
         </ion-menu-toggle> -->
 
         <!-- feedback -->
-        <ion-menu-toggle *ngIf="isLoggedIn()">
+        <!-- <ion-menu-toggle *ngIf="isLoggedIn()">
           <ion-item lines="none" (click)="onFeedback()" button>
             <ion-icon name="git-pull-request" slot="start"></ion-icon>
             <ion-label>Feature Requests, Issues</ion-label>
+          </ion-item>
+        </ion-menu-toggle> -->
+
+        <ion-menu-toggle *ngIf="isDspsAuth()">
+          <ion-item lines="none" routerLink="/users/list-dsps-users">
+            <ion-icon name="list" slot="start"></ion-icon>
+            <ion-label>DSPS Users</ion-label>
           </ion-item>
         </ion-menu-toggle>
 
@@ -57,7 +64,7 @@
         </ion-menu-toggle>
 
          <!-- the button attribute adds animation -->
-         <ion-menu-toggle>
+         <ion-menu-toggle *ngIf="isLoggedIn()">
           <ion-item lines="none" (click)="onLogout()" button>
             <ion-icon name="exit" slot="start"></ion-icon>
             <ion-label>Logout</ion-label>

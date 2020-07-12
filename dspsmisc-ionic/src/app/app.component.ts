@@ -37,8 +37,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      if (this.platform.is('cordova')) {
+        this.statusBar.styleDefault();
+        this.splashScreen.hide();
+      }
+     
       this.isAdminAuth = this.authService.getIsAdminAuth();
     });
   }

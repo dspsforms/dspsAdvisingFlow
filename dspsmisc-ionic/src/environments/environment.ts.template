@@ -12,6 +12,7 @@ export const environment = {
   // printServer: "http://localhost:4200",
 
   enforceWvmEmail: false,
+  feedbackUrl: 'https://...',
 
   // client side key for reCaptcha V3.
   // the data here is NOT a valid key. supply your own

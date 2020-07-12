@@ -26,10 +26,13 @@
 
 
 
-    <ion-tab-button tab='users/list-dsps-users'>
-      <ion-label>DSPS Users</ion-label>
+    <ion-tab-button tab='users/list-students'>
+      <ion-label>Students</ion-label>
       <ion-icon name='list'></ion-icon>
+    </ion-tab-button>
 
+    <ion-tab-button (click)="gotoFeedback()">
+      <ion-icon name="help-circle-sharp"></ion-icon>
     </ion-tab-button>
 
   </ion-tab-bar>

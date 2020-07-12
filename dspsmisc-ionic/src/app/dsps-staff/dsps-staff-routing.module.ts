@@ -11,16 +11,24 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/dsps-staff/form/list/bluesheet',
+        redirectTo: '/dsps-staff/dsps-intro',
         pathMatch: 'full'
+      },
+      {
+        path: 'dsps-intro',
+        loadChildren: () => import('./dsps-intro/dsps-intro.module').then( m => m.DspsIntroPageModule)
       },
       {
         path: 'users',
         children: [
           {
             path: '',
-            redirectTo: '/dsps-staff/users/list-dsps-users',
+            redirectTo: '/dsps-staff/users/list-students',
             pathMatch: 'full'
+          },
+          {
+            path: 'list-students',
+            loadChildren: () => import('./user/list-students/list-students.module').then( m => m.ListStudentsPageModule)
           },
           {
             path: 'list-dsps-users',
@@ -98,7 +106,8 @@ const routes: Routes = [
         ]
       },
     ]
-  }
+  },
+  
 ];
 
 @NgModule({
