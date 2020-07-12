@@ -1,0 +1,36 @@
+
+<div class="vert-space-above">  &nbsp; </div>
+<ion-grid>
+  <ion-row>
+    <ion-col size-sm="8">
+
+      <form *ngIf="searchForm"
+        [formGroup]="searchForm"
+        (ngSubmit)="search()"
+        (keydown.enter)="onEnterKeyDownSearch($event)" >
+
+          <ion-item>
+            <ion-label position="floating" 
+            placeHolder="Partial name is ok. Or search by collegeId. Don't type *.">
+            Search for a student</ion-label>
+            <ion-input 
+              inputmode="search"
+              type="search"
+              formControlName="searchTerm" ></ion-input>
+          </ion-item>
+          <ion-item 
+          *ngIf="searchForm.get('searchTerm').touched && searchForm.get('searchTerm').hasError('required')">
+            <div class="danger">
+              A search term of miminum 3 characters is required to perform a search.
+              Also, it cannot have a *.
+            </div>
+          </ion-item>
+
+      </form>
+
+</ion-col>
+</ion-row>
+</ion-grid>
+
+
+<div class="vert-space-below"> &nbsp; </div>

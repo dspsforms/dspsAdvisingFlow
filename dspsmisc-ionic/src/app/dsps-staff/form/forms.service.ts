@@ -25,6 +25,9 @@ export class FormsService implements OnInit {
   // key == formName, value == Subject
   formsUpdatedMap = {};
 
+   // cached search results. key == search term. value = searchResult
+   cachedSearchMap = {};
+
   private currentForm: WrappedForm;
   private currentFormUpdated = new Subject<WrappedForm>();
 
@@ -47,6 +50,8 @@ export class FormsService implements OnInit {
   private studentFormStatus = new Subject<{ form?: WrappedForm, message?: string, err?: string }>();
   
   private childSignatureFetchStatus = new Subject<SignatureArrayStatus>();
+
+  private formsFromSearch = new Subject();
 
   constructor(private http: HttpClient) {
     // initiaze formsUpdateMap. each entry is a key/value pair
@@ -112,6 +117,10 @@ export class FormsService implements OnInit {
 
   getChildSignatureFetchStatusListener() {
     return this.childSignatureFetchStatus.asObservable();
+  }
+
+  getFormsFromSearchListener() {
+    return this.formsFromSearch.asObservable();
   }
 
   // /api/form/:formName/:_id
@@ -228,6 +237,52 @@ export class FormsService implements OnInit {
         } else {
           console.log("no Subject found to send out an update event for formName ", formName);
         }
+      });
+  }
+
+  // get cached result if available
+  getSearchResult(searchTerm: string) {
+    // verify searchTerm
+    if (! searchTerm  || searchTerm === '*') {
+      console.log("getSearchResult, illegal searchTerm ", searchTerm);
+      return;
+    }
+
+    return this.cachedSearchMap[searchTerm];
+  }
+
+  // /api/search/form with searchTerm in body of post
+  // searchTerm is on student fullName. But if it starts with G0, then search on collegeId
+  search(searchTerm: string) {
+
+    // verify searchTerm
+    if (! searchTerm  || searchTerm === '*') {
+      console.log("search, illegal searchTerm ", searchTerm);
+      return;
+    }
+
+    // fetch forms matching name of a student
+    const url = environment.server + '/api/search/form';
+    console.log("fetching url=", url);
+    this.http.post<{ message: string; listOfForms: {} }>(url, {searchTerm: searchTerm })
+      .subscribe(msgFormData => {
+
+        /*
+        message: ... ,
+        listOfForms: {
+          intakeForm: [],
+          etc
+        }
+        */
+        console.log(msgFormData);
+
+        if (msgFormData.listOfForms) {
+          this.cachedSearchMap[searchTerm] = msgFormData.listOfForms;
+        }
+
+
+        // let anyone listening know that the data has been updated
+        this.formsFromSearch.next( msgFormData);
       });
   }
 

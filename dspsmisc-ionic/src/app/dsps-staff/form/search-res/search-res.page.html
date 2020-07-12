@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Search Results for {{ searchTerm }} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <app-search [inSearchTerm]="searchTerm"></app-search>
+
+    <div *ngIf="keys">
+      <div *ngFor="let key of keys;" >
+        <!-- display only if there is data for a given formName -->
+        <div *ngIf="listOfForms && listOfForms[key] && listOfForms[key].length > 0" >
+        <h2> {{ getFormTitle(key) }} </h2>
+        
+        <ion-grid>
+
+          <ion-row *ngFor="let form of listOfForms[key]; "  (click)="showForm(form)">
+
+            <!-- first col -->
+            <ion-col>
+              <ion-item button>
+                {{ form.formWithLatestHistory.studentLastName.val }},
+                {{ form.formWithLatestHistory.studentFirstName.val }}
+              </ion-item>
+            </ion-col>
+
+              <!-- 2nd col -->
+            <ion-col> 
+              <ion-item button>
+                {{ form.collegeId }}
+              </ion-item> 
+            </ion-col>
+
+              <!-- 3rd col -->
+            <ion-col>
+              <ion-item button>
+                {{ form.lastMod | date  }} 
+                </ion-item>
+            </ion-col>
+
+          </ion-row> <!-- for key of keys -->
+      </ion-grid>
+    </div>  <!-- if listOfForms[key].length > 0 -->
+
+  </div> <!-- for key of keys; -->
+  </div>  <!-- if keys -->
+
+
+</ion-content>

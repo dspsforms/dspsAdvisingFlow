@@ -82,6 +82,10 @@ router.get("/listdspssmall", checkAuthLoggedIn, UserController.listDspsUsersSmal
 // /api/user/liststudents -- requester must be dsps user
 router.get("/liststudents", checkAuthDsps, UserController.listStudents);
 
+//  /api/user/student/:collegeId
+// checkAuthDsps
+router.get("/student/:collegeId", checkAuthDsps, UserController.fetchStudent);
+
 
 // // instructors and students can be listed by dsps staff or faculty + admin
 // router.get("/listinstructors", checkAuthDsps, UserController.listInstructors);

@@ -20,6 +20,10 @@ export class UrlConfig {
 
   static DEFAULT_BACK_BUTTON_HREF_LIST_USERS = '/dsps-staff/users/list-dsps-users';
 
+  // http://localhost:8100/dsps-staff/form/view/aap1/5ef3d01b3e21d6472a42eca0
+
+  static BASE_VIEW_FORM_ABSOLUTE = '/dsps-staff/form/view';
+
   static LANDING = '/landing';
 
   static LIST_COLLECTIONS_ABSOLUTE: '/api/forms';

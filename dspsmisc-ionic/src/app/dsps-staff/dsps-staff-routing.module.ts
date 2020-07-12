@@ -19,6 +19,16 @@ const routes: Routes = [
         loadChildren: () => import('./dsps-intro/dsps-intro.module').then( m => m.DspsIntroPageModule)
       },
       {
+        path: 'search/:searchTerm',
+        loadChildren: () => import('./form/search-res/search-res.module').then(m => m.SearchResPageModule),
+        canLoad: [AuthDspsGuard]
+      },
+      {
+        path: 'student/:collegeId',
+        loadChildren: () => import('./form/forms-for-a-student/forms-for-a-student.module').then(m => m.FormsForAStudentPageModule),
+        canLoad: [AuthDspsGuard]
+      },
+      {
         path: 'users',
         children: [
           {
@@ -101,7 +111,8 @@ const routes: Routes = [
             path: 'list/:formName',
             loadChildren: () => import('./form/list/list.module').then(m => m.ListPageModule),
             canLoad: [AuthDspsGuard]
-          }
+          },
+          
 
         ]
       },

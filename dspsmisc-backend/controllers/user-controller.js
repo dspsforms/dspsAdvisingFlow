@@ -896,6 +896,45 @@ exports.listStudents = (req, res, next) => {
 
 }
 
+// /api/user/student/:collegeId
+// i.e., student/:collegeId
+exports.fetchStudent = (req, res, next) => {
+  console.log("in fetchStudent");
+
+  const collegeId = sanitize(req.params.collegeId);
+  Student.findOne({ collegeId: collegeId }).then(stu => {
+    console.log(stu);
+    let cleanedStu;
+    if (!stu) {
+      // no matching student
+      return res.status(200).json({
+        message: "No Matching Student"
+      });
+
+    } else {
+       cleanedStu = {
+        _id: stu._id,
+        email: stu.email,
+        name: stu.name,
+        collegeId: stu.collegeId,
+        cellPhone: stu.cellPhone,
+        status: stu.status,
+        lastMod: stu.lastMod || null
+      }
+    }
+    return res.status(200).json({
+      message: "Student",
+      student: cleanedStu
+    });
+  }).catch((err) => {
+    console.log(err);
+    return res.status(200).json({
+      err: err
+    });
+  });
+  
+}
+
 // check if user.email is same as req.body.email
 exports.accountExists = (req, res, next) => {
   console.log("in accountExists");

@@ -7,34 +7,36 @@
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content class="ion-padding">
 
-  <div class="panel panel-default">
-    <div class="panel-body">
+  <!-- search box for finding results for a student -->
+  <app-search></app-search>
+
+
+  <ion-grid>
+    <ion-row class="header">
+      <ion-col><ion-item>Name</ion-item></ion-col>
+      <ion-col><ion-item>Email</ion-item></ion-col>
+      <ion-col><ion-item>Cell Phone</ion-item></ion-col>
+      <ion-col><ion-item>Student Id</ion-item></ion-col>
+      <ion-col><ion-item>Status</ion-item></ion-col>
+      <ion-col><ion-item>Last Modified</ion-item></ion-col>
+    </ion-row>
+
+    <ion-row 
+        *ngFor="let student of students; let i=index;"
+        (click)="gotoPage(student)" >
+
+      <ion-col> <ion-item  button > {{ student.name }} </ion-item>  </ion-col>
+      <ion-col> <ion-item  button > {{ student.email}} </ion-item>  </ion-col>
+      <ion-col> <ion-item  button > {{ student.cellPhone }} </ion-item> </ion-col>
+      <ion-col> <ion-item  button > {{ student.collegeId}} </ion-item>  </ion-col>
+      <ion-col> <ion-item  button > {{ student.status}} </ion-item>  </ion-col>
+      <ion-col> <ion-item  button > {{ student.lastMod | date }} </ion-item> </ion-col>
+
+    </ion-row>
+    
+  </ion-grid>
  
-  <table class="table table-bordered">
-    <thead>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Cell Phone</th>
-        <th>Student Id</th>
-        <th>Status</th>
-        <th>Last Modified</th>
-    </thead>
-
-    <tr *ngFor="let student of students; let i=index" >
-
-      <td> {{ student.name }} </td>
-      <td> {{ student.email}}  </td>
-      <td> {{ student.cellPhone }} </td>
-      <td> {{ student.collegeId}}  </td>
-      <td> {{ student.status}}  </td>
-      <td> {{ student.lastMod | date }} </td>
-    </tr>
-  </table>
-
-  
-</div> <!-- panel-body -->
-</div> <!-- panel, panel-default -->
-
 </ion-content>

@@ -7,12 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { ListStudentsPageRoutingModule } from './list-students-routing.module';
 
 import { ListStudentsPage } from './list-students.page';
+import { SearchModule } from '../../form/component/search/search.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    SearchModule,
     ListStudentsPageRoutingModule
   ],
   declarations: [ListStudentsPage]

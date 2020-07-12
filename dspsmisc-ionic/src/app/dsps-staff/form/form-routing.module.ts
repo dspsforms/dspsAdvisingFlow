@@ -23,6 +23,14 @@ const routes: Routes = [
   {
     path: 'list',
     loadChildren: () => import('./list/list.module').then( m => m.ListPageModule)
+  },
+  {
+    path: 'search-res',
+    loadChildren: () => import('./search-res/search-res.module').then( m => m.SearchResPageModule)
+  },
+  {
+    path: 'forms-for-a-student',
+    loadChildren: () => import('./forms-for-a-student/forms-for-a-student.module').then( m => m.FormsForAStudentPageModule)
   }
 ];
 

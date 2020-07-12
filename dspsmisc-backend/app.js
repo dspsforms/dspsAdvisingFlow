@@ -20,6 +20,7 @@ const formRoutes = require('./routes/form-routes');
 const userRoutes = require('./routes/user-routes');
 const ownFormRoutes = require('./routes/own-form-routes');
 const signatureRoutes = require('./routes/signature-routes');
+const searchRoutes = require('./routes/search-routes');
 
 
 
@@ -87,6 +88,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //   next();
 // });
 
+app.use((req, res, next) => {
+  console.log("req.originalUrl=", req.originalUrl);
+  next();
+});
+
 app.use("/foo", express.static(path.join(__dirname, "angular-print")));
 
 app.use("/", express.static(path.join(__dirname, "angular-ionic")));
@@ -149,6 +155,8 @@ app.use("/api/form", formRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/ownform", ownFormRoutes);
 app.use("/api/signform", signatureRoutes);
+app.use("/api/search", searchRoutes);
+
 
 // doesn't work
 // app.use("/print", (req, res, next) => {

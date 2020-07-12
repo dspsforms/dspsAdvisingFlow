@@ -27,12 +27,17 @@ const commonFormSchema = mongoose.Schema({
     studentSigId: { type: String, index: true }, // key in signature collection. multiple signatures are possible, one for each version
     isParent: { type: Boolean, index: true }, // if this is a child form
     parentId: { type: String, index: true }, // if this is a child form
-    childFormName: { type: String, index: true }  // aap2child etc
+    childFormName: { type: String, index: true },  // aap2child etc
+    studentName: { type: String, index: true }  // for search
 });
 
 commonFormSchema.pre('save', function(next) {
     this.studentEmail = this.formWithLatestHistory.studentEmail.val;
     this.collegeId = this.formWithLatestHistory.collegeId.val;
+
+    this.studentName =
+    this.formWithLatestHistory.studentFirstName.val + ' ' +
+        this.formWithLatestHistory.studentLastName.val;
 
     // signature does not apply to greensheet
     // in order to not complicate things as more forms are added,
@@ -41,6 +46,30 @@ commonFormSchema.pre('save', function(next) {
     
     
     console.log("from commonFormSchema.pre-save. this=", this);
+    next();
+});
+
+// see https://stackoverflow.com/a/49114797
+// find by id and update calls findOneAndUpdate
+// also the query object has a field called _update that has 
+// data we need
+commonFormSchema.pre('findOneAndUpdate', function (next) {
+
+    if (this._update.formWithLatestHistory.studentEmail.val) {
+        this._update.studentEmail = this._update.formWithLatestHistory.studentEmail.val;
+    }
+    if (this._update.formWithLatestHistory.collegeId.val) {
+        this._update.collegeId = this._update.formWithLatestHistory.collegeId.val;
+    }
+
+    if (this._update.formWithLatestHistory.studentFirstName.val &&
+        this._update.formWithLatestHistory.studentLastName.val) {
+        
+        this._update.studentName =
+            this._update.formWithLatestHistory.studentFirstName.val + ' ' +
+            this._update.formWithLatestHistory.studentLastName.val;
+    }
+    
     next();
 });
 

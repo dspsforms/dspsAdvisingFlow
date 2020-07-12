@@ -17,10 +17,17 @@ export class UserService {
 
   private students: Student[];
 
+  // students may represent the current page being displayed.
+  // cachedStudents may or may not have an intersection
+  private cachedStudents = {}; 
+
+
   private dspsUserListListener = new Subject<AuthData[]>();
   private dspsUserListSmallListener = new Subject<AuthData[]>();
 
   private studentsListener = new Subject<Student[]>();
+
+  private oneStudentListener = new Subject<Student>();
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -59,6 +66,45 @@ export class UserService {
     });
   }
 
+  // get student from cached this.students, if none found, return null
+  getStudentFromCache(collegeId: string) {
+
+    // first check cachedStudents
+    let student = this.cachedStudents[collegeId];
+
+    if (student) { return student; }
+
+    // next, check this.students
+    if (this.students && this.students.length > 0) {
+      student = this.students.find(st =>  st.collegeId === collegeId );
+    }
+
+    // if found, non null, else null
+    return student;
+  }
+
+  // fetch student from server
+  fetchStudentFromServer(collegeId: string) {
+
+    const url = environment.server + '/api/user/student/' + collegeId;
+    this.http.get<{ message: string, student: Student }>(url)
+      .subscribe(res => {
+        console.log("fetchStudent()", res);
+
+        // cache this student with key == collegeId
+        if (res.student) {
+          this.cachedStudents[res.student.collegeId] = res.student;
+        }
+
+        this.oneStudentListener.next(res.student);
+
+      },
+      err => {
+        console.log("err", err);
+    });
+
+  }
+
   listDspsUsersSmall() {
 
     const url = environment.server + '/api/user/listdspssmall' ;
@@ -85,6 +131,9 @@ export class UserService {
   // studentsListener
   getStudentsListener() {
     return this.studentsListener.asObservable();
+  }
+  getOneStudentListener() {
+    return this.oneStudentListener.asObservable();
   }
 
   getDspsUserList() {

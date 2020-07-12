@@ -96,4 +96,8 @@ export class ListStudentsPage implements OnInit, OnDestroy {
     
   }
 
+  gotoPage(student: Student) {
+    this.router.navigate(['/dsps-staff', 'student', student.collegeId]);
+  }
+
 }
