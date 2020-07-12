@@ -2,7 +2,7 @@
 <ion-content class="ion-padding ion-text-center">
 
     <!--  ".."  -->
-    <form [formGroup]="sigForm" (ngSubmit)="signIt()" (keydown.enter)="onEnterKeyDown($event)" >
+    <form [formGroup]="sigForm" (keydown.enter)="onEnterKeyDown($event)" >
       
         <ion-grid>
         
@@ -15,23 +15,41 @@
                 
                 <ion-item>
                   <ion-label position="floating">Signature</ion-label>
-                  <ion-input type="text" formControlName="signature"> </ion-input>
+                  <ion-input 
+                    type="text" 
+                    formControlName="signature" #sig
+                    autofocus="true"> </ion-input>
                 </ion-item>
-      
+
+              </ion-list>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size-sm="2" offset-sm="3">
                 <ion-item>
                   <ion-button class="primary" expand="block"
                     [disabled]="!sigForm.valid || !sigForm.dirty"
-                    type="submit" >Submit</ion-button>
+                    (click)="signIt()" 
+                    type="button" >Submit</ion-button>
                 </ion-item>
-
-                <ion-item>
-                  I acknowlege I have reviewed and agreed to DSPS Policies and Procedures
-                  on web page.
-                </ion-item>
-      
-              </ion-list>
             </ion-col>
-      
+            <ion-col size-sm="2" offset-sm="2">
+              <ion-item>
+                <ion-button class="default" expand="block"
+                  (click)="onCancel()" 
+                  type="button" >Cancel</ion-button>
+              </ion-item>
+          </ion-col>
+          </ion-row>
+            
+          <ion-row>
+            <ion-col size-sm="6" offset-sm="3">
+              <ion-item>
+                I acknowlege I have reviewed and agreed to DSPS Policies and Procedures
+                on web page.
+              </ion-item>
+            </ion-col>
+
           </ion-row>
       
           </ion-grid>

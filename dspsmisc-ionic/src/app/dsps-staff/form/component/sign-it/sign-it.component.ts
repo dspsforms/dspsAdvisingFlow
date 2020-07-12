@@ -74,6 +74,8 @@ export class SignItComponent implements OnInit {
               focusOnSignature: focusOnSignature
             });
           
+        } else if (resultData.role === 'cancelled') {
+          console.log("signature cancelled");
         }
       }).catch(err => {
         console.log(err);

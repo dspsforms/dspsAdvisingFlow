@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthData } from 'src/app/auth/auth-data.model';
 import { FormsService } from '../../forms.service';
@@ -14,7 +14,7 @@ import { ModalController } from '@ionic/angular';
   templateUrl: './sig-create.component.html',
   styleUrls: ['./sig-create.component.scss'],
 })
-export class SigCreateComponent implements OnInit, OnDestroy {
+export class SigCreateComponent implements OnInit, OnDestroy, AfterViewInit {
 
   sigForm: FormGroup;
 
@@ -26,6 +26,8 @@ export class SigCreateComponent implements OnInit, OnDestroy {
   @Input() signer: AuthData; // signer is a student
 
   @Input() formBeingSigned: WrappedForm;
+
+  @ViewChild('sig', { static: true }) sig: ElementRef; 
 
   sigSaveStatusSub: Subscription;
 
@@ -53,8 +55,25 @@ export class SigCreateComponent implements OnInit, OnDestroy {
 
   ngOnInit() { }
 
-  ionViewWillEnter() {
+  ionViewDidEnter() {
     this.signatureSubmitted = false;
+    // this.sig.nativeElement.focus();
+  }
+
+  ngAfterViewInit() {
+    let foo: any;
+    foo = this.sig;
+    if (foo && foo.el && foo.el.autofocus) {
+      foo.el.autofocus = true;
+      console.log("autofocus found and set");
+      return;
+    }
+    if (this.sig && this.sig.nativeElement) {
+      this.sig.nativeElement.focus();
+    } else {
+      console.log("sig focus failed ", this.sig);
+    }
+    
   }
   
  
@@ -120,6 +139,10 @@ export class SigCreateComponent implements OnInit, OnDestroy {
 
     this.signIt();
 
+  }
+
+  onCancel() {
+    this.modalCtrl.dismiss({message: "cancelled"}, 'cancelled');
   }
 
   ngOnDestroy() {

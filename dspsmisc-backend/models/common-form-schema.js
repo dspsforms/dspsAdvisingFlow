@@ -55,20 +55,28 @@ commonFormSchema.pre('save', function(next) {
 // data we need
 commonFormSchema.pre('findOneAndUpdate', function (next) {
 
-    if (this._update.formWithLatestHistory.studentEmail.val) {
-        this._update.studentEmail = this._update.formWithLatestHistory.studentEmail.val;
-    }
-    if (this._update.formWithLatestHistory.collegeId.val) {
-        this._update.collegeId = this._update.formWithLatestHistory.collegeId.val;
-    }
+    if (this._update.formWithLatestHistory) {
+        if (this._update.formWithLatestHistory.studentEmail &&
+            this._update.formWithLatestHistory.studentEmail.val) {
+            this._update.studentEmail = this._update.formWithLatestHistory.studentEmail.val;
+        }
+        if (this._update.formWithLatestHistory.collegeId &&
+            this._update.formWithLatestHistory.collegeId.val) {
+            this._update.collegeId = this._update.formWithLatestHistory.collegeId.val;
+        }
+    
+        if (this._update.formWithLatestHistory.studentFirstName &&
+            this._update.formWithLatestHistory.studentFirstName.val &&
+            this._update.formWithLatestHistory.studentLastName &&
+            this._update.formWithLatestHistory.studentLastName.val) {
+            
+            this._update.studentName =
+                this._update.formWithLatestHistory.studentFirstName.val + ' ' +
+                this._update.formWithLatestHistory.studentLastName.val;
+        }
 
-    if (this._update.formWithLatestHistory.studentFirstName.val &&
-        this._update.formWithLatestHistory.studentLastName.val) {
-        
-        this._update.studentName =
-            this._update.formWithLatestHistory.studentFirstName.val + ' ' +
-            this._update.formWithLatestHistory.studentLastName.val;
     }
+    
     
     next();
 });
