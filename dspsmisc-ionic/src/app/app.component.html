@@ -50,7 +50,14 @@
         </ion-menu-toggle> -->
 
         <ion-menu-toggle *ngIf="isDspsAuth()">
-          <ion-item lines="none" routerLink="/users/list-dsps-users">
+          <ion-item lines="none" routerLink="/auth/add-new-staff">
+            <ion-icon name="list" slot="start"></ion-icon>
+            <ion-label>Add DSPS User</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle *ngIf="isDspsAuth()">
+          <ion-item lines="none" routerLink="/dsps-staff/users/list-dsps-users">
             <ion-icon name="list" slot="start"></ion-icon>
             <ion-label>DSPS Users</ion-label>
           </ion-item>
