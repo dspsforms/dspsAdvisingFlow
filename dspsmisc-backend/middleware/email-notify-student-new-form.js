@@ -95,9 +95,9 @@ async function emailNotifyStudentNewForm(emConfig, req){
     let html = "You have new communication from DSPS. Please login  and check: <a href='" + url + "'>" + url + "</a>.";
 
     let mailOptions = {
-        from: emConfig.from,  // '"Mission DSPS" <missiondsps@vannev.com>', // sender address
+        from: emConfig.from,  // '"Mission DSPS" <<noreply@missioncollege.edu', // sender address
         to: req.emailData.studentEmail , 
-        subject: "DSPS Forms 2: you have new communication", // Subject line
+        subject: "DSPS Forms: you have new communication", // Subject line
         text: text, // plain text body
         html: html // html body
     };

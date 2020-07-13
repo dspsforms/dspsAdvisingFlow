@@ -83,9 +83,9 @@ async function emailRetrievePasswordLink(emConfig, req){
     }
 
     let mailOptions = {
-        from: emConfig.from,  // '"Mission DSPS" <missiondsps@vannev.com>', // sender address
+        from: emConfig.from,  // '"Mission DSPS" <<noreply@missioncollege.edu>', // sender address
         to: req.emailData.recipientEmail , // user trying to create account
-        subject: "DSPS Forms 2: reset your password", // Subject line
+        subject: "DSPS Forms: reset your password", // Subject line
         text: text, // plain text body
         html: html // html body
     };

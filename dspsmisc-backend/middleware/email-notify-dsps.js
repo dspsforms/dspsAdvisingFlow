@@ -49,7 +49,7 @@ async function newFormSubmittedNotification(emConfig, formName){
 
   // setup email data with unicode symbols
   let mailOptions = {
-    from: emConfig.from,  // '"Mission DSPS" <missiondsps@vannev.com>', // sender address
+    from: emConfig.from,  // '"Mission DSPS" <<noreply@missioncollege.edu>', // sender address
     to: emConfig.emailEndPoint[formName] , // list of receivers, comma separated
     subject: "new form submitted for " + formName, // Subject line
     text: "A new form has been submitted for " + formName, // plain text body

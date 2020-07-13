@@ -9,7 +9,7 @@ emailEndPoint['aap'] = config.EMAIL_AAP;
 
 emailConfig['emailEndPoint'] = emailEndPoint;
 
-emailConfig['from'] = '"Mission DSPS" <missiondsps@vannev.com>'; // sender address
+emailConfig['from'] = '"Mission DSPS" <noreply@missioncollege.edu>'; // sender address
 
 emailConfig['host'] = config.EMAIL_HOST;
 emailConfig['port'] = config.EMAIL_PORT;
