@@ -87,7 +87,7 @@
     [focusOnSignature]="focusOnSignature" ></app-sig-view> -->
 
    <!-- sigStatus is legacy  -->
-  <app-joint-sig-view
+  <app-joint-sig-view *ngIf="mode !== 'create'"
     [wrappedForm]="wrappedForm"
     [signatures]="wrappedForm.signatures"
     [sigStatus]="wrappedForm.studentSigStatus" > 
