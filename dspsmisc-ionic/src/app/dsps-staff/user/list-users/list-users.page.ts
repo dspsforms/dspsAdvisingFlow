@@ -39,6 +39,10 @@ export class ListUsersPage implements OnInit , OnDestroy{
     }
 
   ngOnInit() {
+  }
+
+  // this crap is needed because ionViewWillEnter() is not reliably called.
+  initSub() {
 
     this.isAdminAuth = this.authService.getIsAdminAuth();
     this.isDspsAuth = this.authService.getIsDspsAuth();
@@ -46,6 +50,10 @@ export class ListUsersPage implements OnInit , OnDestroy{
     if (!this.isDspsAuth) {
       this.router.navigateByUrl('/auth/login');
       return;
+    }
+
+    if (this.dspsUserListSub) {
+      SubscriptionUtil.unsubscribe(this.dspsUserListSub);
     }
 
     this.dspsUserListSub = this.userService.getDspsUserListListener().subscribe(res => {
@@ -86,6 +94,8 @@ export class ListUsersPage implements OnInit , OnDestroy{
   }
 
   doViewInit() {
+
+    this.initSub();
 
     if (!this.isDspsAuth) {
       this.router.navigateByUrl('/auth/login');
