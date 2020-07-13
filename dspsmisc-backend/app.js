@@ -70,6 +70,8 @@ if (config.FIRST_TIME > 0) {
   console.log("config.FIRST_TIME is <= 0, current time=", new Date());
 }
 
+console.log("config.EMAIL_SENDER", config.EMAIL_SENDER);
+
 const app = express();
 
 
@@ -88,10 +90,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //   next();
 // });
 
-app.use((req, res, next) => {
-  console.log("req.originalUrl=", req.originalUrl);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log("req.originalUrl=", req.originalUrl);
+//   next();
+// });
 
 app.use("/foo", express.static(path.join(__dirname, "angular-print")));
 
