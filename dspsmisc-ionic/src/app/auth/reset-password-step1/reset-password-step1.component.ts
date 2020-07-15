@@ -49,13 +49,15 @@ export class ResetPasswordStep1Component implements OnInit, OnDestroy {
 
   resetPasswordStep1() {
 
-    this.resetPasswordStep1Count++;
-
-    console.log("resetPasswordStep1Count=", this.resetPasswordStep1Count);
     
     if (!this.form.valid) {
       return;
     }
+
+    this.resetPasswordStep1Count++;
+
+    console.log("resetPasswordStep1Count=", this.resetPasswordStep1Count);
+    
 
     // ask server to email this user a randomStr link
     this.authService.resetPasswordStep1(this.form.value.email);
