@@ -3,6 +3,7 @@ const debug = require('../constants/debug');
 const emailConfig = require('../config/emailConfig');
 
 const nodemailer = require("nodemailer");
+const transportCreator = require("./email-transport-creator");
 
 // https://www.npmjs.com/package/request-promise
 const reqPromise = require('request-promise');
@@ -45,15 +46,16 @@ async function emailNotifyStudentNewForm(emConfig, req){
     }
 
     // create reusable transporter object using the default SMTP transport
-    let transporter = nodemailer.createTransport({
-        host: emConfig.host ,  // "mail.authsmtp.com",
-        port: emConfig.port, // 465,
-        secure: true, // true for 465, false for other ports
-        auth: {
-        user: emConfig.authUser,
-        pass: emConfig.authPassword
-        }
-    });
+    // let transporter = nodemailer.createTransport({
+    //     host: emConfig.host ,  // "mail.authsmtp.com",
+    //     port: emConfig.port, // 465,
+    //     secure: true, // true for 465, false for other ports
+    //     auth: {
+    //     user: emConfig.authUser,
+    //     pass: emConfig.authPassword
+    //     }
+    // });
+    let transporter = transportCreator(emConfig);
 
     /* 
         this needs to work when the node server is behind the apache proxy
