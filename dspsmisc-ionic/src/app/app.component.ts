@@ -18,7 +18,7 @@ import { AuthData , Role } from './auth/auth-data.model';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  isAdminAuth: boolean;
+  // isAdminAuth: boolean;
   user: AuthData = null;
 
   authSub: Subscription;
@@ -42,7 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.splashScreen.hide();
       }
      
-      this.isAdminAuth = this.authService.getIsAdminAuth();
+      this.authService.getIsAdminAuth();
     });
   }
 
@@ -83,6 +83,16 @@ export class AppComponent implements OnInit, OnDestroy {
     if (!role) { return false; }
 
     return (role.isAdmin || role.isFaculty || role.isStaff);
+  }
+
+  isAdminAuth() {
+
+    if (!this.user) { return false; }
+
+    const role = this.user.role;
+    if (!role) { return false; }
+
+    return (role.isAdmin);
   }
 
   isStudentAuth() {
