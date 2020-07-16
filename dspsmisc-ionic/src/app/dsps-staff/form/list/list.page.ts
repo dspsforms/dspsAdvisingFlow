@@ -42,6 +42,8 @@ export class ListPage implements OnInit, OnDestroy {
 
   pageInfoChangeSub: Subscription;
 
+  oldLayout = true;
+
 
   constructor(
     private formService: FormsService,
@@ -166,6 +168,7 @@ export class ListPage implements OnInit, OnDestroy {
 
   }
 
+
   getFormName(item) {
     return item.formName;
   }
@@ -190,6 +193,37 @@ export class ListPage implements OnInit, OnDestroy {
   }
 
 
+  toggleLayout() {
+    this.oldLayout = !this.oldLayout;
+  }
+
+  get showSemester() {
+
+    if (this.formInfo.formName === FormName.BLUESHEET ||
+      this.formInfo.formName === FormName.AAP1 || 
+      this.formInfo.formName === FormName.GREENSHEET
+    ) { return true; }
+    else { return false; }
+
+  }
+
+  get showStudentSigStatus() {
+    // all except greensheet
+    return this.formInfo.formName !== FormName.GREENSHEET;
+  }
+
+  get isBluesheet() {
+
+    if (this.formInfo.formName === FormName.BLUESHEET) { return true; }
+    else { return false; }
+
+  }
+
+  gotoForm(item) {
+    // "['', 'dsps-staff', 'form', 'view', formInfo.formName, item._id]">
+
+    this.navCtrl.navigateForward(['/', 'dsps-staff', 'form', 'view', this.formInfo.formName, item._id])
+  }
 }
 
 

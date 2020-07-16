@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dsps-intro',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DspsIntroPage implements OnInit {
 
-  constructor() { }
+  constructor(public titleService: Title) { }
 
   ngOnInit() {
+    this.titleService.setTitle("DSPS Home");
   }
 
 }

@@ -22,7 +22,7 @@
         </ion-menu-toggle>
         <ion-menu-toggle *ngIf="isLoggedIn()">
           <ion-item lines="none" routerLink="/auth/change-password">
-            <ion-icon name="apps" slot="start"></ion-icon>
+            <ion-icon name="build" slot="start"></ion-icon>
             <ion-label>Change Password</ion-label>
           </ion-item>
         </ion-menu-toggle>
@@ -51,7 +51,7 @@
 
         <ion-menu-toggle *ngIf="isDspsAuth()">
           <ion-item lines="none" routerLink="/auth/add-new-staff">
-            <ion-icon name="list" slot="start"></ion-icon>
+            <ion-icon name="add" slot="start"></ion-icon>
             <ion-label>Add DSPS User</ion-label>
           </ion-item>
         </ion-menu-toggle>
@@ -65,7 +65,7 @@
 
         <ion-menu-toggle *ngIf="isLoggedIn()">
           <ion-item lines="none" (click)="toggleGrid()" button>
-            <ion-icon name="exit" slot="start"></ion-icon>
+            <ion-icon name="grid-outline" slot="start"></ion-icon>
             <ion-label>Toggle Grid</ion-label>
           </ion-item>
         </ion-menu-toggle>

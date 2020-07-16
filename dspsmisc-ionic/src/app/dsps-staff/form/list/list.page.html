@@ -5,6 +5,9 @@
     </ion-buttons> 
     <ion-title>Submitted Forms: {{ formInfo.formTitle }} </ion-title>
     <ion-buttons slot="primary">
+      <ion-button *ngIf="list && list.length > 0"  (click)="toggleLayout()">
+        <ion-icon slot="icon-only" name="options-outline"></ion-icon>
+      </ion-button>
       <ion-button  (click)="onCreateForm()">
         <ion-icon slot="icon-only" name="add"></ion-icon>
       </ion-button>
@@ -25,21 +28,88 @@
         item.state == state
   -->
 
-  <ion-list *ngIf="list && list.length > 0">
-    <div *ngFor="let item of list; let i=index">
-      <ion-item *ngIf="item.formName && isCorrectState(item.state)">
+  
 
-        <!-- old site: /submittedForm/formName/formKey
-          new site: /dsps-staff/form/view/:formName/:formId 
-        -->
-        <a
-        [routerLink]="['', 'dsps-staff', 'form', 'view', formInfo.formName, item._id]">
-        {{ getVal(item) }}
-        </a>
+  <!-- old layout -->
+  <div *ngIf="oldLayout">
+ 
+  <ion-list *ngIf="list && list.length > 0">
+
+    <div *ngFor="let item of list; let i=index">
+      <ion-item *ngIf="item.formName && isCorrectState(item.state)" button>
+      
+          <div class="grid2-local">
+            <div>
+              <a
+              [routerLink]="['', 'dsps-staff', 'form', 'view', formInfo.formName, item._id]">
+              {{ getVal(item) }}
+              </a>
+            </div>
+            <div *ngIf="showStudentSigStatus">
+              {{ item?.studentSigStatus}}
+            </div>
+          </div>
 
       </ion-item>
-    </div>
+    </div> <!-- ngFor -->
   </ion-list>
+
+</div> <!-- if oldLayout -->
+
+<!-- alt layout -->
+<ion-grid *ngIf="!oldLayout">
+  <div *ngIf="list && list.length > 0">
+
+    <div *ngFor="let item of list; let i=index">
+
+      <ion-row *ngIf="item.formName && isCorrectState(item.state)"
+      (click)="gotoForm(item)">
+
+        <ion-col>
+          <ion-item  button >
+            {{ item?.formWithLatestHistory?.studentLastName?.val }},
+            {{ item?.formWithLatestHistory?.studentFirstName?.val }}
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item  button >
+            {{ item?.formWithLatestHistory?.collegeId?.val }}
+          </ion-item>
+        </ion-col>
+        <ion-col *ngIf="isBluesheet">
+          <ion-item  button >
+            {{ item?.formWithLatestHistory?.course?.val }}
+          </ion-item>
+        </ion-col>
+
+        <ion-col *ngIf="showSemester">
+          <ion-item  button >
+            {{ item?.formWithLatestHistory?.semester?.val }}
+          </ion-item>
+         
+        </ion-col>
+
+        <ion-col *ngIf="isBluesheet">
+          <ion-item  button >
+            {{ item?.formWithLatestHistory?.year?.val }}
+          </ion-item>
+        </ion-col>
+
+        <ion-col *ngIf="showStudentSigStatus">
+          <ion-item  button >
+            {{ item?.studentSigStatus}}
+          </ion-item>
+          
+        </ion-col>
+
+      </ion-row>
+    </div>
+
+     
+  </div>  <!-- if list.length > 0 -->
+
+</ion-grid>
+
 
   
 
