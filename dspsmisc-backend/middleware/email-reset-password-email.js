@@ -86,10 +86,12 @@ async function emailRetrievePasswordLink(emConfig, req){
 
     let mailOptions = {
         from: emConfig.from,  // '"Mission DSPS" <<missiondsps@vannev.com>', // sender address
-        to: req.emailData.recipientEmail , // user trying to create account
+        to: req.emailData.recipientEmail, // user trying to create account
+        replyTo: emConfig.replyTo || null,
         subject: "DSPS Forms: reset your password", // Subject line
         text: text, // plain text body
-        html: html // html body
+        html: html  // html body
+        
     };
 
   // send mail with defined transport object

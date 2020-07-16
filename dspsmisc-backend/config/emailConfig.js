@@ -11,6 +11,9 @@ emailConfig['emailEndPoint'] = emailEndPoint;
 
 emailConfig['from'] =  config.EMAIL_SENDER; // '"Mission-DSPS" <missiondsps@vannev.com>'; // sender address
 
+if (config.EMAIL_REPLYTO) {
+    emailConfig['replyTo'] =  config.EMAIL_REPLYTO; 
+}
 emailConfig['host'] = config.EMAIL_HOST;
 emailConfig['port'] = config.EMAIL_PORT;
 emailConfig['authUser'] = config.EMAIL_AUTH_USER;

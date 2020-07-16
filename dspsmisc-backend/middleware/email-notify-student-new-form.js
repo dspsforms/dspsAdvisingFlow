@@ -98,7 +98,8 @@ async function emailNotifyStudentNewForm(emConfig, req){
 
     let mailOptions = {
         from: emConfig.from,  // '"Mission DSPS" <missiondsps@vannev.com', // sender address
-        to: req.emailData.studentEmail , 
+        to: req.emailData.studentEmail, 
+        replyTo: emConfig.replyTo || null,
         subject: "DSPS Forms: you have new communication", // Subject line
         text: text, // plain text body
         html: html // html body

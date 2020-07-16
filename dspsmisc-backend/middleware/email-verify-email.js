@@ -87,9 +87,11 @@ async function sendEmailVerification(emConfig, req){
     let mailOptions = {
         from: emConfig.from,  // '"Mission DSPS" <missiondsps@vannev.comß>', // sender address
         to: req.emailData.recipientEmail , // user trying to create account
+        replyTo: emConfig.replyTo || null,
         subject: "Welcome to DSPS Forms. Please verify your email", // Subject line
         text: text, // plain text body
         html: html // html body
+
     };
 
   // send mail with defined transport object
