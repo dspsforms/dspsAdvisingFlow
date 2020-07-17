@@ -15,7 +15,7 @@
           if none specified, it will take the main menu it detects
         -->
         <ion-menu-toggle>
-          <ion-item lines="none" routerLink="https://dsps-forms.missioncollege.edu">
+          <ion-item lines="none" (click)="gotoDsps1()" >
             <ion-icon name="apps" slot="start"></ion-icon>
             <ion-label>DSPS Forms (external)</ion-label>
           </ion-item>
@@ -49,7 +49,7 @@
           </ion-item>
         </ion-menu-toggle> -->
 
-        <ion-menu-toggle *ngIf="isDspsAuth()">
+        <ion-menu-toggle *ngIf="isAdminAuth()">
           <ion-item lines="none" routerLink="/auth/add-new-staff">
             <ion-icon name="add" slot="start"></ion-icon>
             <ion-label>Add DSPS User</ion-label>
