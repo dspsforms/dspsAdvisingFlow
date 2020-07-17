@@ -139,7 +139,9 @@
 
       <app-aap2-child 
         [mode]="'create'"  
-        [parentFormData]="wrappedForm || form"></app-aap2-child>
+        [parentFormData]="wrappedForm || form"
+        (formComponent)="receiveContainedForm($event)"
+        ></app-aap2-child>
 
       <div class="tiny" tabindex="1" #newProgress > </div>
   

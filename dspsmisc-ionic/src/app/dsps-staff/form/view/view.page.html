@@ -53,6 +53,7 @@
       [formKey]="data._id"
       [wrappedForm]="data" 
       [mode]="'view'"
+      (formComponent)="receiveContainedForm($event)"
       >
     </app-aap2>
 

@@ -6,6 +6,8 @@ import { FormsService } from '../forms.service';
 import { AbstractFormRead } from '../abstract-form-read';
 import { environment } from 'src/environments/environment';
 import { Title } from '@angular/platform-browser';
+import { FormGroup } from '@angular/forms';
+import { IHasChanges } from 'src/app/util/has-changes.interface';
 
 
 @Component({
@@ -13,8 +15,10 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './view.page.html',
   styleUrls: ['./view.page.scss'],
 })
-export class ViewPage extends AbstractFormRead implements OnInit, OnDestroy {
+export class ViewPage extends AbstractFormRead implements OnInit, OnDestroy, IHasChanges {
 
+  // one of the  Aap2 children that may have a form that is dirty but not yet saved
+  containedForm: FormGroup;
 
   constructor(
     public route: ActivatedRoute,
@@ -39,5 +43,19 @@ export class ViewPage extends AbstractFormRead implements OnInit, OnDestroy {
     // window.location.href = url;
     window.open(url, "_blank");
 
+  }
+
+  // for Aap2 children
+  receiveContainedForm(event) {
+    console.log("contained form, presumably from an Aap2 child", event);
+    this.containedForm = event;
+  }
+
+  hasChanges() {
+    if (this.containedForm && this.containedForm.dirty) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

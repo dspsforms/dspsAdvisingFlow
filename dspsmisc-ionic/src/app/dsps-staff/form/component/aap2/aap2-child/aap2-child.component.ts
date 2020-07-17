@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, EventEmitter, Output, AfterViewInit } from '@angular/core';
 import { AbstractFormSubmit } from '../../../abstract-form-submit';
 import { FormName } from 'src/app/model/form.util';
 import { Router } from '@angular/router';
@@ -11,13 +11,15 @@ import { LastOperationStatusService } from '../../../last-operation-status.servi
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { WrappedForm } from 'src/app/model/wrapped-form.model';
 import { AuthData } from 'src/app/auth/auth-data.model';
+import { UrlConfig } from 'src/app/model/url-config';
 
 @Component({
   selector: 'app-aap2-child',
   templateUrl: './aap2-child.component.html',
   styleUrls: ['./aap2-child.component.scss'],
 })
-export class Aap2ChildComponent extends AbstractFormSubmit implements OnInit, OnDestroy  {
+export class Aap2ChildComponent extends AbstractFormSubmit
+    implements OnInit, OnDestroy, AfterViewInit  {
 
   @Input() formKey; // for view and edit
   @Input() wrappedForm: WrappedForm; // when form has data
@@ -29,6 +31,12 @@ export class Aap2ChildComponent extends AbstractFormSubmit implements OnInit, On
   @Input() studentUser: AuthData;
 
   @Input() focusOnSignature: boolean; // optional, if true, focus will be on signature
+
+  // Aap2Child will let it's parent Aap2 know about it's own form when
+  // Aap2Child is in create mode. Currently, there are no plans to have an edit for
+  // Aap2Child
+  @Output() formComponent: EventEmitter<FormGroup>
+      = new EventEmitter<FormGroup>();
 
   constructor(
     public router: Router,
@@ -152,6 +160,10 @@ export class Aap2ChildComponent extends AbstractFormSubmit implements OnInit, On
 
   }
 
+  ngAfterViewInit() {
+    this.letParentKnow();
+  }
+
   createOrEditForm() {
     console.log("createOrEditForm ", this.formName, "  ", this.form.value);
 
@@ -178,5 +190,25 @@ export class Aap2ChildComponent extends AbstractFormSubmit implements OnInit, On
 
   onSigned(event) {
     console.log("app2-child: onSigned:", event);
+  }
+
+  letParentKnow() {
+    // give the container page that we are in know a link to us so they
+    // can check if our form is dirty
+    
+    
+    if (this.mode === 'create') {
+      console.log("in letParentKnow. calling emit. mode=", this.mode);
+      this.formComponent.emit(this.form);
+    }
+  }
+
+  onCancel() {
+    // there is a guard, so user will be warned.
+    // if (this.form.dirty) {
+    // }
+
+    // go back to list of AAP2s.
+    this.router.navigateByUrl(UrlConfig.LIST_FORMS_PRE_ABSOLUTE + FormName.AAP2);
   }
 }

@@ -268,6 +268,13 @@ export class Aap2Component extends AbstractFormSubmit
     }
   }
 
+  // if an Aap2Child fires its output event
+  receiveContainedForm(event) {
+    console.log("Aap2: child sent this contained form", event);
+    // let parent (container view page ) know 
+    this.formComponent.emit(event);
+  }
+
   createOrEditForm() {
     console.log("createOrEditForm ", this.formName, "  ", this.form.value);
 
