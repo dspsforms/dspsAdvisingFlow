@@ -10,7 +10,8 @@
 <ion-content>
 
   <div *ngIf="formName == 'bluesheet' ">
-    <app-bluesheet [mode]="'create'" ></app-bluesheet>
+    <app-bluesheet [mode]="'create'" 
+      (formComponent)="receiveContainedForm($event)" ></app-bluesheet>
 
 
     <!-- <app-view-alt-media-request
@@ -22,15 +23,18 @@
    </div>
 
    <div *ngIf="formName == 'aap1' ">
-    <app-aap1 [mode]="'create'" ></app-aap1>
+    <app-aap1 [mode]="'create'" 
+      (formComponent)="receiveContainedForm($event)" ></app-aap1>
    </div>
 
    <div *ngIf="formName == 'aap2' ">
-    <app-aap2 [mode]="'create'" ></app-aap2>
+    <app-aap2 [mode]="'create'" 
+      (formComponent)="receiveContainedForm($event)" ></app-aap2>
    </div>
 
    <div *ngIf="formName == 'greensheet' ">
-    <app-greensheet [mode]="'create'" ></app-greensheet>
+    <app-greensheet [mode]="'create'" 
+      (formComponent)="receiveContainedForm($event)" ></app-greensheet>
    </div>
 
 </ion-content>

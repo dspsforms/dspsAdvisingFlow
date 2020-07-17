@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, EventEmitter, AfterViewInit, Output } from '@angular/core';
 import { AbstractFormSubmit } from '../../abstract-form-submit';
 import { FormName } from 'src/app/model/form.util';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ import { FormValidators } from '../../form-validators';
   templateUrl: './aap1.component.html',
   styleUrls: ['./aap1.component.scss'],
 })
-export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestroy {
+export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() formKey; // for view and edit
   @Input() wrappedForm: WrappedForm; // when form has data
@@ -25,6 +25,8 @@ export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestr
 
   @Input() focusOnSignature: boolean; // optional, if true, focus will be on signature
   
+  @Output() formComponent: EventEmitter<FormGroup>
+      = new EventEmitter<FormGroup>();
 
   constructor(
     public router: Router,
@@ -53,6 +55,7 @@ export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestr
   ionViewWillEnter() {
     super.ionViewWillEnter();
     this.initFormObj();
+    this.letParentKnow();
   }
 
   initFormObj() {
@@ -291,6 +294,21 @@ export class Aap1Component extends AbstractFormSubmit implements OnInit, OnDestr
 
     if (this.mode === 'view') {
       this.disableForm(this.form);
+    }
+  }
+
+  ngAfterViewInit() {
+    this.letParentKnow();
+  }
+
+  letParentKnow() {
+    // give the container page that we are in know a link to us so they
+    // can check if our form is dirty
+    
+    
+    if (this.mode === 'create' || this.mode === 'edit') {
+      console.log("in letParentKnow. calling emit. mode=", this.mode);
+      this.formComponent.emit(this.form);
     }
   }
 

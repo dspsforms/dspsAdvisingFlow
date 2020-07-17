@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppGlobalsService } from '../../app-globals.service';
@@ -19,7 +19,8 @@ import { FormValidators } from '../../form-validators';
   templateUrl: './bluesheet.component.html',
   styleUrls: ['./bluesheet.component.scss'],
 })
-export class BluesheetComponent extends AbstractFormSubmit implements OnInit, OnDestroy {
+export class BluesheetComponent extends AbstractFormSubmit implements OnInit, OnDestroy
+  ,  AfterViewInit {
 
   @Input() formKey; // for view and edit
   @Input() wrappedForm: WrappedForm; // when form has data
@@ -27,6 +28,8 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
 
   @Input() focusOnSignature: boolean; // optional, if true, focus will be on signature
   
+  @Output() formComponent: EventEmitter<FormGroup>
+      = new EventEmitter<FormGroup>();
 
   constructor(
     public router: Router,
@@ -55,6 +58,7 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
   ionViewWillEnter() {
     super.ionViewWillEnter();
     this.initFormObj();
+    this.letParentKnow();
   }
 
   initFormObj() {
@@ -204,6 +208,7 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
       completedByDate: new FormControl( null,  { updateOn: 'change' }),
     });
 
+    
 
     if (this.mode === 'view' || this.mode === 'edit') {
       this.initVal(
@@ -224,7 +229,20 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
   }
 
  
+  ngAfterViewInit() {
+    this.letParentKnow();
+  }
 
+  letParentKnow() {
+    // give the container page that we are in know a link to us so they
+    // can check if our form is dirty
+    
+    
+    if (this.mode === 'create' || this.mode === 'edit') {
+      console.log("in letParentKnow. calling emit. mode=", this.mode);
+      this.formComponent.emit(this.form);
+    }
+  }
 
 
   createOrEditForm() {

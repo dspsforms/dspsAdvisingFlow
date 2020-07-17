@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { ErrorInterceptor } from './util/error-interceptor';
+import { ConfirmDeactivate } from './util/confirm-deactivate';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +20,7 @@ import { ErrorInterceptor } from './util/error-interceptor';
   providers: [
     StatusBar,
     SplashScreen,
+    ConfirmDeactivate,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

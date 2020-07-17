@@ -6,18 +6,23 @@ import { SubscriptionUtil } from 'src/app/util/subscription-util';
 import { UrlConfig } from 'src/app/model/url-config';
 import { FormName, FormUtil } from 'src/app/model/form.util';
 import { Title } from '@angular/platform-browser';
+import { AbstractFormSubmit } from '../abstract-form-submit';
+import { FormGroup } from '@angular/forms';
+import { IHasChanges } from 'src/app/util/has-changes.interface';
 
 @Component({
   selector: 'app-create',
   templateUrl: './create.page.html',
   styleUrls: ['./create.page.scss'],
 })
-export class CreatePage implements OnInit , OnDestroy {
+export class CreatePage implements OnInit , OnDestroy, IHasChanges {
 
   paramSub: Subscription;
 
   formName: string;
   formDisplayName: string; // user friendly name for formName
+
+  containedForm : FormGroup;
 
   constructor(
     private route: ActivatedRoute,
@@ -45,4 +50,16 @@ export class CreatePage implements OnInit , OnDestroy {
     SubscriptionUtil.unsubscribe(this.paramSub);
   }
 
+  receiveContainedForm(event) {
+    console.log("contained form", event);
+    this.containedForm = event;
+  }
+
+  hasChanges() {
+    if (this.containedForm && this.containedForm.dirty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

@@ -22,6 +22,7 @@
       [formKey]="data._id"
       [wrappedForm]="data" 
       [mode]="'edit'"
+      (formComponent)="receiveContainedForm($event)"
       >
     </app-bluesheet>
 
@@ -40,6 +41,7 @@
       [formKey]="data._id"
       [wrappedForm]="data" 
       [mode]="'edit'"
+      (formComponent)="receiveContainedForm($event)"
       >
     </app-aap1>
 
@@ -51,6 +53,7 @@
       [formKey]="data._id"
       [wrappedForm]="data" 
       [mode]="'edit'"
+      (formComponent)="receiveContainedForm($event)"
       >
     </app-aap2>
 
@@ -62,6 +65,7 @@
       [formKey]="data._id"
       [wrappedForm]="data" 
       [mode]="'edit'"
+      (formComponent)="receiveContainedForm($event)"
       >
     </app-greensheet>
 

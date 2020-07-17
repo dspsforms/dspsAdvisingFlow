@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, EventEmitter, ViewChild, ElementRef, AfterViewInit, Output } from '@angular/core';
 import { AbstractFormSubmit } from '../../abstract-form-submit';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { FormsService } from '../../forms.service';
@@ -35,6 +35,9 @@ export class Aap2Component extends AbstractFormSubmit
   @Input() focusOnSignature: boolean; // optional, if true, focus will be on signature
 
   @ViewChild('aap2ChildStart', { static: true }) aap2ChildStart: ElementRef;
+
+  @Output() formComponent: EventEmitter<FormGroup>
+      = new EventEmitter<FormGroup>();
 
   showNewProgressReport = false;
 
@@ -111,6 +114,8 @@ export class Aap2Component extends AbstractFormSubmit
     //   this.semYear.nativeElement.focus();
     // }
     console.log("in aap2-ngAfterViewInit");
+
+    this.letParentKnow();
     
     setTimeout(() => {
         if (this.mode === 'view' &&
@@ -251,6 +256,17 @@ export class Aap2Component extends AbstractFormSubmit
       // this.showNewProgressReport = true;
     }
   } 
+
+  letParentKnow() {
+    // give the container page that we are in know a link to us so they
+    // can check if our form is dirty
+    
+    
+    if (this.mode === 'create' || this.mode === 'edit') {
+      console.log("in letParentKnow. calling emit. mode=", this.mode);
+      this.formComponent.emit(this.form);
+    }
+  }
 
   createOrEditForm() {
     console.log("createOrEditForm ", this.formName, "  ", this.form.value);

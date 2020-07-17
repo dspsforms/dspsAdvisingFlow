@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, EventEmitter, AfterViewInit, Output } from '@angular/core';
 import { WrappedForm } from 'src/app/model/wrapped-form.model';
 import { AbstractFormSubmit } from '../../abstract-form-submit';
 import { Router } from '@angular/router';
@@ -17,11 +17,14 @@ import { FormValidators } from '../../form-validators';
   templateUrl: './greensheet.component.html',
   styleUrls: ['./greensheet.component.scss'],
 })
-export class GreensheetComponent extends AbstractFormSubmit implements OnInit, OnDestroy  {
+export class GreensheetComponent extends AbstractFormSubmit implements OnInit, OnDestroy, AfterViewInit  {
 
   @Input() formKey; // for view and edit
   @Input() wrappedForm: WrappedForm; // when form has data
   @Input() mode: 'create' | 'view' | 'edit';
+
+  @Output() formComponent: EventEmitter<FormGroup>
+  = new EventEmitter<FormGroup>();
 
   constructor(
     public router: Router,
@@ -51,6 +54,7 @@ export class GreensheetComponent extends AbstractFormSubmit implements OnInit, O
   ionViewWillEnter() {
     super.ionViewWillEnter();
     this.initFormObj();
+    this.letParentKnow();
   }
 
   // TODO
@@ -196,6 +200,21 @@ Other
       this.disableForm(this.form);
     }
 
+  }
+
+  ngAfterViewInit() {
+    this.letParentKnow();
+  }
+
+  letParentKnow() {
+    // give the container page that we are in know a link to us so they
+    // can check if our form is dirty
+    
+    
+    if (this.mode === 'create' || this.mode === 'edit') {
+      console.log("in letParentKnow. calling emit. mode=", this.mode);
+      this.formComponent.emit(this.form);
+    }
   }
 
   createOrEditForm() {
