@@ -56,7 +56,8 @@ export class CreatePage implements OnInit , OnDestroy, IHasChanges {
   }
 
   hasChanges() {
-    if (this.containedForm && this.containedForm.dirty) {
+    // if this form is about to be submitted, don't return true
+    if (this.containedForm && this.containedForm.dirty && !this.containedForm['aboutToSubmit']) {
       return true;
     } else {
       return false;

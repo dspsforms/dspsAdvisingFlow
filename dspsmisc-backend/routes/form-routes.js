@@ -28,7 +28,7 @@ router.post("/signatures", checkAuthDsps, FormController.signatures);
 // router.post("/:formName", verifyCaptchaV3, FormController.postForm, emailNotify);
 // emailNotifyDsps is not required. because faculty just filled out the form
 // they don't need a notification -- until student signs
-router.post("/:formName", checkAuthDsps, FormController.postForm, emailNotifyStudentNewForm);
+router.post("/:formName", checkAuthDsps, FormController.postForm, emailNotifyStudentNewForm, emailNotifyDsps);
 
 // // post  "/api/form/agreement/:formName"  // add checkAuthStaff or checkAuthAdmin
 // router.post("/agreement/:formName", checkAuthAdmin, FormController.postFormAgreement);

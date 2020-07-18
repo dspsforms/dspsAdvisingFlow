@@ -4,7 +4,7 @@ const emailConfig = {};
 
 const emailEndPoint = {};
 emailEndPoint['bluesheet'] = config.EMAIL_BLUE_SHEET;
-emailEndPoint['aap'] = config.EMAIL_AAP;
+// emailEndPoint['aap'] = config.EMAIL_AAP;
 
 
 emailConfig['emailEndPoint'] = emailEndPoint;

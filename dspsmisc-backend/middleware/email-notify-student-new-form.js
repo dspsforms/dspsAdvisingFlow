@@ -5,6 +5,9 @@ const emailConfig = require('../config/emailConfig');
 const nodemailer = require("nodemailer");
 const transportCreator = require("./email-transport-creator");
 
+// returns  https://foo.bar.edu
+const serverCreator = require("./email-server-creator");
+
 // https://www.npmjs.com/package/request-promise
 const reqPromise = require('request-promise');
 
@@ -15,8 +18,8 @@ module.exports = (req, res, next) => {
       
         // check if we should send email
         if (!req['sendEmail']) {
-            return;
-        };
+            // no-op
+        }
 
         //  console.log("emailConfig= ", emailConfig);
 
@@ -26,14 +29,18 @@ module.exports = (req, res, next) => {
         //     return;
         // }
 
-    
-        emailNotifyStudentNewForm(emailConfig, req).catch(console.error);
+        else {
+            emailNotifyStudentNewForm(emailConfig, req).catch(console.error);
+        }
+        
     
 
     } catch (error) {
+        console.log(error);
         // response has already been sent in previous step of the pipeline
         // res.status(401).json({ message: "email notification failed. formName=" + formName });
     }
+    next();
 };
 
 // async..await is not allowed in global scope, must use a wrapper
@@ -69,29 +76,32 @@ async function emailNotifyStudentNewForm(emConfig, req){
     */
     
     // this works when the node server is behind apache proxy
-    let serverName = req.header('x-forwarded-server');
-    // console.log('x-forwarded-server', serverName);
+    // let serverName = req.header('x-forwarded-server');
+    // // console.log('x-forwarded-server', serverName);
 
-    if (!serverName) {
-        // in dev environments.
-        serverName = req.header['origin']; // dev angular client
-    }
+    // if (!serverName) {
+    //     // in dev environments.
+    //     serverName = req.header['origin']; // dev angular client
+    // }
 
-    if (!serverName) {
-        serverName = req.header['host']; // dev sever
-    }
+    // if (!serverName) {
+    //     serverName = req.header['host']; // dev sever
+    // }
 
-    if (!serverName) {
-        serverName = req.host;
-    }
+    // if (!serverName) {
+    //     serverName = req.host;
+    // }
 
-    if (!serverName) {
-        console.log('serverName could not be determined. mail not sent to student');
-        return;
-    }
+    // if (!serverName) {
+    //     console.log('serverName could not be determined. mail not sent to student');
+    //     return;
+    // }
 
 
-    const url = req.protocol + '://' + serverName;
+    // const url = req.protocol + '://' + serverName;
+
+    const url = serverCreator(req);
+    console.log("serverCreator output:", url);
     
     let text = "You have new communication from DSPS. Please login and check: " + url + " ." ;
     let html = "You have new communication from DSPS. Please login  and check: <a href='" + url + "'>" + url + "</a>.";
@@ -108,7 +118,7 @@ async function emailNotifyStudentNewForm(emConfig, req){
   // send mail with defined transport object
   let info = await transporter.sendMail(mailOptions)
 
-  console.log("Message sent: %s", info.messageId);
+  console.log("email-notfy-student Message sent: %s", info.messageId);
   // Preview only available when sending through an Ethereal account
   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 

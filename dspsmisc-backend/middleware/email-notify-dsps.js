@@ -6,6 +6,9 @@ const nodemailer = require("nodemailer");
 
 const transportCreator = require("./email-transport-creator");
 
+// returns  https://foo.bar.edu
+const serverCreator = require("./email-server-creator");
+
 // https://www.npmjs.com/package/request-promise
 const reqPromise = require('request-promise');
 
@@ -25,18 +28,19 @@ module.exports = (req, res, next) => {
     formName = sanitize(req.params.formName);
     console.log("formName= ", formName);
 
-    if (formName) {
-      newFormSubmittedNotification(emailConfig, formName).catch(console.error);
+    if(formName && emailConfig.emailEndPoint[formName])  {
+      newFormSubmittedNotification(emailConfig, formName, req).catch(console.error);
     }
 
 
   } catch (error) {
-    res.status(401).json({ message: "email notification failed. formName=" + formName });
+    console.log(error);
+    // res.status(401).json({ message: "email notification failed. formName=" + formName });
   }
 };
 
 // async..await is not allowed in global scope, must use a wrapper
-async function newFormSubmittedNotification(emConfig, formName){
+async function newFormSubmittedNotification(emConfig, formName, req){
 
   // create reusable transporter object using the default SMTP transport
   let transporter = transportCreator(emConfig);
@@ -56,20 +60,32 @@ async function newFormSubmittedNotification(emConfig, formName){
   //   }
   // });
 
+
+  let url = serverCreator(req);
+  console.log("serverCreator output:", url);
+
+  // /dsps-staff/form/list/bluesheet
+  url += "/dsps-staff/form/list/" + formName;
+
+  let text = "DSPS Forms 2: a new " + formName + " has been created. Please login and check " + url ;
+  let html = "DSPS Forms 2: a new " + formName + " has been created. Please login and check " +
+    " <a href='" + url + "'>" + url + "</a>";
+
+
   // setup email data with unicode symbols
   let mailOptions = {
     from: emConfig.from,  // '"Mission DSPS" <missiondsps@vannev.com>', // sender address
     to: emConfig.emailEndPoint[formName], // list of receivers, comma separated
     replyTo: emConfig.replyTo || null,
-    subject: "new form submitted for " + formName, // Subject line
-    text: "A new form has been submitted for " + formName, // plain text body
-    html: "A new form has been submitted for <b> " + formName +  " </b>" // html body
+    subject: "DSPS Forms 2: a new "  + formName + " has been created", // Subject line
+    text: text, // plain text body
+    html: html // html body
   };
 
   // send mail with defined transport object
   let info = await transporter.sendMail(mailOptions)
 
-  console.log("Message sent: %s", info.messageId);
+  console.log("email-notify-dsps: Message sent: %s", info.messageId);
   // Preview only available when sending through an Ethereal account
   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 

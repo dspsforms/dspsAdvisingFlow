@@ -52,7 +52,7 @@ export class ViewPage extends AbstractFormRead implements OnInit, OnDestroy, IHa
   }
 
   hasChanges() {
-    if (this.containedForm && this.containedForm.dirty) {
+    if (this.containedForm && this.containedForm.dirty && !this.containedForm['aboutToSubmit']) {
       return true;
     } else {
       return false;

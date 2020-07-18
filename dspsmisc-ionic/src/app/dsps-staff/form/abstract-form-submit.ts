@@ -102,6 +102,10 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
   getUserId() {
     return this.authService.getUserId();
   }
+
+  setAboutToSubmit() {
+    this.form['aboutToSubmit'] = true;
+  }
   
    /* for each property in form (and recursively), add {version: 1}
         so if foo: val
@@ -146,6 +150,8 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
     if (!this.form.valid || !this.form.dirty) {
       return;
     }
+
+    this.setAboutToSubmit(); // so the canDeactivate guard doesn't get in the way
 
     const now = new Date();
     // form's history
@@ -289,15 +295,8 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
       */
 
     // TODO check also that form.value has changed.
-
-    let atLeastOneDirty = false;
-    if (!this.form.dirty) {
-      return;
-    }
-
-    if (!this.form.valid || !this.form.dirty) {
-      return;
-    }
+    
+    this.setAboutToSubmit(); // so the canDeactivate guard doesn't get in the way
 
     const now = new Date();
     const completedByUserId = this.getUserId();
