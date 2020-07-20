@@ -17,6 +17,7 @@
 
 <ion-content class="ion-padding">
 
+  
   <div *ngIf="keys">
     <div *ngFor="let key of keys;" >
       <!-- display only if there is data for a given formName -->
@@ -56,5 +57,9 @@
 
 </div> <!-- for key of keys; -->
 </div>  <!-- if keys -->
+
+<div *ngIf="isEmpty">
+  There are no forms yet for this student.
+</div>
 
 </ion-content>
