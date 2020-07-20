@@ -110,7 +110,9 @@ export class FormsForAStudentPage implements OnInit, OnDestroy {
   }
 
   getFormTitle(key) {
+
     return FormUtil.formTitle(key);
+
   }
   
   showForm(form) {
@@ -179,14 +181,16 @@ export class FormsForAStudentPage implements OnInit, OnDestroy {
     if (!this.listOfForms) { return true; }
 
     // if there is any record for any of the form types, return false
-    this.keys.forEach(key => {
+    let nonEmptyObj = null;
+    
+    // find the first non empty form type
+    nonEmptyObj = this.keys.find(key => {
       if (this.listOfForms[key] && this.listOfForms[key].length > 0) {
-        return false;
+        return true;
       }
     });
-
     
-    return true;
+    return nonEmptyObj == null;
 
   }
 
