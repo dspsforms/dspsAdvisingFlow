@@ -44,7 +44,7 @@ export class ListStudentsPage implements OnInit, OnDestroy {
     this.isDspsAuth = this.authService.getIsDspsAuth();
 
     if (!this.isDspsAuth) {
-      this.router.navigateByUrl('/auth/login');
+      this.router.navigateByUrl('/auth/login'); 
       return;
     }
 

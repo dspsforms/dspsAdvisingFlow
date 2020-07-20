@@ -1,11 +1,16 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="{{ defaultHref }}"></ion-back-button>
+      <ion-menu-button menu="m1"></ion-menu-button>
+      <!-- <ion-back-button defaultHref="{{ defaultHref }}"></ion-back-button> 
+        this goes to the wrong tab
+      -->
     </ion-buttons>
     <ion-title>Forms for {{ student?.name }} </ion-title>
     <ion-buttons slot="primary">
-      <ion-menu-button menu="m1"></ion-menu-button>
+      <ion-button routerLink="/dsps-staff/users/list-students" routerDirection="backward"> 
+        <ion-icon slot="icon-only" name="list"> </ion-icon>
+      </ion-button>
     </ion-buttons> 
   </ion-toolbar>
 </ion-header>
