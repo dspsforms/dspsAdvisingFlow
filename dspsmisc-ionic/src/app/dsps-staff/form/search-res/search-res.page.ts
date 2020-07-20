@@ -106,4 +106,21 @@ export class SearchResPage implements OnInit, OnDestroy {
     return UrlConfig.DEFAULT_BACK_BUTTON_HREF;
   }
 
+  get isEmpty() {
+    if (!this.listOfForms) { return true; }
+
+    // if there is any record for any of the form types, return false
+    let nonEmptyObj = null;
+    
+    // find the first non empty form type
+    nonEmptyObj = this.keys.find(key => {
+      if (this.listOfForms[key] && this.listOfForms[key].length > 0) {
+        return true;
+      }
+    });
+    
+    return nonEmptyObj == null;
+
+  }
+
 }
