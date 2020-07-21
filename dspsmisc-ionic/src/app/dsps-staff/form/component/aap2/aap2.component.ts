@@ -41,6 +41,8 @@ export class Aap2Component extends AbstractFormSubmit
 
   showNewProgressReport = false;
 
+  currentUser: AuthData;
+
   routeSub: Subscription;
   paramSub: Subscription;
 
@@ -63,7 +65,7 @@ export class Aap2Component extends AbstractFormSubmit
       userService,
       lastOpStatusService);
     
-    super.isParent = true;
+    super.setIsParent(true);
 
     this.onViewEnter();
     
@@ -86,6 +88,49 @@ export class Aap2Component extends AbstractFormSubmit
 
   doViewInit() {
     this.initFormObj();
+    this.currentUser = this.getUserWithDelay();
+  }
+
+  // try several times
+  getUserWithDelay(): AuthData {
+    let count = 0;
+    let user = this.getUser();
+    
+    let currentTimeout = 200; // msec
+    const maxTimeout = 5000; // msec
+    while (!user && count++ < 1000) {
+      setTimeout(() => user = this.getUser(), currentTimeout);
+      // exponential backoff, truncated to maxTimeout
+      currentTimeout = Math.min(currentTimeout * 2, maxTimeout);
+    }
+    
+    return user;
+  }
+  
+  getUser() {
+    return this.authService.getUser();
+  }
+
+  get isDspsAuth() {
+    if (!this.currentUser) { return false; }
+
+    if (this.currentUser.role && (
+      this.currentUser.role.isFaculty ||
+      this.currentUser.role.isAdmin ||
+      this.currentUser.role.isStaff)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  get hasChildren() {
+    if (this.wrappedForm && this.wrappedForm.children &&
+      this.wrappedForm.children.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   ngOnInit() {

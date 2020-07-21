@@ -106,6 +106,10 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
   setAboutToSubmit() {
     this.form['aboutToSubmit'] = true;
   }
+
+  setIsParent(isParent) {
+    this.isParent = isParent;
+  }
   
    /* for each property in form (and recursively), add {version: 1}
         so if foo: val

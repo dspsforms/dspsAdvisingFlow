@@ -101,6 +101,12 @@
 
   <div class="tiny" tabindex="-1" #aap2ChildStart > </div>
 
+  <!-- no children -->
+  <div *ngIf="!hasChildren && mode === 'view' ">
+    <ion-item>
+      <p class="smaller">There are Progress Reports yet.</p></ion-item>
+  </div>
+
   <!-- children -->
   <div *ngIf="mode === 'view'  && wrappedForm?.children?.length > 0">
 
@@ -115,7 +121,8 @@
 
   </div>
 
-  <div *ngIf="mode === 'view'">
+  <!-- must be a dsps person to create a new progress report -->
+  <div *ngIf="mode === 'view' && isDspsAuth">
 
     <ion-grid>
       <ion-row  *ngIf="mode === 'view'">
