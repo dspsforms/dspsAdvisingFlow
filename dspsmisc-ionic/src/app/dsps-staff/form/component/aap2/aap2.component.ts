@@ -112,9 +112,8 @@ export class Aap2Component extends AbstractFormSubmit
   }
 
   get isDspsAuth() {
-    if (!this.currentUser) { return false; }
-
-    if (this.currentUser.role && (
+   
+    if (this.currentUser && this.currentUser.role && (
       this.currentUser.role.isFaculty ||
       this.currentUser.role.isAdmin ||
       this.currentUser.role.isStaff)) {
@@ -134,18 +133,19 @@ export class Aap2Component extends AbstractFormSubmit
   }
 
   ngOnInit() {
-    this.paramSub = 
-    this.route.paramMap.subscribe(paramMap => {
-      if (paramMap.has('junk')) {
-        console.log(paramMap.get('junk'));
+    this.paramSub =
+      this.route.paramMap.subscribe(paramMap => {
+        if (paramMap.has('junk')) {
+          console.log(paramMap.get('junk'));
 
-        const formName = paramMap.get('formName');
-        const formId = paramMap.get('formId');
-        this.router.navigate(['/dsps-staff', 'form', 'view', formName, formId]);
-      }
-    })
+          const formName = paramMap.get('formName');
+          const formId = paramMap.get('formId');
+          this.router.navigate(['/dsps-staff', 'form', 'view', formName, formId]);
+        }
+      });
     super.ngOnInit();
     this.initFormObj();
+    this.currentUser = this.getUserWithDelay();
    }
 
   ionViewWillEnter() {
