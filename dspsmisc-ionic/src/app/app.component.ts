@@ -116,6 +116,7 @@ export class AppComponent implements OnInit, OnDestroy {
     window.open("https://dsps-forms.missioncollege.edu", "_blank");
   }
 
-  
-
+  gotoDspsBlog() {
+    window.open("https://dspsforms.blogspot.com" , "_blank");
+  }  
 }
