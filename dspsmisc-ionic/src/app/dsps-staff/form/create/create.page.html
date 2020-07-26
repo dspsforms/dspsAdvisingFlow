@@ -10,7 +10,9 @@
 <ion-content>
 
   <div *ngIf="formName == 'bluesheet' ">
-    <app-bluesheet [mode]="'create'" 
+    <app-bluesheet 
+      [mode]="'create'" 
+      [wrappedForm]="data" 
       (formComponent)="receiveContainedForm($event)" ></app-bluesheet>
 
 

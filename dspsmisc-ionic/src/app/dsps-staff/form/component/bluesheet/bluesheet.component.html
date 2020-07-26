@@ -1,8 +1,20 @@
 
 <form *ngIf="form" [formGroup]="form" (ngSubmit)="createOrEditForm()" >
 
-  <h1 class="ion-padding">Recommendations for Academic Support and Accommodations</h1>
-  
+  <div class="ion-padding">
+
+    <ion-button *ngIf="mode === 'view' && isDspsAuth "
+    class="ion-float-right"
+          type="button"
+          fill="clear"
+          color="primary"
+          [routerLink]="['/dsps-staff', 'form', 'create', formName, formKey]">
+          Create New Blueesheet From This
+    </ion-button>
+
+    <h1>Recommendations for Academic Support and Accommodations</h1>
+  </div>
+
   <app-bluesheet-header [form]="form" [mode]="mode"></app-bluesheet-header>
 
   <div *ngIf="grid" class="grid2Col">

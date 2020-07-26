@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { DataTransformService } from '../../data-transform.service';
 import { UserService } from 'src/app/dsps-staff/user/user.service';
 import { FormValidators } from '../../form-validators';
+import { AuthData } from 'src/app/auth/auth-data.model';
 
 
 
@@ -23,13 +24,33 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
   ,  AfterViewInit {
 
   @Input() formKey; // for view and edit
-  @Input() wrappedForm: WrappedForm; // when form has data
+ 
   @Input() mode: 'create' | 'view' | 'edit';
 
   @Input() focusOnSignature: boolean; // optional, if true, focus will be on signature
   
   @Output() formComponent: EventEmitter<FormGroup>
-      = new EventEmitter<FormGroup>();
+    = new EventEmitter<FormGroup>();
+  
+  currentUser: AuthData;
+  
+  //  @Input() wrappedForm: WrappedForm; // when form has data
+
+  _wrappedForm: WrappedForm;
+
+  // see https://stackoverflow.com/a/44686085
+  @Input() set wrappedForm(w: WrappedForm) {
+    this._wrappedForm = w;
+    if (this.form) {
+      this.initFormVal(this._wrappedForm);
+    }
+    
+  }
+
+  get wrappedForm() {
+    return this._wrappedForm;
+
+  }
 
   constructor(
     public router: Router,
@@ -53,11 +74,14 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
   ngOnInit() {
     super.ngOnInit();
     this.initFormObj();
+    this.currentUser = this.getUserWithDelay();
    }
 
   ionViewWillEnter() {
     super.ionViewWillEnter();
     this.initFormObj();
+    this.currentUser = this.getUserWithDelay();
+    
     this.letParentKnow();
   }
 
@@ -208,24 +232,42 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
       completedByDate: new FormControl( null,  { updateOn: 'change' }),
     });
 
-    
+    this.initFormVal(this.wrappedForm);
+
+  }
+
+  initFormVal(w: WrappedForm) {
 
     if (this.mode === 'view' || this.mode === 'edit') {
       this.initVal(
         this.form,
-        this.wrappedForm.formWithLatestHistory,
-        this.wrappedForm.formHistoryArr);
+        w.formWithLatestHistory,
+        w.formHistoryArr);
 
       console.log("after form init", this.form);
 
       // supply the historical form data to super
-      super.wrappedFormFromDb = this.wrappedForm;
+      super.wrappedFormFromDb = w;
+
+    }
+    
+    if (this.mode === 'create' &&
+      w && w.formWithLatestHistory
+      && w.formHistoryArr) {
+      // for a new bluesheet for example, if it were being initialized with values from a different form
+      // we use wrappedForm only for initial values, but don't update it the way we would for edit
+      this.initVal(
+        this.form,
+        w.formWithLatestHistory,
+        w.formHistoryArr, // this is not used, but it will be accessed by initVal
+        true ); // forCreate
+       
     }
 
     if (this.mode === 'view') {
       this.disableForm(this.form);
     }
-    
+
   }
 
  
@@ -256,6 +298,41 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
       super.createForm();
     } else if (this.mode === 'edit') {
       super.editForm(this.formKey);
+    }
+  }
+
+  // this is probably not needed. user shouldn't be coming here if 
+  // they are not logged in. if they are logged in, getUser() should have
+  // a value 
+  // try several times
+  getUserWithDelay(): AuthData {
+    let count = 0;
+    let user = this.getUser();
+    
+    let currentTimeout = 200; // msec
+    const maxTimeout = 5000; // msec
+    while (!user && count++ < 1000) {
+      setTimeout(() => user = this.getUser(), currentTimeout);
+      // exponential backoff, truncated to maxTimeout
+      currentTimeout = Math.min(currentTimeout * 2, maxTimeout);
+    }
+    
+    return user;
+  }
+  
+  getUser() {
+    return this.authService.getUser();
+  }
+
+  get isDspsAuth() {
+   
+    if (this.currentUser && this.currentUser.role && (
+      this.currentUser.role.isFaculty ||
+      this.currentUser.role.isAdmin ||
+      this.currentUser.role.isStaff)) {
+      return true;
+    } else {
+      return false;
     }
   }
 

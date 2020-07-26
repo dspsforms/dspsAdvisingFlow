@@ -389,7 +389,14 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
     });
   }
 
-  initVal(formGroup, latestValueHistory, fullValueHistory) {
+  // 7/25/2020: added forCreate: boolean
+  // if forCreate is true, we are simply using latestValueHistory for initializing 
+  // a new form ("for create").
+  initVal(
+    formGroup: FormGroup,
+    latestValueHistory: { [x: string]: any; },
+    fullValueHistory?: { [x: string]: any; },
+    forCreate?: boolean) {
     // console.log("formGroup", formGroup);
     // console.log("data" , latestValueHistory);
     Object.keys(formGroup.controls).forEach(field => {
@@ -398,12 +405,17 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
         if (latestValueHistory[field] && latestValueHistory[field].val) {
           control.setValue(latestValueHistory[field].val);
         }
-        // keep the history data with the control, so they could be used to display the history
-        control['latestValueHistory'] = latestValueHistory[field]; 
-        control['fullValueHistory'] = fullValueHistory[field];
+
+        if (!forCreate) {
+          // keep the history data with the control, so they could be used to display the history
+          control['latestValueHistory'] = latestValueHistory[field]; 
+          control['fullValueHistory'] = fullValueHistory[field];
+          
+        }
+        
       } else if (control instanceof FormGroup) {
         // recurse down the tree
-        this.initVal(control, latestValueHistory[field], fullValueHistory[field]); 
+        this.initVal(control, latestValueHistory[field], fullValueHistory[field], forCreate); 
       }
     });
   }
@@ -531,7 +543,9 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
         return null;
     }
 
-}
+  }
+
+  
 
   ngOnDestroy() {
     SubscriptionUtil.unsubscribe(this.formSaveStatusSub);

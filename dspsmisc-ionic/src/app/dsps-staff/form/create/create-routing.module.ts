@@ -9,7 +9,7 @@ const routes: Routes = [
     path: '',
     component: CreatePage,
     canDeactivate: [ConfirmDeactivate]
-  }
+  },
 ];
 
 @NgModule({

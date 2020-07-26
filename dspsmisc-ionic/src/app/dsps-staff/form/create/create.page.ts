@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsService } from '../forms.service';
@@ -9,6 +9,7 @@ import { Title } from '@angular/platform-browser';
 import { AbstractFormSubmit } from '../abstract-form-submit';
 import { FormGroup } from '@angular/forms';
 import { IHasChanges } from 'src/app/util/has-changes.interface';
+import { WrappedForm } from 'src/app/model/wrapped-form.model';
 
 @Component({
   selector: 'app-create',
@@ -17,12 +18,19 @@ import { IHasChanges } from 'src/app/util/has-changes.interface';
 })
 export class CreatePage implements OnInit , OnDestroy, IHasChanges {
 
+  data: WrappedForm;  // if initialized from a different form
+
   paramSub: Subscription;
+  dbSubscription: Subscription = null;
 
   formName: string;
   formDisplayName: string; // user friendly name for formName
 
-  containedForm : FormGroup;
+  containedForm: FormGroup;
+  
+  initializedFromId: string = null; // if form is initialized from another form.
+  busy = false;
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -30,7 +38,9 @@ export class CreatePage implements OnInit , OnDestroy, IHasChanges {
     private formsService: FormsService,
     private titleService: Title) { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  ionViewWillEnter() {
     this.paramSub = this.route.paramMap.subscribe(paramMap => {
       if (!paramMap.has('formName')) {
         console.log("no formName for create");
@@ -41,13 +51,43 @@ export class CreatePage implements OnInit , OnDestroy, IHasChanges {
       this.formName = paramMap.get('formName');
       this.formDisplayName = FormUtil.formTitle(this.formName);
 
+      // remove prev value of initializedFromId. probably not necessary.
+      this.initializedFromId = null; 
+      this.initializedFromId = paramMap.get("initializedFromId");
+
       this.titleService.setTitle(this.formDisplayName);
+
+      //
+      if (this.initializedFromId) {
+        this.dbSubscription  = this.formsService.getCurrentFormUpdatedListener().subscribe(formData => {
+          this.data = formData;
+          this.busy = false;
+        }); 
+      }
+
+      if (this.initializedFromId) {
+        this.data = new WrappedForm({});
+        this.busy = true;
+        this.formsService.getFormData2(
+            this.formName,
+            this.initializedFromId,
+            false // not a student user
+        );
+      }
 
     });
   }
 
-  ngOnDestroy() {
+  ionViewWillExit() {
     SubscriptionUtil.unsubscribe(this.paramSub);
+    SubscriptionUtil.unsubscribe(this.dbSubscription);
+  }
+
+  ngOnDestroy() {
+   
+    // does not hurt
+    SubscriptionUtil.unsubscribe(this.paramSub);
+    SubscriptionUtil.unsubscribe(this.dbSubscription);
   }
 
   receiveContainedForm(event) {

@@ -79,6 +79,11 @@ const routes: Routes = [
             canLoad: [AuthDspsGuard]
           },
           {
+            path: 'create/:formName/:initializedFromId',
+            loadChildren: () => import('./form/create/create.module').then(m => m.CreatePageModule),
+            canLoad: [AuthDspsGuard]
+          },
+          {
             // illegal
             path: 'view',
             redirectTo: '/dsps-staff',

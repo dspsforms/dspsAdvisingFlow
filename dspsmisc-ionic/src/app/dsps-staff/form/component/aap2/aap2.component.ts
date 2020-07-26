@@ -91,6 +91,9 @@ export class Aap2Component extends AbstractFormSubmit
     this.currentUser = this.getUserWithDelay();
   }
 
+  // this is probably not needed. user shouldn't be coming here if 
+  // they are not logged in. if they are logged in, getUser() should have
+  // a value 
   // try several times
   getUserWithDelay(): AuthData {
     let count = 0;
