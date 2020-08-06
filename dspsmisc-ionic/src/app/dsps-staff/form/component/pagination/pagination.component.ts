@@ -29,16 +29,16 @@ export class PaginationComponent implements OnChanges {
   pages;
 
   // for debugging, 
-  pageSizeOptions = [2, 3, 5];
+  // pageSizeOptions = [2, 3, 5];
 
-  // pageSizeOptions =  [10, 25, 50, 100];
+  pageSizeOptions =  [10, 25, 50, 100];
   pageSize2use;
 
   ngOnChanges(changes: SimpleChanges) {
 
       // page size
     if (!this.pageSize || this.pageSize <= 0) {
-      this.pageSize2use = 3; // Constants.DEFAULT_PAGE_SIZE;
+      this.pageSize2use = Constants.DEFAULT_PAGE_SIZE;
     } else {
       this.pageSize2use = this.pageSize;
     }
