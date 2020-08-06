@@ -1,58 +1,81 @@
-<nav
+
+<ion-grid>
+  <ion-row>
+    <ion-col size="8">
+      <nav
   aria-label="Page navigation" class="pagination-container">
 
-    <ul class="pagination nav-child pagination-child"
+    <ul class="pagination"
       *ngIf="totalPages && totalPages > 1" >
-        <li [class.disabled]="currentPage == 1" aria-label="Previous" >
-            <a (click)="navigateTo(currentPage-1)" >
+        <li 
+          [class.disabled]="currentPage == 1" 
+          aria-label="Previous"
+          class="page-item" >
+            <a (click)="navigateTo(currentPage-1)" class="page-link" >
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
         <li *ngFor="let page of pages; let i = index;"
-            [class.active]="currentPage == (i+1)" >
-            <a  (click)="navigateTo(i+1)"  >
+            [class.active]="currentPage == (i+1)"
+            class="page-item" >
+            <a  (click)="navigateTo(i+1)"  class="page-link" >
                 {{ i+1 }}
             </a>
         </li>
-        <li [class.disabled]="currentPage == totalPages" aria-label="Next">
-            <a (click)="navigateTo(currentPage + 1)" >
+        <li 
+          [class.disabled]="currentPage == totalPages" 
+          class="page-item"
+          aria-label="Next">
+            <a (click)="navigateTo(currentPage + 1)" class="page-link" >
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
       </ul>
+      </nav>
 
-    <form class="pagination-child vert-space" onsubmit="onPageSizeFormSubmit(pageSizeForm)" #pageSizeForm="ngForm">
+    </ion-col>
+
+    <ion-col size="4">
+
+      <form onsubmit="onPageSizeFormSubmit(pageSizeForm)" #pageSizeForm="ngForm">
 
         <!--
-        <label>Page size: </label>
-        <select [compareWith]="compareFn"
-          name="selectedPageSize" ngModel selectedPageSize="ngModel" (change)="onPageSizeChange($event)">
-          <option *ngFor="let size of pageSizeOptions; let i=index"
-          [selected]="size == pageSize2use"
-          [value]="size">{{size}}</option>
-        </select>
-      -->
+          <label>Page size: </label>
+          <select [compareWith]="compareFn"
+            name="selectedPageSize" ngModel selectedPageSize="ngModel" (change)="onPageSizeChange($event)">
+            <option *ngFor="let size of pageSizeOptions; let i=index"
+            [selected]="size == pageSize2use"
+            [value]="size">{{size}}</option>
+          </select>
+        -->
 
-      <ion-list>
-      <ion-item>
-        <ion-label>Page Size</ion-label>
-        <ion-select (ionChange)="onPageSizeChange($event)">
-          <ion-select-option *ngFor="let size of pageSizeOptions; let i=index" [value]="size">{{size}}</ion-select-option>
-        </ion-select>
+        <ion-item>
+          <ion-label>Page Size</ion-label>
+          <ion-select (ionChange)="onPageSizeChange($event)">
+            <ion-select-option *ngFor="let size of pageSizeOptions; let i=index" [value]="size">{{size}}</ion-select-option>
+          </ion-select>
 
-      </ion-item>
-    </ion-list>
+        </ion-item>
 
 
-      <!-- <mat-form-field>
-          <mat-select placeholder="Page Size"  (selectionChange)="onPageSizeChange($event)">
-            <mat-option *ngFor="let size of pageSizeOptions; let i=index" [value]="size" >
-              {{size}}
-            </mat-option>
-          </mat-select>
-      </mat-form-field> -->
+        <!-- <mat-form-field>
+            <mat-select placeholder="Page Size"  (selectionChange)="onPageSizeChange($event)">
+              <mat-option *ngFor="let size of pageSizeOptions; let i=index" [value]="size" >
+                {{size}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field> -->
 
-    </form>
+      </form>
+
+    </ion-col>
+  </ion-row>
+</ion-grid>
 
 
-</nav>
+
+
+
+    
+
+

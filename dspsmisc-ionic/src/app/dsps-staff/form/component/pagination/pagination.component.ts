@@ -28,16 +28,17 @@ export class PaginationComponent implements OnChanges {
   // an array of numbers. each entry has the value of its index, plus 1
   pages;
 
-  // for debugging, [2, 3, 5];
+  // for debugging, 
+  pageSizeOptions = [2, 3, 5];
 
-  pageSizeOptions =  [10, 25, 50, 100];
+  // pageSizeOptions =  [10, 25, 50, 100];
   pageSize2use;
 
   ngOnChanges(changes: SimpleChanges) {
 
       // page size
     if (!this.pageSize || this.pageSize <= 0) {
-      this.pageSize2use = Constants.DEFAULT_PAGE_SIZE;
+      this.pageSize2use = 3; // Constants.DEFAULT_PAGE_SIZE;
     } else {
       this.pageSize2use = this.pageSize;
     }
@@ -86,12 +87,12 @@ export class PaginationComponent implements OnChanges {
 
   onPageSizeChange(event) {
     try {
-      console.log("onPageSizeChange. event.value=", event.value);
+      console.log("onPageSizeChange. event.detail=", event.detail);
      // console.log("onPageSizeChange. value=", event.target.value);
 
       // when page *size* changes, set currentPage to 1, instead of this.currentPage
       // let anyone listening know
-      this.paginationService.generatePageInfoChange(1, event.value);
+      this.paginationService.generatePageInfoChange(1, event.detail.value);
 
     } catch (err) {
       console.log(err);
