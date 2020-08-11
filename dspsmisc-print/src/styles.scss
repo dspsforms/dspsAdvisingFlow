@@ -108,6 +108,11 @@ same as ionic version
   grid-gap: 5px;
 }
 
+/* same size as panel title used in bootstrap */
+h1 {
+  font-size: 2vw;
+}
+
 @media print {
 
   // hide the sign out button
@@ -122,13 +127,16 @@ same as ionic version
     color-adjust: exact;
 		-webkit-print-color-adjust: exact;
 
-	}
+  }
+
+  .mybtn-blue,
+  .mybtn-blue:before,
+  .mybtn-blue:after {
+    color: blue !important;
+  }
+
+  h1 {
+    font-size: 16px;
+  }
 }
 
-// @media print and (color) {
-// 	* {
-//     color-adjust: exact;
-// 		-webkit-print-color-adjust: exact;
-
-// 	}
-// }

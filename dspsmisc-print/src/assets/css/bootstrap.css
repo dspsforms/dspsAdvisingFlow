@@ -195,13 +195,15 @@ td,
 th {
   padding: 0;
 }
+/* remove from below color: #000 !important;
+or add more specific class in own css */
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 @media print {
   *,
   *:before,
   *:after {
-    background: transparent !important;
     color: #000 !important;
+    background: transparent !important;
     -webkit-box-shadow: none !important;
             box-shadow: none !important;
     text-shadow: none !important;
