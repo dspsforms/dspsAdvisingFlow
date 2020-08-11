@@ -13,7 +13,7 @@ same as ionic version
 
 }
 
-.grid2Col h1, .nogrid h1  {
+.grid2Col h1, .nogrid h1, .grid2col-bluesheet h1  {
   font-size: 2vw;
 }
 
@@ -88,9 +88,10 @@ same as ionic version
 
 
 // used in exams and accomodations. same css class in ionic version
+// grid-template-columns: repeat(4, minmax(47px, 1fr));
 .grid4-inner {
   display:grid;
-  grid-template-columns: repeat(4, minmax(47px, 1fr));
+  grid-template-columns: repeat(4,  1fr);
   grid-gap: 3px;
 }
 
@@ -111,5 +112,8 @@ same as ionic version
   // hide the sign out button
   #signout {
     display: none;
+  }
+  .panel {
+    page-break-inside: avoid;
   }
 }

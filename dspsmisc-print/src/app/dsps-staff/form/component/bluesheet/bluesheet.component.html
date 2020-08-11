@@ -1,7 +1,7 @@
 
 <div class="container-fluid" *ngIf="wrappedForm" >
 
-  <h1>Recommendations for Academic Support and Accommodations</h1>
+  <h1 class="small">Recommendations for Academic Support and Accommodations</h1>
 
   <app-bluesheet-header
     [wrappedForm]="wrappedForm"
@@ -12,7 +12,7 @@
 
   <!-- print is always in grid mode -->
 
-<div class="grid2Col">
+<div class="grid2Col-bluesheet">
     <div class="child1">
       <app-exams-with-accomodations [wrappedForm]="wrappedForm" ></app-exams-with-accomodations>
       <app-physical-access [wrappedForm]="wrappedForm" ></app-physical-access>
