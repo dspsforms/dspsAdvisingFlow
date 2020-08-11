@@ -71,8 +71,9 @@ same as ionic version
 }
 
 // used in elem-with-sig and bluesheet-header
+// important doesnt help here, but it does work for text-highlight below
 .mybtn-blue {
-  color: blue;
+  color: blue !important;
 }
 
 // used in elem-with-sig and bluesheet-header
@@ -82,7 +83,7 @@ same as ionic version
 
 // used in elem-with-sig and other places where value is text
 .text-highlight {
-  color: blue;
+  color: blue !important;
   font-weight: bolder;
 }
 
@@ -116,4 +117,18 @@ same as ionic version
   .panel {
     page-break-inside: avoid;
   }
+
+  * {
+    color-adjust: exact;
+		-webkit-print-color-adjust: exact;
+
+	}
 }
+
+// @media print and (color) {
+// 	* {
+//     color-adjust: exact;
+// 		-webkit-print-color-adjust: exact;
+
+// 	}
+// }
