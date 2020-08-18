@@ -1,6 +1,12 @@
 
 
 <div class="app2-child-wrapper" >
+  
+  <div *ngIf="mode === 'view'  && focusOnMe" 
+   #focusElem
+   tabindex="1"
+   class="tiny"> </div>
+
 <ion-card>
   <ion-card-header *ngIf="mode !== 'create'">
     <ion-card-title class="ion-text-center">Progress: {{ wrappedForm?.formWithLatestHistory['progressObj']['semYear'].val }}
@@ -21,6 +27,7 @@
     [grid]="grid" 
     [mode]="mode"
 ></app-progress-obj>
+
 
 <app-progress-obj-part2 
     [form]="form" 
@@ -54,6 +61,15 @@
               [studentUser]="studentUser"
               (signed)="onSigned($event)"
             ></app-sign-it>
+      </ion-col>
+
+      <!-- not student user. let user edit it -->
+      <ion-col *ngIf="!studentUser"  size-sm="1" offset-sm="6" >
+        <ion-buttons>
+          <ion-button (click)="goToEditPage()">
+            <ion-icon slot="icon-only" name="create"></ion-icon>
+          </ion-button>
+        </ion-buttons>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -120,5 +136,7 @@
 
 </ion-card-content>
 </ion-card>
+
+
 
 </div> <!-- app2-child-wrapper -->

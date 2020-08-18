@@ -26,6 +26,7 @@ export class WrappedForm {
   signatures: [Signature]; // there can be more than one signature
 
   children: [WrappedForm];
+  parentId?: string;
   
   constructor(options: {
     formKey?: string,
@@ -48,6 +49,7 @@ export class WrappedForm {
     collegeId?: string,
     signatures?: [Signature],
     children?: [WrappedForm],
+    parentId?: string,
   })
   {
     this.formKey = options.formKey;
@@ -70,6 +72,7 @@ export class WrappedForm {
     this.collegeId = options.collegeId;
     this.signatures = options.signatures;
     this.children = options.children;
+    this.parentId = options.parentId;
 
   }
   

@@ -18,7 +18,7 @@ export class ProgressObjComponent implements OnInit, AfterViewInit  {
 
   ngOnInit() {
 
-    console.log("in progress-obj-ngOnInit");
+    // console.log("in progress-obj-ngOnInit");
     // if (this.semYear && this.semYear.nativeElement) {
     //   console.log("setting focus on semYear");
     //   this.semYear.nativeElement.focus();
@@ -30,8 +30,9 @@ export class ProgressObjComponent implements OnInit, AfterViewInit  {
       //   console.log("setting focus on newProgress");
       //   this.semYear.nativeElement.focus();
       // }
-    console.log("in progress-obj-ngAfterViewInit");
+   
     if (this.mode === 'create') { 
+      console.log("in progress-obj-ngAfterViewInit");
       setTimeout(() => {
           if (this.semYear && this.semYear.nativeElement) {
             console.log("setting focus on semYear");

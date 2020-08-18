@@ -36,6 +36,19 @@ export class Aap2Component extends AbstractFormSubmit
 
   @ViewChild('aap2ChildStart', { static: true }) aap2ChildStart: ElementRef;
 
+  _gotoParam: string;
+
+  // see https://stackoverflow.com/a/44686085
+  @Input() set gotoParam(p: string) {
+    this._gotoParam = p;
+    
+  }
+
+  get gotoParam() {
+    return this._gotoParam;
+
+  }
+
   @Output() formComponent: EventEmitter<FormGroup>
       = new EventEmitter<FormGroup>();
 
@@ -161,7 +174,7 @@ export class Aap2Component extends AbstractFormSubmit
     //   console.log("setting focus on newProgress");
     //   this.semYear.nativeElement.focus();
     // }
-    console.log("in aap2-ngAfterViewInit");
+   
 
     this.letParentKnow();
     

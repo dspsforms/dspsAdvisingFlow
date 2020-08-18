@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, EventEmitter, Output, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, EventEmitter, Output, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { AbstractFormSubmit } from '../../../abstract-form-submit';
 import { FormName } from 'src/app/model/form.util';
 import { Router } from '@angular/router';
@@ -12,6 +12,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { WrappedForm } from 'src/app/model/wrapped-form.model';
 import { AuthData } from 'src/app/auth/auth-data.model';
 import { UrlConfig } from 'src/app/model/url-config';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-aap2-child',
@@ -32,6 +33,10 @@ export class Aap2ChildComponent extends AbstractFormSubmit
 
   @Input() focusOnSignature: boolean; // optional, if true, focus will be on signature
 
+  @Input() focusOnMe: boolean; // optional. if true, focus on this element
+
+  @ViewChild('focusElem', { static: false }) focusElem?: ElementRef<HTMLElement>;
+
   // Aap2Child will let it's parent Aap2 know about it's own form when
   // Aap2Child is in create mode. Currently, there are no plans to have an edit for
   // Aap2Child
@@ -46,6 +51,7 @@ export class Aap2ChildComponent extends AbstractFormSubmit
     public appGlobalsService: AppGlobalsService,
     public userService: UserService,
     public lastOpStatusService: LastOperationStatusService,
+    public navCtrl: NavController
     ) { 
     super(FormName.AAP2_CHILD,
       router,
@@ -156,12 +162,24 @@ export class Aap2ChildComponent extends AbstractFormSubmit
 
     if (this.mode === 'view') {
       this.disableForm(this.form);
+      if (this.focusElem && this.focusElem.nativeElement) {
+        this.focusElem.nativeElement.focus();
+        console.log("focus from initFormObj");
+      }
     }
 
   }
 
   ngAfterViewInit() {
     this.letParentKnow();
+    setTimeout(() => {
+      if (this.focusElem && this.focusElem.nativeElement) {
+        this.focusElem.nativeElement.focus();
+        console.log("focus from ngAfterViewInit");
+      }
+      
+    }, 400);
+    
   }
 
   createOrEditForm() {
@@ -175,7 +193,8 @@ export class Aap2ChildComponent extends AbstractFormSubmit
     if (this.mode === 'create') {
       super.createForm('gotoParent'); // go to parent page, which means the whole thing will refresh
     } else if (this.mode === 'edit') {
-      super.editForm(this.formKey);
+      super.editForm(this.formKey,
+        { parentFormName: FormName.AAP2, parentId: this.wrappedForm.parentId, jumpTo: this.wrappedForm._id});
     }
   }
 
@@ -210,5 +229,15 @@ export class Aap2ChildComponent extends AbstractFormSubmit
 
     // go back to list of AAP2s.
     this.router.navigateByUrl(UrlConfig.LIST_FORMS_PRE_ABSOLUTE + FormName.AAP2);
+  }
+
+  goToEditPage() {
+    // console.log("goToEditPage", this.wrappedForm);
+    let url = `/dsps-staff/form/edit/${FormName.AAP2_CHILD}/${this.wrappedForm._id}`;
+    console.log("editing aap2child url=", url);
+    this.navCtrl.navigateForward(url);
+    /*
+    routerLink="'/dsps-staff/form/edit/' + formInfo.formName + '/' + formInfo._id"
+    */
   }
 }

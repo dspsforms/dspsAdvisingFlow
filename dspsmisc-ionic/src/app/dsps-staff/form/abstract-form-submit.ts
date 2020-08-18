@@ -276,7 +276,9 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
   }
 
   // wrappedFormFromDb has formHistory, versionDetail, etc.
-  editForm(formKey: string) {
+  // nextPage is if a child form is being edited. 
+  // go to parentForm with the given name and id
+  editForm(formKey: string, nextPage?: { parentFormName: string; parentId: string; jumpTo: string }) {
     console.log("edit ", this.formName, "  ", this.form.value);
     
     if (!this.form.valid) {
@@ -366,8 +368,15 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
               // set the status message that will be shown in the newForm page
               this.lastOpStatusService.setStatus(StatusMessage.FORM_SUBMIT_SUCCESS);
 
-              // goto /dsps-staff/form/list/:formName
-              this.router.navigate(['/dsps-staff', 'form', 'list', this.formName]);
+              if (!nextPage) {
+                // goto /dsps-staff/form/list/:formName
+                this.router.navigate(['/dsps-staff', 'form', 'list', this.formName]);
+              } else {
+                const url = `/dsps-staff/form/view/${nextPage.parentFormName}/${nextPage.parentId}?goto=${nextPage.jumpTo}`;
+                this.router.navigateByUrl(url);
+                // this.router.navigate(['/dsps-staff', 'form', 'view', nextPage.parentFormName, nextPage.parentId]);
+              }
+              
             }
         });
 

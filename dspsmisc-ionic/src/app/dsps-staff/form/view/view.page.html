@@ -53,11 +53,27 @@
       [formKey]="data._id"
       [wrappedForm]="data" 
       [mode]="'view'"
+      [gotoParam]="gotoParam"
       (formComponent)="receiveContainedForm($event)"
       >
     </app-aap2>
 
    </div>
+
+   <!-- 
+    aap2 child is editable stand alone, but not viewable stand alone.
+    also, not applicable to studentUser 
+  -->
+
+   <!-- <div *ngIf="formInfo.formName == 'aap2child' && data && !busy ">
+    <app-aap2-child
+      [formKey]="data._id"
+      [wrappedForm]="data" 
+      [mode]="'view'"
+      >
+    </app-aap2-child>
+
+   </div> -->
 
    <div *ngIf="formInfo.formName == 'greensheet' && data && !busy ">
 

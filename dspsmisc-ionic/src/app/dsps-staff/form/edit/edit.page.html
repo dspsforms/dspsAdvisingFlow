@@ -59,6 +59,18 @@
 
    </div>
 
+   <div *ngIf="formInfo.formName == 'aap2child' && data && !busy ">
+
+    <!-- not for student user -->
+    <app-aap2-child
+      [formKey]="data._id"
+      [wrappedForm]="data" 
+      [mode]="'edit'"
+      >
+    </app-aap2-child>
+
+   </div>
+
    <div *ngIf="formInfo.formName == 'greensheet' && data && !busy ">
 
     <app-greensheet

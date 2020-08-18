@@ -110,7 +110,7 @@ export class UserService {
     const url = environment.server + '/api/user/listdspssmall' ;
     this.http.get<{ message: string, dspsUsers: AuthData[] }>(url)
       .subscribe(res => {
-        console.log("listDspsUsersSmall()", res);
+        // console.log("listDspsUsersSmall()", res);
 
         this.dspsUserListSmall = res.dspsUsers;
         this.dspsUserListSmallListener.next([...this.dspsUserListSmall]);

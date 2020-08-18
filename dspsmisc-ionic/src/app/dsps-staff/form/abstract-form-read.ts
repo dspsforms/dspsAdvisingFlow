@@ -10,6 +10,7 @@ import { UserService } from '../user/user.service';
 import { AuthData } from 'src/app/auth/auth-data.model';
 import { Title } from '@angular/platform-browser';
 import { chdir } from 'process';
+import { filter } from 'rxjs/operators';
 
 
 
@@ -21,6 +22,7 @@ export class AbstractFormRead implements OnInit, OnDestroy {
     dbSubscription: Subscription;
     
     chilSignatureSubscription: Subscription;
+    querySubscription: Subscription;
 
     busy = false;
     showJson = false;
@@ -32,6 +34,8 @@ export class AbstractFormRead implements OnInit, OnDestroy {
     data: WrappedForm;
 
     private isStudentUser = false; // set this to true for students viewing their own form
+
+    gotoParam: string; // optional. if present, jump to this
 
     constructor(
         public route: ActivatedRoute,
@@ -51,6 +55,7 @@ export class AbstractFormRead implements OnInit, OnDestroy {
     // but it doesn't seem to hurt, so we are going to keep it here.
     ionViewWillEnter() {
 
+        this.gotoParam = null;
         this.data = new WrappedForm({});
     
         this.paramSubscription = this.route.params.subscribe(
@@ -65,6 +70,12 @@ export class AbstractFormRead implements OnInit, OnDestroy {
               console.log("formInfo", this.formInfo);
       
             });
+        
+        this.querySubscription = this.route.queryParams.pipe(
+            filter(params => params.goto)).subscribe(params => {
+                console.log("params:" , params);
+                this.gotoParam =  params.goto;
+              });
         
         this.busy = true;
 
@@ -81,10 +92,10 @@ export class AbstractFormRead implements OnInit, OnDestroy {
 
                     childSigStatus.signatures.forEach(sig => {
                         // find the child form with matching sig.formId
-                        const child = this.data.children.find(child => child._id === sig.formId);
+                        const child = this.data.children.find(c => c._id === sig.formId);
                         if (child) {
                             child.signatures ? child.signatures.push(sig) : child.signatures = [sig];
-                            console.log(child);
+                            // console.log(child);
                         } else {
                             console.error("child not found for sig=", sig);
                         }
