@@ -11,7 +11,7 @@
   <ion-card-header *ngIf="mode !== 'create'">
     <ion-card-title class="ion-text-center">Progress: {{ wrappedForm?.formWithLatestHistory['progressObj']['semYear'].val }}
     <!-- not student user. let user edit it -->
-    <div *ngIf="!studentUser"  class="ion-float-right" >
+    <div *ngIf="!studentUser && mode === 'view'"  class="ion-float-right" >
       <!-- <ion-buttons> -->
         <ion-button color="tertiary" (click)="goToEditPage()">
           <ion-icon slot="icon-only" name="create"></ion-icon>
