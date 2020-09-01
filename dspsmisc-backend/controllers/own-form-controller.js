@@ -49,11 +49,14 @@ exports.ownList = (req, res, next) => {
         let filter;
 
         if (!studentSigStatus) {
-            filter = { studentEmail: ownEmail };
+            filter = {
+                studentEmail:
+                    { $regex: new RegExp('^' + ownEmail + '$', "i") }  
+            };
         } else {
             filter = {
                 $and: [
-                    { studentEmail: ownEmail },
+                    { studentEmail: { $regex: new RegExp('^' + ownEmail + '$', "i") } },
                     { studentSigStatus : studentSigStatus }
                 ]
             }
@@ -137,7 +140,7 @@ exports.getAForm = (req, res, next) => {
         const filter = {
             $and: [
                 { _id: formId },
-                { studentEmail: ownEmail },
+                { studentEmail: { $regex: new RegExp('^' + ownEmail + '$', "i") } },
             ] 
         };
         const formModel = mongoose.model(formName);
@@ -214,7 +217,7 @@ exports.signatures = (req, res, next) => {
   
     const filter = {
         $and: [ 
-            { email: ownEmail },
+            { email: { $regex: new RegExp('^' + ownEmail + '$', "i") } },
             { 'formId': { $in : idArr } }
         ]
     };

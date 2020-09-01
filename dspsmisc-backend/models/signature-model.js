@@ -28,6 +28,12 @@ signatureSchema.index({ formName: 1, formId: 1, formVersion: 1, email: 1 }, { un
 //   next();
 // });
 
+signatureSchema.pre('save', function(next) {
+    if (this.email) {
+        this.email = this.email.toLowerCase();
+    }
+    next();
+});
 
 
 module.exports = mongoose.model('signature', signatureSchema);

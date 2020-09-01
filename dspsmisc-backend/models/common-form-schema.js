@@ -33,6 +33,9 @@ const commonFormSchema = mongoose.Schema({
 
 commonFormSchema.pre('save', function(next) {
     this.studentEmail = this.formWithLatestHistory.studentEmail.val;
+    if (this.studentEmail) {
+        this.studentEmail = this.studentEmail.toLowerCase();
+    }
     this.collegeId = this.formWithLatestHistory.collegeId.val;
 
     this.studentName =
@@ -58,7 +61,7 @@ commonFormSchema.pre('findOneAndUpdate', function (next) {
     if (this._update.formWithLatestHistory) {
         if (this._update.formWithLatestHistory.studentEmail &&
             this._update.formWithLatestHistory.studentEmail.val) {
-            this._update.studentEmail = this._update.formWithLatestHistory.studentEmail.val;
+            this._update.studentEmail = this._update.formWithLatestHistory.studentEmail.val.toLowerCase();
         }
         if (this._update.formWithLatestHistory.collegeId &&
             this._update.formWithLatestHistory.collegeId.val) {

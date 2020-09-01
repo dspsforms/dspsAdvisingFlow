@@ -35,7 +35,10 @@ exports.signForm = (req, res, next) => {
         const filter =
         {
             $and: [
-                { studentEmail: ownEmail },
+                {
+                    studentEmail:
+                    { $regex: new RegExp('^' + ownEmail + '$', "i") }
+                },
                 { _id: req.body.formId }
             ]
         };

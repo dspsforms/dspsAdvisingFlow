@@ -23,6 +23,9 @@ const userSchema = mongoose.Schema({
 
 userSchema.pre('save', function(next) {
   this.isDsps = this.isAdmin || this.isStaff || this.isFaculty;
+  if (this.email) {
+    this.email = this.email.toLowerCase();
+  }
   console.log("from userSchema.pre-save. this=", this);
   next();
 });

@@ -533,7 +533,11 @@ exports.login = (req, res, next) => {
   let fetchedUser;
   const sanitizedEmail = sanitize(req.body.email);
   console.log("orig: ", req.body.email, "sanitized: ", sanitizedEmail);
-  User.findOne({ email: sanitizedEmail })
+  User.findOne({
+    email:
+      // sanitizedEmail
+      { $regex: new RegExp('^' + sanitizedEmail + '$', "i") }
+  })
     .then(user => {
       if (!user) {
         console.log("no matching user for email " + sanitizedEmail);

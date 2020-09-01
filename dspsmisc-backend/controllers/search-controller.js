@@ -38,7 +38,10 @@ exports.searchForm = (req, res, next) => {
       // search on collegeId
       filter = { 'collegeId': searchTerm };
     } else if (searchTerm.indexOf('@') > 0) {
-      filter = { 'studentEmail': searchTerm.trim() };
+      filter = {
+        'studentEmail':
+        { $regex: new RegExp('^' + searchTerm.trim() + '$', "i") }      
+      };
     }  else {
 
       // find({ 'studentName' : { $regex: /searchTerm/i } } )
