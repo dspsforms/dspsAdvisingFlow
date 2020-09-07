@@ -46,8 +46,8 @@ export class FormValidators {
 
     // let Validators.email check for valid email format.
 
-    // check if it ends with wvm.edu
-    if (!control.value.toLowerCase().match('wvm.edu$')) {
+    // check if it ends with mywvm.wvm.edu
+    if (!control.value.toLowerCase().match('mywvm.wvm.edu$')) {
      // console.log("not wvm email:", control.value);
       return { validWvmEmail: true };
     }

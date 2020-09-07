@@ -55,8 +55,11 @@
               *ngIf="email.errors?.required" color="danger">  Email is required. 
             </ion-label>
             <ion-label 
-              *ngIf="!email.errors?.required && (email.errors?.email || email.errors?.validWvmEmail)" 
-              color="danger"> You can sign up only with your wvm.edu email. 
+              *ngIf="!email.errors?.required && email.errors?.email" color="danger">  This must be an email. 
+            </ion-label>
+            <ion-label 
+              *ngIf="!email.errors?.required && !email.errors?.email && email.errors?.validWvmEmail" 
+              color="danger"> You can sign up only with your mywvm.wvm.edu email. 
             </ion-label>
           </ion-item>
         </div>
