@@ -505,6 +505,30 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
 
   }
 
+  // spreadSheetFieldNames
+  spreadSheetFieldNames(
+    formGroup: FormGroup,
+    prependStr: string): string[] {
+    // console.log("formGroup", formGroup);
+    // console.log("data" , latestValueHistory);
+    let result = [];
+    const prepend = prependStr ? prependStr + "." : '';
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        result.push(prepend + field + ".val");
+      } else if (control instanceof FormGroup) {
+        // recurse down the tree
+        const tree = this.spreadSheetFieldNames(control, prepend  + field); 
+        if (tree && tree.length > 0) {
+          result = result.concat(tree);
+        }
+      }
+    });
+
+    return result;
+  }
+
   onCancel() {
     // need a guard
     if (this.form.dirty) {

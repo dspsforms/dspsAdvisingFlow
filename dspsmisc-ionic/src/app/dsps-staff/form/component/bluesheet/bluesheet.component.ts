@@ -273,6 +273,16 @@ export class BluesheetComponent extends AbstractFormSubmit implements OnInit, On
  
   ngAfterViewInit() {
     this.letParentKnow();
+
+    const fieldNames = this.spreadSheetFieldNames(
+      this.form,
+      'formWithLatestHistory');
+    console.log("spreadSheetFieldNames");
+    console.log(fieldNames);
+    // fieldNames.forEach(fName => {
+    //   console.log(fName);
+    // });
+    
   }
 
   letParentKnow() {
