@@ -11,6 +11,11 @@ export const environment = {
   printServer: "http://localhost:3001",
   // printServer: "http://localhost:4200",
 
+  forms2Server: "https://demo.forms2.dspsforms.com",
+
+  // layout of listing page for a form. 
+  listFormsOldLayout: false,
+
   enforceWvmEmail: false,
   feedbackUrl: 'https://...',
 

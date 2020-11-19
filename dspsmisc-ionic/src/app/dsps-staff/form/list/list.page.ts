@@ -9,6 +9,7 @@ import { FormUtil, FormName } from 'src/app/model/form.util';
 import { SubscriptionUtil } from 'src/app/util/subscription-util';
 import { NavController } from '@ionic/angular';
 import { Title } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-list',
@@ -42,7 +43,11 @@ export class ListPage implements OnInit, OnDestroy {
 
   pageInfoChangeSub: Subscription;
 
-  oldLayout = true;
+  // layout of listing page for a form
+  // was: oldLayout = true;
+  // but oldLayout == false is a better look
+
+  oldLayout = environment.listFormsOldLayout;
 
 
   constructor(

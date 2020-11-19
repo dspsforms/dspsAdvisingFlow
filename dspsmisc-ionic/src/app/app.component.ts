@@ -10,6 +10,7 @@ import { AppGlobalsService } from './dsps-staff/form/app-globals.service';
 import { SubscriptionUtil } from './util/subscription-util';
 
 import { AuthData , Role } from './auth/auth-data.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -112,8 +113,11 @@ export class AppComponent implements OnInit, OnDestroy {
   // go to the old dsps site
   gotoDsps1() {
     // https://dsps-forms.missioncollege.edu
+    // window.open("https://dsps-forms.missioncollege.edu", "_blank");
 
-    window.open("https://dsps-forms.missioncollege.edu", "_blank");
+    // forms2Server: "https://demo.forms2.dspsforms.com",
+    window.open(environment.forms2Server, "_blank");
+    
   }
 
   // gotoDspsBlog() {
