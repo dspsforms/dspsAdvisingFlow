@@ -7,18 +7,6 @@ application implements.
 
 A second web application provides a way for students to submit information (such as intake form, alternate-media request, etc.). Please check out the repository "dspsForms" under this same account for documentation and source code.
 
-# Rapid, low friction deployment
-
-Typically, systems such as this has a long implementation cycle. One issue that take time is getting
-all legal users on-board. We have taken an approach that will help you rapidly onboard your students. 
-
-For the Advising module, students can sign up on their own. Department faculty and staff accounts are created 
-by someone with admin priviledges to the web application. Additionally, faculty can create accommodation forms for 
-students who have not yet signed up. 
-
-These are, obviously, tradeoffs. We decided on this design because otherwise, it can take a long time to 
-co-ordinate student lists etc.
-
 
 # Demo
 
