@@ -11,7 +11,7 @@
 
 # note: env variables are read from ./backend/.env
 
-forever start -a  -l forever.log -o out.log -e err.log backend/server.js
+forever start -a  -l forever.log -o out.log -e err.log server.js
 
 
 #
