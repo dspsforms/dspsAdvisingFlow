@@ -8,4 +8,6 @@ testEmail*.js
 #for now, skip this email template folder. when it is used, add it to git
 emails
 startProdPrintServer.sh
+node_modules*
+*.tgz
 
